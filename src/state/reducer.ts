@@ -2,6 +2,7 @@ import type { Action } from "../shared/actions";
 import { stateSchema, type AppState } from "../shared/schema";
 import { changeQuestStatus, completeQuest } from "./quests";
 import { changeEquipment } from "./equipment";
+import { planQuest, clearQuestPlan } from "./scheduling";
 
 function apply(state: AppState, action: Action): AppState {
   switch (action.type) {
@@ -27,7 +28,7 @@ function apply(state: AppState, action: Action): AppState {
         throw Error("A reflection changed while planning. Please try again.");
       }
       if (!state.commitments.some((entry) => entry.id === action.quest.commitmentId)) throw Error("Unknown commitment.");
-      if (action.quest.completedAt) throw Error("A proposed quest cannot have a completion date.");
+      if (action.quest.completedAt || action.quest.plan) throw Error("A proposed quest cannot have a completion date or plan.");
       if (action.quest.status !== "proposed") throw Error("New quests must be proposals.");
       if (!action.quest.sourceIds.includes(action.quest.commitmentId)) throw Error("Quest must cite its commitment.");
       if (action.quest.sourceIds.some((id) => id !== action.quest.commitmentId && !state.memories.some((memory) => memory.id === id && memory.aiAllowed))) throw Error("Quest refers to unavailable evidence.");
@@ -38,10 +39,12 @@ function apply(state: AppState, action: Action): AppState {
       if (action.minutes !== undefined && (!Number.isInteger(action.minutes) || action.minutes < 1 || action.minutes > 120)) throw Error("Duration must be 1–120 whole minutes.");
       const quest = state.quests.find((entry) => entry.id === action.id);
       if (!quest || quest.status === "completed" || quest.status === "dismissed") throw Error("This quest cannot be edited.");
-      return { ...state, quests: state.quests.map((entry) => entry.id === action.id ? { ...entry, title, minutes: action.minutes ?? entry.minutes } : entry) };
+      return { ...state, quests: state.quests.map((entry) => entry.id === action.id ? { ...entry, title, minutes: action.minutes ?? entry.minutes, ...(action.minutes !== undefined && action.minutes !== entry.minutes ? { plan: undefined } : {}) } : entry) };
     }
     case "quest-status": return changeQuestStatus(state, action);
     case "complete-quest": return completeQuest(state, action.id, action.completedAt);
+    case "plan-quest": return planQuest(state, action.id, action.request);
+    case "clear-quest-plan": return clearQuestPlan(state, action.id);
     case "equip": case "unequip": case "equip-outfit": case "wardrobe-scenario": return changeEquipment(state, action);
     case "add-memory":
       if (state.memories.some((entry) => entry.id === action.memory.id)) return state;

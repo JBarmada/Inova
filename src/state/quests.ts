@@ -20,7 +20,7 @@ export function changeQuestStatus(state: AppState, action: Extract<Action, { typ
     ...state,
     quests: state.quests.map((quest) => {
       if (quest.id !== action.id || quest.status === "completed" || quest.status === "dismissed") return quest;
-      return { ...quest, status: action.status };
+      return { ...quest, status: action.status, ...(action.status !== "accepted" ? { plan: undefined } : {}) };
     }),
   };
 }

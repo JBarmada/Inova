@@ -1,5 +1,12 @@
 # Implementation Status and Handoff
 
+## Manual quest time planning — November 23, 2026
+
+An accepted quest can be assigned a time by entering a future free window in local time. The app places the quest at the start of that window, checks its duration against the entered end, a recorded commitment deadline, and other accepted quest plans, and stores the resulting UTC interval plus the entered window and time zone. The UI explicitly states that no calendar was checked; no calendar event or reminder is created. Duration edits, deferral, and dismissal clear a saved plan. The form also allows a plan to be removed. Repeated-hour DST ambiguity follows the platform's local-time interpretation. Older builds may silently discard these new optional plan fields.
+
+`npm run check` passed 107 tests, size/type checks and production build; isolated Windows release compilation passed. Native Windows testing entered a fictional 1:00–1:30 PM window and saved a four-minute 1:00–1:04 PM plan; the saved test file contained the expected UTC times and zone. Conflict, deadline, duration and lifecycle cases were verified by automated tests. Native restart, external-calendar behavior, DST ambiguity, and Mac remain pending.
+
+
 ## Optional commitment details — November 23, 2026
 
 The main Quests page accepts an optional deadline in the device's local time and optional total effort in whole minutes. A deadline is stored as an ISO UTC instant plus the device's IANA time zone and displayed in that zone; nonexistent local times are rejected. Ambiguous repeated daylight-saving times follow the platform's Date interpretation. Older records remain valid without details. The deterministic sample limits its proposed duration to a smaller supplied total estimate. Local AI receives the supplied constraints, and overlong output is rejected; neither path schedules a time or checks availability. Existing smaller-build saves may silently drop these new optional fields if opened and saved by an older version.

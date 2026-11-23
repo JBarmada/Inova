@@ -4,6 +4,7 @@ import { dispatch, dispatchWithReceipt, useInova } from "../../state/store";
 import { RewardReveal, type CompletionReveal } from "./RewardReveal";
 import { useAction } from "../../shared/useAction";
 import { QuestSources } from "./QuestSources";
+import { QuestPlanning } from "./QuestPlanning";
 
 export function QuestCard({ quest }: { quest: Quest }) {
   const state = useInova();
@@ -16,13 +17,14 @@ export function QuestCard({ quest }: { quest: Quest }) {
   return <article className="quest"><p className="eyebrow">{quest.minutes} MIN · {quest.status} · {quest.planner === "local" ? "local AI" : "sample"}</p>
     {editing ? <form onSubmit={(event) => { event.preventDefault(); void run(async () => {
       await dispatch({ type: "edit-quest", id: quest.id, title, minutes: Number(minutes) }); setEditing(false);
-    }, "Quest updated."); }}><label>Quest title<input value={title} required maxLength={4000}
+    }, quest.plan && Number(minutes) !== quest.minutes ? "Quest updated. Its saved time was removed; please plan again." : "Quest updated."); }}><label>Quest title<input value={title} required maxLength={4000}
       onChange={(event) => setTitle(event.target.value)} /></label>
       <label>Duration (minutes)<input type="number" min="1" max="120" step="1" required value={minutes}
         onChange={(event) => setMinutes(event.target.value)} /></label><div className="actions">
       <button disabled={busy}>Save</button><button type="button" onClick={() => { setTitle(quest.title); setMinutes(String(quest.minutes)); setEditing(false); }}>Cancel</button>
     </div></form> : <h3>{quest.title}</h3>}<p>{quest.reason}</p>
     <QuestSources quest={quest} state={state} />
+    {quest.status === "accepted" && !editing && <QuestPlanning quest={quest} />}
     {!terminal && !editing && <div className="actions">
       <button disabled={busy} onClick={() => { setTitle(quest.title); setMinutes(String(quest.minutes)); setEditing(true); }}>Edit</button>
       {quest.status !== "accepted" && <button disabled={busy} onClick={() => void run(() => dispatch({ type: "quest-status", id: quest.id, status: "accepted" }))}>Accept</button>}

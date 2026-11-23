@@ -14,10 +14,21 @@ export const commitmentSchema = z.object({
   deadline: z.object({ at: z.iso.datetime(), timeZone }).optional(),
   effortMinutes: z.number().int().min(1).max(10080).optional(),
 });
+export const planRequestSchema = z.object({ start: z.iso.datetime(), availableUntil: z.iso.datetime(),
+  timeZone, recordedAt: z.iso.datetime() });
+export const questPlanSchema = planRequestSchema.extend({ end: z.iso.datetime() }).superRefine((plan, context) => {
+  const start = Date.parse(plan.start), end = Date.parse(plan.end);
+  if (start < Date.parse(plan.recordedAt) || end <= start || end > Date.parse(plan.availableUntil))
+    context.addIssue({ code: "custom", message: "Invalid planned time window." });
+});
 export const questSchema = z.object({
   id, commitmentId: id, title: text, reason: text,
   sourceIds: z.array(id), minutes: z.number().int().min(1).max(120),
   status: questStatusSchema, planner: z.enum(["sample", "local"]), completedAt: z.iso.datetime().optional(),
+  plan: questPlanSchema.optional(),
+}).superRefine((quest, context) => {
+  if (quest.plan && Date.parse(quest.plan.end) - Date.parse(quest.plan.start) !== quest.minutes * 60_000)
+    context.addIssue({ code: "custom", path: ["plan"], message: "Plan duration does not match quest." });
 });
 export const memorySchema = z.object({
   id, text, createdAt: z.iso.datetime(), aiAllowed: z.boolean(),
@@ -57,6 +68,7 @@ export const stateSchema = z.union([currentSchema, legacySchema]).transform((sta
 
 export type AppState = z.infer<typeof stateSchema>;
 export type Quest = z.infer<typeof questSchema>;
+export type PlanRequest = z.infer<typeof planRequestSchema>;
 export type Memory = z.infer<typeof memorySchema>;
 export type Commitment = z.infer<typeof commitmentSchema>;
 export type ItemId = AppState["ownedItems"][number];

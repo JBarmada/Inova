@@ -5,7 +5,7 @@ The executable source of truth is `src/shared/schema.ts` and `src/shared/actions
 ## Common rules
 
 - IDs are stable strings; create new IDs with `newId()` and timestamps with `now()`.
-- Store timestamps as ISO UTC strings and display dates in the user's locale. Deadline/timezone fields are not implemented yet.
+- Store timestamps as ISO UTC strings and display dates in the user's locale. Optional manual commitment deadlines and quest plans record their time zone; see the build-out sections below.
 - All persistent changes go through `dispatch`. Feature components never write storage directly.
 - One local profile and app window; no multi-user or multi-device sync.
 - Read persisted state through the validated storage adapter. Invalid saves must not be silently overwritten.
@@ -112,3 +112,7 @@ A successful completion reveal offers an optional reflection linked to the compl
 ## Commitment details (build-out worktree)
 
 Manual commitments may have `deadline: { at, timeZone }` (ISO UTC plus IANA zone) and `effortMinutes` (1–10080 whole minutes). Omitted values stay unknown. The main form interprets deadline input in the device local zone and rejects nonexistent local times; ambiguous repeated times use the platform Date interpretation. Existing commitments without these fields load unchanged. The sample proposal does not exceed a supplied total effort; local proposals exceeding it are rejected. Neither planner checks availability or schedules a time. Older builds can drop the optional fields when saving, so do not use an older checkout on current data.
+
+## Manual quest plans (build-out worktree)
+
+An accepted quest may store a plan with UTC start/end, the user-entered availability end, its IANA time zone, and recorded time. The reducer computes the end from quest duration, rejects a past start, a window too short, a commitment-deadline violation, and overlap with another accepted plan. It does not know external calendar events or create one. Duration edits, deferral, or dismissal clear the plan; title-only edits preserve it. Completion retains the historical plan. Plan timestamps and duration are validated on load. Old saves without plans remain valid, but older builds may drop new fields when saving.

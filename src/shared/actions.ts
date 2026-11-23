@@ -1,4 +1,4 @@
-import type { Commitment, ItemId, Memory, Quest, AppState } from "./schema";
+import type { Commitment, ItemId, Memory, Quest, AppState, PlanRequest } from "./schema";
 import type { Equipment, WearableSlot } from "./equipment";
 import type { WardrobeScenarioId } from "./wardrobeScenarios";
 
@@ -14,6 +14,8 @@ export type Action =
   | { type: "edit-quest"; id: string; title: string; minutes?: number }
   | { type: "quest-status"; id: string; status: "accepted" | "deferred" | "dismissed" }
   | { type: "complete-quest"; id: string; completedAt?: string }
+  | { type: "plan-quest"; id: string; request: PlanRequest }
+  | { type: "clear-quest-plan"; id: string }
   | { type: "equip"; item: ItemId | null }
   | { type: "unequip"; slot: WearableSlot }
   | { type: "equip-outfit"; equipment: Equipment }
