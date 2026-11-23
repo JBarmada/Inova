@@ -1,5 +1,9 @@
 # Implementation Status and Handoff
 
+## Memory book feedback — November 23, 2026
+
+Opening or closing a memory book plays a short synthesized cue when sound is enabled; the existing visible book and status text remain available when muted. Repeated cues are throttled. `npm run check` passed 137 tests, 20 atlas checks, and the frontend build. Audible playback and native visual verification remain pending; Mac remains pending.
+
 ## Shared quest details and animation testing — November 23, 2026
 
 The shared one-field quest composer can extract a stated deadline and total effort via the local model. Suggestions require matching source text and an editable review before saving; missing or malformed suggestions are ignored. Deadlines are suggested only when the evidence includes an explicit time; date-only input needs manual entry under More options. The sample fallback stays labeled and does not extract details. A small direct Ollama trial with fictional input found both details using Gemma 3 12B; 4B found effort but missed the deadline. This is not a reliability guarantee, and model guesses require review. The previous single-field entry note below describes an earlier version.

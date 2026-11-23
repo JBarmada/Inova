@@ -24,6 +24,11 @@ it("suppresses overlapping repeated cues and never starts audio while muted", as
   playCue("squeak", false);
   playCue("squeak", false);
   expect(start).toHaveBeenCalledTimes(3);
+  playCue("book", true);
+  expect(start).toHaveBeenCalledTimes(3);
+  playCue("book", false);
+  playCue("book", false);
+  expect(start).toHaveBeenCalledTimes(4);
 });
 
 it("does not throw if audio is unavailable", async () => {

@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useInova, dispatch } from "../../state/store";
 import { useAction } from "../../shared/useAction";
+import { playCue } from "../../services/audio";
 import { RecentRecap } from "./RecentRecap";
 import { PerspectiveExercise } from "./PerspectiveExercise";
 import { findMemories } from "./findMemories";
@@ -40,7 +41,7 @@ export function MemoryShelf() {
       onChange={(event) => setQuery(event.target.value)} placeholder="Find words in your reflections" /></label>}
     <div className="books">{matches.map((memory, index) => <button className="book" key={memory.id}
       aria-label={`Open memory ${index + 1} from ${new Date(memory.createdAt).toLocaleString()}`}
-      onClick={() => void run(async () => { setSelectedId(memory.id); setEditing(false); }, "Book opened.")}>{new Date(memory.createdAt).toLocaleDateString()}</button>)}</div>
+      onClick={() => void run(async () => { setSelectedId(memory.id); setEditing(false); playCue("book", state.settings.muted); }, "Book opened.")}>{new Date(memory.createdAt).toLocaleDateString()}</button>)}</div>
     {!state.memories.length && <p className="empty">Your first book is waiting to be written.</p>}
     {state.memories.length > 0 && matches.length === 0 && <p className="empty" role="status">No memories match that search.</p>}
     {selected && <article className="open-book"><h4>{new Date(selected.createdAt).toLocaleString()}</h4>
@@ -54,7 +55,7 @@ export function MemoryShelf() {
       <label className="checkbox"><input type="checkbox" checked={selected.aiAllowed} disabled={busy}
         onChange={(event) => void run(() => dispatch({ type: "memory-permission", id: selected.id, allowed: event.target.checked }))} />May inform suggestions</label>
       <button disabled={busy} onClick={() => void run(() => dispatch({ type: "delete-memory", id: selected.id }), "Memory deleted.")}>Delete memory</button>
-      <button onClick={() => void run(async () => { setSelectedId(null); setEditing(false); }, "Book closed.")}>Close book</button>
+      <button onClick={() => void run(async () => { setSelectedId(null); setEditing(false); playCue("book", state.settings.muted); }, "Book closed.")}>Close book</button>
     </article>}
     {message && <p role="status">{message}</p>}
   </section>;
