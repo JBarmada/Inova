@@ -40,6 +40,8 @@ For every asset added, record its repository path, creator or source URL, licens
 | src-tauri/icons desktop files | Generated from public/inova.svg by Tauri icon CLI | Derived from the original project placeholder | No | Regenerate with npm run tauri icon public/inova.svg |
 | src/styles-dog.css equipment shapes | Original project CSS | Created for this project | No | Temporary notebook/bandana shapes |
 | src/services/audio.ts | Original synthesized tones | Created for this project | No | Click and reward only; no recorded bark |
+| public/art/quest-toy-icon-v1.png | Built-in image generation, Inova design conversation | Generated for this project; no third-party asset license asserted | Yes | Transparent golden rubber bone with teal/orange rope; see QUEST_TOY_ART.md |
+| public/art/quest-toy-frame-v1.png | Built-in image generation, Inova design conversation | Generated for this project; no third-party asset license asserted | Yes | Blank cream quest board, golden bone corners, braided rope; responsive nine-slice border |
 | art/pocket-pup/source/concept-board.png | Inova design conversation; user selected Pocket Pup | Generated for this project | Yes | Preserved source for reproducible conversion |
 | art/pocket-pup/v1 | Fixed-grid conversion plus original code-authored expressions, sleeping pose, and layers | Derived from selected project concept | Source concept only | Art review pack; not integrated into app; see art/pocket-pup/README.md |
 | art/pocket-pup/v2 | Programmatic face refinement of version one | Derived from selected project concept and original pixel edits | Source concept only | Clean awake eyes, happy blush, separated nose/mouth; tired and sleeping preserved; not integrated |

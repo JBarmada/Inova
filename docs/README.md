@@ -25,6 +25,7 @@ Updated November 22, 2026. The repository now includes a shared starter as well 
 - [Curriculum context](CURRICULUM_CONTEXT.md).
 - [Demo and behavior checks](DEMO_AND_CHECKS.md).
 - [Artwork and audio plan](ASSETS.md).
+- [Quest toy interaction, generated artwork, and integration notes](QUEST_TOY_ART.md).
 
 ## Online records
 

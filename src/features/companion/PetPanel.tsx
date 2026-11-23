@@ -5,7 +5,7 @@ import { DogSprite } from "./DogSprite";
 import { PixelStatus } from "./PixelStatus";
 import { BoneQuestToy } from "./BoneQuestToy";
 
-export function PetPanel({ floating }: { floating: boolean }) {
+export function PetPanel({ floating, onToyExpanded }: { floating: boolean; onToyExpanded?: (open: boolean) => void }) {
   const state = useInova();
   const [name, setName] = useState("Inu");
   const { run, busy, message } = useAction();
@@ -14,7 +14,7 @@ export function PetPanel({ floating }: { floating: boolean }) {
       <h2>{state.pet.adopted ? `Hello, ${state.pet.name}.` : "A small friend. A new beginning."}</h2></>}
     <div className="dog-stage" data-tauri-drag-region={floating || undefined} tabIndex={floating ? 0 : undefined}
       aria-label={floating ? "Your dog. Focus to reveal companion controls." : undefined}><DogSprite state={state} /></div>
-    {floating && state.pet.adopted && <BoneQuestToy state={state} />}
+    {floating && state.pet.adopted && <BoneQuestToy state={state} onExpandedChange={onToyExpanded} />}
     {!state.pet.adopted ? <form onSubmit={(event) => {
       event.preventDefault();
       void run(() => dispatch({ type: "adopt", name }), "");

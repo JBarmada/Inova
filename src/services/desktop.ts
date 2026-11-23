@@ -100,12 +100,22 @@ export async function setPetMode(enabled: boolean): Promise<void> {
 }
 
 export function fitFloatingHeight(height: number): Promise<void> {
+  return fitFloatingSize(FLOAT_WIDTH, height);
+}
+
+export function fitFloatingSize(width: number, height: number): Promise<void> {
   if (!isTauri()) return Promise.resolve();
   return enqueue(async () => {
     if (!floating) return;
     const window = getCurrentWindow();
     const [size, scale] = await Promise.all([window.innerSize(), window.scaleFactor()]);
     const target = Math.max(FLOAT_HEIGHT, Math.ceil(height));
-    if (Math.abs(size.height / scale - target) > 1) await window.setSize(new LogicalSize(FLOAT_WIDTH, target));
+    const targetWidth = Math.max(FLOAT_WIDTH, Math.ceil(width));
+    if (Math.abs(size.height / scale - target) > 1 || Math.abs(size.width / scale - targetWidth) > 1) {
+      await window.setSize(new LogicalSize(targetWidth, target));
+      const [position, outer, monitors] = await Promise.all([window.outerPosition(), window.outerSize(), availableMonitors()]);
+      const point = visiblePosition({ ...position, width: targetWidth, height: target, maximized: false }, outer, monitors.map((monitor) => monitor.workArea));
+      await window.setPosition(new PhysicalPosition(point.x, point.y));
+    }
   });
 }

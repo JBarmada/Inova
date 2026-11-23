@@ -101,3 +101,12 @@ it("restores a maximized home window after floating", async () => {
   expect(fake.decorated).toBe(true);
   expect(fake.resizable).toBe(true);
 });
+
+it("widens for the quest board and collapses back to the dog's compact width", async () => {
+  const desktop = await import("./desktop");
+  await desktop.setPetMode(true);
+  await desktop.fitFloatingSize(384, 650);
+  expect(fake.size).toEqual({ width: 384, height: 650 });
+  await desktop.fitFloatingSize(248, 208);
+  expect(fake.size).toEqual({ width: 248, height: 208 });
+});
