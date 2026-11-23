@@ -1,5 +1,13 @@
 # Implementation Status and Handoff
 
+## Local planner integration — November 23, 2026
+
+The build-out worktree offers an explicit Local AI quest action in the Quests page. It calls the local Ollama `gemma3:12b` model through a bounded Rust command, sends the commitment and up to three permitted reflections, validates JSON and quest fields, and records the supplied source IDs. The existing sample planner remains separately selectable. Errors tell the user to start/install the local service and preserve manual/sample use. Before saving a local proposal, the reducer checks that each supplied memory is still allowed and unchanged. Revocation/edit/delete removes copied local-model title and rationale as well as the source ID. Existing v2 saves remain readable; older builds cannot read new `planner: local` quests.
+
+`npm run check` passed 80 tests plus type/size/build checks; Windows release compilation passed. Local-service error and mocked valid/invalid output paths were tested, but no live model or native UI run was performed.
+
+No Ollama executable was found on PATH and localhost:11434 did not respond in this environment. Therefore no actual model inference, quality/latency benchmark, memory measurement, or claim of a running model has been made. The model choice is provisional pending comparison. Browser preview can use the sample planner; the local action requires desktop mode. See [Ollama structured outputs](https://docs.ollama.com/capabilities/structured-outputs) and [local chat API](https://docs.ollama.com/api/chat).
+
 ## Build-out worktree — November 23, 2026
 
 The isolated build-out branch adds memory editing with stale quest rationale/source removal on changed content, and editable titles for proposed, accepted, and deferred quests; completed and dismissed quests remain unchanged. Existing IDs, evidence, rewards, and saved schema are preserved. See [build-out checklist](BUILD_OUT_CHECKLIST.md) for pending work and baseline.

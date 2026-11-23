@@ -16,6 +16,15 @@ function apply(state: AppState, action: Action): AppState {
       return { ...state, commitments: [...state.commitments, action.commitment] };
     case "propose-quest":
       if (state.quests.some((entry) => entry.id === action.quest.id)) return state;
+      if (action.quest.planner === "local" && (!action.memorySnapshot ||
+        action.quest.sourceIds.filter((id) => id !== action.quest.commitmentId).some((id) =>
+          !action.memorySnapshot?.some((snapshot) => snapshot.id === id)))) {
+        throw Error("Local quest evidence is incomplete.");
+      }
+      if (action.memorySnapshot?.some((snapshot) => !state.memories.some((memory) =>
+        memory.id === snapshot.id && memory.aiAllowed && memory.text === snapshot.text))) {
+        throw Error("A reflection changed while planning. Please try again.");
+      }
       if (!state.commitments.some((entry) => entry.id === action.quest.commitmentId)) throw Error("Unknown commitment.");
       if (action.quest.status !== "proposed") throw Error("New quests must be proposals.");
       if (!action.quest.sourceIds.includes(action.quest.commitmentId)) throw Error("Quest must cite its commitment.");
@@ -51,7 +60,7 @@ function apply(state: AppState, action: Action): AppState {
 
 function forgetReference(state: AppState, id: string): AppState {
   return { ...state, quests: state.quests.map((quest) => quest.sourceIds.includes(id)
-    ? { ...quest, sourceIds: quest.sourceIds.filter((source) => source !== id), reason: "A supporting memory was removed from personalization." }
+    ? { ...quest, title: quest.planner === "local" ? "Review this quest" : quest.title, sourceIds: quest.sourceIds.filter((source) => source !== id), reason: "A supporting memory was removed from personalization." }
     : quest) };
 }
 

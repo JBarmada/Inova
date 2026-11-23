@@ -8,7 +8,8 @@ Worktree: `.worktrees/inova-complete`, branch `codex/inova-complete`, based on `
 - [x] Add editable quest titles with terminal-state validation and unchanged evidence/reward data.
 - [x] Add memory editing; changed text clears stale copied quest rationale and source references.
 - [ ] Complete adoption, companion interactions, reward presentation, wardrobe fitting, and bookshelf with verified save/recovery.
-- [ ] Implement and benchmark local AI with permission-filtered context, validated output and sample fallback. Ollama was not found on PATH; hardware detection needs further verification.
+- [x] Implement explicit local Ollama planner with permission-filtered context, validated output, stale-context guards, and a separately accessible sample fallback.
+- [ ] Install or connect a local Ollama runtime and benchmark Gemma 3 12B and smaller models for quality, latency, and memory before choosing a final default. Ollama was not found on PATH and localhost:11434 was unavailable; hardware detection needs further verification.
 - [ ] Implement the documented stretch backlog in dependency order, respecting unresolved product/art decisions and external access limits.
 - [ ] Verify complete fictional-data flow, audio/mute, reduced motion, Windows and Mac; update asset provenance and release handoff.
 

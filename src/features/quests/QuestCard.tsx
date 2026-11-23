@@ -8,7 +8,7 @@ export function QuestCard({ quest }: { quest: Quest }) {
   const [editing, setEditing] = useState(false);
   const [title, setTitle] = useState(quest.title);
   const terminal = quest.status === "completed" || quest.status === "dismissed";
-  return <article className="quest"><p className="eyebrow">{quest.minutes} MIN · {quest.status}</p>
+  return <article className="quest"><p className="eyebrow">{quest.minutes} MIN · {quest.status} · {quest.planner === "local" ? "local AI" : "sample"}</p>
     {editing ? <form onSubmit={(event) => { event.preventDefault(); void run(async () => {
       await dispatch({ type: "edit-quest", id: quest.id, title }); setEditing(false);
     }, "Quest updated."); }}><label>Quest title<input value={title} required maxLength={4000}

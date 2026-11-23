@@ -76,3 +76,7 @@ The floating controls follow the toy/menu in layout. Opening the toy hides its s
 ## Editing quest and memory text
 
 Quest titles can be edited until completion or dismissal; editing retains IDs, status, source evidence, and rewards. Memory edits retain the entry ID, date, permission, and quest link. A changed memory invalidates copied quest rationale and removes that memory source ID, matching the revocation/deletion cleanup boundary. Unchanged text preserves references.
+
+## Local planner extension (build-out worktree)
+
+Quest planner labels include `sample` and `local`. Local requests use the Rust loopback Ollama boundary and up to three allowed memories. Proposals carry the sent memory text as transient dispatch-only verification; saving rejects changed/revoked evidence. The snapshot is not persisted. Editing, revoking or deleting supporting memories removes local-model title and rationale and their source reference. Manual acceptance, completion and rewards remain deterministic. Older app builds cannot parse quests labeled local.
