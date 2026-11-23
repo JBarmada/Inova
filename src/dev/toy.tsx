@@ -3,6 +3,7 @@ import { useState } from "react";
 import { initialize, dispatch, useInova } from "../state/store";
 import { BoneQuestToy } from "../features/companion/BoneQuestToy";
 import { DogSprite } from "../features/companion/DogSprite";
+import { CompanionControls } from "../features/companion/CompanionControls";
 import "../styles.css";
 
 async function seed() {
@@ -21,7 +22,7 @@ function ToyPreview() {
   const state = useInova();
   const [expanded, setExpanded] = useState(false);
   return <main className={`app floating${expanded ? " toy-expanded" : ""}`}>
-    <div className="companion-controls" aria-label="Development art preview">Preview · sample quests</div>
+    <CompanionControls floating disabled={false} onHome={() => window.location.assign("/")} />
     <section className="pet-panel"><div className="dog-stage"><DogSprite state={state} /></div>
       <BoneQuestToy state={state} onExpandedChange={setExpanded} /></section>
   </main>;
