@@ -1,0 +1,288 @@
+{
+  "01-stand-to-sit": {
+    "durations": [
+      750,
+      130,
+      120,
+      120,
+      140,
+      150,
+      180,
+      950
+    ],
+    "effects": [],
+    "markers": {}
+  },
+  "02-seated-tired": {
+    "durations": [
+      400,
+      100,
+      350,
+      450,
+      250,
+      1000
+    ],
+    "effects": [],
+    "markers": {}
+  },
+  "03-tired-to-loaf": {
+    "durations": [
+      800,
+      450,
+      650,
+      900,
+      800,
+      450,
+      650,
+      900,
+      800,
+      600,
+      220,
+      220,
+      1100
+    ],
+    "effects": [],
+    "markers": {
+      "lower": 7000
+    }
+  },
+  "04-loaf-to-sleep": {
+    "durations": [
+      800,
+      450,
+      240,
+      1200
+    ],
+    "effects": [],
+    "markers": {}
+  },
+  "05-sleep-breathing": {
+    "durations": [
+      1100,
+      500,
+      800,
+      1000
+    ],
+    "effects": [],
+    "markers": {}
+  },
+  "06-wake-to-loaf": {
+    "durations": [
+      650,
+      150,
+      240,
+      250,
+      1050
+    ],
+    "effects": [],
+    "markers": {}
+  },
+  "07a-loaf-to-sit": {
+    "durations": [
+      700,
+      170,
+      220,
+      220,
+      100,
+      900
+    ],
+    "effects": [],
+    "markers": {}
+  },
+  "07b-sit-to-stand": {
+    "durations": [
+      900,
+      180,
+      150,
+      140,
+      120,
+      120,
+      130,
+      750
+    ],
+    "effects": [],
+    "markers": {}
+  },
+  "08-post-nap-stretch": {
+    "durations": [
+      500,
+      180,
+      900,
+      220,
+      800
+    ],
+    "effects": [],
+    "markers": {}
+  },
+  "09-sitting-idle": {
+    "durations": [
+      800,
+      450,
+      650,
+      900,
+      800,
+      100,
+      800
+    ],
+    "effects": [],
+    "markers": {}
+  },
+  "09-standing-idle": {
+    "durations": [
+      800,
+      450,
+      650,
+      900,
+      800,
+      100,
+      800
+    ],
+    "effects": [],
+    "markers": {}
+  },
+  "10-notice-user": {
+    "durations": [
+      500,
+      120,
+      650,
+      140,
+      600
+    ],
+    "effects": [],
+    "markers": {}
+  },
+  "11a-happy-greeting": {
+    "durations": [
+      500,
+      170,
+      150,
+      150,
+      150,
+      270,
+      650
+    ],
+    "effects": [],
+    "markers": {}
+  },
+  "11b-tail-wag-loop": {
+    "durations": [
+      180,
+      170,
+      180,
+      170
+    ],
+    "effects": [],
+    "markers": {}
+  },
+  "12-single-bark": {
+    "durations": [
+      450,
+      190,
+      130,
+      180,
+      700
+    ],
+    "effects": [
+      {
+        "name": "bark-rays",
+        "row": 4,
+        "startMs": 640,
+        "endMs": 770
+      }
+    ],
+    "markers": {
+      "bark": 640
+    }
+  },
+  "13-receive-treat": {
+    "durations": [
+      400,
+      180,
+      220,
+      140,
+      180,
+      130,
+      520,
+      750
+    ],
+    "effects": [
+      {
+        "name": "treat",
+        "row": 4,
+        "startMs": 400,
+        "endMs": 800
+      }
+    ],
+    "markers": {
+      "offer_treat": 400,
+      "hide_treat": 800
+    }
+  },
+  "14-unlock-celebration": {
+    "durations": [
+      450,
+      100,
+      210,
+      150,
+      170,
+      500,
+      700
+    ],
+    "effects": [
+      {
+        "name": "sparkles",
+        "row": 4,
+        "startMs": 760,
+        "endMs": 1080
+      }
+    ],
+    "markers": {
+      "reveal": 450,
+      "fanfare": 760,
+      "sparkle": 760
+    }
+  },
+  "15-accessory-fitting": {
+    "durations": [
+      600,
+      140,
+      400,
+      500,
+      700
+    ],
+    "effects": [
+      {
+        "name": "bandana-sample",
+        "row": 4,
+        "startMs": 740,
+        "endMs": 1640
+      }
+    ],
+    "markers": {
+      "attach_wearable": 740
+    }
+  },
+  "m06-seated-happy-and-recovery": {
+    "durations": [
+      650,
+      140,
+      100,
+      330,
+      850,
+      700
+    ],
+    "effects": [],
+    "markers": {}
+  },
+  "m07-m12-low-posture-moods": {
+    "durations": [
+      900,
+      900,
+      900,
+      900,
+      900
+    ],
+    "effects": [],
+    "markers": {}
+  }
+}

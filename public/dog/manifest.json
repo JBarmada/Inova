@@ -5,7 +5,15 @@
   ],
   "alpha": "binary",
   "scale": "integer nearest-neighbor",
-  "sitTransitionMs": 160,
+  "sitTransitionMs": 840,
+  "fittedFrameDurationsMs": [
+    130,
+    120,
+    120,
+    140,
+    150,
+    180
+  ],
   "standingNeck": [
     22,
     42
@@ -44,6 +52,66 @@
     "bandana": {
       "source": "art/pocket-pup/v6/layers/bandana.png",
       "sha256": "0e1bad0877bcc0d95b724b53cc1d75db7faacc262e23ae1635ab66cc0306ba1d"
+    },
+    "fitted/sit-02": {
+      "source": "art/pocket-pup/pixel-engine-review/generated-motion-fit/editable/frame-02.png",
+      "sha256": "3d3f9d25a7f4722c5a2128096cf5d9b19a72ebb437a0de2fb47d38201e10a03b"
+    },
+    "fitted/sit-03": {
+      "source": "art/pocket-pup/pixel-engine-review/generated-motion-fit/editable/frame-03.png",
+      "sha256": "5f89441e466f78b90139e49b639838797c912ba7e6958959bc7b1661da7ae32f"
+    },
+    "fitted/sit-04": {
+      "source": "art/pocket-pup/pixel-engine-review/generated-motion-fit/editable/frame-04.png",
+      "sha256": "4418d6b4dcc66b7cb423d4e3a32d4950d2811be97b44257fc94cd80ec6a80824"
+    },
+    "fitted/sit-05": {
+      "source": "art/pocket-pup/pixel-engine-review/generated-motion-fit/editable/frame-05.png",
+      "sha256": "5790508e130025320300100715083dd2491daec61f922602372262f12536b40e"
+    },
+    "fitted/sit-06": {
+      "source": "art/pocket-pup/pixel-engine-review/generated-motion-fit/editable/frame-06.png",
+      "sha256": "7bf4f830a35d329d82bd1cf9df2b7cb4e5726f5c0eb7b5d068e1784857b42780"
+    },
+    "fitted/sit-07": {
+      "source": "art/pocket-pup/pixel-engine-review/generated-motion-fit/editable/frame-07.png",
+      "sha256": "36d076c936f02bf48a015916dd779200eea2587aecb63ef95bbc9c4031c36bfe"
+    },
+    "loaf-bend": {
+      "source": "art/pocket-pup/v36/bend-elbows.png",
+      "sha256": "c193cd6cd198bc999fc7ff764dc24b90e1b99d0f54c061cac10c637732be9e2c"
+    },
+    "loaf-tuck": {
+      "source": "art/pocket-pup/v36/tuck-paws.png",
+      "sha256": "33bfa4c37f2105c7b056443d1d034433e89087f90fec589dcf0d1fd0af4e9b2c"
+    },
+    "loaf-tired": {
+      "source": "art/pocket-pup/v36/loaf.png",
+      "sha256": "c2c48ca14ec46a33229096912b17510756ca3ff7f409e8366e946efe593c9e51"
+    },
+    "sleeping": {
+      "source": "art/pocket-pup/to-be-reviewed-animations/05-sleep-breathing/01.png",
+      "sha256": "7d6090e1ff1f6b12e24aa93b100ee5207814443372a853b1beded1ea9973d62a"
+    },
+    "sleep-drowsy": {
+      "source": "art/pocket-pup/to-be-reviewed-animations/04-loaf-to-sleep/02.png",
+      "sha256": "7d3078dc0323cebed6bc90e87320902983709d4ba22313323b796f785d528135"
+    },
+    "sleep-doze": {
+      "source": "art/pocket-pup/to-be-reviewed-animations/04-loaf-to-sleep/03.png",
+      "sha256": "00ee5cec32b674c631a5a707d91c3410a4314b624efb6c358c3c35e662656e1a"
+    },
+    "wake-ear": {
+      "source": "art/pocket-pup/to-be-reviewed-animations/06-wake-to-loaf/02.png",
+      "sha256": "19315467d42d53551773a5e08f8bc2b8119a28aea92373bef36e584b932f7b81"
+    },
+    "wake-eyes": {
+      "source": "art/pocket-pup/to-be-reviewed-animations/06-wake-to-loaf/03.png",
+      "sha256": "923e3443b80ba1f7ad472532e0631c9654bd2a4f1275dcd22356a16009e4c5f5"
+    },
+    "standing-blink": {
+      "source": "art/pocket-pup/to-be-reviewed-animations/09-standing-idle/06.png",
+      "sha256": "f3fb0cfbd584945e47ad37e448c23c0da91f23495881390a7f5857def2fd7157"
     },
     "notebook": {
       "source": "tools/export_runtime_art.py",
@@ -192,6 +260,525 @@
         "art/pocket-pup/v34/sitting-3.png"
       ],
       "sha256": "5182bb5bda39db6d0df403214374133794fab9247dce279f66175c854ad3394b"
+    },
+    "sitting-happy": {
+      "source": [
+        "art/pocket-pup/v32/02.png",
+        "art/pocket-pup/v6/sprites/happy.png"
+      ],
+      "sha256": "81134d880f50ddf549c4f44d9e4875edf71ecc382976bc8f3d70194230b3ed22"
+    },
+    "breathing/sitting-happy-0": {
+      "source": [
+        "art/pocket-pup/v32/02.png",
+        "art/pocket-pup/v6/sprites/happy.png",
+        "art/pocket-pup/v34/sitting-0.png"
+      ],
+      "sha256": "81134d880f50ddf549c4f44d9e4875edf71ecc382976bc8f3d70194230b3ed22"
+    },
+    "breathing/sitting-happy-1": {
+      "source": [
+        "art/pocket-pup/v32/02.png",
+        "art/pocket-pup/v6/sprites/happy.png",
+        "art/pocket-pup/v34/sitting-1.png"
+      ],
+      "sha256": "6453f63c2a9e47a2b5f713876a73179c0f7c92d588b25349a725c1769c23e9a1"
+    },
+    "breathing/sitting-happy-2": {
+      "source": [
+        "art/pocket-pup/v32/02.png",
+        "art/pocket-pup/v6/sprites/happy.png",
+        "art/pocket-pup/v34/sitting-2.png"
+      ],
+      "sha256": "1f2fdd082b0a0c03c88f3f5320988710319fe66b45a483c2960223caa0117aed"
+    },
+    "breathing/sitting-happy-3": {
+      "source": [
+        "art/pocket-pup/v32/02.png",
+        "art/pocket-pup/v6/sprites/happy.png",
+        "art/pocket-pup/v34/sitting-3.png"
+      ],
+      "sha256": "6453f63c2a9e47a2b5f713876a73179c0f7c92d588b25349a725c1769c23e9a1"
+    },
+    "loaf-idle": {
+      "source": [
+        "art/pocket-pup/v36/loaf.png",
+        "public/dog/sitting.png",
+        "public/dog/sitting-tired.png"
+      ],
+      "sha256": "9bfbf645ec28c36cfe5969e7160ecb9551cfbafcbb602edd62a4c51a239a3872"
+    },
+    "loaf-happy": {
+      "source": [
+        "art/pocket-pup/v36/loaf.png",
+        "public/dog/sitting.png",
+        "public/dog/sitting-happy.png"
+      ],
+      "sha256": "e5916d96c1a2241660c5259dc66c79d5835c1c9c850ebc7b61f76823fdd5836b"
+    },
+    "breathing/tired-0": {
+      "source": "public/dog/tired.png",
+      "sha256": "eba3b7339dd9a34d2f3d625a72237322a2874d03a7f819c91a82f70d55018eec"
+    },
+    "breathing/tired-1": {
+      "source": "public/dog/tired.png",
+      "sha256": "9674df50eb863e3532c8c4452477b4b7f594611f3bf70a90c77d8eb30e3ac4ec"
+    },
+    "breathing/tired-2": {
+      "source": "public/dog/tired.png",
+      "sha256": "1679cc4f58fe33d00327a5035b758194f56c18a04b6323d2c0a13b40fd383c06"
+    },
+    "breathing/tired-3": {
+      "source": "public/dog/tired.png",
+      "sha256": "9674df50eb863e3532c8c4452477b4b7f594611f3bf70a90c77d8eb30e3ac4ec"
+    },
+    "breathing/tuck-0": {
+      "source": "public/dog/tuck.png",
+      "sha256": "380c75cd83b69f108b9fbb88c32942d3b9c10bf4c302b0273242f76feac8da49"
+    },
+    "breathing/tuck-1": {
+      "source": "public/dog/tuck.png",
+      "sha256": "fe00206c5e986908df6c2f2a3f39238de4b77782858638a681fe7230fac4ac71"
+    },
+    "breathing/tuck-2": {
+      "source": "public/dog/tuck.png",
+      "sha256": "6205d5894fc9f73b2243c914908ebb506a9063a974e98ade5d209a68f17e2b2f"
+    },
+    "breathing/tuck-3": {
+      "source": "public/dog/tuck.png",
+      "sha256": "fe00206c5e986908df6c2f2a3f39238de4b77782858638a681fe7230fac4ac71"
+    },
+    "breathing/loaf-bend-0": {
+      "source": "public/dog/loaf-bend.png",
+      "sha256": "c148a38a39237e92bfa8712dd66f8f7ba96ec043b1523446f3eed1a96d7435c8"
+    },
+    "breathing/loaf-bend-1": {
+      "source": "public/dog/loaf-bend.png",
+      "sha256": "812c8629469a2f527e54407ed85d9c6742e63e148b43e8894fa0cacdf3e2edfa"
+    },
+    "breathing/loaf-bend-2": {
+      "source": "public/dog/loaf-bend.png",
+      "sha256": "12fcd0da36cfbb91ad0a61ba3cf37ce1c6a668a0a818dd73359795be78208486"
+    },
+    "breathing/loaf-bend-3": {
+      "source": "public/dog/loaf-bend.png",
+      "sha256": "812c8629469a2f527e54407ed85d9c6742e63e148b43e8894fa0cacdf3e2edfa"
+    },
+    "breathing/loaf-tuck-0": {
+      "source": "public/dog/loaf-tuck.png",
+      "sha256": "00f31721083942de36e2db8accbc1a4494c7618c7e22cd3d9d2e15a41f7c48e7"
+    },
+    "breathing/loaf-tuck-1": {
+      "source": "public/dog/loaf-tuck.png",
+      "sha256": "6c0675e9495472f01e11d2b391945903f14883edb85c20ed7759b53ea6651c57"
+    },
+    "breathing/loaf-tuck-2": {
+      "source": "public/dog/loaf-tuck.png",
+      "sha256": "1617d64314472e6e3a88eb846f65df8244ad9804f881f9a310fdececbe537683"
+    },
+    "breathing/loaf-tuck-3": {
+      "source": "public/dog/loaf-tuck.png",
+      "sha256": "6c0675e9495472f01e11d2b391945903f14883edb85c20ed7759b53ea6651c57"
+    },
+    "breathing/loaf-idle-0": {
+      "source": "public/dog/loaf-idle.png",
+      "sha256": "9bfbf645ec28c36cfe5969e7160ecb9551cfbafcbb602edd62a4c51a239a3872"
+    },
+    "breathing/loaf-idle-1": {
+      "source": "public/dog/loaf-idle.png",
+      "sha256": "1d7159727a99c9dc555ced0e3f9ed2376196d815e7c26eae7aef7e08582b138a"
+    },
+    "breathing/loaf-idle-2": {
+      "source": "public/dog/loaf-idle.png",
+      "sha256": "03d3bb8708bcf74deab15865b9308c8c2abb1085b79765f60b97f7aa64ed8141"
+    },
+    "breathing/loaf-idle-3": {
+      "source": "public/dog/loaf-idle.png",
+      "sha256": "1d7159727a99c9dc555ced0e3f9ed2376196d815e7c26eae7aef7e08582b138a"
+    },
+    "breathing/loaf-happy-0": {
+      "source": "public/dog/loaf-happy.png",
+      "sha256": "e5916d96c1a2241660c5259dc66c79d5835c1c9c850ebc7b61f76823fdd5836b"
+    },
+    "breathing/loaf-happy-1": {
+      "source": "public/dog/loaf-happy.png",
+      "sha256": "c419efe084f7933ce64d90e89c84691ae451c569afd97525e818e8263187a171"
+    },
+    "breathing/loaf-happy-2": {
+      "source": "public/dog/loaf-happy.png",
+      "sha256": "a33064de462d6da1e9e059e9218a6d47523bb5029fc051d09cc445ac3615fd79"
+    },
+    "breathing/loaf-happy-3": {
+      "source": "public/dog/loaf-happy.png",
+      "sha256": "c419efe084f7933ce64d90e89c84691ae451c569afd97525e818e8263187a171"
+    },
+    "breathing/loaf-tired-0": {
+      "source": "public/dog/loaf-tired.png",
+      "sha256": "ac03c70eade88c72bbbb74d7e84454a2e634cd918473d9e9f93fdf8ecc9c667b"
+    },
+    "breathing/loaf-tired-1": {
+      "source": "public/dog/loaf-tired.png",
+      "sha256": "337d59b51166d5af8a4b2d8bbf7a551544a95dde0e14c1bc8a45e7e5dddb6be9"
+    },
+    "breathing/loaf-tired-2": {
+      "source": "public/dog/loaf-tired.png",
+      "sha256": "d32587a8f9cd46f0e696ec953387b5df69b69d6216782e3c6e6fdcf895477db5"
+    },
+    "breathing/loaf-tired-3": {
+      "source": "public/dog/loaf-tired.png",
+      "sha256": "337d59b51166d5af8a4b2d8bbf7a551544a95dde0e14c1bc8a45e7e5dddb6be9"
+    },
+    "breathing/fitted/sit-02-0": {
+      "source": "public/dog/fitted/sit-02.png",
+      "sha256": "a0d0c7a4176f64db98918898b59bf7b28742f48261acd4225f7a4504e8e4cdd0"
+    },
+    "breathing/fitted/sit-02-1": {
+      "source": "public/dog/fitted/sit-02.png",
+      "sha256": "f7868853d9ee55cbc195e5d2b23cf5d8f2851add8d40b64a6d01e546ac1a9d79"
+    },
+    "breathing/fitted/sit-02-2": {
+      "source": "public/dog/fitted/sit-02.png",
+      "sha256": "b21a5bd0e25fa13dea6f9fd1ec8c4469e6981625446301282fa29d4578002ef1"
+    },
+    "breathing/fitted/sit-02-3": {
+      "source": "public/dog/fitted/sit-02.png",
+      "sha256": "f7868853d9ee55cbc195e5d2b23cf5d8f2851add8d40b64a6d01e546ac1a9d79"
+    },
+    "breathing/fitted/sit-03-0": {
+      "source": "public/dog/fitted/sit-03.png",
+      "sha256": "b31f7e2514f4bf3d8e585add96d4837410f20cf10a872e940e563ed32e697bba"
+    },
+    "breathing/fitted/sit-03-1": {
+      "source": "public/dog/fitted/sit-03.png",
+      "sha256": "55898598be4ad4b527cc76daf4dcad2b0ae998391dfbb89b4933fa34edb7990d"
+    },
+    "breathing/fitted/sit-03-2": {
+      "source": "public/dog/fitted/sit-03.png",
+      "sha256": "bc5e0568ee1531c3124c327c4f830cbcdaad06544ca2d0ebaa497c7ac6c120bc"
+    },
+    "breathing/fitted/sit-03-3": {
+      "source": "public/dog/fitted/sit-03.png",
+      "sha256": "55898598be4ad4b527cc76daf4dcad2b0ae998391dfbb89b4933fa34edb7990d"
+    },
+    "breathing/fitted/sit-04-0": {
+      "source": "public/dog/fitted/sit-04.png",
+      "sha256": "d2fec3217361457b65d3a225d80b34cc7830d10ae758a919ec69a76cd891de88"
+    },
+    "breathing/fitted/sit-04-1": {
+      "source": "public/dog/fitted/sit-04.png",
+      "sha256": "27b82e3cc879769246f4c0ffb07d389cd83c8f53395d8a9edeb169b473e3cf1f"
+    },
+    "breathing/fitted/sit-04-2": {
+      "source": "public/dog/fitted/sit-04.png",
+      "sha256": "cd3efb5dfb1ac864ff8ab2cdce8ef36565287d2641d1ff0afab8a822f60937a4"
+    },
+    "breathing/fitted/sit-04-3": {
+      "source": "public/dog/fitted/sit-04.png",
+      "sha256": "27b82e3cc879769246f4c0ffb07d389cd83c8f53395d8a9edeb169b473e3cf1f"
+    },
+    "breathing/fitted/sit-05-0": {
+      "source": "public/dog/fitted/sit-05.png",
+      "sha256": "441110052c7d7d6ec6326f5ca3f878d22bc980474f067a171246d99bbac18d41"
+    },
+    "breathing/fitted/sit-05-1": {
+      "source": "public/dog/fitted/sit-05.png",
+      "sha256": "c878e77b7abbe18be826bb4f923110cf5ed65ef954a599795a81ff3bb70da40a"
+    },
+    "breathing/fitted/sit-05-2": {
+      "source": "public/dog/fitted/sit-05.png",
+      "sha256": "faeb7a3337604444ed86be8c5e53741c6a45d1c026f41e14e344c2bb9aab7ea1"
+    },
+    "breathing/fitted/sit-05-3": {
+      "source": "public/dog/fitted/sit-05.png",
+      "sha256": "c878e77b7abbe18be826bb4f923110cf5ed65ef954a599795a81ff3bb70da40a"
+    },
+    "breathing/fitted/sit-06-0": {
+      "source": "public/dog/fitted/sit-06.png",
+      "sha256": "8466ee519bde25fa446f6bbbb9ea9cf96c83870fafd571565d3b97e190599b35"
+    },
+    "breathing/fitted/sit-06-1": {
+      "source": "public/dog/fitted/sit-06.png",
+      "sha256": "e78659c8157e094326889a4c130a0db0cb5a021138f7152f31dbd5313f5214fa"
+    },
+    "breathing/fitted/sit-06-2": {
+      "source": "public/dog/fitted/sit-06.png",
+      "sha256": "417d733a4c548921fde3b14699b652f802e75973f78d280f3a0c7f433b8da01b"
+    },
+    "breathing/fitted/sit-06-3": {
+      "source": "public/dog/fitted/sit-06.png",
+      "sha256": "e78659c8157e094326889a4c130a0db0cb5a021138f7152f31dbd5313f5214fa"
+    },
+    "breathing/fitted/sit-07-0": {
+      "source": "public/dog/fitted/sit-07.png",
+      "sha256": "385a1502b697dbbe007b34ac60bc10ab25347beabb7390d816587764e61b78f2"
+    },
+    "breathing/fitted/sit-07-1": {
+      "source": "public/dog/fitted/sit-07.png",
+      "sha256": "f124b97d5e65aa20b22b3f474f338334a2479e6cc2903457825869d90c572ea5"
+    },
+    "breathing/fitted/sit-07-2": {
+      "source": "public/dog/fitted/sit-07.png",
+      "sha256": "24a6cbcffadfb55e394e2e53a57a69b329c3983caf5830f8300df78516d2f1d7"
+    },
+    "breathing/fitted/sit-07-3": {
+      "source": "public/dog/fitted/sit-07.png",
+      "sha256": "f124b97d5e65aa20b22b3f474f338334a2479e6cc2903457825869d90c572ea5"
+    },
+    "breathing/sleeping-0": {
+      "source": "public/dog/sleeping.png",
+      "sha256": "7d6090e1ff1f6b12e24aa93b100ee5207814443372a853b1beded1ea9973d62a"
+    },
+    "breathing/sleeping-1": {
+      "source": "public/dog/sleeping.png",
+      "sha256": "765992bb34f9c3a20a421726d4b49bf49e27b792d9b12787d85aa4c27a32cb5c"
+    },
+    "breathing/sleeping-2": {
+      "source": "public/dog/sleeping.png",
+      "sha256": "765992bb34f9c3a20a421726d4b49bf49e27b792d9b12787d85aa4c27a32cb5c"
+    },
+    "breathing/sleeping-3": {
+      "source": "public/dog/sleeping.png",
+      "sha256": "765992bb34f9c3a20a421726d4b49bf49e27b792d9b12787d85aa4c27a32cb5c"
+    },
+    "breathing/sleep-drowsy-0": {
+      "source": "public/dog/sleep-drowsy.png",
+      "sha256": "7d3078dc0323cebed6bc90e87320902983709d4ba22313323b796f785d528135"
+    },
+    "breathing/sleep-drowsy-1": {
+      "source": "public/dog/sleep-drowsy.png",
+      "sha256": "d8de31757e1c09732d4c88731db4e28c270aea247956d59b00296128de6fe7da"
+    },
+    "breathing/sleep-drowsy-2": {
+      "source": "public/dog/sleep-drowsy.png",
+      "sha256": "aa682e1f04908c21a2d4388c69169e922ccb06717158e619aa443e6f30281fe7"
+    },
+    "breathing/sleep-drowsy-3": {
+      "source": "public/dog/sleep-drowsy.png",
+      "sha256": "d8de31757e1c09732d4c88731db4e28c270aea247956d59b00296128de6fe7da"
+    },
+    "breathing/sleep-doze-0": {
+      "source": "public/dog/sleep-doze.png",
+      "sha256": "00ee5cec32b674c631a5a707d91c3410a4314b624efb6c358c3c35e662656e1a"
+    },
+    "breathing/sleep-doze-1": {
+      "source": "public/dog/sleep-doze.png",
+      "sha256": "f029a72d6aed719ef23aa3886e399251a802b0d21100d332a58683735262a5ca"
+    },
+    "breathing/sleep-doze-2": {
+      "source": "public/dog/sleep-doze.png",
+      "sha256": "333f6de0bb4977a079547092c826792789a503b28d3329dc7c405f9754411c04"
+    },
+    "breathing/sleep-doze-3": {
+      "source": "public/dog/sleep-doze.png",
+      "sha256": "f029a72d6aed719ef23aa3886e399251a802b0d21100d332a58683735262a5ca"
+    },
+    "breathing/wake-ear-0": {
+      "source": "public/dog/wake-ear.png",
+      "sha256": "19315467d42d53551773a5e08f8bc2b8119a28aea92373bef36e584b932f7b81"
+    },
+    "breathing/wake-ear-1": {
+      "source": "public/dog/wake-ear.png",
+      "sha256": "7091ee3e277fc3e6bfbb7c8ccfae763627859db67c4d6040e8b8db9e38f40f60"
+    },
+    "breathing/wake-ear-2": {
+      "source": "public/dog/wake-ear.png",
+      "sha256": "7091ee3e277fc3e6bfbb7c8ccfae763627859db67c4d6040e8b8db9e38f40f60"
+    },
+    "breathing/wake-ear-3": {
+      "source": "public/dog/wake-ear.png",
+      "sha256": "7091ee3e277fc3e6bfbb7c8ccfae763627859db67c4d6040e8b8db9e38f40f60"
+    },
+    "breathing/wake-eyes-0": {
+      "source": "public/dog/wake-eyes.png",
+      "sha256": "923e3443b80ba1f7ad472532e0631c9654bd2a4f1275dcd22356a16009e4c5f5"
+    },
+    "breathing/wake-eyes-1": {
+      "source": "public/dog/wake-eyes.png",
+      "sha256": "11e077443834c5b4587d3e7d9c000e73231f27df8505fd17255fee9a29f60c05"
+    },
+    "breathing/wake-eyes-2": {
+      "source": "public/dog/wake-eyes.png",
+      "sha256": "474b237663fc36fff801c2e2f151cc3d88609e22dc97540e7a6d8bd63ebe7269"
+    },
+    "breathing/wake-eyes-3": {
+      "source": "public/dog/wake-eyes.png",
+      "sha256": "11e077443834c5b4587d3e7d9c000e73231f27df8505fd17255fee9a29f60c05"
+    },
+    "breathing/standing-blink-0": {
+      "source": "public/dog/standing-blink.png",
+      "sha256": "f3fb0cfbd584945e47ad37e448c23c0da91f23495881390a7f5857def2fd7157"
+    },
+    "breathing/standing-blink-1": {
+      "source": "public/dog/standing-blink.png",
+      "sha256": "732153f836cc9a8732aa392bf2cb9abff6c5c4a397059fbb9a37aba780ec88f4"
+    },
+    "breathing/standing-blink-2": {
+      "source": "public/dog/standing-blink.png",
+      "sha256": "2e53177404dea86e09b7066c1853633355e9729164973efdc7315bb2ef0d611a"
+    },
+    "breathing/standing-blink-3": {
+      "source": "public/dog/standing-blink.png",
+      "sha256": "732153f836cc9a8732aa392bf2cb9abff6c5c4a397059fbb9a37aba780ec88f4"
+    },
+    "clips/01-stand-to-sit": {
+      "source": "art/pocket-pup/to-be-reviewed-animations/01-stand-to-sit",
+      "sha256": "dbf258a94a9dbb1fe07aacf531f9c0ee20a3ecb6a7849ce797d7bccbb57718ae",
+      "size": [
+        512,
+        256
+      ]
+    },
+    "clips/02-seated-tired": {
+      "source": "art/pocket-pup/to-be-reviewed-animations/02-seated-tired",
+      "sha256": "03d93c09ab658a536b50fce87b3244dbc642bbdd7bbf0002a2074ff4dc0cf4df",
+      "size": [
+        384,
+        256
+      ]
+    },
+    "clips/03-tired-to-loaf": {
+      "source": "art/pocket-pup/to-be-reviewed-animations/03-tired-to-loaf",
+      "sha256": "1ec8536776fccf734813b64b2f1f1bf4e15039d64502e8225da9258d53e94ef6",
+      "size": [
+        832,
+        256
+      ]
+    },
+    "clips/04-loaf-to-sleep": {
+      "source": "art/pocket-pup/to-be-reviewed-animations/04-loaf-to-sleep",
+      "sha256": "ec79cb248967f1bd48ca5554506fbcd93299d7c0aa1878920d1960259e230707",
+      "size": [
+        256,
+        256
+      ]
+    },
+    "clips/05-sleep-breathing": {
+      "source": "art/pocket-pup/to-be-reviewed-animations/05-sleep-breathing",
+      "sha256": "bdd6826efa8b545061562bc65121dc322703b02acb094b0e9b92494b0b7e9c4c",
+      "size": [
+        256,
+        256
+      ]
+    },
+    "clips/06-wake-to-loaf": {
+      "source": "art/pocket-pup/to-be-reviewed-animations/06-wake-to-loaf",
+      "sha256": "8d84755c612cc34a3bcf680213409292de6664f3b6eab39b81b0ab3450b9741e",
+      "size": [
+        320,
+        256
+      ]
+    },
+    "clips/07a-loaf-to-sit": {
+      "source": "art/pocket-pup/to-be-reviewed-animations/07a-loaf-to-sit",
+      "sha256": "dd279655154a11b9a507b71fa8c03928291111cd74187358f8fb3161f85c3cc1",
+      "size": [
+        384,
+        256
+      ]
+    },
+    "clips/07b-sit-to-stand": {
+      "source": "art/pocket-pup/to-be-reviewed-animations/07b-sit-to-stand",
+      "sha256": "93a103f6b68f801159cc0e193ed0489ae1932c53c0430831809986fc186ffa23",
+      "size": [
+        512,
+        256
+      ]
+    },
+    "clips/08-post-nap-stretch": {
+      "source": "art/pocket-pup/to-be-reviewed-animations/08-post-nap-stretch",
+      "sha256": "4cb07be4d236dfe09f16d691bf05b4834b1e58469e7661f5b1949f2718482478",
+      "size": [
+        320,
+        256
+      ]
+    },
+    "clips/09-sitting-idle": {
+      "source": "art/pocket-pup/to-be-reviewed-animations/09-sitting-idle",
+      "sha256": "fbab2a40404495e411a7b1d7b1aea9741d940d23c1d76a01d469492ef3b4ed32",
+      "size": [
+        448,
+        256
+      ]
+    },
+    "clips/09-standing-idle": {
+      "source": "art/pocket-pup/to-be-reviewed-animations/09-standing-idle",
+      "sha256": "a94788c34082426aa84e303e8328ce5c0cb3c452390d2c79f4e38d94c8957f01",
+      "size": [
+        448,
+        256
+      ]
+    },
+    "clips/10-notice-user": {
+      "source": "art/pocket-pup/to-be-reviewed-animations/10-notice-user",
+      "sha256": "a90f7f43f8797f4a488b3b28afc18b67befb5ec56ef1d491628037169a85d1a0",
+      "size": [
+        320,
+        256
+      ]
+    },
+    "clips/11a-happy-greeting": {
+      "source": "art/pocket-pup/to-be-reviewed-animations/11a-happy-greeting",
+      "sha256": "d2d41d9582ebd43513538dfd72f1ee4cfba5d81384444520ec2e35b61ced519a",
+      "size": [
+        448,
+        256
+      ]
+    },
+    "clips/11b-tail-wag-loop": {
+      "source": "art/pocket-pup/to-be-reviewed-animations/11b-tail-wag-loop",
+      "sha256": "d47d832b5f0e951a0efc8dc5729472616dc4e83d33b1a44584ca99507a6d2b21",
+      "size": [
+        256,
+        256
+      ]
+    },
+    "clips/12-single-bark": {
+      "source": "art/pocket-pup/to-be-reviewed-animations/12-single-bark",
+      "sha256": "f54b5a3d076a76c36ae797191b1e89189a36e32ab40de5bfae976b0c446979e7",
+      "size": [
+        320,
+        320
+      ]
+    },
+    "clips/13-receive-treat": {
+      "source": "art/pocket-pup/to-be-reviewed-animations/13-receive-treat",
+      "sha256": "47cc7073f98159416d5aee351c67f2f715eef21f0e64258167e3705065a3b41a",
+      "size": [
+        512,
+        320
+      ]
+    },
+    "clips/14-unlock-celebration": {
+      "source": "art/pocket-pup/to-be-reviewed-animations/14-unlock-celebration",
+      "sha256": "f00f4641ee5ddd2f087427533e4a560841769f42285d3c5943e79475e2248f97",
+      "size": [
+        448,
+        320
+      ]
+    },
+    "clips/15-accessory-fitting": {
+      "source": "art/pocket-pup/to-be-reviewed-animations/15-accessory-fitting",
+      "sha256": "0591670e74b47b6a49d251772f7dbbdaa3980739c15eb968ba198987b810f21e",
+      "size": [
+        320,
+        320
+      ]
+    },
+    "clips/m06-seated-happy-and-recovery": {
+      "source": "art/pocket-pup/to-be-reviewed-animations/m06-seated-happy-and-recovery",
+      "sha256": "b29a5efe1841ae435f977e4abbac4446fb466aeb238dacad52308db2f43ff9fe",
+      "size": [
+        384,
+        256
+      ]
+    },
+    "clips/m07-m12-low-posture-moods": {
+      "source": "art/pocket-pup/to-be-reviewed-animations/m07-m12-low-posture-moods",
+      "sha256": "8d31c45466e4a117c4af4eb2a1060f672d4b4ede98d713187ddcbae9dcea1b3d",
+      "size": [
+        320,
+        256
+      ]
     }
   },
   "license": "project art; no repository-wide distribution license selected"

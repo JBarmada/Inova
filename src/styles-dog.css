@@ -1,6 +1,12 @@
 .dog { position: relative; width: 192px; height: 192px; display: inline-block; flex-shrink: 0; }
 .dog img { width: 100%; height: 100%; image-rendering: pixelated; user-select: none; pointer-events: none; }
 .dog-base { display: block; }
+.dog-clip-layer { position: absolute; inset: 0; background-repeat: no-repeat; image-rendering: pixelated; pointer-events: none; }
+.animation-controls { display: flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: 8px; margin: 12px 0; }
+.animation-controls select { max-width: min(230px, 65vw); font: inherit; color: inherit; background: #fff9e9; }
+.animation-controls select:focus-visible { outline: 3px solid #618543; outline-offset: 2px; }
+.floating .animation-controls { width: var(--companion-width); font-size: 11px; margin: 6px 0; }
+.floating .animation-controls button { font-size: 11px; padding: 3px 7px; }
 .dog-layer { position: absolute; inset: 0; }
 .dog-layer-seated { transform: translate(-1.5625%, -4.6875%); }
 .dog-layer-inhale { transform: translateY(-1.5625%); }

@@ -4,7 +4,7 @@ import type { AppState } from "../../shared/schema";
 import { preloadDogArt } from "./dogArt";
 import { createPosePlayback, type DogPose } from "./posePlayback";
 
-export type PoseRequest = { kind: "sit" | "stand"; id: number } | null;
+export type PoseRequest = { kind: "sit" | "stand" | "wake"; id: number } | null;
 
 export function useDogPose(state: AppState, request: PoseRequest = null) {
   const [pose, setPose] = useState<DogPose>("standing");

@@ -5,13 +5,14 @@ import { dogArt, dogFrame } from "./dogArt";
 import { wearableAnchors } from "./wearableAnchors";
 import { wardrobeScenarios } from "../../shared/wardrobeScenarios";
 import { initialState } from "../../state/defaults";
+import { fittedFrames } from "./poseFrames";
 
 beforeEach(() => vi.stubGlobal("window", { matchMedia: () => ({ matches: true }) }));
 afterEach(() => vi.unstubAllGlobals());
 
 describe("wearable presentation and pose contracts", () => {
   it("renders every full outfit slot on every supported frame", () => {
-    for (const pose of ["standing", "tucking", "sitting"] as const) {
+    for (const pose of ["standing", "tucking", ...fittedFrames, "sitting"] as const) {
       for (const scenario of wardrobeScenarios.slice(0, 2)) {
         const state = { ...initialState(), equipment: scenario.equipment };
         const html = renderToStaticMarkup(<DogSprite state={state} pose={pose} />);
@@ -44,11 +45,17 @@ describe("wearable presentation and pose contracts", () => {
     }
   });
   it("uses the actual mood frame for anchors and omits empty slots", () => {
-    expect(dogFrame("happy", "sitting")).toBe("sitting");
+    expect(dogFrame("happy", "sitting")).toBe("sitting-happy");
     expect(dogFrame("tired", "sitting")).toBe("sitting-tired");
-    for (const frame of ["sitting-blink", "sitting-drowsy", "sitting-tired"] as const) {
+    for (const frame of ["sitting-blink", "sitting-drowsy", "sitting-tired", "sitting-happy"] as const) {
       expect(wearableAnchors(frame)).toEqual(wearableAnchors("sitting"));
     }
+    for (const mood of ["happy", "tired"] as const) {
+      const state = initialState();
+      state.pet.mood = mood;
+      expect(renderToStaticMarkup(<DogSprite state={state} pose="sitting" />)).toContain(dogArt[`sitting-${mood}`]);
+    }
+    expect(wearableAnchors("loaf-tired").socks).toEqual([]);
     const empty = renderToStaticMarkup(<DogSprite state={initialState()} pose="sitting" />);
     expect(empty).not.toContain("data-slot=");
     const state = { ...initialState(), equipment: wardrobeScenarios[2].equipment };

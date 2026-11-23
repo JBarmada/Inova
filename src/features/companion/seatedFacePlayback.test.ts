@@ -7,6 +7,7 @@ it("plays the approved face timings then stays tired without entering loaf", () 
   vi.useFakeTimers();
   const show = vi.fn();
   const dispose = createSeatedFacePlayback(show);
+  expect(show).toHaveBeenCalledWith("sitting-blink");
   for (const [frame, duration] of TIRED_FACE_STEPS) {
     expect(show).toHaveBeenLastCalledWith(frame);
     vi.advanceTimersByTime(duration);

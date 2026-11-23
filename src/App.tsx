@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { useInova } from "./state/store";
 import { useAction } from "./shared/useAction";
 import { setPetMode } from "./services/desktop";
@@ -21,6 +21,13 @@ export function App() {
   const [tab, setTab] = useState<Tab>("companion");
   const [floating, setFloating] = useState(false);
   const [toyExpanded, setToyExpanded] = useState(false);
+  const [rewardPending, setRewardPending] = useState(false);
+  const rewardCount = useRef(state.rewardedQuestIds.length);
+  const rewardShown = useCallback(() => setRewardPending(false), []);
+  useEffect(() => {
+    if (state.rewardedQuestIds.length > rewardCount.current) setRewardPending(true);
+    rewardCount.current = state.rewardedQuestIds.length;
+  }, [state.rewardedQuestIds.length]);
   const appElement = useFloatingLayout(floating);
   const { run, message, busy } = useAction();
   async function toggleFloating() {
@@ -45,7 +52,8 @@ export function App() {
           onClick={() => selectTab(entry)}><PixelIcon kind={entry} /></button>)}</nav>
         <CompanionControls onHome={openHome} onFloat={() => void run(toggleFloating, "")} disabled={busy} floating={false} />
       </header>}
-    {(floating || tab === "companion") && <PetPanel floating={floating} onToyExpanded={setToyExpanded} />}
+    {(floating || tab === "companion") && <PetPanel floating={floating} onToyExpanded={setToyExpanded}
+      rewardPending={rewardPending} onRewardShown={rewardShown} />}
     {!floating && tab === "quests" && <QuestsPanel />}
     {!floating && tab === "wardrobe" && <WardrobePanel />}
     {!floating && tab === "memories" && <MemoryShelf />}

@@ -3,6 +3,7 @@ import { useInova, dispatch } from "../../state/store";
 import { useAction } from "../../shared/useAction";
 import { items } from "../../shared/catalog";
 import { DogSprite } from "../companion/DogSprite";
+import type { ClipRequest } from "../companion/dogClips";
 import { wearableSlots } from "../../shared/equipment";
 import { ItemGlyph } from "./ItemGlyph";
 import { WardrobeLab } from "./WardrobeLab";
@@ -17,11 +18,13 @@ export function WardrobePanel() {
   const state = useInova();
   const { run, busy, message } = useAction();
   const [pose, setPose] = useState<PreviewPose>("standing");
+  const [fitting, setFitting] = useState<ClipRequest | null>(null);
   const [filter, setFilter] = useState<WardrobeFilter>("all");
   return <section aria-label="Wardrobe"><div className="wardrobe-heading"><h2>Wardrobe</h2></div>
     <WardrobeFilters filter={filter} onFilter={(value) => { setFilter(value); playCue("click", state.settings.muted); }} />
-    <div className="wardrobe-preview"><DogSprite state={{ ...state, pet: { ...state.pet, mood: "idle" } }} pose={pose} />
-      <WardrobePoses pose={pose} onPose={(value) => { setPose(value); playCue("click", state.settings.muted); }} /></div>
+    <div className="wardrobe-preview"><DogSprite state={{ ...state, pet: { ...state.pet, mood: "idle" } }} pose={pose}
+      clip={pose === "sitting" ? fitting : null} />
+      <WardrobePoses pose={pose} onPose={(value) => { setPose(value); setFitting(null); playCue("click", state.settings.muted); }} /></div>
     <OutfitStrip state={state} busy={busy}
       onRemove={(slot) => void run(() => dispatch({ type: "unequip", slot }), `${slot} removed.`)}
       onClear={() => void run(() => dispatch({ type: "equip", item: null }), "Outfit cleared.")}
@@ -34,7 +37,10 @@ export function WardrobePanel() {
           <button className="wardrobe-icon-button" aria-label={equipped ? `${item.name} worn` : state.ownedItems.includes(item.id) ? `Wear ${item.name}` : `${item.name} locked`}
             title={equipped ? "Wearing" : state.ownedItems.includes(item.id) ? `Wear ${item.name}` : "Locked"}
             aria-pressed={equipped} disabled={busy || equipped || !state.ownedItems.includes(item.id)}
-            onClick={() => void run(() => dispatch({ type: "equip", item: item.id }), `${item.name} equipped.`)}>
+            onClick={() => void run(async () => {
+              await dispatch({ type: "equip", item: item.id });
+              if (pose === "sitting") setFitting({ clip: "15-accessory-fitting", demo: false });
+            }, `${item.name} equipped.`)}>
             <WardrobeIcon kind={equipped ? "worn" : state.ownedItems.includes(item.id) ? "wear" : "locked"} /></button></article>;
       })}</div></section>)}
     {message && <p role="status">{message}</p>}

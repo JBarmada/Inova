@@ -8,8 +8,12 @@ import { DogDeveloperControls } from "./DogDeveloperControls";
 import { BoneQuestToy } from "./BoneQuestToy";
 import { playCue } from "../../services/audio";
 import { useDogPose, type PoseRequest } from "./useDogPose";
+import { useCompanionClips } from "./useCompanionClips";
+import type { DogClip } from "./dogClips";
 
-export function PetPanel({ floating, onToyExpanded }: { floating: boolean; onToyExpanded?: (open: boolean) => void }) {
+export function PetPanel({ floating, onToyExpanded, rewardPending = false, onRewardShown }: {
+  floating: boolean; onToyExpanded?: (open: boolean) => void; rewardPending?: boolean; onRewardShown?: () => void;
+}) {
   const state = useInova();
   const rewarding = useRewardReaction();
   const [name, setName] = useState("Inu");
@@ -21,19 +25,26 @@ export function PetPanel({ floating, onToyExpanded }: { floating: boolean; onToy
   }, [welcome]);
   const [request, setRequest] = useState<PoseRequest>(null);
   const { pose, ready, error } = useDogPose(state, request);
+  const { clip, setClip } = useCompanionClips(state, pose, rewardPending, onRewardShown);
   const { run, busy, message } = useAction();
   async function changePose() {
     if (!state.settings.devMode) return;
-    const kind = pose === "sitting" ? "stand" : "sit";
+    const kind = pose === "sleeping" ? "wake" : pose === "standing" ? "sit" : "stand";
     playCue("click", state.settings.muted);
+    setClip(null);
     setRequest((previous) => ({ kind, id: (previous?.id ?? 0) + 1 }));
+  }
+  function preview(clip: DogClip) {
+    if (!state.settings.devMode) return;
+    playCue("click", state.settings.muted);
+    setClip({ clip, demo: true });
   }
   return <section className="pet-panel" aria-label="Your companion">
     {!floating && <h2>{state.pet.adopted ? state.pet.name : "Adopt a dog"}</h2>}
     <div className="dog-stage" data-tauri-drag-region={floating || undefined} tabIndex={floating ? 0 : undefined}
-      aria-label={floating ? "Your dog. Focus to reveal companion controls." : undefined}><DogSprite state={(welcome || rewarding) && state.pet.adopted ? { ...state, pet: { ...state.pet, mood: "happy" } } : state} pose={pose} /></div>
+      aria-label={floating ? "Your dog. Focus to reveal companion controls." : undefined}><DogSprite state={(welcome || rewarding) && state.pet.adopted ? { ...state, pet: { ...state.pet, mood: "happy" } } : state} pose={pose} clip={clip} /></div>
     {floating && state.pet.adopted && <BoneQuestToy state={state} onExpandedChange={onToyExpanded} />}
-    <DogDeveloperControls pose={pose} disabled={busy || !ready} onPose={() => void run(changePose, "")} />
+    <DogDeveloperControls pose={pose} disabled={busy || !ready} onPose={() => void run(changePose, "")} onPreview={preview} />
     {!state.pet.adopted ? <form onSubmit={(event) => {
       event.preventDefault();
       void run(async () => { await dispatch({ type: "adopt", name }); setWelcome(true); }, `Welcome home, ${name.trim()}!`);

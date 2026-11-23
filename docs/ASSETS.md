@@ -1,6 +1,14 @@
 # Artwork and Audio Plan
 
-Review-only v36 on `codex/loaf-transition-review`: original grid-authored lower/tuck/loaf poses derived from the approved v35 tired head and existing project tail/palette. No new external assets. [Preview and provenance](../art/pocket-pup/v36/README.md). No runtime export or automatic loaf entry enabled.
+The user approved the 20 numbered Pocket Pup clips. `tools/export_runtime_art.py` packs the native frames into per-clip atlases in `public/dog/clips/` and records file hashes and atlas sizes. Each grid cell is 64 × 64. Breathing phases occupy the first four rows and independent prop/effect layers use later rows. The app uses the approved stretch revision with the soft curved shoulder. Bark playback uses an original synthesized cue. No audio recording was added.
+
+The fitted sit and stand frames are integrated. The six transparent middle frames are copied into `public/dog/fitted/` by the runtime exporter and recorded in its manifest. Standing and sitting reuse the approved endpoint PNGs. See the [source links](../art/pocket-pup/pixel-engine-review/generated-motion-fit/README.md) and the [reusable workflow](MOTION_FITTING_WORKFLOW.md).
+
+The fitted study uses the saved generated pose sheet as a motion reference, restoring the original head and approved endpoint PNGs. The earlier Pixel Engine motion studies informed the prompt. Demo-only art previews were removed from Dev mode.
+
+The v36 lower/tuck/loaf poses derive from the v35 tired head and existing project tail and palette. The current app exports them and uses them after the seven-second tired hold. Seated Happy transplants only expression regions from v6 onto the v32 seated sprite. Loaf moods transplant only the compatible face differences. The added breathing phases use the existing chest palette, with fixed alpha and paw rows. [v36 provenance](../art/pocket-pup/v36/README.md).
+
+The [review package](../art/pocket-pup/to-be-reviewed-animations/README.md) uses these exports, the fitted sit and stand frames, the v6 reaction art, v14 bleps, and original grid edits for sleep, stretch, attention, and curl motion. Timing markers refer to separately authored props, effects, and cues. The new review clips introduce no additional external artwork.
 
 Approved v35: seated blink/drowsy/tiredness derives from approved v26 with original edits confined to two eye regions. No new external artwork. Exact non-eye/alpha pixels checked. Runtime copies live under `public/dog/sitting-*.png`; breathing variants combine these eye edits with approved v34 seated breathing. Exporter records source paths and hashes and checks fixed alpha/paw rows. Historical v35 review-only notes describe its pre-approval state.
 
