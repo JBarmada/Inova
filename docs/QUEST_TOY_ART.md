@@ -23,7 +23,7 @@ The current frame uses CSS border-image with fixed-size corners and stretched ra
 
 ## Validation and review
 
-- `npm run check`: 22 tests, TypeScript, source-size limits, and Vite production build passed. Native mocks cover zoom in, zoom out, and avoiding double OS scaling.
+- `npm run check`: 23 tests, TypeScript, source-size limits, and Vite production build passed. Native mocks cover zoom in, zoom out, and avoiding double OS scaling.
 - `npm run tauri build -- --no-bundle`: Windows release compilation passed.
 - Browser: three fictional quests shown together; added a fourth from the composer, then accepted it with its toy action. Reviewed the expanded frame, small toy, and internal list scrolling.
 - Native runtime placement/resizing and Mac appearance still require manual checks. Moving between monitors with different work heights while already floating also needs review.

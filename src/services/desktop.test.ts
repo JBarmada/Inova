@@ -6,9 +6,17 @@ const fake = vi.hoisted(() => ({
   maximized: false, decorated: true, resizable: true, onTop: false, scale: 1,
   saved: { version: 1 } as WindowLayout,
   rejectWrite: false,
+  resizeCalls: [] as Array<{ x: number; y: number; width: number; height: number }>,
 }));
 
-vi.mock("@tauri-apps/api/core", () => ({ isTauri: () => true }));
+vi.mock("@tauri-apps/api/core", () => ({ isTauri: () => true,
+  invoke: async (command: string, bounds: { x: number; y: number; width: number; height: number }) => {
+    if (command !== "resize_floating") throw Error("Unexpected native command");
+    fake.resizeCalls.push(bounds);
+    fake.position = { x: bounds.x, y: bounds.y };
+    fake.size = { width: bounds.width, height: bounds.height };
+  },
+}));
 vi.mock("@tauri-apps/api/window", () => ({
   LogicalSize: class { constructor(public width: number, public height: number) {} },
   PhysicalPosition: class { constructor(public x: number, public y: number) {} },
@@ -42,6 +50,7 @@ vi.mock("./windowLayoutStorage", () => ({
 beforeEach(() => {
   vi.unstubAllGlobals();
   vi.resetModules();
+  fake.resizeCalls = [];
   Object.assign(fake, { position: { x: 100, y: 80 }, size: { width: 1040, height: 780 },
     maximized: false, decorated: true, resizable: true, onTop: false, scale: 1, saved: { version: 1 }, rejectWrite: false });
 });
@@ -153,4 +162,13 @@ it("keeps the dog's screen center and top fixed while the toy opens and closes",
     expect(fake.position.y).toBe(100);
   }
   expect(fake.position.x).toBe(600);
+});
+
+it("submits the floating move and resize together in one native update", async () => {
+  const desktop = await import("./desktop");
+  await desktop.setPetMode(true);
+  await desktop.fitFloatingSize(384, 600);
+  expect(fake.resizeCalls).toEqual([{ x: 32, y: 80, width: 384, height: 600 }]);
+  await desktop.fitFloatingSize(384, 600);
+  expect(fake.resizeCalls).toHaveLength(1);
 });

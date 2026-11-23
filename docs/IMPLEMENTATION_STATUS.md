@@ -29,13 +29,14 @@ Shared starter checkpoint: November 22, 2026. Three builders; Windows and Mac; d
 - Floating hover reveal covers the continuous pet-panel area, including the toy and space above developer emotion controls, so moving from the dog to a mood button does not hide/disable the buttons. Leaving the companion still hides hover-only controls. The development toy preview uses the real PetPanel, including developer controls.
 - Quest board heading is Fetch a Lil' Side Quest with flanking decorative stars. Removed the small blue tagline, composer hint, and sample-planner footer at the user's request; home retains its prototype/sample disclosure. The commitment input/check form shares one continuous border, with no grid gap or button offset/shadow.
 - The toy's dashed focus bounding box is restricted to Dev mode. Normal mode uses a shape-following image glow for keyboard focus instead of a rectangular outline.
+- To address the one-frame opening/closing jerk, native companion alignment follows the current webview viewport instead of the requested board width. The frameless window's target physical bounds are calculated before resizing, then resize_floating applies move and size together in one native main-thread task, replacing the two separate frontend IPC operations. The Rust command must be included when integrating/restarting this version. Actual native frame timing still requires runtime confirmation on Windows/Mac; mocks cannot prove compositor behavior.
 - Quest-list scrolling sits 22 CSS pixels nearer the right frame border, with matching internal padding so quest copy and action buttons keep their original alignment.
 - Browser overlap review confirmed Settings receives hit testing at the toy's center while open. The adjusted scrollbar was visually checked beside the right frame rail; the frame clips at its outer edge rather than its inner padding so the inset scrollbar remains visible.
 - Feature folders and three task handoffs, with shared agreements and Windows/Mac CI configuration.
 
 ## Verified in this setup
 
-- `npm run check`: size checker, TypeScript, twenty-two domain/settings/window-layout/toy tests, and frontend production build passed in the isolated window-layout worktree.
+- `npm run check`: size checker, TypeScript, twenty-three domain/settings/window-layout/toy tests, and frontend production build passed in the isolated window-layout worktree.
 - `npm run tauri build -- --no-bundle`: Windows release compilation passed and produced src-tauri/target/release/inova.exe.
 - Browser preview UI: adoption, adding a commitment, proposing/accepting/completing a sample quest, unlocking/equipping the notebook, saving/opening a dated reflection, and retaining the adopted/equipped dog after reload were observed.
 - Browser controls check: Home/Settings icons and compact status render; enabling dev mode reveals mood controls, disabling it hides them, and the sound setting changes independently. Native layout still needs platform runtime confirmation.

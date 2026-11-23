@@ -12,7 +12,7 @@
 .status-wrap { display: flex; justify-content: center; margin: 10px 0 0; }
 .pixel-status { display: inline-flex; align-items: center; gap: 7px; width: max-content; max-width: 100%; padding: 5px 9px; background: #fcf4df; color: #675c43; font: 11px/1.5 "Courier New", monospace; letter-spacing: .2px; text-align: left; overflow-wrap: anywhere; clip-path: polygon(4px 0, calc(100% - 4px) 0, calc(100% - 4px) 2px, 100% 2px, 100% calc(100% - 2px), calc(100% - 4px) calc(100% - 2px), calc(100% - 4px) 100%, 4px 100%, 4px calc(100% - 2px), 0 calc(100% - 2px), 0 2px, 4px 2px); }
 .status-pip { flex: 0 0 4px; width: 4px; height: 4px; background: #7f9663; box-shadow: 1px 0 #7f9663; }
-.floating .companion-controls { height: 32px; width: 232px; max-width: 100%; margin-inline: auto; }
+.floating .companion-controls { height: 32px; width: 232px; max-width: none; margin-left: calc((var(--companion-width, 100%) - 232px) / 2); }
 .floating .reactions { margin: 4px 0; gap: 6px; }
 .floating .reactions button { border-width: 1px; box-shadow: 1px 1px #d4c6a7; font-size: 10px; padding: 3px 7px; }
 .floating .hover-reveal { opacity: 0; visibility: hidden; pointer-events: none; transition: opacity .12s ease, visibility 0s linear .18s; }

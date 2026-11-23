@@ -1,4 +1,4 @@
-import { isTauri } from "@tauri-apps/api/core";
+import { invoke, isTauri } from "@tauri-apps/api/core";
 import { availableMonitors, getCurrentWindow, LogicalSize, PhysicalPosition } from "@tauri-apps/api/window";
 import { FLOAT_HEIGHT, FLOAT_WIDTH, visiblePosition, type Bounds, type WindowLayout } from "./windowGeometry";
 import { readWindowLayout, writeWindowLayout } from "./windowLayoutStorage";
@@ -115,14 +115,14 @@ export function fitFloatingSize(width: number, height: number): Promise<void> {
     const target = Math.ceil(Math.max(FLOAT_HEIGHT, height) * cssToLogical);
     const targetWidth = Math.ceil(Math.max(FLOAT_WIDTH, width) * cssToLogical);
     if (Math.abs(size.height / scale - target) > 1 || Math.abs(size.width / scale - targetWidth) > 1) {
-      await window.setSize(new LogicalSize(targetWidth, target));
-      const [outer, monitors] = await Promise.all([window.outerSize(), availableMonitors()]);
+      const monitors = await availableMonitors();
+      const outer = { width: Math.round(targetWidth * scale), height: Math.round(target * scale) };
       const center = position.x + previousOuter.width / 2;
       const areas = monitors.map((monitor) => monitor.workArea);
       const area = areas.find(({ position: p, size: s }) => center >= p.x && center < p.x + s.width && position.y >= p.y && position.y < p.y + s.height);
       const anchored = { x: position.x + Math.trunc((previousOuter.width - outer.width) / 2), y: position.y, width: targetWidth, height: target, maximized: false };
       const point = visiblePosition(anchored, outer, area ? [area] : areas);
-      await window.setPosition(new PhysicalPosition(point.x, point.y));
+      await invoke("resize_floating", { x: point.x, y: point.y, width: outer.width, height: outer.height });
     }
   });
 }

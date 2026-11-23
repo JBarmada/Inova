@@ -15,6 +15,7 @@ The shared checkout's earlier window-layout edits were taken back out after copy
 ## Source files
 
 - src/services/desktop.ts owns native mode switches, geometry capture/restore, and move/resize/close listeners.
+- src-tauri/src/floating.rs exposes resize_floating, grouping physical position and size in one main-thread task; lib.rs registers it. Integrate these native files with the viewport-based companion CSS to avoid the intermediate shifted frame. Restart/rebuild the native app after integration.
 - src/services/windowGeometry.ts owns layout validation and monitor clamping.
 - src/services/windowLayoutStorage.ts serializes writes to window-layout.json.
 - src/features/companion/useFloatingLayout.ts observes actual floating content height.
@@ -23,7 +24,7 @@ The shared checkout's earlier window-layout edits were taken back out after copy
 
 ## Checks
 
-All twenty-two tests, type checks, source-size checks, and the frontend build pass. Windows native release compilation also passes in this worktree. Automated checks cover independent positions across repeated switches, restore from persisted placement, storage failure before switching, content-size fitting (including expanded toy width, zoom in/out, and OS scaling), maximized home, disconnected-monitor recovery, and negative-coordinate monitors. These use mocked native APIs, so actual dragging, DPI changes, maximized restoration, and native scrollbar behavior must also be tried on Windows and Mac.
+All twenty-three tests, type checks, source-size checks, and the frontend build pass. Windows native release compilation also passes in this worktree. Automated checks cover independent positions across repeated switches, restore from persisted placement, storage failure before switching, content-size fitting (including expanded toy width, zoom in/out, and OS scaling), maximized home, disconnected-monitor recovery, and negative-coordinate monitors. These use mocked native APIs, so actual dragging, DPI changes, maximized restoration, and native scrollbar behavior must also be tried on Windows and Mac.
 
 The subsequent quest-toy revision replaces the single-quest CSS prototype with generated artwork and a complete list/composer. See [toy integration notes](QUEST_TOY_ART.md). Integrate its focused delta after the window-layout fix; preserve the other chat's dog renderer and newer controls.
 
