@@ -23,10 +23,11 @@ export function dispatchWithReceipt(action: Action): Promise<MutationReceipt> {
     const next = reduce(state, action);
     await saveState(next);
     const rewarded = next.rewardedQuestIds.length > state.rewardedQuestIds.length;
+    const adopted = !state.pet.adopted && next.pet.adopted;
     const unlocked = next.ownedItems.filter((item) => !state.ownedItems.includes(item));
     state = next;
     listeners.forEach((listener) => listener());
-    playCue(rewarded ? "reward" : "click", state.settings.muted);
+    playCue(rewarded || adopted ? "reward" : "click", state.settings.muted);
     return { completed: rewarded, unlocked };
   });
   queue = work.then(() => undefined);

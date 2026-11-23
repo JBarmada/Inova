@@ -30,3 +30,14 @@ it("does not report or publish a reward if saving fails", async () => {
   expect(fake.cue).not.toHaveBeenCalled();
   expect(await store.dispatchWithReceipt({ type: "complete-quest", id: "one" })).toEqual({ completed: true, unlocked: ["notebook"] });
 });
+
+it("plays the welcome cue only after adoption saves and respects mute", async () => {
+  fake.load.mockResolvedValue({ ...initialState(), settings: { ...initialState().settings, muted: true } });
+  const store = await import("./store"); await store.initialize();
+  fake.save.mockRejectedValueOnce(Error("Disk full"));
+  await expect(store.dispatch({ type: "adopt", name: "Mochi" })).rejects.toThrow("Disk full");
+  expect(fake.cue).not.toHaveBeenCalled();
+  await store.dispatch({ type: "adopt", name: "Mochi" });
+  expect(fake.cue).toHaveBeenCalledWith("reward", true);
+  expect(fake.save).toHaveBeenLastCalledWith(expect.objectContaining({ pet: expect.objectContaining({ name: "Mochi", adopted: true, mood: "idle" }) }));
+});

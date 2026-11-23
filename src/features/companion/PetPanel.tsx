@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useInova, dispatch } from "../../state/store";
 import { useAction } from "../../shared/useAction";
 import { DogSprite } from "./DogSprite";
@@ -11,6 +11,12 @@ import { useDogPose, type PoseRequest } from "./useDogPose";
 export function PetPanel({ floating, onToyExpanded }: { floating: boolean; onToyExpanded?: (open: boolean) => void }) {
   const state = useInova();
   const [name, setName] = useState("Inu");
+  const [welcome, setWelcome] = useState(false);
+  useEffect(() => {
+    if (!welcome) return;
+    const timer = setTimeout(() => setWelcome(false), 4000);
+    return () => clearTimeout(timer);
+  }, [welcome]);
   const [request, setRequest] = useState<PoseRequest>(null);
   const { pose, ready, error } = useDogPose(state, request);
   const { run, busy, message } = useAction();
@@ -23,12 +29,12 @@ export function PetPanel({ floating, onToyExpanded }: { floating: boolean; onToy
   return <section className="pet-panel" aria-label="Your companion">
     {!floating && <h2>{state.pet.adopted ? state.pet.name : "Adopt a dog"}</h2>}
     <div className="dog-stage" data-tauri-drag-region={floating || undefined} tabIndex={floating ? 0 : undefined}
-      aria-label={floating ? "Your dog. Focus to reveal companion controls." : undefined}><DogSprite state={state} pose={pose} /></div>
+      aria-label={floating ? "Your dog. Focus to reveal companion controls." : undefined}><DogSprite state={welcome && state.pet.adopted ? { ...state, pet: { ...state.pet, mood: "happy" } } : state} pose={pose} /></div>
     {floating && state.pet.adopted && <BoneQuestToy state={state} onExpandedChange={onToyExpanded} />}
     <DogDeveloperControls pose={pose} disabled={busy || !ready} onPose={() => void run(changePose, "")} />
     {!state.pet.adopted ? <form onSubmit={(event) => {
       event.preventDefault();
-      void run(() => dispatch({ type: "adopt", name }), "");
+      void run(async () => { await dispatch({ type: "adopt", name }); setWelcome(true); }, `Welcome home, ${name.trim()}!`);
     }}><label>Your dog's name<input value={name} maxLength={40} required onChange={(event) => setName(event.target.value)} /></label>
       <button className="primary" disabled={busy}>Adopt this dog</button></form>
       : null}

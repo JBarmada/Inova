@@ -1,5 +1,10 @@
 # Implementation Status and Handoff
 
+## Adoption welcome — November 23, 2026
+
+After a successful adoption save, the home companion shows a named welcome and briefly uses the existing happy artwork and sparkle. The visual reaction is temporary presentation state; the saved mood is unchanged. A synthesized welcome cue observes mute and plays only after a successful save. `npm run check` passed 96 tests, size/type checks and production build; the isolated Windows release compiled. A fresh fictional Windows test profile showed the named welcome after adoption; the brief reaction and audible playback were not separately observed. Mac and multiple adoptable dogs remain pending.
+
+
 ## Local model selection — November 23, 2026
 
 The Quests page offers the provisional Gemma 3 12B default and a faster 4B option labeled as potentially less reliable. The choice persists, older saves default to 12B, and the native boundary accepts only these two model names. Ollama and the selected model must already be installed and running; the separate sample planner remains available. `npm run check` passed 95 tests, size/type checks and production build; the isolated Windows release compiled. In the fictional native profile, 4B generated a valid quest, the local service reported the 4B Q4_K_M model, and both the selection and quest survived restart. The test service was stopped afterward. This single request is not a reliability evaluation; see the existing model trial for failures and limitations. Mac remains pending.

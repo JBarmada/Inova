@@ -45,3 +45,5 @@ November 23: rapid repeated synthesized cues of the same kind are throttled. `np
 November 23: native Windows fictional-profile spot check verified recap legacy labeling, single-owned-item shuffle, quest duration edit and context, and outfit/duration persistence after restart. A brief white initial window was observed but not timed. Audible, reduced-motion, overlay positioning, and Mac remain pending.
 
 November 23: added persistent 12B/4B model choice with legacy-save default and a native allowlist. `npm run check` passed 95 tests; isolated Windows build passed and a real fictional 4B proposal and selection survived restart. Model reliability and Mac remain open.
+
+November 23: added a named adoption welcome, temporary happy artwork, and mute-aware cue after save. `npm run check` passed 96 tests, isolated Windows build passed, and a fresh fictional native profile showed the welcome. Audible playback, reaction timing and Mac remain pending.
