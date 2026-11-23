@@ -31,3 +31,5 @@ November 23: isolated Windows test app verified edited sample quest completion, 
 November 23: seven-day local recap added with optional completion timestamps and explicit legacy-undated handling. `npm run check` passed 86 tests and Windows release compilation passed; native visual review and Mac remain pending.
 
 November 23: added an owned-items-only outfit shuffle as one validated, persistent action. `npm run check` passed 88 tests and Windows release compilation passed; native visual review and Mac remain pending.
+
+November 23: main-page quests now expose the commitment and currently permitted linked reflections as suggestion context. `npm run check` passed 89 tests and Windows release compilation passed; native visual review and Mac remain pending.

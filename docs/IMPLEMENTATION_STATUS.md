@@ -1,5 +1,12 @@
 # Implementation Status and Handoff
 
+## Inspect suggestion context — November 23, 2026
+
+Each quest in the main Quests page offers an expandable view of its commitment and linked reflections that are still allowed for personalization. It identifies those reflections as context provided to the planner, rather than claiming the model relied on every one. Editing, revoking or deleting a reflection removes the old reference; private and unrelated reflections are not displayed as sources.
+
+`npm run check` passed 89 tests, size/type checks and the production build. Windows release compilation passed. Native visual review and Mac remain pending.
+
+
 ## Owned outfit shuffle — November 23, 2026
 
 The outfit strip offers an optional shuffle that selects an owned item independently for each wearable slot and leaves slots with no owned items empty. The entire outfit is saved as one validated action; locked items and incompatible slots are rejected, and ownership and quest rewards are unchanged. The selection remains visible with sound muted and survives serialization.

@@ -1,10 +1,12 @@
 import { useState } from "react";
 import type { Quest } from "../../shared/schema";
-import { dispatch, dispatchWithReceipt } from "../../state/store";
+import { dispatch, dispatchWithReceipt, useInova } from "../../state/store";
 import { RewardReveal, type CompletionReveal } from "./RewardReveal";
 import { useAction } from "../../shared/useAction";
+import { QuestSources } from "./QuestSources";
 
 export function QuestCard({ quest }: { quest: Quest }) {
+  const state = useInova();
   const { run, busy, message } = useAction();
   const [reveal, setReveal] = useState<CompletionReveal | null>(null);
   const [editing, setEditing] = useState(false);
@@ -17,6 +19,7 @@ export function QuestCard({ quest }: { quest: Quest }) {
       onChange={(event) => setTitle(event.target.value)} /></label><div className="actions">
       <button disabled={busy}>Save</button><button type="button" onClick={() => { setTitle(quest.title); setEditing(false); }}>Cancel</button>
     </div></form> : <h3>{quest.title}</h3>}<p>{quest.reason}</p>
+    <QuestSources quest={quest} state={state} />
     {!terminal && !editing && <div className="actions">
       <button disabled={busy} onClick={() => { setTitle(quest.title); setEditing(true); }}>Edit</button>
       {quest.status !== "accepted" && <button disabled={busy} onClick={() => void run(() => dispatch({ type: "quest-status", id: quest.id, status: "accepted" }))}>Accept</button>}
