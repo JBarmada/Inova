@@ -4,6 +4,8 @@ Updated November 22, 2026. The repository now includes a shared starter as well 
 
 ## Start here
 
+- [Pocket Pup animation continuation prompt and loaf review checkpoint](ANIMATION_CONTINUATION.md).
+
 - [Wardrobe continuation prompt and exact stopping point](WARDROBE_CONTINUATION.md).
 
 - [Consolidated main and preserved worktrees](MAIN_CONSOLIDATION.md).

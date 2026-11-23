@@ -1,6 +1,6 @@
 # Dog transition coverage and review queue
 
-Updated November 23, 2026. This is a behavior/review ledger, not a claim that every row runs in the app. Main `b187094` contains approved v32 sit motion and v34 breathing. Follow-up work is isolated on `codex/pose-hierarchy-review`.
+Updated November 23, 2026. This is a behavior/review ledger, not a claim that every row runs in the app. Current main contains approved v32/v34/v35 runtime work and the unapproved v36 review files (merged as `56f80c2`). Main was checked at `c4693ac` for the [continuation handoff](ANIMATION_CONTINUATION.md). Runtime loaf remains disabled; earlier branch references below are historical checkpoints.
 
 **Approved/integrated: M05, sitting to tired face (v35), main `93696f3`.** Mood changes preserve posture and the approved eye-only sequence runs with grounded breathing. **Active review: tired sit to loaf, v36** ([GIF](../art/pocket-pup/v36/loaf-preview.gif), [slower](../art/pocket-pup/v36/loaf-slow.gif), [frames](../art/pocket-pup/v36/loaf-frames.png)) on `codex/loaf-transition-review`. The runtime deadline and loaf clip remain disabled until approval. Animated stand-up follows separately.
 
