@@ -21,7 +21,7 @@ The current app includes:
 - A local seven-day activity recap, which explicitly excludes older completions without recorded dates, and an outfit shuffle limited to owned items.
 - Settings for sound, reduced motion, developer mode, and optional status; startup loading/retry feedback; and a shared save-and-quit flow for native X and floating Settings > Quit Inova.
 
-The latest build-out check passed **155 tests**, all 20 clip-atlas checks, source size/type checks and the frontend production build. Windows release compilation passed for the animation integration and `cargo check` passed after the later planner changes. Integrated native visual review, Mac compilation and runtime, continuous toy-transition timing, and a complete end-to-end walkthrough remain pending. See [implementation status](docs/IMPLEMENTATION_STATUS.md) for evidence and limitations.
+The latest build-out check passed **155 tests**, all 20 clip-atlas checks, source size/type checks and the frontend production build. The current Windows Rust library compiled in release mode; an earlier full Windows release build passed for the animation integration. Integrated native visual review, Mac compilation and runtime, continuous toy-transition timing, and a complete end-to-end walkthrough remain pending. See [implementation status](docs/IMPLEMENTATION_STATUS.md) for evidence and limitations.
 
 Local AI requires a separately installed and running Ollama service and model; the labeled sample planner works without it. There are no external account integrations or actual schedule optimization. Sound is synthesized; final clothing art and recorded audio remain unfinished. The integrated animations are available for testing and still need visual review in the combined build.
 

@@ -1,5 +1,9 @@
 # Implementation Status and Handoff
 
+## Latest Windows compilation — November 23, 2026
+
+The current Rust library compiled for Windows in release mode with `cargo build --release --lib --locked --offline`. The most recent `npm run check` passed 155 tests, all 20 atlas checks, type/size checks, and the frontend build. This does not verify the final executable's native UI, animation timing, or Mac behavior.
+
 ## Date-only quest intake and model checks — November 23, 2026
 
 A model-suggested date without a time now opens a review asking for a local time, or the user can clear the date. The app does not invent one. Recognizable missing or conflicting date/effort details also open a manual review, including for the sample fallback. Source-text matching plus simple weekday, clock-time and unit checks reject some mistakes, but they are not comprehensive and the user must review suggestions. This supersedes the earlier date-only limitation below.
