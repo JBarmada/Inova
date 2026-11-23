@@ -1,12 +1,14 @@
 import type { Quest } from "../../shared/schema";
 import { adventureTitle, toyStatus } from "./toyQuests";
 import { QuestToyIcon } from "./QuestToyIcon";
+import { formatDeadline } from "../quests/commitmentDetails";
 
 export function ToyQuestRow({ quest, busy, onAction }: { quest: Quest; busy: boolean; onAction: (quest: Quest) => void }) {
   const fetchable = quest.status === "proposed" || quest.status === "deferred";
   return <li className={`toy-quest-row is-${quest.status}`}>
     <div className="toy-quest-copy"><p className="toy-quest-meta">{quest.minutes} min · {toyStatus[quest.status]}</p>
-      <h4>{adventureTitle(quest.title)}</h4></div>
+      <h4>{adventureTitle(quest.title)}</h4>
+      {quest.status === "accepted" && quest.plan && <p className="toy-quest-meta">Planned {formatDeadline({ at: quest.plan.start, timeZone: quest.plan.timeZone })}</p>}</div>
     {fetchable && <button className="toy-accept" disabled={busy}
       title="Fetch this quest" aria-label={`Accept quest: ${quest.title}`}
       onClick={() => onAction(quest)}>

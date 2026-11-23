@@ -1,5 +1,10 @@
 # Implementation Status and Handoff
 
+## Floating planned-time visibility — November 23, 2026
+
+Accepted quests with a saved manual plan show its start and recorded time zone on the floating board; quests without a plan show no invented time. `npm run check` passed 110 tests, size/type checks and production build; isolated Windows release compilation passed. The fictional four-minute plan created in the earlier test survived a native restart and appeared on the floating board with its time zone. Mac and narrow-screen visual checks remain pending.
+
+
 ## Explicit quest-length preference — November 23, 2026
 
 The Quests page lets a user choose an optional maximum for new suggested quest durations. The sample planner uses that limit, and local AI receives the maximum as a constraint; output exceeding it is rejected. The shared reducer checks the current limit again before saving a proposal, protecting against a changed preference while a request is pending. Existing quests do not change, and users may explicitly edit their duration afterward. No preference is inferred from a reflection. Older saves default to no maximum; older builds may drop this setting on save.

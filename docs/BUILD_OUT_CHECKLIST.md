@@ -61,3 +61,5 @@ November 23: added optional local deadline/time-zone and total effort to manual 
 November 23: accepted quests can be manually placed at the beginning of a user-entered free window, checked against the known deadline and other accepted quest plans. No calendar is checked or changed. `npm run check` passed 107 tests; isolated Windows release and a fictional four-minute native scheduling/save check passed. Native restart, DST ambiguity and Mac remain pending.
 
 November 23: added an explicit, optional maximum length for new suggestions, without inferring lasting preferences from reflections. `npm run check` passed 109 tests; isolated Windows build and a fictional five-minute sample suggestion passed. Live local-model adherence and Mac remain pending.
+
+November 23: floating accepted quests show saved planned start/time zone. `npm run check` passed 110 tests and isolated Windows release compilation passed; a fictional plan survived restart and appeared on the native floating board. Mac and narrow-screen checks remain pending.
