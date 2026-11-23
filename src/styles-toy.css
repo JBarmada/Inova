@@ -1,6 +1,5 @@
-.floating { width: 248px; --companion-width: 100%; }
+.floating { width: 384px; --companion-width: 100%; }
 html.pet-mode .floating { --companion-width: calc(100vw - 16px); overflow: visible; }
-.floating.toy-expanded { width: 384px; }
 .floating .dog-stage, .floating .reactions, .floating .status-wrap { width: var(--companion-width); }
 .floating .bone-quest-wrap { position: relative; left: auto; top: auto; display: block; margin: -42px 0 0; }
 .floating .bone-toy { position: relative; top: auto; left: auto; display: block; width: 82px; height: 42px; margin: 0 0 0 calc((var(--companion-width) - 82px) / 2); padding: 0; border: 0; background: transparent; box-shadow: none; z-index: 1; }

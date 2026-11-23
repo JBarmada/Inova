@@ -2,7 +2,7 @@
 
 Branch: fix/window-layout. Worktree: .worktrees/window-layout under the shared project folder.
 
-Integration update, November 23, 2026: the user approved integrating the reviewed UI into main. Main now contains this branch's complete companion/layout/toy work and separate Wardrobe/Memories pages. Earlier warnings below describe how the isolated branch was prepared; they do not mean this approved integration is pending. The original shared checkout and the other chat's unfinished frame/art work remain untouched. Continue integration work from main rather than reapplying these commits.
+Integration update, November 23, 2026: the user approved integrating the reviewed UI into main. Main now contains this branch's complete companion/layout/toy work and separate Wardrobe/Memories pages. Earlier warnings below describe how the isolated branch was prepared; they do not mean this approved integration is pending. The original shared checkout and separate art work remain untouched. The user subsequently approved the verified frame fix for main; its stable-width canvas and native evidence are now included. Continue integration work from main rather than reapplying these commits.
 
 ## Scope
 
@@ -17,7 +17,7 @@ The shared checkout's earlier window-layout edits were taken back out after copy
 ## Source files
 
 - src/services/desktop.ts owns native mode switches, geometry capture/restore, and move/resize/close listeners.
-- src-tauri/src/floating.rs exposes resize_floating, grouping physical position and size in one main-thread task; lib.rs registers it. Integrate these native files with the viewport-based companion CSS to avoid the intermediate shifted frame. Restart/rebuild the native app after integration.
+- src-tauri/src/floating.rs exposes resize_floating, grouping physical position and size in one main-thread task; lib.rs registers it. Keep these native files with the viewport-based companion CSS. Native capture proved this grouping alone does not eliminate stale shifted frames; main additionally reserves the board width in collapsed mode to prevent horizontal resizing on toy open/close. Restart/rebuild the native app after integration.
 - src/services/windowGeometry.ts owns layout validation and monitor clamping.
 - src/services/windowLayoutStorage.ts serializes writes to window-layout.json.
 - src/features/companion/useFloatingLayout.ts observes actual floating content height.

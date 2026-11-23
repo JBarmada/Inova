@@ -1,0 +1,84 @@
+{
+  "before-clean": {
+    "frames": 297,
+    "durationMs": 3938.51,
+    "transitions": 8,
+    "dogBoundsInCapture": [
+      [
+        241,
+        408
+      ],
+      [
+        368,
+        535
+      ],
+      [
+        495,
+        662
+      ]
+    ],
+    "nativeWidths": [
+      467,
+      722
+    ],
+    "nativeLeftEdges": [
+      873,
+      1000
+    ],
+    "missingDogFrames": 0
+  },
+  "after": {
+    "frames": 1385,
+    "durationMs": 18492.98,
+    "transitions": 40,
+    "dogBoundsInCapture": [
+      [
+        367,
+        534
+      ]
+    ],
+    "nativeWidths": [
+      722
+    ],
+    "nativeLeftEdges": [
+      1000
+    ],
+    "missingDogFrames": 0
+  },
+  "after-detail": {
+    "frames": 297,
+    "durationMs": 3928.74,
+    "transitions": 8,
+    "dogBoundsInCapture": [
+      [
+        367,
+        534
+      ]
+    ],
+    "nativeWidths": [
+      722
+    ],
+    "nativeLeftEdges": [
+      1000
+    ],
+    "missingDogFrames": 0
+  },
+  "after-normal": {
+    "frames": 570,
+    "durationMs": 7579.5,
+    "transitions": 16,
+    "dogBoundsInCapture": [
+      [
+        367,
+        534
+      ]
+    ],
+    "nativeWidths": [
+      722
+    ],
+    "nativeLeftEdges": [
+      1000
+    ],
+    "missingDogFrames": 0
+  }
+}

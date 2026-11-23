@@ -12,7 +12,9 @@ export type Bounds = z.infer<typeof boundsSchema>;
 export type WindowLayout = z.infer<typeof layoutSchema>;
 type WorkArea = { position: { x: number; y: number }; size: { width: number; height: number } };
 
-export const FLOAT_WIDTH = 248;
+// Reserve the quest board's width, including while it is collapsed. Moving a
+// transparent native window can expose its previous webview frame before paint.
+export const FLOAT_WIDTH = 384;
 export const FLOAT_HEIGHT = 208;
 
 export function visiblePosition(bounds: Bounds, size: { width: number; height: number }, areas: WorkArea[]) {

@@ -58,7 +58,7 @@ beforeEach(() => {
 it("keeps home and floating positions independent through repeated switches", async () => {
   const desktop = await import("./desktop");
   await desktop.setPetMode(true);
-  expect(fake.size).toEqual({ width: 248, height: 208 });
+  expect(fake.size).toEqual({ width: 384, height: 208 });
   fake.position = { x: 1100, y: 500 };
   await desktop.setPetMode(false);
   expect(fake.position).toEqual({ x: 100, y: 80 });
@@ -112,13 +112,18 @@ it("restores a maximized home window after floating", async () => {
   expect(fake.resizable).toBe(true);
 });
 
-it("widens for the quest board and collapses back to the dog's compact width", async () => {
+it("reserves the board width so opening and closing never move the painted dog", async () => {
   const desktop = await import("./desktop");
   await desktop.setPetMode(true);
+  const position = { ...fake.position };
+  expect(fake.size).toEqual({ width: 384, height: 208 });
   await desktop.fitFloatingSize(384, 650);
   expect(fake.size).toEqual({ width: 384, height: 650 });
+  expect(fake.position).toEqual(position);
   await desktop.fitFloatingSize(248, 208);
-  expect(fake.size).toEqual({ width: 248, height: 208 });
+  expect(fake.size).toEqual({ width: 384, height: 208 });
+  expect(fake.position).toEqual(position);
+  expect(fake.resizeCalls.every((bounds) => bounds.x === position.x && bounds.width === 384)).toBe(true);
 });
 
 it("fits zoomed CSS content into the native window without clipping", async () => {
@@ -145,7 +150,7 @@ it("keeps the compact window fitted when the webview is zoomed out", async () =>
   const desktop = await import("./desktop");
   await desktop.setPetMode(true);
   await desktop.fitFloatingSize(248, 208);
-  expect(fake.size).toEqual({ width: 199, height: 167 });
+  expect(fake.size).toEqual({ width: 308, height: 167 });
 });
 
 it("keeps the dog's screen center and top fixed while the toy opens and closes", async () => {
@@ -168,7 +173,7 @@ it("submits the floating move and resize together in one native update", async (
   const desktop = await import("./desktop");
   await desktop.setPetMode(true);
   await desktop.fitFloatingSize(384, 600);
-  expect(fake.resizeCalls).toEqual([{ x: 32, y: 80, width: 384, height: 600 }]);
+  expect(fake.resizeCalls).toEqual([{ x: 100, y: 80, width: 384, height: 600 }]);
   await desktop.fitFloatingSize(384, 600);
   expect(fake.resizeCalls).toHaveLength(1);
 });
