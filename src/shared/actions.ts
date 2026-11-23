@@ -10,7 +10,7 @@ export type Action =
   | { type: "status-bar"; enabled: boolean }
   | { type: "add-commitment"; commitment: Commitment }
   | { type: "propose-quest"; quest: Quest; memorySnapshot?: { id: string; text: string }[] }
-  | { type: "edit-quest"; id: string; title: string }
+  | { type: "edit-quest"; id: string; title: string; minutes?: number }
   | { type: "quest-status"; id: string; status: "accepted" | "deferred" | "dismissed" }
   | { type: "complete-quest"; id: string; completedAt?: string }
   | { type: "equip"; item: ItemId | null }

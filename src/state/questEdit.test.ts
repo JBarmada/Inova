@@ -20,3 +20,12 @@ it("rejects empty, missing, completed and dismissed quests", () => {
     expect(() => reduce({ ...state, quests: [{ ...quest, status }] }, { type: "edit-quest", id: "q", title: "New" })).toThrow();
   }
 });
+
+it("edits duration while preserving provenance and rejects invalid durations", () => {
+  const state = { ...initialState(), quests: [quest] };
+  const result = reduce(state, { type: "edit-quest", id: "q", title: "Original", minutes: 5 });
+  expect(result.quests[0]).toEqual({ ...quest, minutes: 5 });
+  for (const minutes of [0, 121, 1.5, NaN]) {
+    expect(() => reduce(state, { type: "edit-quest", id: "q", title: "Original", minutes })).toThrow("Duration");
+  }
+});

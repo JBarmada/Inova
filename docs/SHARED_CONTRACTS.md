@@ -75,7 +75,7 @@ The floating controls follow the toy/menu in layout. Opening the toy hides its s
 
 ## Editing quest and memory text
 
-Quest titles can be edited until completion or dismissal; editing retains IDs, status, source evidence, and rewards. Memory edits retain the entry ID, date, permission, and quest link. A changed memory invalidates copied quest rationale and removes that memory source ID, matching the revocation/deletion cleanup boundary. Unchanged text preserves references.
+Quest titles and durations (1–120 whole minutes) can be edited until completion or dismissal; editing retains IDs, status, source evidence, and rewards. Memory edits retain the entry ID, date, permission, and quest link. A changed memory invalidates copied quest rationale and removes that memory source ID, matching the revocation/deletion cleanup boundary. Unchanged text preserves references.
 
 ## Local planner extension (build-out worktree)
 

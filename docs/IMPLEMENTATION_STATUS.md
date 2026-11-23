@@ -1,5 +1,10 @@
 # Implementation Status and Handoff
 
+## Editable quest duration — November 23, 2026
+
+The main quest editor now changes the estimated duration as well as the title, limited to whole minutes from 1 to 120. Proposed, accepted and deferred quests remain editable; completed and dismissed quests remain terminal. Editing preserves the planner rationale, source IDs, status, and reward records. `npm run check` passed 91 tests, size/type checks and the production build; Windows release compilation passed. Native UI and Mac remain pending.
+
+
 ## Windows startup measurements — November 23, 2026
 
 Three sequential isolated release launches used the fictional `com.inova.buildout.verify` profile and fresh startup-diagnostic writes. Process launch to diagnostic detection (100 ms polling) took 996, 791, and 771 ms. Renderer navigation to UI-ready effect took 199, 162, and 171 ms; save initialization took 33, 28, and 27 ms, and window initialization took 99, 70, and 72 ms. The processes closed normally after measurement. The reported 30-second delay did not reproduce in this small warm-launch sample. These runs used hidden test windows; they do not prove first visible frame, loader visuals, a cold machine boot, development startup, or Mac behavior. No bottleneck fix is claimed. Use the existing diagnostic on an affected launch and compare the process/navigation phases before attributing a cause.

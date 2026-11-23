@@ -37,3 +37,5 @@ November 23: main-page quests now expose the commitment and currently permitted 
 November 23: sample proposals now reject stale, deleted, or newly private reflection context before saving. `npm run check` passed 90 tests and Windows release compilation passed; native UI and Mac remain pending.
 
 November 23: three sequential Windows release test launches reached a fresh diagnostic in 996/791/771 ms; renderer UI-ready was 199/162/171 ms. Warm hidden-window sample only; first visible frame, cold boot, dev startup, and Mac are still unverified. No 30-second delay reproduced.
+
+November 23: quest editing now includes a validated duration of 1–120 whole minutes. `npm run check` passed 91 tests and Windows release compilation passed; native UI and Mac remain pending.

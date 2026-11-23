@@ -34,9 +34,10 @@ function apply(state: AppState, action: Action): AppState {
     case "edit-quest": {
       const title = action.title.trim();
       if (!title || title.length > 4000) throw Error("Quest title must contain 1–4000 characters.");
+      if (action.minutes !== undefined && (!Number.isInteger(action.minutes) || action.minutes < 1 || action.minutes > 120)) throw Error("Duration must be 1–120 whole minutes.");
       const quest = state.quests.find((entry) => entry.id === action.id);
       if (!quest || quest.status === "completed" || quest.status === "dismissed") throw Error("This quest cannot be edited.");
-      return { ...state, quests: state.quests.map((entry) => entry.id === action.id ? { ...entry, title } : entry) };
+      return { ...state, quests: state.quests.map((entry) => entry.id === action.id ? { ...entry, title, minutes: action.minutes ?? entry.minutes } : entry) };
     }
     case "quest-status": return changeQuestStatus(state, action);
     case "complete-quest": return completeQuest(state, action.id, action.completedAt);
