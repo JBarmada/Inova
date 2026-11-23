@@ -4,14 +4,15 @@ import type { AppState, Commitment, Quest } from "../shared/schema";
 import { newId } from "../shared/actions";
 import { suggestedDetails, type SuggestedDetails } from "./suggestedDetails";
 import { planningMemories } from "./planningMemories";
+import { detailsMayBeMissing } from "./detailsMayBeMissing";
 
 const resultSchema = z.object({ title: z.string().trim().min(1).max(240),
   reason: z.string().trim().min(1).max(1000), minutes: z.number().int().min(1).max(120),
-  deadlineLocal: z.string().max(32).optional(), deadlineEvidence: z.string().max(240).optional(),
+  deadlineLocal: z.string().max(32).optional(), deadlineDate: z.string().max(10).optional(), deadlineEvidence: z.string().max(240).optional(),
   effortMinutes: z.number().int().optional(), effortEvidence: z.string().max(240).optional() }).strict();
 export type MemorySnapshot = { id: string; text: string };
 
-export async function proposeLocal(commitment: Commitment, state: AppState, call = invoke): Promise<{ quest: Quest; memorySnapshot: MemorySnapshot[]; details: SuggestedDetails }> {
+export async function proposeLocal(commitment: Commitment, state: AppState, call = invoke): Promise<{ quest: Quest; memorySnapshot: MemorySnapshot[]; details: SuggestedDetails; detailsWarning: boolean }> {
   const memorySnapshot = planningMemories(commitment.title, state.memories)
     .map(({ id, text }) => ({ id, text }));
   if (call === invoke && !isTauri()) throw Error("Local AI requires the desktop app. The sample planner is available here.");
@@ -27,7 +28,9 @@ export async function proposeLocal(commitment: Commitment, state: AppState, call
   if (commitment.effortMinutes && result.data.minutes > commitment.effortMinutes) throw Error("Local AI suggested longer than the estimated total effort. Try again or use the sample planner.");
   const { title, reason, minutes, ...suggestions } = result.data;
   const details = suggestedDetails(commitment.title, suggestions);
-  return { memorySnapshot, details, quest: { title, reason, minutes, id: newId(), commitmentId: commitment.id,
+  const detailsWarning = !!((suggestions.deadlineLocal || suggestions.deadlineDate) && !details.deadlineLocal && !details.deadlineDate) ||
+    !!(suggestions.effortMinutes && !details.effortMinutes) || detailsMayBeMissing(commitment.title, details);
+  return { memorySnapshot, details, detailsWarning, quest: { title, reason, minutes, id: newId(), commitmentId: commitment.id,
     sourceIds: [commitment.id, ...memorySnapshot.map((memory) => memory.id)], status: "proposed", planner: "local" } };
 }
 

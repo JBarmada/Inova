@@ -19,7 +19,7 @@ export function QuestComposer({ state, compact = false }: { state: AppState; com
     setBusy(true); setMessage("Thinking…");
     try {
       const result = await prepareQuest(text, state);
-      if (result.details?.deadlineLocal || result.details?.effortMinutes) { setMessage(""); setDraft(result); }
+      if (result.detailsWarning || result.details?.deadlineLocal || result.details?.deadlineDate || result.details?.effortMinutes) { setMessage(""); setDraft(result); }
       else await save(result);
     } catch (error) { setMessage(error instanceof Error ? error.message : "Could not save. Please try again."); }
     finally { setBusy(false); }

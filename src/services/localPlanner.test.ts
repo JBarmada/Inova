@@ -97,3 +97,13 @@ it("sends the best matching permitted reflections and preserves their source IDs
   expect(JSON.parse(call.mock.calls[0][1].input).reflections.map((memory: { id: string }) => memory.id)).toEqual(["match", "m-c", "m-b"]);
   expect(result.quest.sourceIds).toEqual(["c", "match", "m-c", "m-b"]);
 });
+
+it("flags conflicting model details for user review", async () => {
+  const entry = { ...commitment, title: "Write by Friday at 5pm, two hours total" };
+  const call = vi.fn().mockResolvedValue(JSON.stringify({ title: "Begin", reason: "Start", minutes: 5,
+    deadlineLocal: "2026-11-29T17:00", deadlineDate: "2026-11-29", deadlineEvidence: "Friday at 5pm",
+    effortMinutes: 2, effortEvidence: "two hours" }));
+  const result = await proposeLocal(entry, initialState(), call as unknown as typeof invoke);
+  expect(result.details).toEqual({});
+  expect(result.detailsWarning).toBe(true);
+});

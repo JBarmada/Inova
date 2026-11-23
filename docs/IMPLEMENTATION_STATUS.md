@@ -1,5 +1,11 @@
 # Implementation Status and Handoff
 
+## Date-only quest intake and model checks — November 23, 2026
+
+A model-suggested date without a time now opens a review asking for a local time, or the user can clear the date. The app does not invent one. Recognizable missing or conflicting date/effort details also open a manual review, including for the sample fallback. Source-text matching plus simple weekday, clock-time and unit checks reject some mistakes, but they are not comprehensive and the user must review suggestions. This supersedes the earlier date-only limitation below.
+
+A direct fictional Gemma 3 12B trial extracted the date-only example and a separate date/time/effort example in about 31 and 22 seconds respectively. A 4B trial produced a wrong weekday and duration; those recognizable errors are rejected by the new checks. These few direct HTTP trials do not establish overall reliability or exercise the native UI. `npm run check` passed 154 tests, all 20 atlas checks and the frontend build; Windows `cargo check` passed after the Rust prompt change. Native visual review and Mac remain pending.
+
 ## Quest entry integration check — November 23, 2026
 
 A fictional automated test now exercises the single-entry path through a mocked local model response, detail review, saved commitment and proposal, source IDs, effort cap, and duplicate submission guard. `npm run check` passed 145 tests and all 20 atlas checks. This test does not replace a native UI run or prove live-model reliability.

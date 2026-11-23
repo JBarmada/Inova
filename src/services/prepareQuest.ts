@@ -3,8 +3,9 @@ import { newId, now } from "../shared/actions";
 import { proposeLocal, type MemorySnapshot } from "./localPlanner";
 import { proposeSample } from "./planner";
 import type { SuggestedDetails } from "./suggestedDetails";
+import { detailsMayBeMissing } from "./detailsMayBeMissing";
 
-type Proposal = { quest: Quest; memorySnapshot: MemorySnapshot[]; details?: SuggestedDetails };
+type Proposal = { quest: Quest; memorySnapshot: MemorySnapshot[]; details?: SuggestedDetails; detailsWarning?: boolean };
 type Planner = (commitment: Commitment, state: AppState) => Promise<Proposal>;
 
 export async function prepareQuest(text: string, state: AppState,
@@ -15,6 +16,6 @@ export async function prepareQuest(text: string, state: AppState,
   let result: Proposal;
   let fallback = false;
   try { result = await local(commitment, state); }
-  catch { result = await sample(commitment, state); fallback = true; }
+  catch { result = await sample(commitment, state); result.detailsWarning = detailsMayBeMissing(title); fallback = true; }
   return { commitment, ...result, fallback };
 }

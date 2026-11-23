@@ -27,3 +27,9 @@ it("labels the sample fallback and preserves atomicity if evidence changes", asy
   expect(changed.commitments).toHaveLength(0);
   expect(changed.quests).toHaveLength(0);
 });
+
+it("requests manual detail review when the sample fallback cannot extract them", async () => {
+  const result = await prepareQuest("Write by Friday for two hours", initialState(), async () => { throw Error("offline"); });
+  expect(result.fallback).toBe(true);
+  expect(result.detailsWarning).toBe(true);
+});

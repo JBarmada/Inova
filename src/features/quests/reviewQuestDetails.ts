@@ -10,3 +10,9 @@ export function reviewQuestDetails(draft: Draft, deadline: string, effort: strin
     commitment: { ...draft.commitment, deadline: deadlineFromLocal(deadline), effortMinutes: minutes },
     quest: { ...draft.quest, minutes: minutes ? Math.min(draft.quest.minutes, minutes) : draft.quest.minutes } };
 }
+
+export function dateOnlyDeadline(date: string, time: string): string {
+  if (!date) return "";
+  if (!time) throw Error("Add a deadline time, or clear the date.");
+  return `${date}T${time}`;
+}
