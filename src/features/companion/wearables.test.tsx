@@ -1,10 +1,13 @@
-import { describe, expect, it } from "vitest";
+import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { renderToStaticMarkup } from "react-dom/server";
 import { DogSprite } from "./DogSprite";
 import { dogArt, dogFrame } from "./dogArt";
 import { wearableAnchors } from "./wearableAnchors";
 import { wardrobeScenarios } from "../../shared/wardrobeScenarios";
 import { initialState } from "../../state/defaults";
+
+beforeEach(() => vi.stubGlobal("window", { matchMedia: () => ({ matches: true }) }));
+afterEach(() => vi.unstubAllGlobals());
 
 describe("wearable presentation and pose contracts", () => {
   it("renders every full outfit slot on every supported frame", () => {
@@ -41,7 +44,11 @@ describe("wearable presentation and pose contracts", () => {
     }
   });
   it("uses the actual mood frame for anchors and omits empty slots", () => {
-    expect(dogFrame("happy", "sitting")).toBe("happy");
+    expect(dogFrame("happy", "sitting")).toBe("sitting");
+    expect(dogFrame("tired", "sitting")).toBe("sitting-tired");
+    for (const frame of ["sitting-blink", "sitting-drowsy", "sitting-tired"] as const) {
+      expect(wearableAnchors(frame)).toEqual(wearableAnchors("sitting"));
+    }
     const empty = renderToStaticMarkup(<DogSprite state={initialState()} pose="sitting" />);
     expect(empty).not.toContain("data-slot=");
     const state = { ...initialState(), equipment: wardrobeScenarios[2].equipment };

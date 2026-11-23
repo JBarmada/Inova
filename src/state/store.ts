@@ -7,6 +7,7 @@ import { reduce } from "./reducer";
 
 let state = initialState();
 let queue: Promise<void> = Promise.resolve();
+let stopping = false;
 const listeners = new Set<() => void>();
 
 export async function initialize(): Promise<void> {
@@ -14,6 +15,7 @@ export async function initialize(): Promise<void> {
 }
 
 export function dispatch(action: Action): Promise<void> {
+  if (stopping) return Promise.reject(Error("Inova is closing. Please wait."));
   const work = queue.catch(() => undefined).then(async () => {
     const next = reduce(state, action);
     await saveState(next);
@@ -32,3 +34,12 @@ function subscribe(listener: () => void): () => void {
 }
 
 export const useInova = () => useSyncExternalStore(subscribe, () => state);
+
+export function beginStateShutdown(): Promise<void> {
+  stopping = true;
+  return queue;
+}
+
+export function cancelStateShutdown(): void {
+  stopping = false;
+}

@@ -1,0 +1,12 @@
+{
+  "baseline": "2dd9b1e + only allow-destroy",
+  "pid": 38404,
+  "nativeCloseAttempts": [
+    {
+      "attempt": 1,
+      "elapsedSeconds": 0.06,
+      "processAlive": false,
+      "windowExists": false
+    }
+  ]
+}

@@ -29,6 +29,10 @@ Developer mode defaults off. Version-one saves without settings.devMode load it 
 
 The dog status summary is optional through the Settings Status bar toggle and defaults off, including for older saves. In floating mode, icons, developer controls, and enabled dog status reveal on dog hover or keyboard focus. Keep them reachable while moving into the controls and while Settings is open. Home mode keeps normal controls visible. Error feedback is separate from the optional dog status summary.
 
+## Application quit
+
+Use `quitDesktop()` for deliberate application exit. Floating Settings exposes Quit Inova; the native X routes through the same controller. `beginStateShutdown()` stops accepting new dispatches and returns the existing mutation queue. If native exit rejects, `cancelStateShutdown()` re-enables mutations. These are runtime lifecycle controls, not persisted fields. Shutdown waits at most three seconds for queued progress/placement work before requesting native process exit with the last saved state. Do not bypass the controller when adding another quit entry point.
+
 ## Quest lifecycle and reward agreement
 
 New quests are proposed. Proposed, deferred, or accepted quests can be accepted, deferred, or dismissed. Only accepted quests can complete. Completed and dismissed quests are terminal in the starter.

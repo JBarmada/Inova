@@ -1,0 +1,18 @@
+{
+  "baseline": "2dd9b1e",
+  "pid": 2012,
+  "nativeCloseAttempts": [
+    {
+      "attempt": 1,
+      "elapsedSeconds": 3.0,
+      "processAlive": true,
+      "windowExists": true
+    },
+    {
+      "attempt": 2,
+      "elapsedSeconds": 3.02,
+      "processAlive": true,
+      "windowExists": true
+    }
+  ]
+}

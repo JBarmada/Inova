@@ -37,3 +37,6 @@
 .bone-quest-box .eyebrow { margin: 0; color: #63705a; font-size: 9px; }
 .bone-quest-box h3 { margin: 8px 0 0; color: #302e28; font-size: 16px; }
 @media (prefers-reduced-motion: reduce) { .floating .hover-reveal { transition: none; } }
+
+.floating:has(.companion-settings) { min-height: 272px; }
+.quit-inova { width: 100%; margin-top: 10px; padding: 8px; border: 1px solid #9a8867; box-shadow: 1px 1px #d4c6a7; color: #803e35; font-size: 11px; }

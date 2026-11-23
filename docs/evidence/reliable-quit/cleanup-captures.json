@@ -1,0 +1,19 @@
+[
+  {
+    "variant": "app-exit",
+    "exitCode": 0,
+    "seconds": 0.047,
+    "stderr": "[1123/020951.905:ERROR:ui\\gfx\\win\\window_impl.cc:172] Failed to unregister class Chrome_WidgetWin_0. Error = 1412\n"
+  },
+  {
+    "variant": "window-teardown",
+    "exitCode": 0,
+    "seconds": 0.047,
+    "stderr": ""
+  },
+  {
+    "variant": "floating-settings-window-teardown",
+    "exitCode": 0,
+    "stderr": ""
+  }
+]

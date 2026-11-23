@@ -2,10 +2,13 @@ import { invoke, isTauri } from "@tauri-apps/api/core";
 import { availableMonitors, getCurrentWindow, LogicalSize, PhysicalPosition } from "@tauri-apps/api/window";
 import { FLOAT_HEIGHT, FLOAT_WIDTH, visiblePosition, type Bounds, type WindowLayout } from "./windowGeometry";
 import { readWindowLayout, writeWindowLayout } from "./windowLayoutStorage";
+import { createQuitController } from "./desktopQuit";
+import { beginStateShutdown, cancelStateShutdown } from "../state/store";
 
 let layout: WindowLayout = { version: 1 };
 let floating = false;
 let switching = false;
+let quitting = false;
 let operations = Promise.resolve();
 let timer: ReturnType<typeof setTimeout> | undefined;
 let initialized: Promise<void> | undefined;
@@ -15,18 +18,24 @@ async function capture(): Promise<Bounds> {
   const [position, size, scale, maximized] = await Promise.all([
     window.outerPosition(), window.innerSize(), window.scaleFactor(), window.isMaximized(),
   ]);
+  if (size.width <= 0 || size.height <= 0) {
+    const saved = layout[floating ? "floating" : "home"];
+    if (saved) return saved;
+    throw Error("Window placement is unavailable.");
+  }
   if (!floating && maximized && layout.home) return { ...layout.home, maximized };
   return { x: position.x, y: position.y, width: size.width / scale, height: size.height / scale, maximized };
 }
 
 async function remember(): Promise<void> {
   if (switching) return;
-  layout = { ...layout, [floating ? "floating" : "home"]: await capture() };
-  await writeWindowLayout(layout);
+  const next = { ...layout, [floating ? "floating" : "home"]: await capture() };
+  await writeWindowLayout(next);
+  layout = next;
 }
 
 function scheduleSave(): void {
-  if (switching) return;
+  if (switching || quitting) return;
   clearTimeout(timer);
   timer = setTimeout(() => { void enqueue(remember).catch(console.error); }, 180);
 }
@@ -64,19 +73,15 @@ async function startDesktop(): Promise<void> {
   const window = getCurrentWindow();
   await window.onMoved(scheduleSave);
   await window.onResized(scheduleSave);
-  let closing = false;
-  await window.onCloseRequested(async (event) => {
-    if (closing) return;
+  await window.onCloseRequested((event) => {
     event.preventDefault();
-    clearTimeout(timer);
-    try { await enqueue(remember); } catch (error) { console.error("Window placement could not be saved.", error); }
-    closing = true;
-    await window.close();
+    void quitDesktop().catch(console.error);
   });
 }
 
 export async function setPetMode(enabled: boolean): Promise<void> {
   if (!isTauri()) throw Error("Floating mode needs the desktop app. Run npm run desktop.");
+  if (quitting) throw Error("Inova is closing.");
   await initializeDesktop();
   return enqueue(async () => {
     if (floating === enabled) return;
@@ -84,8 +89,10 @@ export async function setPetMode(enabled: boolean): Promise<void> {
     const previous = await capture();
     layout = { ...layout, [floating ? "floating" : "home"]: previous };
     await writeWindowLayout(layout);
+    const scale = await getCurrentWindow().scaleFactor();
+    const cssToLogical = (globalThis.devicePixelRatio || scale) / scale;
     const target = enabled
-      ? { ...previous, ...layout.floating, width: FLOAT_WIDTH, height: FLOAT_HEIGHT, maximized: false }
+      ? { ...previous, ...layout.floating, width: Math.ceil(FLOAT_WIDTH * cssToLogical), height: Math.ceil(FLOAT_HEIGHT * cssToLogical), maximized: false }
       : layout.home ?? { ...previous, width: 1040, height: 780, maximized: false };
     switching = true;
     try {
@@ -104,7 +111,7 @@ export function fitFloatingHeight(height: number): Promise<void> {
 }
 
 export function fitFloatingSize(width: number, height: number): Promise<void> {
-  if (!isTauri()) return Promise.resolve();
+  if (!isTauri() || quitting) return Promise.resolve();
   return enqueue(async () => {
     if (!floating) return;
     const window = getCurrentWindow();
@@ -125,4 +132,20 @@ export function fitFloatingSize(width: number, height: number): Promise<void> {
       await invoke("resize_floating", { x: point.x, y: point.y, width: outer.width, height: outer.height });
     }
   });
+}
+
+const requestQuit = createQuitController({
+  flush: () => {
+    quitting = true;
+    clearTimeout(timer);
+    return beginStateShutdown();
+  },
+  savePlacement: () => enqueue(remember),
+  exit: () => invoke("quit_app"),
+  resume: () => { quitting = false; cancelStateShutdown(); },
+});
+
+export function quitDesktop(): Promise<void> {
+  if (!isTauri()) return Promise.reject(Error("Quit Inova is available in the desktop app."));
+  return requestQuit();
 }

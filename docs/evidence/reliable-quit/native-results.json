@@ -1,0 +1,60 @@
+[
+  {
+    "case": "native-home-X",
+    "pid": 37652,
+    "exited": true,
+    "seconds": 0.228
+  },
+  {
+    "case": "home-relaunch",
+    "geometry": {
+      "x": 640,
+      "y": 180,
+      "width": 1582,
+      "height": 1226
+    },
+    "progressUnchanged": true
+  },
+  {
+    "case": "floating-settings",
+    "quitVisible": true,
+    "quitBottom": 683.0,
+    "windowBottom": 760.0
+  },
+  {
+    "case": "floating-settings-quit",
+    "pid": 34700,
+    "exited": true,
+    "seconds": 0.178
+  },
+  {
+    "case": "floating-relaunch",
+    "savedX": 1049,
+    "savedY": 250,
+    "geometry": {
+      "x": 1049,
+      "y": 250,
+      "width": 720,
+      "height": 390
+    },
+    "progressUnchanged": true
+  },
+  {
+    "case": "floating-native-close",
+    "pid": 42728,
+    "exited": true,
+    "seconds": 0.13
+  },
+  {
+    "case": "locked-layout-save-failure",
+    "pid": 3756,
+    "exited": true,
+    "seconds": 0.133
+  },
+  {
+    "case": "minimized-native-close",
+    "pid": 17472,
+    "exited": true,
+    "seconds": 0.421
+  }
+]

@@ -33,7 +33,7 @@ export function PetPanel({ floating, onToyExpanded }: { floating: boolean; onToy
       <button className="primary" disabled={busy}>Adopt this dog</button></form>
       : state.settings.devMode && <div className="reactions hover-reveal" role="group" aria-label="Developer mood controls">{(["idle", "happy", "tired"] as const).map((mood) => <button key={mood} disabled={busy}
         onClick={() => void run(() => dispatch({ type: "mood", mood }), "")}>{mood}</button>)}</div>}
-    {state.pet.adopted && state.settings.showStatus && <PixelStatus text={`${state.pet.name} Â· ${state.pet.mood}`} hoverOnly={floating} />}
+    {state.pet.adopted && state.settings.showStatus && <PixelStatus text={`${state.pet.name} · ${state.pet.mood}`} hoverOnly={floating} />}
     {message && <PixelStatus text={message} />}
     {error && <p role="alert">{error}</p>}
   </section>;

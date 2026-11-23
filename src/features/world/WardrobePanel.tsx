@@ -4,10 +4,10 @@ import { useAction } from "../../shared/useAction";
 import { items } from "../../shared/catalog";
 import { DogSprite } from "../companion/DogSprite";
 import { wearableSlots } from "../../shared/equipment";
-import { itemById } from "../../shared/catalog";
 import { ItemGlyph } from "./ItemGlyph";
 import { WardrobeLab } from "./WardrobeLab";
 import { WardrobeIcon } from "./WardrobeIcon";
+import { OutfitStrip } from "./OutfitStrip";
 import { WardrobeFilters, WardrobePoses, type PreviewPose, type WardrobeFilter } from "./WardrobeToolbar";
 import { playCue } from "../../services/audio";
 import "../../styles-wardrobe.css";
@@ -17,20 +17,13 @@ export function WardrobePanel() {
   const { run, busy, message } = useAction();
   const [pose, setPose] = useState<PreviewPose>("standing");
   const [filter, setFilter] = useState<WardrobeFilter>("all");
-  return <section aria-label="Wardrobe"><div className="wardrobe-heading"><h2>Wardrobe</h2>
-    <button className="wardrobe-icon-button" aria-label="Clear outfit" title="Clear outfit"
-      disabled={busy || !Object.values(state.equipment).some(Boolean)}
-      onClick={() => void run(() => dispatch({ type: "equip", item: null }), "Outfit cleared.")}><WardrobeIcon kind="clear" /></button></div>
+  return <section aria-label="Wardrobe"><div className="wardrobe-heading"><h2>Wardrobe</h2></div>
     <WardrobeFilters filter={filter} onFilter={(value) => { setFilter(value); playCue("click", state.settings.muted); }} />
     <div className="wardrobe-preview"><DogSprite state={{ ...state, pet: { ...state.pet, mood: "idle" } }} pose={pose} />
       <WardrobePoses pose={pose} onPose={(value) => { setPose(value); playCue("click", state.settings.muted); }} /></div>
-    <div className="equipment-slots">{wearableSlots.map((slot) => {
-      const id = state.equipment[slot];
-      return <article key={slot}><span className="equipped-slot-icon" title={slot}><WardrobeIcon kind={slot} /></span>
-        <p>{id ? itemById(id).name : "Empty"}</p>
-        <button className="wardrobe-icon-button" aria-label={`Remove ${slot}`} title={`Remove ${slot}`}
-          disabled={busy || !id} onClick={() => void run(() => dispatch({ type: "unequip", slot }), `${slot} removed.`)}><WardrobeIcon kind="remove" /></button></article>;
-    })}</div>
+    <OutfitStrip state={state} busy={busy}
+      onRemove={(slot) => void run(() => dispatch({ type: "unequip", slot }), `${slot} removed.`)}
+      onClear={() => void run(() => dispatch({ type: "equip", item: null }), "Outfit cleared.")} />
     {wearableSlots.filter((slot) => filter === "all" || slot === filter).map((slot) => <section key={slot} className="wardrobe-category" aria-label={`${slot} items`}><h3>{slot}</h3>
       <div className="wardrobe">{items.filter((item) => item.slot === slot).map((item) => {
         const equipped = state.equipment[slot] === item.id;

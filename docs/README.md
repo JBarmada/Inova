@@ -4,6 +4,8 @@ Updated November 22, 2026. The repository now includes a shared starter as well 
 
 ## Start here
 
+- [Consolidated main and preserved worktrees](MAIN_CONSOLIDATION.md).
+
 - [AI context](AI_CONTEXT.md) — compact briefing for a teammate's assistant.
 - [Implementation status](IMPLEMENTATION_STATUS.md) — what exists, what is missing, and next steps.
 - [Repository contributor instructions](../AGENTS.md) and [team workflow](../CONTRIBUTING.md).

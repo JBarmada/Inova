@@ -6,11 +6,14 @@ const fake = vi.hoisted(() => ({
   maximized: false, decorated: true, resizable: true, onTop: false, scale: 1,
   saved: { version: 1 } as WindowLayout,
   rejectWrite: false,
+  quitCalls: 0,
+  onClose: undefined as undefined | ((event: { preventDefault: () => void }) => void),
   resizeCalls: [] as Array<{ x: number; y: number; width: number; height: number }>,
 }));
 
 vi.mock("@tauri-apps/api/core", () => ({ isTauri: () => true,
   invoke: async (command: string, bounds: { x: number; y: number; width: number; height: number }) => {
+    if (command === "quit_app") { fake.quitCalls++; return; }
     if (command !== "resize_floating") throw Error("Unexpected native command");
     fake.resizeCalls.push(bounds);
     fake.position = { x: bounds.x, y: bounds.y };
@@ -36,7 +39,7 @@ vi.mock("@tauri-apps/api/window", () => ({
     setSize: async (value: { width: number; height: number }) => { fake.size = { width: value.width * fake.scale, height: value.height * fake.scale }; },
     onMoved: async () => () => undefined,
     onResized: async () => () => undefined,
-    onCloseRequested: async () => () => undefined,
+    onCloseRequested: async (handler: typeof fake.onClose) => { fake.onClose = handler; return () => undefined; },
   }),
 }));
 vi.mock("./windowLayoutStorage", () => ({
@@ -51,6 +54,8 @@ beforeEach(() => {
   vi.unstubAllGlobals();
   vi.resetModules();
   fake.resizeCalls = [];
+  fake.quitCalls = 0;
+  fake.onClose = undefined;
   Object.assign(fake, { position: { x: 100, y: 80 }, size: { width: 1040, height: 780 },
     maximized: false, decorated: true, resizable: true, onTop: false, scale: 1, saved: { version: 1 }, rejectWrite: false });
 });
@@ -176,4 +181,38 @@ it("submits the floating move and resize together in one native update", async (
   expect(fake.resizeCalls).toEqual([{ x: 100, y: 80, width: 384, height: 600 }]);
   await desktop.fitFloatingSize(384, 600);
   expect(fake.resizeCalls).toHaveLength(1);
+});
+
+it("routes native X and Settings to the same saved, explicit native app exit", async () => {
+  const desktop = await import("./desktop");
+  await desktop.initializeDesktop();
+  const preventDefault = vi.fn();
+  fake.onClose?.({ preventDefault });
+  await desktop.quitDesktop();
+  expect(preventDefault).toHaveBeenCalledTimes(1);
+  expect(fake.quitCalls).toBe(1);
+  expect(fake.saved.home).toMatchObject({ x: 100, y: 80, width: 1040, height: 780 });
+});
+
+it("retains last valid placement when quitting from a minimized zero-size window", async () => {
+  fake.saved = { version: 1, home: { x: 250, y: 120, width: 900, height: 650, maximized: false } };
+  const desktop = await import("./desktop");
+  await desktop.initializeDesktop();
+  fake.size = { width: 0, height: 0 };
+  await desktop.quitDesktop();
+  expect(fake.quitCalls).toBe(1);
+  expect(fake.saved.home).toMatchObject({ x: 250, y: 120, width: 900, height: 650 });
+});
+
+it("restores floating placement at the current zoom without an extra recentering resize", async () => {
+  fake.scale = 1.5;
+  vi.stubGlobal("devicePixelRatio", 1.875);
+  fake.saved = { version: 1, floating: { x: 1050, y: 250, width: 480, height: 260, maximized: false } };
+  const desktop = await import("./desktop");
+  await desktop.setPetMode(true);
+  expect(fake.position).toEqual({ x: 1050, y: 250 });
+  expect(fake.size).toEqual({ width: 720, height: 390 });
+  await desktop.fitFloatingSize(384, 208);
+  expect(fake.position).toEqual({ x: 1050, y: 250 });
+  expect(fake.resizeCalls).toHaveLength(0);
 });

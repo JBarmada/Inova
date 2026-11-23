@@ -1,5 +1,15 @@
 # Implementation Status and Handoff
 
+## Consolidated main — November 23, 2026
+
+The primary project folder is now the `main` checkout. See [consolidation inventory](MAIN_CONSOLIDATION.md) for every worktree and the recovery checkpoint. Continue functional work here rather than in the old worktrees.
+
+Combined capabilities include the existing quest toy/navigation/window fixes, approved sit/breathing/seated tiredness, four-slot wardrobe with v1-to-v2 save migration and compact outfit controls, native X/Settings quit with bounded save draining, and a startup loading screen with phase feedback, delayed retry, and local timing diagnostics. Clothing uses seated anchors for every seated face and follows inhalation without moving socks. Clothing art remains provisional. The v36 loaf preview is preserved for review; its runtime timer remains disabled.
+
+Fresh consolidation verification: `npm run check` passed size checks for 82 source files, TypeScript, all 65 tests in 14 files, and the production frontend build. `npm run tauri build -- --no-bundle` passed and produced `src-tauri/target/release/inova.exe` in this folder. No fresh native UI walkthrough or Mac compilation/runtime was performed. Earlier native quit evidence is preserved in [reliable-quit](evidence/reliable-quit/README.md); those captures predate this consolidation.
+
+The notes below include historical checkpoints; the consolidated status above takes precedence.
+
 ## Approved seated tiredness - November 23
 
 The user approved v35. Mood changes now preserve the local seated pose; tiredness plays the reviewed eye-only sequence, then holds tired sitting with grounded breathing. Pose commands retain the shared mood. Happy sitting currently uses the approved neutral seated face plus sparkle, pending its expression review. Breathing phase continues across seated face frames. No persisted schema change.
@@ -18,7 +28,7 @@ The user's next requested hierarchy is not silently treated as delivered: seated
 
 Shared starter checkpoint: November 22, 2026. Three builders; Windows and Mac; deadline December 1. Inspect current code before relying on this checkpoint after later changes.
 
-Main integration checkpoint: November 23, 2026. The user approved the reviewed companion/toy/navigation work through bac64bc for main. This integration preserves the original dirty checkout, the separate Pocket Pup drafts, and the separate frame-fix worktree. The user subsequently approved integrating the captured/verified frame fix; main now reserves a stable floating canvas width and includes its evidence. Local main checkout: `.worktrees/main-integration` under the project folder; teammates use the normal GitHub main branch.
+Main integration checkpoint: November 23, 2026. The user approved the reviewed companion/toy/navigation work through bac64bc for main. This integration preserves the original dirty checkout, the separate Pocket Pup drafts, and the separate frame-fix worktree. The user subsequently approved integrating the captured/verified frame fix; main now reserves a stable floating canvas width and includes its evidence. That checkpoint used `.worktrees/main-integration`; main now lives in the primary project folder.
 
 ## Implemented starter
 

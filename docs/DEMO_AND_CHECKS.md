@@ -39,6 +39,10 @@ Pocket Pup: adopt, wait eight seconds for the approved tuck/sit, replay Sit/Stan
 | Item is equipped on a supported pose | Layer order and attachment points remain correct |
 | A memory entry is long | Text remains readable and navigation back to the shelf works |
 | App is restarted | Restore the adopted dog, equipment, unlocks, and saved memories |
+| Native home-window X is clicked | Fully exit the app process; relaunch with saved progress and home placement |
+| Floating Settings > Quit Inova is clicked | Button is visible/reachable; fully exit and retain progress plus home/floating placement |
+| Placement save fails or its queue stalls during quit | Exit with the last saved data after at most the three-second save-wait deadline; do not reset records |
+| Window is minimized before quitting | Keep valid saved home bounds rather than zero-sized/off-screen minimized geometry |
 
 ## Evaluation approach
 

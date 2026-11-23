@@ -16,6 +16,6 @@ export function DogSprite({ state, pose = "standing" }: { state: AppState; pose?
     <img className="dog-base" src={failed ? "/inova.svg" : breathing.src} width={64} height={64}
       alt={failed ? "Dog artwork unavailable. Please reload." : ""} draggable={false} onError={() => setFailed(true)} />
     {!failed && <WearableLayers equipment={state.equipment} frame={frame} peak={breathing.peak} />}
-    {state.pet.mood === "happy" && <span className="spark" aria-hidden="true">Ã¢Å“Â¦</span>}
+    {state.pet.mood === "happy" && <span className="spark" aria-hidden="true">✦</span>}
   </div>;
 }

@@ -33,6 +33,12 @@ Feature UI dispatches an Action. The shared store applies the pure reducer, vali
 
 Use `useInova()` to read state and `dispatch(action)` to change it. Use the shared `useAction()` helper for waiting and visible success/error feedback. Do not create separate inventory, pet, or memory copies in feature folders.
 
+## Shutdown
+
+Native X and floating Settings call `quitDesktop()` in services/desktop.ts. The shared controller stops new state mutations, drains the existing persistence queue, and attempts a final queued placement save with a combined three-second deadline. On save failure or timeout it exits with the last persisted data; it cannot promise completion of an unsaved mutation against a stalled disk. Existing saved progress is not reset. A native exit failure resumes mutation access and permits retry.
+
+The main-window-only Rust quit_app command destroys the native window after saving, allowing WebView2 cleanup before Tauri's default last-window process exit. This avoids the Windows Chromium class-unregistration warning reproduced with AppHandle.exit(0). The app currently has one window; Mac runtime remains unverified. The frontend close event is always prevented and routed here: it never recursively calls window.close() or relies on Tauri's onCloseRequested helper subsequently invoking permission-gated destroy(). No general process-exit plugin or additional window-destroy capability is exposed.
+
 ## Shared ownership
 
 The companion developer is the initial integration owner for App.tsx, native configuration, window controls, package dependencies, and shared styles. The quest developer owns quest domain rules and the planner. The world developer owns the item catalog and memory UI. Changes to schemas, action types, storage, or the shared reducer require coordination with the affected developers.
@@ -43,7 +49,7 @@ The integration role is a merge responsibility, not a claim that this person mus
 
 Transparency does not imply click-through. Transparent padding can still intercept desktop clicks; selective click-through and full-screen/virtual-desktop behavior need platform testing and further work. Home and floating placement are saved independently in window-layout.json, including normal home size and maximized state. Move/resize events are debounced and placement is saved before mode switches and graceful close. Startup restores home geometry; entering floating mode restores its separate remembered position.
 
-Floating mode starts at 248 by 208 logical pixels and fits its height to actual content. A dedicated stylesheet removes page scrollbars only in floating mode. The quest popup remains within the floating width and joins the layout while open; exceptionally long popup text may scroll inside its own panel. Remembered window positions are clamped back to an available monitor work area if necessary. Home mode retains ordinary page scrolling.
+Floating mode reserves a stable 384 by 208 CSS pixel canvas and fits its height to actual content, including floating Settings. CSS sizes are converted to logical native units using webview zoom and OS scale on both mode entry and content fitting. A dedicated stylesheet removes page scrollbars only in floating mode. The quest popup remains within the floating width and joins the layout while open; exceptionally long popup text may scroll inside its own panel. Remembered window positions are clamped back to an available monitor work area if necessary. Home mode retains ordinary page scrolling.
 
 The sample planner is deterministic and includes only explicitly allowed memories in its context. There is no AI request, model credential, RAG index, or background scheduler. Future live requests belong behind a Rust command/provider boundary, not a secret exposed through VITE_ variables.
 

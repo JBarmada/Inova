@@ -4,7 +4,7 @@ Review-only v36 on `codex/loaf-transition-review`: original grid-authored lower/
 
 Approved v35: seated blink/drowsy/tiredness derives from approved v26 with original edits confined to two eye regions. No new external artwork. Exact non-eye/alpha pixels checked. Runtime copies live under `public/dog/sitting-*.png`; breathing variants combine these eye edits with approved v34 seated breathing. Exporter records source paths and hashes and checks fixed alpha/paw rows. Historical v35 review-only notes describe its pre-approval state.
 
-## Integrated Pocket Pup assets â€” November 23
+## Integrated Pocket Pup assets — November 23
 
 `public/dog/manifest.json` records source filenames and SHA-256 hashes. Approved neutral/tuck/sit are exact copies of v32's three PNGs; happy/tired/bandana come from the existing reference sheet. Twelve breathing PNGs copy the approved v34 study exactly. Paws remain fixed; the native head artwork is not rescaled. Canvas is 64 by 64, binary RGBA, enlarged with nearest-neighbor only. `tools/export_runtime_art.py` rebuilds these files and validates source copies/grounded paw rows.
 
@@ -12,7 +12,7 @@ All dog art derives from the selected project concept and original project pixel
 
 Breathing is now approved for runtime use; historical v34 notes saying preview-only describe its pre-approval state. Other rejected studies and unapproved rest-chain clips are not runtime assets.
 
-Asset checklist and provenance record. The starter includes original placeholder dog art, simple CSS equipment shapes, generated app icons, and synthesized click/reward tones. Final artwork, recorded sounds, counts, dimensions, and animation conventions remain to be agreed.
+The consolidated app uses selected Pocket Pup runtime sprites, provisional original SVG wearable markers, generated app icons, and synthesized cues. The original placeholder dog remains as an image-load fallback; final garment art and recorded sounds remain unfinished.
 
 ## Initial visual needs
 

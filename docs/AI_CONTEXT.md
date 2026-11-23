@@ -6,9 +6,8 @@ Inova is a SCOPE club final project for the theme Evolve. It is an evolving pixe
 
 ## Established team direction
 
-Current animation review: [TRANSITION_TABLE.md](TRANSITION_TABLE.md) covers posture/mood combinations, routes, deadline cancellation, and queued clips. Main `b187094` has approved sit/breathing. Review v35 seated tiredness before implementing it; then review seven-second loaf entry and sit-to-stand separately. A mood update must preserve body posture.
+Current functional checkout: the primary project folder on `main`; see [consolidation inventory](MAIN_CONSOLIDATION.md). Existing worktrees are preserved snapshots. Approved v32 sit, v34 breathing, and v35 seated tiredness are integrated alongside four-slot wardrobe, reliable quit, and startup feedback. Mood changes preserve posture. The v36 loaf clip is review-only; its seven-second runtime timer and animated sit-to-stand remain unfinished. See [TRANSITION_TABLE.md](TRANSITION_TABLE.md).
 
-Approved Pocket Pup v32 sit motion and v34 grounded breathing are integrated with the latest main UI/toy work. See [POCKET_PUP_INTEGRATION.md](POCKET_PUP_INTEGRATION.md). Posture/mood hierarchy, seven-second tired-sit â†’ loaf, and animated sit â†’ stand are the next scenarios, each requiring a visible preview and user review before proceeding.
 - UI controls should use recognizable icons where text labels can be replaced clearly, with accessible names/tooltips and keyboard focus. Wardrobe uses a hanger destination icon, T-shirt body category, five inventory filters, top clear-outfit icon, and only side-by-side human Stand/Sit pose controls. These project-wide interface rules are recorded in AGENTS.md.
 
 - Functional wardrobe has four simultaneous worn slots: hat, glasses, socks, body. See [WARDROBE_SPEC.md](WARDROBE_SPEC.md) for schema v2 migration, developer fixtures, placeholder anchors, and future world limits. Future world items: three toys, one or two scenery changers (undecided), one background; not implemented.

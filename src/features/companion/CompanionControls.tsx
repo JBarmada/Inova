@@ -4,6 +4,7 @@ import { useAction } from "../../shared/useAction";
 import { playCue } from "../../services/audio";
 import { PixelIcon } from "./PixelIcon";
 import { PixelStatus } from "./PixelStatus";
+import { quitDesktop } from "../../services/desktop";
 
 export function CompanionControls({ onHome, onFloat, disabled, floating }: { onHome: () => void; onFloat?: () => void; disabled: boolean; floating: boolean }) {
   const state = useInova();
@@ -39,6 +40,8 @@ export function CompanionControls({ onHome, onFloat, disabled, floating }: { onH
         onChange={(event) => void run(() => dispatch({ type: "dev-mode", enabled: event.target.checked }), "")} /></label>
       <label className="setting-row"><span>Status bar</span><input type="checkbox" checked={state.settings.showStatus} disabled={busy}
         onChange={(event) => void run(() => dispatch({ type: "status-bar", enabled: event.target.checked }), "")} /></label>
+      {floating && <button className="quit-inova" type="button" disabled={busy || disabled} aria-busy={busy}
+        onClick={() => { playCue("click", state.settings.muted); void run(quitDesktop, ""); }}>Quit Inova</button>}
       {message && <PixelStatus text={message} />}
     </section>}
   </div>;
