@@ -1,0 +1,25 @@
+.wardrobe-preview { display: flex; align-items: center; gap: 24px; flex-wrap: wrap; }
+.wardrobe-heading { display: flex; align-items: center; justify-content: space-between; gap: 16px; }
+.wardrobe-filters, .wardrobe-poses { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+.wardrobe-filters { margin-bottom: 12px; }
+.wardrobe-icon-button { display: inline-grid; place-items: center; width: 44px; height: 44px; padding: 8px; flex: 0 0 auto; }
+.wardrobe-icon-button[aria-pressed="true"] { background: #d6e6bd; border-color: #6a7f4c; box-shadow: inset 0 0 0 2px #93a875; }
+.wardrobe-icon-button:focus-visible { outline: 3px solid #6a7f4c; outline-offset: 3px; }
+.equipped-slot-icon { display: inline-flex; color: #77674d; }
+.equipment-slots { display: grid; grid-template-columns: repeat(auto-fit, minmax(155px, 1fr)); gap: 12px; margin: 20px 0; }
+.equipment-slots article { border: 2px solid #c5b795; padding: 12px; background: #fff8e8; }
+.equipment-slots h3, .wardrobe-category > h3 { text-transform: capitalize; }
+.equipment-slots p { min-height: 28px; }
+.wardrobe-category { border-top: 1px dashed #b6aa8d; margin-top: 20px; }
+.wardrobe-category .wardrobe { margin: 12px 0 24px; align-items: stretch; }
+.wardrobe-category article { padding: 14px; background: #fff8e8; max-width: 330px; border: 1px solid #d4c6a7; }
+.item-glyph { display: block; width: 36px; height: 36px; }
+.item-glyph svg { display: block; width: 100%; height: 100%; }
+.wardrobe-lab { border: 2px dashed #9a8867; margin-top: 24px; padding: 16px; }
+.wardrobe-lab summary { cursor: pointer; font-weight: bold; }
+.wardrobe-scenarios { display: grid; gap: 20px; }
+.wardrobe-scenarios article { border-top: 1px dashed #b6aa8d; padding-top: 16px; }
+.scenario-poses { display: flex; flex-wrap: wrap; gap: 12px; }
+.scenario-poses figure { margin: 0; text-align: center; }
+.scenario-poses .dog { width: 128px; height: 128px; }
+.scenario-poses figcaption { font-size: 12px; margin: 6px 0; }

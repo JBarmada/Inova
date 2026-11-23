@@ -12,3 +12,5 @@
 .floating .pose-controls { margin-bottom: 4px; }
 .floating .pose-controls button { padding: 4px 10px; font-size: 12px; min-width: 80px; }
 .floating:has(.pose-controls:hover) .hover-reveal { opacity: 1; visibility: visible; pointer-events: auto; transition-delay: 0s; }
+
+.wearable-layers { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; }

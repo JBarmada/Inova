@@ -1,4 +1,6 @@
 import type { Commitment, ItemId, Memory, Quest, AppState } from "./schema";
+import type { WearableSlot } from "./equipment";
+import type { WardrobeScenarioId } from "./wardrobeScenarios";
 
 export type Action =
   | { type: "adopt"; name: string }
@@ -11,6 +13,8 @@ export type Action =
   | { type: "quest-status"; id: string; status: "accepted" | "deferred" | "dismissed" }
   | { type: "complete-quest"; id: string }
   | { type: "equip"; item: ItemId | null }
+  | { type: "unequip"; slot: WearableSlot }
+  | { type: "wardrobe-scenario"; id: WardrobeScenarioId }
   | { type: "add-memory"; memory: Memory }
   | { type: "memory-permission"; id: string; allowed: boolean }
   | { type: "delete-memory"; id: string };

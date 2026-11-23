@@ -16,6 +16,8 @@ Sad and tired are expressive states. Their triggers remain a design choice; they
 
 Compose a base dog and expression with separate wearable and prop layers. Possible slots include headwear, body clothing, accessories, and a nearby prop.
 
+Confirmed November 23: wear one hat, one pair of glasses, one set of socks, and one body item simultaneously. The functional [wardrobe specification](WARDROBE_SPEC.md) uses pose-anchored placeholder markers for now. Future world capacity is up to three toys, one or two object/terrain changers (exact limit open), and one background; these are separate from worn items and are not implemented.
+
 A user might combine a default dog, a happy expression, a hat, and a notebook. Reuse these assets rather than drawing or generating a complete image for every combination.
 
 # Asset compatibility

@@ -17,6 +17,17 @@
 - Give implemented user actions appropriate visual feedback and sound when enabled. Preserve meaning with sound muted.
 - Keep optional zombie/skeleton and revival mechanics exploratory until the team chooses their triggers.
 
+## Interface rules
+
+- Prefer a recognizable icon when it can replace a short action/navigation label without losing meaning. Keep an accessible name and hover tooltip on every icon-only control.
+- Keep item names, user content, meaningful explanations, and errors as readable text. Do not replace essential meaning with an ambiguous unlabeled symbol.
+- Use a consistent pixel-style icon family, visible keyboard focus, and at least 44 by 44 CSS pixels for new main-page icon buttons. Selection must be visible with sound muted and exposed through aria-pressed or aria-current.
+- Wardrobe navigation is a hanger; the body clothing category is a T-shirt. Keep category and destination icons visually distinct.
+- Wardrobe filters are five icons: four-square All items, hat, glasses, socks, T-shirt. A category filters the inventory list without changing the currently worn outfit.
+- Put Clear outfit at the top beside the Wardrobe heading, with a suitable remove-clothing icon. It removes worn items, not ownership.
+- Wardrobe exposes only Stand and Sit, side by side as human pose icons. Keep draft transition/debug choices out of the normal pose picker.
+- Keep implementation notes and placeholder explanations in developer areas/docs rather than adding them to everyday product screens.
+
 ## Code size limits
 
 - Strictly limit each authored code file to at most 250 lines of code, excluding blank lines and comment-only lines.

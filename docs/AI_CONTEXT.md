@@ -8,7 +8,10 @@ Inova is a SCOPE club final project for the theme Evolve. It is an evolving pixe
 
 Current animation review: [TRANSITION_TABLE.md](TRANSITION_TABLE.md) covers posture/mood combinations, routes, deadline cancellation, and queued clips. Main `b187094` has approved sit/breathing. Review v35 seated tiredness before implementing it; then review seven-second loaf entry and sit-to-stand separately. A mood update must preserve body posture.
 
-Approved Pocket Pup v32 sit motion and v34 grounded breathing are integrated with the latest main UI/toy work. See [POCKET_PUP_INTEGRATION.md](POCKET_PUP_INTEGRATION.md). Posture/mood hierarchy, seven-second tired-sit → loaf, and animated sit → stand are the next scenarios, each requiring a visible preview and user review before proceeding.
+Approved Pocket Pup v32 sit motion and v34 grounded breathing are integrated with the latest main UI/toy work. See [POCKET_PUP_INTEGRATION.md](POCKET_PUP_INTEGRATION.md). Posture/mood hierarchy, seven-second tired-sit â†’ loaf, and animated sit â†’ stand are the next scenarios, each requiring a visible preview and user review before proceeding.
+- UI controls should use recognizable icons where text labels can be replaced clearly, with accessible names/tooltips and keyboard focus. Wardrobe uses a hanger destination icon, T-shirt body category, five inventory filters, top clear-outfit icon, and only side-by-side human Stand/Sit pose controls. These project-wide interface rules are recorded in AGENTS.md.
+
+- Functional wardrobe has four simultaneous worn slots: hat, glasses, socks, body. See [WARDROBE_SPEC.md](WARDROBE_SPEC.md) for schema v2 migration, developer fixtures, placeholder anchors, and future world limits. Future world items: three toys, one or two scenery changers (undecided), one background; not implemented.
 
 - Pixel dog art, with a small selection of adoptable base dogs as the desired experience.
 - A game-like adoption center and lightweight wardrobe-style picker.

@@ -42,6 +42,8 @@ Pocket Pup: adopt, wait eight seconds for the approved tuck/sit, replay Sit/Stan
 
 ## Evaluation approach
 
+For the implemented four-slot wardrobe, use the [isolated fictional test workflow](WARDROBE_SPEC.md#try-it-locally). Check four worn items together, a replacement within one slot, removing one slot, clearing all equipment, reload persistence, locked items, old-save migration, all three pose anchors, and muted feedback. Developer scenarios must not fabricate quest completion records. Future world limits are documented separately and have no implementation acceptance claim yet.
+
 Check deterministic rules with code when implemented. Review usefulness, clarity, and warmth with humans. Repeat difficult model-dependent scenarios and preserve failures for regression checking. Compare revisions on the same inputs.
 
 A working demo establishes the demonstrated behavior. It does not establish improvements in grades, wellbeing, sleep, or long-term retention.
