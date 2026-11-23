@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useInova, dispatch } from "../../state/store";
 import { useAction } from "../../shared/useAction";
 import { CommitmentForm } from "./CommitmentForm";
+import { ExplorationIdeas } from "./ExplorationIdeas";
 import { formatDeadline } from "./commitmentDetails";
 import { checkLocalModel, proposeLocal } from "../../services/localPlanner";
 import { proposeSample } from "../../services/planner";
@@ -35,6 +36,7 @@ export function QuestsPanel() {
       <option value="15">15 minutes</option><option value="30">30 minutes</option><option value="60">60 minutes</option>
     </select></label><p>This limit applies to new suggestions; you can still edit a quest yourself.</p>
     <CommitmentForm adopted={state.pet.adopted} />
+    <ExplorationIdeas />
     {!state.pet.adopted && <p>Adopt your dog before beginning quests.</p>}
     {state.commitments.map((entry) => <div className="commitment" key={entry.id}><span>{entry.title}{entry.deadline && <> · Due {formatDeadline(entry.deadline)}</>}{entry.effortMinutes && <> · {entry.effortMinutes} min estimated total</>}</span>
       <div className="actions"><button disabled={busy} onClick={() => void run(async () => {

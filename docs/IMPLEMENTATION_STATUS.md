@@ -1,5 +1,11 @@
 # Implementation Status and Handoff
 
+## On-demand exploration ideas — November 23, 2026
+
+Quests offers a month-labeled sample idea based on a user-entered interest, available minutes, and challenge. It does not inspect calendars, infer interests, call AI, or generate ideas automatically each month. The user chooses whether to add the idea as a proposed quest; its commitment and quest save together, subject to the current suggestion-length limit.
+
+`npm run check` passed 116 tests, source-size and type checks, and the production build; isolated Windows release compilation passed. In a fictional native profile with a five-minute limit, a watercolor idea displayed five minutes and was added as a proposed quest. Mac remains pending.
+
 ## Live constrained 4B recheck — November 23, 2026
 
 After the response-boundary and preference changes, the isolated Windows app used the local Gemma 3 4B model with a five-minute maximum on the fictional commitment “Practice a fictional project outline.” The structured proposal was five minutes and saved successfully. Its instruction to review an outline's structure arguably assumes an existing outline that was not supplied, so grounding remains a real concern despite valid JSON and duration. This is a single additional trial, not evidence of reliable model behavior. The temporary service was stopped afterward.

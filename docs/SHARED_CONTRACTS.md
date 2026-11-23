@@ -51,6 +51,10 @@ A proposed quest must refer to an existing commitment. Additional evidence IDs m
 
 To add live AI, extend the planner label deliberately, define validated response fields, and route credentials/network access through the desktop core. Do not move model secrets into frontend environment variables or claim a successful provider connection before checking it.
 
+## Exploration ideas
+
+The optional on-demand sample idea uses only the interest, available time, and challenge entered in its form. Saving dispatches `add-exploration`, which atomically creates a commitment and a proposed sample quest, validates their relationship and the current suggestion-length limit, and leaves acceptance and rewards to the usual quest rules. It does not consult a calendar or schedule an automatic recurring suggestion.
+
 ## Memory boundary
 
 Entries default to excluded from personalization. Include only entries with aiAllowed true when constructing model context. The current starter stores no generated summaries or retrieval index.

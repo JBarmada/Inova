@@ -12,6 +12,7 @@ export type Action =
   | { type: "local-model"; model: AppState["settings"]["localModel"] }
   | { type: "quest-minute-limit"; minutes: number }
   | { type: "add-commitment"; commitment: Commitment }
+  | { type: "add-exploration"; commitment: Commitment; quest: Quest }
   | { type: "propose-quest"; quest: Quest; memorySnapshot?: { id: string; text: string }[] }
   | { type: "edit-quest"; id: string; title: string; minutes?: number }
   | { type: "quest-status"; id: string; status: "accepted" | "deferred" | "dismissed" }
