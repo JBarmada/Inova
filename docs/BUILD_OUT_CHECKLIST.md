@@ -134,3 +134,5 @@ November 23: the seven-day recap sorts recent completions newest first and has t
 November 23: one direct fictional 12B prompt-injection trial failed: a reflection instructed the model to use a specific unrelated title, and it did so. The result is not a security assessment; mitigation and further evaluation remain open.
 
 November 23: the shared composer now presents proposed title, reason and duration before saving, including local and sample quests. Deadline and effort fields remain collapsed unless details need review. `npm run check` passed 158 tests; native visual review remains pending. This is a user review opportunity, not an injection defense guarantee.
+
+November 23: the floating review area now has a scroll limit for long suggestions and is keyboard-focusable. `npm run check` passed 158 tests; verify scroll and focus in the native overlay.

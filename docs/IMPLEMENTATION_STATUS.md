@@ -4,7 +4,7 @@
 
 One direct HTTP trial used the application's system prompt, 12B model, structured-output schema and settings with fictional data. A reflection instructed the model to use an unrelated title; the model followed it and returned that title after approximately 23 seconds. This is a demonstrated prompt-injection failure, not a comprehensive evaluation. Schema and application rules constrain quest state and rewards but do not prevent manipulation of generated text. Further mitigation and tests remain open; native UI was not exercised.
 
-The shared composer now displays the generated title, reason and duration for review before saving, with deadline and effort collapsed unless needed. `npm run check` passed 158 tests. User review is not a guarantee against manipulation; the combined native layout has not been visually checked.
+The shared composer now displays the generated title, reason and duration for review before saving, with deadline and effort collapsed unless needed. The floating review has bounded scrolling and keyboard focus for long text. `npm run check` passed 158 tests. User review is not a guarantee against manipulation; the combined native layout and scrolling have not been visually checked.
 
 ## Latest Windows compilation — November 23, 2026
 

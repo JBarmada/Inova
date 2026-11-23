@@ -22,7 +22,7 @@ export function QuestDetailsReview({ draft, onSave, onCancel }: {
     } catch (cause) { setError(cause instanceof Error ? cause.message : "Could not save. Please try again."); }
     finally { setBusy(false); }
   }
-  return <div className="quest-details-review">
+  return <div className="quest-details-review" role="region" tabIndex={0} aria-label="Review suggested quest">
     <p>{draft.fallback ? "Sample quest" : "Suggested quest"}</p>
     <strong>{draft.quest.title}</strong>
     <p>{draft.quest.reason}</p>
