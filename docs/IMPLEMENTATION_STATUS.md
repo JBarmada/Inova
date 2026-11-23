@@ -1,5 +1,13 @@
 # Implementation Status and Handoff
 
+## Dog control gate and menu dismissal correction — November 23, 2026
+
+All manual dog controls now share `DogDeveloperControls`, gated by adoption and Dev mode in both home and floating mode. Future dog buttons belong there. Normal-mode render tests reject any new dog action button outside the gate; adoption and wardrobe previews remain available. The redundant minimize icon and its styling are removed. Outside clicks, focus loss and Escape still retract the menu into the toy; no explicit dismissal button is needed.
+
+`npm run check` passed: 88 source-file size checks, TypeScript, 72 tests in 17 files, and frontend build. Added regression checks for both home/floating gates, switching Dev mode off again, adoption availability, no expanded-menu dismissal button, inside/outside clicks, focus-loss dismissal, and listener cleanup. Windows release compilation passed. No fresh native runtime or Mac test was performed for this correction.
+
+The earlier minimize-button/home-pose exceptions below are historical and superseded by this correction.
+
 ## Floating controls and toy transition — November 23, 2026
 
 - Floating Sit/Stand now follows the Settings Dev mode toggle. Home pose controls remain available. Floating pose controls sit after the toy/menu in layout, with a separate stacking level, avoiding the negative-margin overlap.

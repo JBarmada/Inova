@@ -31,9 +31,6 @@ export function BoneQuestToy({ state, onExpandedChange }: { state: AppState; onE
     {mounted && <section ref={panel} id="toy-quest-board" className="toy-quest-panel" aria-label="Pawprint adventures"
       tabIndex={-1} inert={!open}>
       <header className="toy-board-heading">
-        <button className="toy-minimize" type="button" aria-label="Minimize quest menu" title="Minimize quest menu" onClick={() => minimize(true)}>
-          <svg viewBox="0 0 16 16" width="16" height="16" fill="currentColor" aria-hidden="true"><path d="M3 3h2v2h2v2h2V5h2V3h2v3h-2v2H9v2H7V8H5V6H3zM3 12h10v2H3z" /></svg>
-        </button>
         <h3><span aria-hidden="true">✦</span><span>Fetch a Lil' Side Quest</span><span aria-hidden="true">✦</span></h3></header>
       <ToyComposer state={state} />
       {quests.length > 0 ? <ToyQuestList quests={quests} muted={state.settings.muted} />

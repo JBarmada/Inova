@@ -67,6 +67,8 @@ Dog rendering takes shared state; it does not own inventory. Wardrobe writes equ
 
 Shared dispatch produces a click or reward tone after successful persistence. Local navigation interactions call the audio service. Recorded barks, door sounds, book sounds, richer fanfare, and polished effects remain track work. Do not invent a separate sound setting.
 
-## Floating pose and toy controls
+## Manual dog controls and toy dismissal
 
-Floating Sit/Stand is a developer control and follows settings.devMode, alongside manual mood controls. Home pose controls remain available without Dev mode. Floating pose controls follow the toy/menu in layout. Opening the toy hides its standalone trigger after a stretch transition; Minimize, Escape and outside/focus-loss dismissal retract the menu. Preserve stable canvas width, reduced-motion behavior, mute, and keyboard focus recovery. Animation phase is local UI state, not persisted pet or quest state.
+All manual dog pose, mood, animation and future direct controls must live inside `DogDeveloperControls`, whose shared gate requires adoption and settings.devMode in home and floating mode. PetPanel's normal-mode render tests reject any new dog buttons outside this gate. Automatic posture/face/breathing behavior, adoption, navigation, quests, equipment and wardrobe-only previews retain their existing behavior.
+
+The floating controls follow the toy/menu in layout. Opening the toy hides its standalone trigger after a stretch transition. Outside clicks, focus loss and Escape retract the menu; no close/minimize/collapse button belongs on the frame. Escape restores toy focus; outside clicks preserve their target. The board render test forbids a redundant dismissal button, and outside-dismiss tests protect inside/outside targeting, focus-loss dismissal and listener cleanup. These run in `npm run check`. Preserve stable canvas width, reduced motion and mute. Animation phase is local UI state, not persisted pet or quest state.

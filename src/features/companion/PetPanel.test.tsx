@@ -15,17 +15,21 @@ beforeEach(() => {
 });
 afterEach(() => vi.clearAllMocks());
 
-it("hides floating pose controls with Dev mode off and puts enabled controls after the toy", () => {
-  const normal = renderToStaticMarkup(<PetPanel floating />);
-  expect(normal).not.toContain("Ask your dog to stand");
+it.each([false, true])("gates every adopted dog control behind Dev mode (floating=%s)", (floating) => {
+  const normal = renderToStaticMarkup(<PetPanel floating={floating} />);
+  expect(normal).not.toContain("<button");
   expect(normal).not.toContain("Developer mood controls");
   fixture.state.settings.devMode = true;
-  const developer = renderToStaticMarkup(<PetPanel floating />);
+  const developer = renderToStaticMarkup(<PetPanel floating={floating} />);
   expect(developer).toContain("Ask your dog to stand");
   expect(developer).toContain("Developer mood controls");
-  expect(developer.indexOf('data-toy="true"')).toBeLessThan(developer.indexOf("pose-controls"));
+  expect(developer.match(/<button/g)).toHaveLength(4);
+  fixture.state.settings.devMode = false;
+  expect(renderToStaticMarkup(<PetPanel floating={floating} />)).not.toContain("<button");
+  if (floating) expect(developer.indexOf('data-toy="true"')).toBeLessThan(developer.indexOf("pose-controls"));
 });
 
-it("keeps the home pose action available independently of floating developer controls", () => {
-  expect(renderToStaticMarkup(<PetPanel floating={false} />)).toContain("Ask your dog to stand");
+it("leaves adoption available without Dev mode", () => {
+  fixture.state.pet.adopted = false;
+  expect(renderToStaticMarkup(<PetPanel floating={false} />)).toContain("Adopt this dog");
 });

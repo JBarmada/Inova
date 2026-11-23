@@ -19,6 +19,9 @@
 
 ## Interface rules
 
+- All manual dog pose, mood, animation, and future direct dog-control buttons belong in DogDeveloperControls and require settings.devMode in both home and floating mode. Normal adoption, navigation, quest actions, equipment, and wardrobe-only previews remain usable. Extend the existing normal/dev-mode regression tests whenever adding a dog control.
+- The quest toy menu dismisses through outside click, focus loss, or Escape. Do not add a close, minimize, collapse, or equivalent icon/button to its frame. Preserve the no-dismissal-button and outside-dismiss regression checks in npm run check.
+
 - Prefer a recognizable icon when it can replace a short action/navigation label without losing meaning. Keep an accessible name and hover tooltip on every icon-only control.
 - Keep item names, user content, meaningful explanations, and errors as readable text. Do not replace essential meaning with an ambiguous unlabeled symbol.
 - Use a consistent pixel-style icon family, visible keyboard focus, and at least 44 by 44 CSS pixels for new main-page icon buttons. Selection must be visible with sound muted and exposed through aria-pressed or aria-current.

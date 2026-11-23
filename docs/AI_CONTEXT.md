@@ -23,7 +23,7 @@ Current functional checkout: the primary project folder on `main`; see [consolid
 - A readable memory bookshelf with dates on book spines and an open-book reading view.
 - The dog's world can expand through the user's experiences.
 - The name is Inova; the remote is `git@github.com:JBarmada/Inova.git`.
-- Compact companion controls use Home and Settings pixel icons; sound and developer controls live in Settings. Manual mood/test buttons require dev mode, which defaults off. Keep status small and pixel-styled; future expression markers such as excitement exclamations remain for later design work.
+- Compact companion controls use Home and Settings pixel icons; sound and developer controls live in Settings. All manual dog controls (pose, mood, animation and future additions) use the shared DogDeveloperControls gate and require Dev mode in home and floating mode; it defaults off. The quest menu dismisses outside/on focus loss/with Escape and must not gain a close or minimize button; regression checks enforce these rules. Keep status small and pixel-styled; future expression markers such as excitement exclamations remain for later design work.
 
 ## Proposed complete loop
 

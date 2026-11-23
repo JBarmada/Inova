@@ -5,8 +5,6 @@
 .toy-quest-panel { transform-origin: 50% 0; }
 .toy-quest-panel:focus { outline: none; }
 .toy-quest-panel:focus-visible { outline: 2px dashed #087d7b; outline-offset: -12px; }
-.toy-minimize { position: absolute; right: -16px; top: -30px; display: grid; place-items: center; width: 28px; height: 28px; padding: 4px; border: 0; background: #fff4cf; color: #087d7b; box-shadow: 1px 1px #d7ae65; }
-.toy-minimize:hover:not(:disabled) { background: #e8dfb7; }
 .bone-quest-wrap[data-phase="opening"] > .bone-toy { animation: toy-stretch .44s ease-in both; }
 .bone-quest-wrap[data-phase="opening"] > .toy-quest-panel { animation: menu-unfold .44s cubic-bezier(.2,.8,.3,1) both; }
 .bone-quest-wrap[data-phase="closing"] > .bone-toy { animation: toy-return .34s ease-out both; }
