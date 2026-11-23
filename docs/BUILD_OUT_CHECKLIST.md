@@ -81,3 +81,5 @@ November 23: added a user-authored perspective exercise, optionally saved as a p
 November 23: synthetic Windows gestures moved and saved the decorated home window, but repeated floating-dog drags did not change its saved position. Tauri starts floating dragging asynchronously, so gesture timing versus an app defect remains unresolved. Test with a real mouse or held-pointer automation before claiming floating drag/placement works.
 
 November 23: native fictional sample-planner privacy check allowed a memory, generated a sourced quest, and revoked permission; the saved quest dropped the memory source and copied rationale while retaining the commitment source. The memory remained with permission off.
+
+November 23: with Ollama stopped, a native local-quest request reported an unavailable/timeout error; a sample quest then succeeded in the same session.

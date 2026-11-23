@@ -1,5 +1,9 @@
 # Implementation Status and Handoff
 
+## Native unavailable-AI recovery — November 23, 2026
+
+With the temporary Ollama service stopped, a fictional local quest request returned an unavailable-or-timeout message suggesting starting Ollama and installing the selected model. The sample quest button then successfully proposed a quest in the same Windows session. This verifies the stopped-service recovery path; other network and model failures remain separate checks.
+
 ## Native permission revocation check — November 23, 2026
 
 In the isolated Windows profile, a fictional perspective memory was explicitly allowed, included in a sample quest, and then disallowed. The persisted quest retained its commitment source but removed the memory source and replaced the copied rationale with a removal notice; the memory remained present with permission off. This verifies the sample path only, not every local-model or external integration scenario.
