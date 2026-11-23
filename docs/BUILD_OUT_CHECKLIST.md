@@ -89,3 +89,5 @@ November 23, afternoon: integrated the animation snapshot in an isolated staging
 November 23, afternoon: desktop and floating quest entry share a single input. Local AI can suggest explicitly sourced deadline and effort, shown for user review. A fictional direct model test succeeded with 12B; 4B missed the deadline. `npm run check` passed 136 tests; native visual review and Mac remain open.
 
 November 23: `npm run check` now checks the PNG dimensions of all 20 runtime clip atlases against the timing manifest, in addition to existing playback tests. All 20 passed; this does not replace visual review.
+
+November 23: added a regression check that both quest entry points begin with one shared text input and omit planner configuration from the initial composer. `npm run check` passed 141 tests and all 20 atlas checks.
