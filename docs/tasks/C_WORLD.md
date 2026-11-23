@@ -28,7 +28,7 @@ Complete the starter quest, equip/remove the notebook, save a reflection, and op
 
 ## Agreements
 
-Reward ownership comes from shared quest progression. Do not add a second inventory store or silently unlock items from the wardrobe UI. The starter has one equipment slot; multiple slots require a shared contract change rather than a local-only workaround.
+Reward ownership comes from shared quest progression. Do not add a second inventory store or silently unlock items from the wardrobe UI. The [four-slot wardrobe contract](../WARDROBE_SPEC.md) uses hat, glasses, socks, and body together through shared actions and a versioned save migration. Fictional prototype grants are explicitly labeled, developer-only scenarios. World items remain a documented future phase.
 
 Memories default private for personalization. The bookshelf may display them without giving AI access. Deletion/revocation must use shared actions, and editing requires rechecking any copied/planner-derived information. Do not add cloud storage, real photos, or an embedding system as part of this first track.
 

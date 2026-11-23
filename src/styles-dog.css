@@ -1,9 +1,11 @@
 .dog { position: relative; width: 160px; height: 160px; display: inline-block; }
-.dog img { width: 100%; height: 100%; image-rendering: pixelated; user-select: none; }
+.dog img { width: 100%; height: 100%; image-rendering: pixelated; user-select: none; pointer-events: none; }
 .dog-happy { animation: hop 1.2s steps(2, end) infinite; }
-.dog-tired { opacity: .8; transform: translateY(5px); }
-.prop { position: absolute; right: 0; bottom: 14px; font-size: 44px; color: #557443; background: #d8e6c2; line-height: 1; }
-.bandana { position: absolute; width: 55px; height: 14px; left: 53px; bottom: 38px; background: #b65d44; clip-path: polygon(0 0, 100% 0, 50% 100%); }
+.dog-tired { opacity: 1; }
 .spark { position: absolute; right: 0; top: 10px; color: #887121; font-size: 24px; }
 @keyframes hop { 0%, 100% { translate: 0 0; } 50% { translate: 0 -5px; } }
 @media (prefers-reduced-motion: reduce) { .dog-happy { animation: none; } }
+.dog-base { display: block; }
+.wearable-layers { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; }
+.pose-controls { display: flex; justify-content: center; gap: 8px; margin: 6px 0; }
+.floating .pose-controls button { padding: 3px 8px; font-size: 11px; }

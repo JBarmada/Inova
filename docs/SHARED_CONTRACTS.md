@@ -1,6 +1,6 @@
 # Shared Feature Agreements
 
-The executable source of truth is `src/shared/schema.ts` and `src/shared/actions.ts`. This document explains the agreements. Coordinate contract changes and include migrations before changing persisted schemaVersion 1.
+The executable source of truth is `src/shared/schema.ts` and `src/shared/actions.ts`. This document explains the agreements. Wardrobe now uses schemaVersion 2 with validated migration from version 1; see [wardrobe contract](WARDROBE_SPEC.md). Coordinate future schema changes and migrations.
 
 ## Common rules
 
@@ -20,10 +20,10 @@ The executable source of truth is `src/shared/schema.ts` and `src/shared/actions
 | Commitment | id, title, createdAt | add-commitment |
 | Quest | id, commitmentId, title, reason, sourceIds, minutes, status, planner | propose-quest, quest-status, complete-quest |
 | Memory | id, text, createdAt, aiAllowed, optional questId | add-memory, memory-permission, delete-memory |
-| Inventory | ownedItems, equippedItem | equip; rewards grant ownership through quest completion |
+| Inventory | ownedItems, equipment.{hat,glasses,socks,body} | equip, unequip; developer-gated wardrobe-scenario fixtures; normal rewards grant ownership through quest completion |
 | Reward record | rewardedQuestIds | controlled by completion rules, never directly edited by UI |
 
-Mood is currently idle, happy, or tired. Item IDs are notebook and bandana. New moods, items, slots, or a live planner label require coordinated schema and rendering updates.
+Mood is idle, happy, or tired. Four wearable slots can be occupied simultaneously; item IDs and slot assignments live in shared/equipment.ts. Normal rewards remain notebook/bandana. Other prototype items use explicit developer fixtures. New moods, slots, or a live planner label require coordinated schema/rendering updates.
 
 Developer mode defaults off. Version-one saves without settings.devMode load it as false through the schema default, preserving existing data and sound preference. Dev mode exposes manual mood/test controls; ordinary quest and wardrobe interactions remain available normally. New debug-only controls must respect this setting. Settings and Home are pixel icon buttons; Home appears only in floating mode. Sound and developer toggles belong inside the settings popover.
 
@@ -35,7 +35,7 @@ New quests are proposed. Proposed, deferred, or accepted quests can be accepted,
 
 The floating quest board shows unfinished quests newest first, regardless of status. Completed quests appear in their own newest-first group beneath a Completed (count) disclosure, initially collapsed each time the board opens. Quest creation currently appends to the saved array; display ordering reverses a filtered copy without mutating that array or adding timestamps. The disclosure is temporary presentation state, not a persisted setting. Quest states and reward rules remain distinct from this grouping.
 
-Completing a quest rewards its ID once. The first completed quest unlocks a notebook; the third unlocks a bandana. These are starter demonstration rules, not finalized product balancing. Current equipment has one slot; multiple simultaneous slots remain a feature extension.
+Completing a quest rewards its ID once. The first completed quest unlocks a notebook; the third unlocks a bandana. These are starter demonstration rules, not finalized product balancing. Each item replaces only its assigned wearable slot. Legacy notebook/bandana migrate to the body slot. World toys (up to three), scenery changers (one or two, undecided), and one background are future categories, not worn slots.
 
 The UI cannot equip an unowned item. Changing rewards must keep the quest ID guard intact. Duplicate reward prevention applies to the same quest ID; preventing repeatedly created equivalent quests is a separate unresolved product rule.
 

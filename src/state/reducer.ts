@@ -1,6 +1,7 @@
 import type { Action } from "../shared/actions";
 import { stateSchema, type AppState } from "../shared/schema";
 import { changeQuestStatus, completeQuest } from "./quests";
+import { changeEquipment } from "./equipment";
 
 function apply(state: AppState, action: Action): AppState {
   switch (action.type) {
@@ -22,9 +23,7 @@ function apply(state: AppState, action: Action): AppState {
       return { ...state, quests: [...state.quests, action.quest] };
     case "quest-status": return changeQuestStatus(state, action);
     case "complete-quest": return completeQuest(state, action.id);
-    case "equip":
-      if (action.item && !state.ownedItems.includes(action.item)) throw Error("This item is still locked.");
-      return { ...state, equippedItem: action.item };
+    case "equip": case "unequip": case "wardrobe-scenario": return changeEquipment(state, action);
     case "add-memory":
       if (state.memories.some((entry) => entry.id === action.memory.id)) return state;
       return { ...state, memories: [...state.memories, action.memory] };

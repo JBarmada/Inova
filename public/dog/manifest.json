@@ -1,0 +1,48 @@
+{
+  "canvas": [
+    64,
+    64
+  ],
+  "alpha": "binary",
+  "scale": "integer nearest-neighbor",
+  "sitTransitionMs": 160,
+  "standingNeck": [
+    22,
+    42
+  ],
+  "seatedNeck": [
+    21,
+    39
+  ],
+  "assets": {
+    "neutral": {
+      "source": "art/pocket-pup/v32/00.png",
+      "sha256": "b2d180354c4a9c094370a0fb01d6c76e7230b4d15a6e48c7e95a59fe91a99462"
+    },
+    "tuck": {
+      "source": "art/pocket-pup/v32/01.png",
+      "sha256": "cceff2a645487902eceac96c900721fd09e212a7b5a6f301db3f97b24fed499e"
+    },
+    "sitting": {
+      "source": "art/pocket-pup/v32/02.png",
+      "sha256": "7cecd8380a3ec73105599e8c1d9a17e2b926a789d2debbf1d3d49cb84e9031b9"
+    },
+    "happy": {
+      "source": "art/pocket-pup/v6/sprites/happy.png",
+      "sha256": "0524a181d54cc4bbfa37e1defdce40c17a775738ee160b4648840afba406fce9"
+    },
+    "tired": {
+      "source": "art/pocket-pup/v6/sprites/tired.png",
+      "sha256": "a4474d63999e70ca8346aa8bee1fe846da4da98c955b940ab9e5daee41714d1b"
+    },
+    "bandana": {
+      "source": "art/pocket-pup/v6/layers/bandana.png",
+      "sha256": "0e1bad0877bcc0d95b724b53cc1d75db7faacc262e23ae1635ab66cc0306ba1d"
+    },
+    "notebook": {
+      "source": "tools/export_runtime_art.py",
+      "status": "original placeholder pixel prop, final item art pending"
+    }
+  },
+  "license": "project art; no repository-wide distribution license selected"
+}

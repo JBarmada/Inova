@@ -7,6 +7,7 @@ Working agreement for the November 22 starter. Tauri is team-selected; the imple
 - Tauri 2 and Rust for the desktop application and native capabilities.
 - React, TypeScript, Vite, and CSS for the interface. Node 24 and npm are the common development tools.
 - Zod schemas validate saved state. Commit npm and Cargo lockfiles.
+- Wardrobe state is schema version 2 with validated version-one migration through stateSchema. Four worn slots share the existing state/dispatch/save queue; world-item state is deferred. See WARDROBE_SPEC.md.
 - One app window, one shared store, and one mutation queue for the initial build.
 - Tauri's store plugin persists desktop state. The browser preview adapter uses localStorage.
 - No cloud account, hosted backend, external integration, or AI provider is selected or required to run the starter.

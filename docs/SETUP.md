@@ -63,7 +63,7 @@ Open the printed local URL. No Rust toolchain is needed for this preview. Browse
 5. Open the bookshelf and save/read a reflection. Personalization is opt-in per entry.
 6. Restart or reload and confirm that state persists.
 
-The starter uses original placeholder dog art, simple equipment shapes, and synthesized tones. It has no recorded bark, final artwork, live AI, account integration, or actual schedule optimization.
+The wardrobe branch uses selected Pocket Pup dog exports, temporary equipment fitting markers, and synthesized tones. It has no recorded bark, final garment art, live AI, account integration, or actual schedule optimization. See WARDROBE_SPEC.md for isolated test outfits and pose previews.
 
 ## Checks and builds
 

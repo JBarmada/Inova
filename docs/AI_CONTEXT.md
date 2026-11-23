@@ -6,6 +6,8 @@ Inova is a SCOPE club final project for the theme Evolve. It is an evolving pixe
 
 ## Established team direction
 
+- Functional wardrobe has four simultaneous worn slots: hat, glasses, socks, body. See [WARDROBE_SPEC.md](WARDROBE_SPEC.md) for schema v2 migration, developer fixtures, placeholder anchors, and future world limits. Future world items: three toys, one or two scenery changers (undecided), one background; not implemented.
+
 - Pixel dog art, with a small selection of adoptable base dogs as the desired experience.
 - A game-like adoption center and lightweight wardrobe-style picker.
 - A transparent, draggable dog above desktop windows during everyday use.

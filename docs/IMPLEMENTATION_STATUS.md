@@ -6,6 +6,8 @@ Main integration checkpoint: November 23, 2026. The user approved the reviewed c
 
 ## Implemented starter
 
+- November 23 wardrobe worktree (`codex/wardrobe-slots`, rebased onto main `2dd9b1e`): four simultaneous worn slots, pose-aware SVG placeholders, ten catalog entries, three developer-gated fictional outfit scenarios, individual removal/clear-all, and schema-v1-to-v2 migration. Selected Pocket Pup exports and existing pose playback are integrated without replacing main's quest toy/navigation/window-layout changes, including newest-first/completed quest grouping. See [contract and test steps](WARDROBE_SPEC.md).
+
 - Outside dismissal tests the actual toy button and board separately, not their full-width layout wrapper. Empty space beside the toy and the gap above the board now count as outside. The wrapper is not text-selectable, while board text remains selectable.
 
 - The quest board has no close/X icon. Clicking outside the toy/board collapses it; interacting inside stays open. Losing native window focus (for example, clicking another app) also collapses it. Clicking the toy again and Escape still close it. Listeners are installed only while open and cleaned up on dismissal/unmount, including late native subscriptions. Outside dismissal does not steal focus back from the clicked target.
@@ -15,10 +17,10 @@ Main integration checkpoint: November 23, 2026. The user approved the reviewed c
 - Tauri 2/Rust desktop shell with React/TypeScript/Vite interface and locked npm/Cargo dependencies.
 - One window with normal home and compact transparent always-on-top mode controls; native drag-region markup.
 - Isolated layout fix: separate persistent home/floating geometry, home size/maximized restoration, monitor work-area clamping, and content-fitted floating height. Floating page scrollbars are suppressed and the quest popup is kept within the window's width.
-- Adoption/name, simple selectable moods, original placeholder dog art, and separate equipment shapes.
+- Adoption/name, selectable moods, selected Pocket Pup runtime sprites, and separate pose-anchored wearable placeholder layers.
 - Manual commitment entry and a labeled deterministic sample Planner interface.
 - Quest proposal, acceptance, deferral, dismissal, and completion.
-- Duplicate-safe completion rewards: notebook at one quest and bandana at three; one equipment slot.
+- Duplicate-safe completion rewards: notebook at one quest and bandana at three; four simultaneous equipment slots (hat, glasses, socks, body) with per-slot replacement/removal and clear-all.
 - Reflection entry, dated memory buttons, readable entry view, per-entry personalization permission, and deletion.
 - Shared validated state with queued mutations and local persistence adapters for desktop and browser preview.
 - Click/reward synthesized tones, shared mute setting, error messages, and reduced-motion CSS.
@@ -49,6 +51,9 @@ Main integration checkpoint: November 23, 2026. The user approved the reviewed c
 ## Verified in this setup
 
 - November 23 quest-board organization: `npm run check` passed size limits, TypeScript, all 24 tests, and production frontend build. Windows native debug compilation passed using the isolated test configuration described below. With fictional muted data, native accessibility and visual review confirmed newest-first active/completed lists, adding a quest at the top, disclosure expansion/collapse with Space/Enter, collapsed state on board reopen, completion feedback/focus, and the all-completed case. No Mac runtime or audible playback check was performed for this feature.
+- Wardrobe branch: browser checks confirmed all four slots, three pose previews, per-slot removal, saved reload, slot replacement, clear-all, muted feedback, and retaining the outfit with developer controls off. [Screenshot and verification scope](evidence/wardrobe-slots/README.md). Windows release compilation passed; native runtime and Mac verification of this branch remain outstanding.
+- Final wardrobe validation after rebasing onto main `2dd9b1e`: `npm run check` passed 65-file size limits, TypeScript, all 45 tests, and frontend production build. `npm run tauri build -- --no-bundle` passed Windows release compilation after the frontend refinements. These results belong to this isolated branch, not a claim that it is already merged into main.
+
 - November 23 isolated toy-frame fix: reproduced and captured the original native Windows blink before editing. A clean baseline showed an opening shift of -127 physical pixels and closing shift of +127. After the fix, 2,252 captured frames across 64 opening/closing transitions had one constant dog position, one native width, and one native left edge. Includes muted/dev controls and sound-enabled/normal controls, plus native test-app restarts. See [frame evidence and reproduction](evidence/floating-toy-frame-fix/README.md). This does not establish audible output, dragging, or Mac behavior.
 - Fix validation: `npm run check` passed all 23 tests, size limits, TypeScript, and production frontend build. `npm run tauri build -- --debug --no-bundle --config .tools/native-test.json` compiled the Windows app with an isolated title/identifier and the same production frontend; fictional records kept test saves separate. The temporary config is described with the evidence.
 - Fresh `npm ci` and `npm run check` passed in the main integration checkout: size limits, TypeScript, all twenty-three tests, and frontend production build.
@@ -67,7 +72,7 @@ Main integration checkpoint: November 23, 2026. The user approved the reviewed c
 - The GitHub CLI token on the initial workstation is invalid, so authenticated Actions inspection is unavailable; SSH Git access works.
 - No live AI, credentials, scheduling engine, assignment/calendar/grade integration, cloud sync, or sign-in.
 - No recorded bark, final sprite set, multiple adoptable variants, mature animation, dedicated book/door audio, or full item reveal sequence.
-- No quest editing, memory editing, multiple equipment slots, click-through, or spooky-mode mechanics yet. New placement restoration and popup sizing still need hands-on Windows/Mac confirmation.
+- No quest editing, memory editing, world-item placement, click-through, or spooky-mode mechanics yet. New placement restoration and popup sizing still need hands-on Windows/Mac confirmation.
 - The toy art is generated concept artwork, with responsive border-image stretching rather than a finalized low-resolution sprite atlas. It is independent of the other chat's dog artwork. See QUEST_TOY_ART.md for provenance and integration details.
 - Desktop stores are plaintext. Browser preview and desktop data are separate; concurrent preview tabs/processes are outside the starter's state model.
 

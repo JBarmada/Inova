@@ -8,7 +8,7 @@ Inova is a SCOPE club final project for the theme **Evolve**. You build habits a
 
 Main includes the reviewed floating quest toy, home/floating placement restoration, Settings/developer controls, and an icon toolbar with separate Companion, Quests, Wardrobe, and Memories pages. Quest navigation uses the same golden/teal toy artwork as the desktop companion. See the November 23 integration checkpoint in [implementation status](docs/IMPLEMENTATION_STATUS.md) for checks and remaining platform limitations.
 
-Shared starter: **Tauri 2 + Rust + React + TypeScript + Vite**, targeting Windows and Mac. Three builders are working toward **December 1, 2026**. The starter connects adoption, a floating-mode control, sample quests, deterministic rewards, wardrobe, and local memory storage. Artwork and sound are placeholders; planning is a visibly labeled deterministic sample, with no live AI or external integrations. See [verified status and limitations](docs/IMPLEMENTATION_STATUS.md).
+Shared starter: **Tauri 2 + Rust + React + TypeScript + Vite**, targeting Windows and Mac. Three builders are working toward **December 1, 2026**. The starter connects adoption, a floating-mode control, sample quests, deterministic rewards, wardrobe, and local memory storage. This branch uses selected Pocket Pup dog sprites with placeholder wearable markers and synthesized sound; planning is a visibly labeled deterministic sample, with no live AI or external integrations. See [verified status and limitations](docs/IMPLEMENTATION_STATUS.md).
 
 ## Run the starter
 
@@ -52,7 +52,7 @@ Game feel is central: clicks click, woofs bark, doors sound like doors, and rewa
 
 ## What is settled and what is open
 
-Pixel art, desktop companionship, layered cosmetics, and strong audiovisual feedback are established preferences. Tauri, both desktop platforms, three builders, and the deadline are confirmed. Individual track owners, the live AI provider and budget, final reward balancing, account integrations, and spooky-mode triggers remain open. The starter uses one equipment slot and demonstration reward rules; the full minimum feature list is still a proposed target.
+Pixel art, desktop companionship, layered cosmetics, and strong audiovisual feedback are established preferences. Tauri, both desktop platforms, three builders, and the deadline are confirmed. Individual track owners, the live AI provider and budget, final reward balancing, account integrations, and spooky-mode triggers remain open. The [wardrobe prototype](docs/WARDROBE_SPEC.md) supports hat, glasses, socks, and body together, with anchored placeholders and developer test outfits. Reward rules remain demonstrations; the full minimum feature list is still a proposed target.
 
 The full vision includes adulting help, exploration suggestions, optional perspective exercises, an expanding world, and possible calendar or academic integrations. See the backlog before treating an idea as required.
 
