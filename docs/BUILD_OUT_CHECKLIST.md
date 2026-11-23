@@ -7,6 +7,7 @@ Worktree: `.worktrees/inova-complete`, branch `codex/inova-complete`, based on `
 - [ ] Diagnose native toy-frame synchronization and startup delay; validate Windows overlay and Mac separately.
 - [x] Add editable quest titles with terminal-state validation and unchanged evidence/reward data.
 - [x] Add memory editing; changed text clears stale copied quest rationale and source references.
+- [x] Link a new reflection to an existing completed adventure; browser reload preserves the fictional link.
 - [x] Show saved quest completions and newly unlocked items in both quest interfaces, with muted-compatible text and reduced-motion behavior.
 - [ ] Complete adoption, companion interactions, wardrobe fitting, and bookshelf with verified save/recovery.
 - [x] Implement explicit local Ollama planner with permission-filtered context, validated output, stale-context guards, and a separately accessible sample fallback.
@@ -21,3 +22,5 @@ November 23: `npm run check` passed 76 tests, size/type checks and production bu
 Windows release compilation (`npm run tauri build -- --no-bundle`) passed in this worktree after the editing increments. Native interaction and Mac runtime remain unverified.
 
 November 23: reward receipt and reveal increment passed 82 tests and Windows release compilation; browser preview confirmed fictional notebook/bandana unlocks and Completed focus. Native UI, muted audio, and Mac remain unverified.
+
+November 23: quest-linked reflection increment passed 84 tests and Windows release compilation; browser preview verified a fictional linked entry survived reload.

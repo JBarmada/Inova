@@ -1,5 +1,11 @@
 # Implementation Status and Handoff
 
+## Memories linked to adventures — November 23, 2026
+
+A new reflection can optionally reference a completed quest; the open book shows its title. The shared reducer rejects new references to unfinished or missing quests, while standalone memories remain available. The selected link is preserved through editing and the save schema stays at version 2. The form resets the link and personalization permission after saving.
+
+`npm run check` passed 84 tests and type/size/build checks; Windows release compilation passed. A fictional reflection was linked to a completed quest, reopened, reloaded, and reopened again in browser preview; permission remained off. This does not establish native restart or Mac behavior.
+
 ## Quest reward reveal — November 23, 2026
 
 The main quest page and floating toy show an animated, readable completion card naming each item actually unlocked by the saved completion. The card also identifies the completed quest and gives a saved-progress message if no new item was unlocked. It does not announce an item again for duplicate, ineligible, or failed saves. The existing synthesized reward cue and mute setting remain in use; reduced motion disables the reveal animation. Floating completion retains focus on Completed and returns the list to the reveal instead of scrolling the feedback out of view.

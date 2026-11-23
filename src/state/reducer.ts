@@ -42,6 +42,9 @@ function apply(state: AppState, action: Action): AppState {
     case "equip": case "unequip": case "wardrobe-scenario": return changeEquipment(state, action);
     case "add-memory":
       if (state.memories.some((entry) => entry.id === action.memory.id)) return state;
+      if (action.memory.questId && !state.quests.some((quest) => quest.id === action.memory.questId && quest.status === "completed")) {
+        throw Error("A related adventure must be completed first.");
+      }
       return { ...state, memories: [...state.memories, action.memory] };
     case "edit-memory": {
       const text = action.text.trim();

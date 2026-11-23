@@ -84,3 +84,7 @@ Quest planner labels include `sample` and `local`. Local requests use the Rust l
 ## Completion feedback (build-out worktree)
 
 The mutation queue provides a transient receipt only after a successful save: whether a completion was awarded and which item IDs were newly owned. Both quest views use it for visible reward feedback; duplicate or ineligible completion produces no new unlock. Receipts are not stored, and reward eligibility remains in the reducer.
+
+## Reflection links (build-out worktree)
+
+A new memory can optionally cite a completed quest ID. The reducer validates that the referenced quest exists and is completed; existing valid standalone memories and saved records remain readable. The bookshelf displays the related quest title without implying that planning or acceptance alone is completion.

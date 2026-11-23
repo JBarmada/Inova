@@ -8,7 +8,7 @@
 :root { font-family: ui-monospace, "Cascadia Code", monospace; color: #302e28; background: transparent; font-synthesis: none; }
 * { box-sizing: border-box; }
 body { margin: 0; }
-button, input, textarea { font: inherit; }
+button, input, textarea, select { font: inherit; }
 button { cursor: pointer; border: 2px solid #514c3c; background: #fff9e9; color: #302e28; padding: 10px 16px; box-shadow: 3px 3px 0 #d4c6a7; }
 button:hover:not(:disabled) { background: #e2edcf; }
 button:active:not(:disabled) { transform: translate(2px, 2px); box-shadow: 1px 1px 0 #d4c6a7; }
@@ -38,7 +38,7 @@ nav { margin: 24px 0 32px; text-transform: capitalize; }
 .dog-stage { display: flex; justify-content: center; min-height: 210px; align-items: center; }
 form { display: grid; gap: 16px; margin: 24px 0; }
 label { display: grid; gap: 8px; text-align: left; line-height: 1.5; }
-input:not([type="checkbox"]), textarea { padding: 12px; border: 2px solid #b6aa8d; width: 100%; background: #fffdf5; color: inherit; }
+input:not([type="checkbox"]), textarea, select { padding: 12px; border: 2px solid #b6aa8d; width: 100%; background: #fffdf5; color: inherit; }
 textarea { min-height: 100px; resize: vertical; }
 .checkbox { display: flex; align-items: center; gap: 12px; }
 .commitment { display: flex; justify-content: space-between; align-items: center; gap: 16px; padding: 16px 0; border-bottom: 1px dashed #b6aa8d; }
