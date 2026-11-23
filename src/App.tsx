@@ -35,18 +35,15 @@ export function App() {
     else selectTab("companion");
   }
   return <main ref={appElement} className={floating ? `app floating${toyExpanded ? " toy-expanded" : ""}` : "app"}>
-    {!floating && <header className="masthead"><div><p className="eyebrow">A LITTLE GROWTH, TOGETHER</p>
-      <h1>Inova<span> shared starter</span></h1></div>
+    {!floating && <header className="masthead"><h1>Inova</h1>
       <button disabled={busy || !state.pet.adopted} onClick={() => void run(toggleFloating, "")}>Float my dog ↗</button>
     </header>}
     <CompanionControls onHome={openHome} disabled={busy} floating={floating} />
-    {!floating && <><p className="notice">Prototype • original placeholder art and synthesized tones • sample planner, no live AI</p>
-      <nav aria-label="Main navigation">{tabs.map((entry) => <button key={entry} aria-current={tab === entry ? "page" : undefined}
-        onClick={() => selectTab(entry)}>{entry === "world" ? "Wardrobe & memories" : entry}</button>)}</nav></>}
+    {!floating && <nav aria-label="Main navigation">{tabs.map((entry) => <button key={entry} aria-current={tab === entry ? "page" : undefined}
+      onClick={() => selectTab(entry)}>{entry === "world" ? "Wardrobe & memories" : entry}</button>)}</nav>}
     {(floating || tab === "companion") && <PetPanel floating={floating} onToyExpanded={setToyExpanded} />}
     {!floating && tab === "quests" && <QuestsPanel />}
     {!floating && tab === "world" && <WorldPanel />}
     {message && <PixelStatus text={message} />}
-    {!floating && <footer>Working toward December 1 · All progress stays on this device.</footer>}
   </main>;
 }
