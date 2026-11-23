@@ -93,3 +93,5 @@ November 23: `npm run check` now checks the PNG dimensions of all 20 runtime cli
 November 23: added a regression check that both quest entry points begin with one shared text input and omit planner configuration from the initial composer. `npm run check` passed 141 tests and all 20 atlas checks.
 
 November 23: clip cue markers are now checked against playback frame boundaries, preventing a timing edit from silently skipping a bark or fanfare marker. `npm run check` passed 144 tests and all 20 atlas checks. Audible playback is not yet verified.
+
+November 23: date-only review now has a rendering regression test confirming that it requests a date and time; `npm run check` passed 155 tests. This does not verify native layout or date-picker behavior.
