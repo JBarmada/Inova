@@ -5,7 +5,7 @@ import { playCue } from "../../services/audio";
 import { PixelIcon } from "./PixelIcon";
 import { PixelStatus } from "./PixelStatus";
 
-export function CompanionControls({ onHome, disabled, floating }: { onHome: () => void; disabled: boolean; floating: boolean }) {
+export function CompanionControls({ onHome, onFloat, disabled, floating }: { onHome: () => void; onFloat?: () => void; disabled: boolean; floating: boolean }) {
   const state = useInova();
   const [open, setOpen] = useState(false);
   const panel = useRef<HTMLDivElement>(null);
@@ -25,6 +25,8 @@ export function CompanionControls({ onHome, disabled, floating }: { onHome: () =
   return <div className="companion-controls hover-reveal" ref={panel} onKeyDown={(event) => {
     if (event.key === "Escape") { setOpen(false); settingsButton.current?.focus(); }
   }}>
+    {!floating && onFloat && <button className="pixel-icon-button" title="Float my dog" aria-label="Float my dog" disabled={disabled || !state.pet.adopted}
+      onClick={() => { setOpen(false); onFloat(); }}><PixelIcon kind="float" /></button>}
     {floating && <button className="pixel-icon-button" title="Home" aria-label="Home" disabled={disabled}
       onClick={() => { setOpen(false); onHome(); }}><PixelIcon kind="home" /></button>}
     <button className="pixel-icon-button" title="Settings" aria-label="Settings" ref={settingsButton}

@@ -9,9 +9,11 @@ import { playCue } from "./services/audio";
 import { CompanionControls } from "./features/companion/CompanionControls";
 import { PixelStatus } from "./features/companion/PixelStatus";
 import { useFloatingLayout } from "./features/companion/useFloatingLayout";
+import { PixelIcon } from "./features/companion/PixelIcon";
 
 const tabs = ["companion", "quests", "world"] as const;
 type Tab = typeof tabs[number];
+const tabLabels = { companion: "Companion", quests: "Quests", world: "Wardrobe & memories" };
 
 export function App() {
   const state = useInova();
@@ -35,12 +37,13 @@ export function App() {
     else selectTab("companion");
   }
   return <main ref={appElement} className={floating ? `app floating${toyExpanded ? " toy-expanded" : ""}` : "app"}>
-    {!floating && <header className="masthead"><h1>Inova</h1>
-      <button disabled={busy || !state.pet.adopted} onClick={() => void run(toggleFloating, "")}>Float my dog ↗</button>
-    </header>}
-    <CompanionControls onHome={openHome} disabled={busy} floating={floating} />
-    {!floating && <nav aria-label="Main navigation">{tabs.map((entry) => <button key={entry} aria-current={tab === entry ? "page" : undefined}
-      onClick={() => selectTab(entry)}>{entry === "world" ? "Wardrobe & memories" : entry}</button>)}</nav>}
+    {floating ? <CompanionControls onHome={openHome} disabled={busy} floating />
+      : <header className="masthead"><h1>Inova</h1>
+        <nav className="home-navigation" aria-label="Main navigation">{tabs.map((entry) => <button key={entry} className="nav-icon-button"
+          aria-label={tabLabels[entry]} title={tabLabels[entry]} aria-current={tab === entry ? "page" : undefined}
+          onClick={() => selectTab(entry)}><PixelIcon kind={entry} /></button>)}</nav>
+        <CompanionControls onHome={openHome} onFloat={() => void run(toggleFloating, "")} disabled={busy} floating={false} />
+      </header>}
     {(floating || tab === "companion") && <PetPanel floating={floating} onToyExpanded={setToyExpanded} />}
     {!floating && tab === "quests" && <QuestsPanel />}
     {!floating && tab === "world" && <WorldPanel />}
