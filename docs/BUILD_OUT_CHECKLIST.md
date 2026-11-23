@@ -87,3 +87,5 @@ November 23: with Ollama stopped, a native local-quest request reported an unava
 November 23, afternoon: integrated the animation snapshot in an isolated staging branch and then the buildout branch, preserving the original checkout. Playback and the Dev-mode clip selector compile and have automated coverage; visual review, wearable alignment, native runtime, and Mac remain open. The earlier unintegrated snapshot note above is historical.
 
 November 23, afternoon: desktop and floating quest entry share a single input. Local AI can suggest explicitly sourced deadline and effort, shown for user review. A fictional direct model test succeeded with 12B; 4B missed the deadline. `npm run check` passed 136 tests; native visual review and Mac remain open.
+
+November 23: `npm run check` now checks the PNG dimensions of all 20 runtime clip atlases against the timing manifest, in addition to existing playback tests. All 20 passed; this does not replace visual review.

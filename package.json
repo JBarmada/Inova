@@ -11,9 +11,10 @@
     "typecheck": "tsc --noEmit",
     "test": "vitest run --dir src",
     "check:size": "node scripts/check-size.mjs",
-    "check": "npm run check:size && npm run typecheck && npm test && npm run build",
+    "check": "npm run check:size && npm run check:clips && npm run typecheck && npm test && npm run build",
     "tauri": "tauri",
-    "desktop": "tauri dev"
+    "desktop": "tauri dev",
+    "check:clips": "node scripts/check-clip-assets.mjs"
   },
   "dependencies": {
     "@tauri-apps/api": "^2.0.0",
