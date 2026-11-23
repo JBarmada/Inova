@@ -13,6 +13,7 @@ function apply(state: AppState, action: Action): AppState {
     case "dev-mode": return { ...state, settings: { ...state.settings, devMode: action.enabled } };
     case "status-bar": return { ...state, settings: { ...state.settings, showStatus: action.enabled } };
     case "local-model": return { ...state, settings: { ...state.settings, localModel: action.model } };
+    case "quest-minute-limit": return { ...state, settings: { ...state.settings, questMinuteLimit: action.minutes } };
     case "add-commitment":
       if (state.commitments.some((entry) => entry.id === action.commitment.id)) return state;
       return { ...state, commitments: [...state.commitments, action.commitment] };
@@ -30,6 +31,7 @@ function apply(state: AppState, action: Action): AppState {
       if (!state.commitments.some((entry) => entry.id === action.quest.commitmentId)) throw Error("Unknown commitment.");
       if (action.quest.completedAt || action.quest.plan) throw Error("A proposed quest cannot have a completion date or plan.");
       if (action.quest.status !== "proposed") throw Error("New quests must be proposals.");
+      if (state.settings.questMinuteLimit && action.quest.minutes > state.settings.questMinuteLimit) throw Error("This quest exceeds your current length limit. Please plan again.");
       if (!action.quest.sourceIds.includes(action.quest.commitmentId)) throw Error("Quest must cite its commitment.");
       if (action.quest.sourceIds.some((id) => id !== action.quest.commitmentId && !state.memories.some((memory) => memory.id === id && memory.aiAllowed))) throw Error("Quest refers to unavailable evidence.");
       return { ...state, quests: [...state.quests, action.quest] };

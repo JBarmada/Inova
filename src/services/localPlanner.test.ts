@@ -71,3 +71,10 @@ it("passes supplied commitment constraints and rejects a quest longer than estim
   expect(sent.commitment.deadline).toEqual(detailed.deadline);
   expect(sent.commitment.effortMinutes).toBe(5);
 });
+
+it("sends and enforces an explicit maximum quest length", async () => {
+  const state = { ...initialState(), settings: { ...initialState().settings, questMinuteLimit: 5 } };
+  const call = vi.fn().mockResolvedValue(JSON.stringify({ title: "A step", reason: "Start small", minutes: 10 }));
+  await expect(proposeLocal(commitment, state, call as unknown as typeof invoke)).rejects.toThrow("length limit");
+  expect(JSON.parse(call.mock.calls[0][1].input).maxQuestMinutes).toBe(5);
+});

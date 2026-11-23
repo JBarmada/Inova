@@ -1,5 +1,12 @@
 # Implementation Status and Handoff
 
+## Explicit quest-length preference — November 23, 2026
+
+The Quests page lets a user choose an optional maximum for new suggested quest durations. The sample planner uses that limit, and local AI receives the maximum as a constraint; output exceeding it is rejected. The shared reducer checks the current limit again before saving a proposal, protecting against a changed preference while a request is pending. Existing quests do not change, and users may explicitly edit their duration afterward. No preference is inferred from a reflection. Older saves default to no maximum; older builds may drop this setting on save.
+
+`npm run check` passed 109 tests, size/type checks and production build; isolated Windows release compilation passed. In the fictional Windows profile, selecting five minutes produced a five-minute sample quest. Local model behavior under the new maximum and Mac remain unverified.
+
+
 ## Manual quest time planning — November 23, 2026
 
 An accepted quest can be assigned a time by entering a future free window in local time. The app places the quest at the start of that window, checks its duration against the entered end, a recorded commitment deadline, and other accepted quest plans, and stores the resulting UTC interval plus the entered window and time zone. The UI explicitly states that no calendar was checked; no calendar event or reminder is created. Duration edits, deferral, and dismissal clear a saved plan. The form also allows a plan to be removed. Repeated-hour DST ambiguity follows the platform's local-time interpretation. Older builds may silently discard these new optional plan fields.

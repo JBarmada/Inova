@@ -116,3 +116,7 @@ Manual commitments may have `deadline: { at, timeZone }` (ISO UTC plus IANA zone
 ## Manual quest plans (build-out worktree)
 
 An accepted quest may store a plan with UTC start/end, the user-entered availability end, its IANA time zone, and recorded time. The reducer computes the end from quest duration, rejects a past start, a window too short, a commitment-deadline violation, and overlap with another accepted plan. It does not know external calendar events or create one. Duration edits, deferral, or dismissal clear the plan; title-only edits preserve it. Completion retains the historical plan. Plan timestamps and duration are validated on load. Old saves without plans remain valid, but older builds may drop new fields when saving.
+
+## Quest-length preference (build-out worktree)
+
+`settings.questMinuteLimit` is an explicit user-selected maximum for new suggestions; zero means no maximum and is the default for older saves. Both planners respect the maximum and the reducer rejects a new proposal above the current limit, including after an in-flight change. Users may still edit a quest to another duration. The setting does not rewrite prior quests or infer a preference from a reflection.

@@ -29,6 +29,11 @@ export function QuestsPanel() {
       } catch (error) { setModelMessage(error instanceof Error ? error.message : "Could not check local AI. Try the sample planner."); }
     }, "")}>Check local AI</button>
     {modelMessage && <p role="status">{modelMessage}</p>}
+    <label>Maximum suggested quest length<select value={state.settings.questMinuteLimit} disabled={busy} onChange={(event) =>
+      void run(() => dispatch({ type: "quest-minute-limit", minutes: Number(event.target.value) }), "Quest length preference updated.")}>
+      <option value="0">No maximum</option><option value="5">5 minutes</option><option value="10">10 minutes</option>
+      <option value="15">15 minutes</option><option value="30">30 minutes</option><option value="60">60 minutes</option>
+    </select></label><p>This limit applies to new suggestions; you can still edit a quest yourself.</p>
     <CommitmentForm adopted={state.pet.adopted} />
     {!state.pet.adopted && <p>Adopt your dog before beginning quests.</p>}
     {state.commitments.map((entry) => <div className="commitment" key={entry.id}><span>{entry.title}{entry.deadline && <> · Due {formatDeadline(entry.deadline)}</>}{entry.effortMinutes && <> · {entry.effortMinutes} min estimated total</>}</span>

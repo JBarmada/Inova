@@ -8,7 +8,7 @@ export interface Planner {
 export const samplePlanner: Planner = {
   async propose(commitment, state) {
     const memory = state.memories.filter((entry) => entry.aiAllowed).at(-1);
-    const minutes = Math.min(10, commitment.effortMinutes ?? 10);
+    const minutes = Math.min(10, commitment.effortMinutes ?? 10, state.settings.questMinuteLimit || 120);
     return {
       id: newId(), commitmentId: commitment.id,
       title: `Spend ${minutes} minutes starting: ${commitment.title}`,

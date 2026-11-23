@@ -11,7 +11,7 @@ export async function proposeLocal(commitment: Commitment, state: AppState, call
   const memorySnapshot = state.memories.filter((entry) => entry.aiAllowed).slice(-3)
     .map(({ id, text }) => ({ id, text }));
   if (call === invoke && !isTauri()) throw Error("Local AI requires the desktop app. The sample planner is available here.");
-  const input = JSON.stringify({ commitment: { id: commitment.id, title: commitment.title, deadline: commitment.deadline, effortMinutes: commitment.effortMinutes }, reflections: memorySnapshot });
+  const input = JSON.stringify({ commitment: { id: commitment.id, title: commitment.title, deadline: commitment.deadline, effortMinutes: commitment.effortMinutes }, reflections: memorySnapshot, maxQuestMinutes: state.settings.questMinuteLimit || undefined });
   let raw: string;
   try { raw = await call<string>("local_quest", { input, model: state.settings.localModel }); }
   catch (error) { throw Error(typeof error === "string" ? error : "Local AI is unavailable. Try the sample planner."); }
@@ -19,6 +19,7 @@ export async function proposeLocal(commitment: Commitment, state: AppState, call
   try { parsed = JSON.parse(raw); } catch { throw Error("Local AI returned invalid JSON. Try again or use the sample planner."); }
   const result = resultSchema.safeParse(parsed);
   if (!result.success) throw Error("Local AI returned an invalid quest. Try again or use the sample planner.");
+  if (state.settings.questMinuteLimit && result.data.minutes > state.settings.questMinuteLimit) throw Error("Local AI exceeded your quest length limit. Try again or use the sample planner.");
   if (commitment.effortMinutes && result.data.minutes > commitment.effortMinutes) throw Error("Local AI suggested longer than the estimated total effort. Try again or use the sample planner.");
   return { memorySnapshot, quest: { ...result.data, id: newId(), commitmentId: commitment.id,
     sourceIds: [commitment.id, ...memorySnapshot.map((memory) => memory.id)], status: "proposed", planner: "local" } };
