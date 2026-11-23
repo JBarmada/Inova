@@ -18,7 +18,7 @@ The build-out worktree offers an explicit Local AI quest action in the Quests pa
 
 `npm run check` passed 80 tests plus type/size/build checks; Windows release compilation passed. Local-service error and mocked valid/invalid output paths were tested, but no live model or native UI run was performed.
 
-No Ollama executable was found on PATH and localhost:11434 did not respond in this environment. Therefore no actual model inference, quality/latency benchmark, memory measurement, or claim of a running model has been made. The model choice is provisional pending comparison. Browser preview can use the sample planner; the local action requires desktop mode. See [Ollama structured outputs](https://docs.ollama.com/capabilities/structured-outputs) and [local chat API](https://docs.ollama.com/api/chat).
+A verified standalone Ollama runtime was subsequently downloaded into ignored `.tools/ollama`; Gemma 3 4B and 12B were measured on fictional examples. The native Windows test app generated a real 12B quest through the app. The 4B initial run invented a chapter; a revised prompt avoided that specific failure in the small recheck. The 12B remains a provisional default. See [model trial and limitations](evidence/local-models-2026-11-23/README.md). The app requires a running Ollama service; the isolated runtime is not packaged with the app. The benchmark service was stopped after testing to release memory; downloaded files remain in the ignored worktree. Browser preview can use the sample planner; the local action requires desktop mode. See [Ollama structured outputs](https://docs.ollama.com/capabilities/structured-outputs) and [local chat API](https://docs.ollama.com/api/chat).
 
 ## Build-out worktree — November 23, 2026
 

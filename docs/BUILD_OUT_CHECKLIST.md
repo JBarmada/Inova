@@ -4,14 +4,15 @@ Worktree: `.worktrees/inova-complete`, branch `codex/inova-complete`, based on `
 
 - [x] Establish isolated worktree and install locked dependencies.
 - [x] Baseline `npm run check`: 72 tests, type/size checks and frontend build passed.
-- [ ] Diagnose native toy-frame synchronization and startup delay; validate Windows overlay and Mac separately.
+- [ ] Diagnose native toy-frame synchronization and startup delay; validate Windows overlay and Mac separately. Native Windows open/outside-dismiss and a restart were observed with fictional data; frame timing, dragging, positioning and Mac remain unverified.
 - [x] Add editable quest titles with terminal-state validation and unchanged evidence/reward data.
 - [x] Add memory editing; changed text clears stale copied quest rationale and source references.
 - [x] Link a new reflection to an existing completed adventure; browser reload preserves the fictional link.
 - [x] Show saved quest completions and newly unlocked items in both quest interfaces, with muted-compatible text and reduced-motion behavior.
 - [ ] Complete adoption, companion interactions, wardrobe fitting, and bookshelf with verified save/recovery.
 - [x] Implement explicit local Ollama planner with permission-filtered context, validated output, stale-context guards, and a separately accessible sample fallback.
-- [ ] Install or connect a local Ollama runtime and benchmark Gemma 3 12B and smaller models for quality, latency, and memory before choosing a final default. Ollama was not found on PATH and localhost:11434 was unavailable; hardware detection needs further verification.
+- [x] Run preliminary 4B/12B fictional benchmarks and a native local-quest request; see evidence/local-models-2026-11-23.
+- [ ] Expand model evaluation and choose a final default; small trials do not establish reliability. Provide a user-friendly runtime setup and service lifecycle.
 - [ ] Implement the documented stretch backlog in dependency order, respecting unresolved product/art decisions and external access limits.
 - [ ] Verify complete fictional-data flow, audio/mute, reduced motion, Windows and Mac; update asset provenance and release handoff.
 
@@ -24,3 +25,5 @@ Windows release compilation (`npm run tauri build -- --no-bundle`) passed in thi
 November 23: reward receipt and reveal increment passed 82 tests and Windows release compilation; browser preview confirmed fictional notebook/bandana unlocks and Completed focus. Native UI, muted audio, and Mac remain unverified.
 
 November 23: quest-linked reflection increment passed 84 tests and Windows release compilation; browser preview verified a fictional linked entry survived reload.
+
+November 23: isolated Windows test app verified edited sample quest completion, notebook reveal, local 12B proposal, restart, floating board opening and outside dismissal. See model trial evidence for exact limits.

@@ -9,6 +9,7 @@ import { QuestCard } from "./QuestCard";
 export function QuestsPanel() {
   const state = useInova();
   const [title, setTitle] = useState("");
+  const [planning, setPlanning] = useState(false);
   const { run, busy, message } = useAction();
   async function add() {
     await dispatch({ type: "add-commitment", commitment: { id: newId(), title, createdAt: now() } });
@@ -23,13 +24,17 @@ export function QuestsPanel() {
     {!state.pet.adopted && <p>Adopt your dog before beginning quests.</p>}
     {state.commitments.map((entry) => <div className="commitment" key={entry.id}><span>{entry.title}</span>
       <div className="actions"><button disabled={busy} onClick={() => void run(async () => {
-        const result = await proposeLocal(entry, state);
-        await dispatch({ type: "propose-quest", ...result });
+        setPlanning(true);
+        try {
+          const result = await proposeLocal(entry, state);
+          await dispatch({ type: "propose-quest", ...result });
+        } finally { setPlanning(false); }
       }, "Local AI quest proposed.")}>Make local AI quest</button>
       <button disabled={busy} onClick={() => void run(async () => {
         const quest = await samplePlanner.propose(entry, state);
         await dispatch({ type: "propose-quest", quest });
       }, "Sample quest proposed.")}>Make sample quest</button></div></div>)}
+    {planning && <p role="status">Your dog is thinking with local AI…</p>}
     {message && <p role="status">{message}</p>}
     {state.quests.length === 0 && <p className="empty">Your first small adventure goes here.</p>}
     {state.quests.map((quest) => <QuestCard quest={quest} key={quest.id} />)}

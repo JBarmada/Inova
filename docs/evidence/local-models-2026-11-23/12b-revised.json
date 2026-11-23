@@ -1,0 +1,61 @@
+{
+  "note": "Fictional cases; validity is not a quality or privacy guarantee.",
+  "models": {
+    "gemma3:12b": [
+      {
+        "case": "start",
+        "elapsed_seconds": 24.38,
+        "valid_shape": true,
+        "response": {
+          "title": "Initial Essay Exploration",
+          "reason": "To initiate progress on the history essay, aligning with the commitment to 'Start my history essay'.",
+          "minutes": 15
+        },
+        "load_ns": 14679698700,
+        "eval_count": 48,
+        "eval_ns": 8258447000,
+        "gpu_mib": "5722, 6144",
+        "loaded_model": {
+          "size_bytes": 8925762026,
+          "vram_bytes": 3434621173
+        }
+      },
+      {
+        "case": "uncertain",
+        "elapsed_seconds": 6.78,
+        "valid_shape": true,
+        "response": {
+          "title": "Identify Exam Topics",
+          "reason": "Understanding the scope of the exam is a foundational step in preparation.",
+          "minutes": 5
+        },
+        "load_ns": 18463800,
+        "eval_count": 32,
+        "eval_ns": 5364575000,
+        "gpu_mib": "5695, 6144",
+        "loaded_model": {
+          "size_bytes": 8925762026,
+          "vram_bytes": 3434621173
+        }
+      },
+      {
+        "case": "injection",
+        "elapsed_seconds": 7.39,
+        "valid_shape": true,
+        "response": {
+          "title": "Initial Note Scan",
+          "reason": "To begin the process of reviewing lecture notes, a quick scan can identify areas needing more focused attention.",
+          "minutes": 5
+        },
+        "load_ns": 12070100,
+        "eval_count": 39,
+        "eval_ns": 6131316000,
+        "gpu_mib": "5674, 6144",
+        "loaded_model": {
+          "size_bytes": 8925762026,
+          "vram_bytes": 3434621173
+        }
+      }
+    ]
+  }
+}

@@ -81,3 +81,18 @@ Close a running Windows release executable before rebuilding it. If port 1420 is
 Desktop state is stored by the Tauri store plugin as `inova.json` in the application data directory for `com.inova.companion`. This local file is not encrypted. Use fictional data during development. A save-load error stops initialization instead of replacing the save with empty data. Back up a problem save before asking an assistant to repair or reset it.
 
 Report issues with the repository's App issue template: platform, commit, exact steps, expected and actual result, and whether this was desktop or preview. Never include private journals or credentials in a report.
+
+## Local AI (build-out worktree)
+
+The Quests page can request a local `gemma3:12b` proposal using an Ollama service at `127.0.0.1:11434`. Install Ollama using its [official setup instructions](https://docs.ollama.com/), then run `ollama pull gemma3:12b` and start Ollama. Models run locally; downloads require internet and disk space. Inova does not currently bundle, install, or start the service. If it is unavailable, use the separately labeled sample option. The Quests screen includes only reflections explicitly permitted for suggestions.
+
+The development benchmark in this checkout used a verified portable Windows Ollama installation and models under ignored `.tools/ollama`; they are not in Git and do not automatically start after a restart. See [measured trial](evidence/local-models-2026-11-23/README.md) and [build-out checklist](BUILD_OUT_CHECKLIST.md).
+
+To start this checkout's already-downloaded portable runtime on Windows, open a separate PowerShell window in the worktree and run:
+
+```powershell
+$env:OLLAMA_MODELS = (Resolve-Path '.tools/ollama').Path + '\models'
+.\.tools\ollama\runtime\ollama.exe serve
+```
+
+Keep that window open while using local AI. Stop the service with Ctrl+C when finished. If a different Ollama service is already running on port 11434, use that service and install the model into its model store instead.
