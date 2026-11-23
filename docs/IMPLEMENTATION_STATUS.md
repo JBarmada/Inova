@@ -1,5 +1,15 @@
 # Implementation Status and Handoff
 
+## Seated expressions, loaf, and draft animation coverage — November 23, 2026
+
+Dev mode Happy while seated now shows the Happy :D face with blush. Tired begins with an immediate blink, completes its eye-only sequence, holds tired sitting for seven seconds, then lowers through two 220 ms v36 frames to loaf. Happy, Idle, and Stand cancel the pending deadline. Loaf has mood-specific faces and Stand recovers through sitting. Manual commands remain in Dev mode.
+
+The fitted sit/rise uses six middle poses over 840 ms. Breathing stays on one phase clock through every live face and posture frame. The additional moving/loaf frames use subtle chest shading, with face and paw pixels fixed. Reduced motion shows canonical endpoints. Tucked socks stay equipped and hidden until paws are visible.
+
+The [To Be Reviewed Animations package](../art/pocket-pup/to-be-reviewed-animations/README.md) covers the full production queue with 20 clips and 125 native frame slots, plus normal-speed and slow GIFs and timing markers. Sleep, wake, stretch, and personality motion are drafts. `npm run check` passed 77 tests and the frontend build. The Windows debug executable compiled. Native visual fit and Mac runtime still need a walkthrough.
+
+The Pixel Engine comparison selector was removed from Dev mode. The [experiments](../art/pocket-pup/pixel-engine-review/README.md) are archived with the art studies, outside the app's public assets.
+
 ## Dog control gate and menu dismissal correction — November 23, 2026
 
 All manual dog controls now share `DogDeveloperControls`, gated by adoption and Dev mode in both home and floating mode. Future dog buttons belong there. Normal-mode render tests reject any new dog action button outside the gate; adoption and wardrobe previews remain available. The redundant minimize icon and its styling are removed. Outside clicks, focus loss and Escape still retract the menu into the toy; no explicit dismissal button is needed.
@@ -7,6 +17,12 @@ All manual dog controls now share `DogDeveloperControls`, gated by adoption and 
 `npm run check` passed: 88 source-file size checks, TypeScript, 72 tests in 17 files, and frontend build. Added regression checks for both home/floating gates, switching Dev mode off again, adoption availability, no expanded-menu dismissal button, inside/outside clicks, focus-loss dismissal, and listener cleanup. Windows release compilation passed. No fresh native runtime or Mac test was performed for this correction.
 
 The earlier minimize-button/home-pose exceptions below are historical and superseded by this correction.
+
+## Reported toy expansion timing bug
+
+Reported November 23, 2026, after the toy transition update: the quest menu expands out of sync with the toy artwork expanding. The mismatch can be visible for only a single frame. This remains a user-reported bug awaiting reproduction and repair; the earlier browser checks below do not establish frame-by-frame synchronization.
+
+Review opening and closing frame by frame in the native overlay, keeping the menu reveal and toy expansion visually synchronized. Preserve the stable native canvas width from the earlier sideways-blink fix; that fix addressed a different symptom. Verify both Windows and Mac, including muted sound and reduced motion.
 
 ## Floating controls and toy transition — November 23, 2026
 

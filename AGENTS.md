@@ -7,6 +7,7 @@
 - Check the working tree and current code before assuming the handoff is still current.
 - Treat established team preferences, proposed minimum scope, stretch ideas, and open decisions as different statuses.
 - Follow the user's latest explicit instructions. Record product or architecture decisions in the relevant documents when they are made.
+- Before editing Pocket Pup art or playback, read the [To Be Reviewed Animations index](art/pocket-pup/to-be-reviewed-animations/README.md) and the [transition table](docs/TRANSITION_TABLE.md). Check which clips are live and which still need visual review.
 
 ## Preserve the intended product
 

@@ -59,9 +59,9 @@ Deleting or revoking a memory removes its reference and copied rationale from ex
 
 ## Asset and feedback boundary
 
-Pocket Pup posture playback is transient presentation state, separate from persisted `idle`/`happy`/`tired` moods and item ownership. The approved idle path is neutral → 160ms tuck → sit after eight seconds. Approved breathing runs on standing/happy/sitting with 800/450/650/900ms phases and no motion under reduced-motion preference; loops stop while the tuck plays. Bandana follows the chest on inhale; notebook stays grounded.
+Pocket Pup posture playback is transient presentation state, separate from persisted `idle`/`happy`/`tired` moods and item ownership. The idle path sits after eight seconds, using the fitted 840 ms clip. Breathing uses 800/450/650/900 ms phases across supported frames. Reduced motion displays canonical poses. Wearables follow authored offsets on frames with a one-pixel inhale lift.
 
-Next required hierarchy: a mood change must not itself force a sitting dog to stand. Tired sitting should hold for seven seconds before loaf. These new clips and stand-up motion are review-gated and not yet implemented; do not infer their completion from this design agreement. No persisted schema migration is needed for local posture/timer state.
+Mood changes preserve posture. The seated tired face sequence is followed by a seven-second hold, then lowering to loaf if both posture and mood still match. Stand cancels the deadline or routes out of loaf through sitting. Sleep and other reviewed candidates use the [transition ledger](TRANSITION_TABLE.md) for status. No schema migration is needed for this local playback state.
 
 Dog rendering takes shared state; it does not own inventory. Wardrobe writes equipment, and the same DogSprite reflects it in both home and floating mode. Use stable catalog IDs and agreed anchors.
 

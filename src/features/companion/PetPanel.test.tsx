@@ -19,10 +19,13 @@ it.each([false, true])("gates every adopted dog control behind Dev mode (floatin
   const normal = renderToStaticMarkup(<PetPanel floating={floating} />);
   expect(normal).not.toContain("<button");
   expect(normal).not.toContain("Developer mood controls");
+  expect(normal).not.toContain("Art preview");
   fixture.state.settings.devMode = true;
   const developer = renderToStaticMarkup(<PetPanel floating={floating} />);
   expect(developer).toContain("Ask your dog to stand");
   expect(developer).toContain("Developer mood controls");
+  expect(developer).not.toContain("Art preview");
+  expect(developer).not.toContain("Pixel Engine");
   expect(developer.match(/<button/g)).toHaveLength(4);
   fixture.state.settings.devMode = false;
   expect(renderToStaticMarkup(<PetPanel floating={floating} />)).not.toContain("<button");

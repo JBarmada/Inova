@@ -1,106 +1,84 @@
-# Dog transition coverage and review queue
+# Pocket Pup transition coverage
 
-Updated November 23, 2026. This is a behavior/review ledger, not a claim that every row runs in the app. Current main contains approved v32/v34/v35 runtime work and the unapproved v36 review files (merged as `56f80c2`). Main was checked at `c4693ac` for the [continuation handoff](ANIMATION_CONTINUATION.md). Runtime loaf remains disabled; earlier branch references below are historical checkpoints.
+Updated November 23, 2026. **Future animation workers should start with the [To Be Reviewed Animations index](../art/pocket-pup/to-be-reviewed-animations/README.md).** The index links each GIF, slow preview, native frame sheet, and timing record. Every production-queue row has an artifact. Review status and app support are recorded separately below.
 
-**Approved/integrated: M05, sitting to tired face (v35), main `93696f3`.** Mood changes preserve posture and the approved eye-only sequence runs with grounded breathing. **Active review: tired sit to loaf, v36** ([GIF](../art/pocket-pup/v36/loaf-preview.gif), [slower](../art/pocket-pup/v36/loaf-slow.gif), [frames](../art/pocket-pup/v36/loaf-frames.png)) on `codex/loaf-transition-review`. The runtime deadline and loaf clip remain disabled until approval. Animated stand-up follows separately.
+## Playback rules
 
-## Hierarchy
-
-1. Body posture and mood are separate axes. A mood update alone preserves posture. Sitting + tired is still sitting.
-2. Explicit pose commands outrank automatic rest deadlines. Route through reviewed stable endpoints; never teleport through an unsupported pose.
-3. Use posture-compatible face frames. The latest request makes seated tiredness **face-only**, without a head dip, body change, or paw movement.
-4. Entering stable **sitting + tired** starts one seven-second deadline. On expiry, both guards must still hold before a reviewed loaf-entry clip can run. This timer and clip are not implemented yet.
-5. Cancel the deadline when mood becomes idle/happy, Stand is requested, posture leaves sitting, adoption is lost, or the controller is disposed. Duplicate tired events, rerenders, equipment, settings, and breathing must not restart it.
-6. Breathing is lower priority than a posture clip. Reduced motion disables breathing and skips movement to approved stable endpoints; it does not change logical mood/posture guards.
-7. One presentation owner manages posture, clip, queued command, and deadline. Shared mood/equipment remain in the existing state; no separate persisted pet record.
-8. A missing/unapproved route holds the last supported stable pose and records intent. It must not silently substitute standing. The current app still has the limitations below; this is the upcoming controller contract.
+1. Mood and posture are independent. Happy and Tired have distinct sitting and loaf faces. A mood change alone preserves posture.
+2. Standing idle sits after eight seconds. Tired sitting blinks immediately, completes the eye-only sequence, then holds the tired face for seven seconds before v36 lowering begins. A mood change or Stand command before the deadline cancels it. Duplicate mood updates, equipment, and settings do not restart it.
+3. Stand from loaf reverses the two lowering frames, passes through sitting, then plays the fitted raise. This is the current runtime recovery. The dedicated wake and push-up study remains in review.
+4. Breathing stays on one clock across supported live faces and clips. Grounded standing and seated idles use the v34 lift. Standing tired, loaf, and moving frames use smaller chest shading with fixed face and paw pixels. Reduced motion displays canonical frames and skips movement while retaining the rest delay.
+5. Posture is transient presentation state. Preserved mood and worn equipment stay in the shared save. Sleep and personality draft files are available for review outside the app.
 
 ## All 12 stable posture × mood combinations
 
-| ID | Body | Requested mood | Required outcome | Status |
+| ID | Body | Mood | Outcome | Status |
 | --- | --- | --- | --- | --- |
-| M01 | Standing | Idle | Standing neutral/breathing; idle sit timer | Live |
-| M02 | Standing | Happy | Standing happy/breathing | Live static face; greeting queued |
-| M03 | Standing | Tired | Standing tired; no invented automatic posture route | Live static face |
-| M04 | Sitting | Idle | Stay seated, neutral face/breathing; clear loaf deadline | Live; idle recovery remains seated; loaf deadline not enabled |
-| M05 | Sitting | Tired | Stay seated; face-only transition; 7s deadline at stable tired state | **v35 approved/live; seven-second loaf timer pending** |
-| M06 | Sitting | Happy | Stay seated; happy face; cancel loaf deadline | Posture live; neutral seated face + sparkle fallback; happy face queued |
-| M07 | Loaf | Idle | Stay loaf; relaxed awake face | Endpoint/face queued |
-| M08 | Loaf | Happy | Stay loaf; happy face; rising requires pose command | Queued |
-| M09 | Loaf | Tired | Stay loaf; drowsy face; no unapproved sleep timer | Queued |
-| M10 | Sleeping | Idle | Stay sleeping/closed face; reviewed route for waking | Queued |
-| M11 | Sleeping | Happy | Stay sleeping; retain happy intent for waking, never standing-happy substitution | Queued; wake trigger to review |
-| M12 | Sleeping | Tired | Stay sleeping; no duplicate sleep-entry clip | Queued |
-
-**Resolved posture bug:** mood updates no longer reset the local pose or substitute standing artwork for seated tiredness. Mood changes during the tuck complete the approved seated endpoint first. Navigation still remounts presentation; full shared ownership and future loaf/wake routes remain pending.
+| M01 | Standing | Idle | Neutral breathing, idle sit deadline | Live |
+| M02 | Standing | Happy | Happy breathing | Live; greeting draft |
+| M03 | Standing | Tired | Tired breathing, stays standing | Live |
+| M04 | Sitting | Idle | Neutral breathing, clears loaf deadline | Live |
+| M05 | Sitting | Tired | Eye-only entry, tired breathing, seven-second stable hold, then loaf | Live |
+| M06 | Sitting | Happy | Blush and Happy :D, grounded breathing, clears loaf deadline | Live; eased recovery draft |
+| M07 | Loaf | Idle | Open neutral face and breathing | Live |
+| M08 | Loaf | Happy | Happy face and breathing, remains down | Live |
+| M09 | Loaf | Tired | Heavy eyelids and breathing | Live |
+| M10 | Sleeping | Idle | Eyes closed, sleeping breathing | Draft |
+| M11 | Sleeping | Happy | Same sleeping art, retain happy intent for wake | Draft; wake trigger open |
+| M12 | Sleeping | Tired | Same sleeping art, no repeated sleep-entry clip | Draft |
 
 ## All 16 stable body routes
 
-Only entries marked live exist in the app. Historical draft art does not count as an approved route.
+Cells marked live are implemented. Draft routes compose the named clips in the review index.
 
 | From / target | Standing | Sitting | Loaf | Sleeping |
 | --- | --- | --- | --- | --- |
-| Standing | Hold/breathe (live) | Approved tuck → sit (live) | Sit → loaf | Sit → loaf → sleep |
-| Sitting | **Dedicated rise/back-leg extension; queued** | Hold/breathe (live) | **7s tired guard → loaf entry; queued** | Loaf → sleep |
-| Loaf | Push up → sit → stand | Push up → sit | Hold/breathe | Chin lowers → sleep |
-| Sleeping | Wake → loaf → sit → stand | Wake → loaf → sit | Wake → loaf | Hold/sleep breathing |
+| Standing | Hold/breathe live | Fitted sit live | Sit → loaf live when tired after a sit | Sit → loaf → sleep draft |
+| Sitting | Fitted rise live | Hold/breathe live | Seven-second tired hold → lower live | Loaf → sleep draft |
+| Loaf | Untuck → sit → rise live | Push-up draft as a standalone destination | Hold/breathe live | Chin lowers draft |
+| Sleeping | Wake → loaf → sit → stand draft | Wake → loaf → sit draft | Wake draft | Sleep breathing draft |
 
 ## Triggers, interruptions, and recovery
 
-| Case | Required outcome | Status |
+| Case | Behavior / next check |
+| --- | --- |
+| Unadopted | Presentation deadlines start only after adoption |
+| Duplicate Sit, Stand, or tired request | Stable/transition guards prevent restarts and duplicate timers |
+| Idle or Happy arrives before the deadline | Cancels pending lowering and selects the seated face |
+| Stand arrives before the deadline | Cancels pending lowering and executes fitted rise |
+| Mood changes mid-clip | Preserve body clip and use the latest posture-compatible mood at the destination |
+| Reduced motion becomes active | Jump to destination, display canonical frame, honor current rest delay |
+| Equip/remove, mute, status, or Dev mode changes | Keep presentation state. Verify visual fit on both platforms. Tucked paws hide socks while their slot stays equipped |
+| Navigate away or reload | Companion can remount and start standing with saved mood/equipment. Old callbacks cancel |
+| Float/home, resize, drag, focus changes | Verify native behavior separately. Moving between layouts can remount presentation |
+| Asset failure | Existing placeholder/error path; verify recovery if replacing assets |
+| Hidden or resumed app, direct interaction while drowsy | Timing/wake policy remains open |
+
+## Production queue
+
+The [review index](../art/pocket-pup/to-be-reviewed-animations/README.md) contains all of these clips with native frames and timing. A draft is ready for review; it still needs visual approval before integration.
+
+| Brief | Deliverable | Coverage |
 | --- | --- | --- |
-| Adopted standing idle for 8s | Approved neutral → tuck → sit | Live |
-| Not adopted | No rest deadlines/automatic pose clips | Current sit path live |
-| Sit while already seated | No duplicate clip; keep mood/posture | Live |
-| Stand while already standing | No duplicate stand-up | Live no-op; stand-up clip queued |
-| Tired sitting reaches 7s | Loaf entry once, only if still seated+tired | Pending loaf approval |
-| Happy/idle arrives before 7s | Cancel deadline; change face in place | Pending |
-| Stand arrives before 7s | Cancel deadline; reviewed stand-up; retain mood | Pending stand-up review |
-| Repeated tired event/rerender | Preserve original deadline; no stacked timers | Pending |
-| Mood during tuck/rise/lower | Retain latest mood; apply compatible face at stable boundary | Live for tuck; future clips pending |
-| Pose command during clip | Coalesce to latest intent; finish safe boundary, then route | Proposed; validate with clip |
-| Posture clip during inhale | Stop loop; use canonical clip frames without scaling | Current tuck live; future clips pending |
-| Face clip during breathing | Preserve posture/ground contact and compatible breath phase | Live for seated face variants |
-| Equip/remove | Preserve pose/mood/deadline; use fitted layers | Sitting layers live; later fitting pending |
-| Unfitted item on planned pose | Review fit/fallback before enabling clip; keep inventory/equipment record | Review gate |
-| Mute/status/dev changes | Preserve pose/deadlines; visible action feedback | Settings live; new deadlines pending |
-| Reduced motion changes | Stop loops; approved stable endpoint; same mood/guards | Current breathing/tuck live; hierarchy pending |
-| Navigate companion ↔ wardrobe/memories | Shared presentation owner retains posture | Current remount resets presentation; pending |
-| Float/home, resize, drag, focus change | No invented posture or restarted deadline | Hierarchy/native verification pending |
-| Hidden tab/app resumes | Re-evaluate deadline and current guards; no stale clip replay | Timing policy to validate |
-| Reload/restart | Load saved mood/equipment; supported initial pose; no old timeout | Current initial pose standing |
-| Unmount/dispose | Cancel clip/loop/deadline callbacks | Current cleanup tested; extend for loaf |
-| Asset fails | Supported/fallback visual and visible error; no missing-frame playback | Current error path; extend per clip |
-| Direct interaction while drowsy | Intentional feedback; exact reset-vs-wake policy needs review | Open decision |
-| Any unlisted/invalid state-event pair | Last supported stable pose; no automatic standing substitution | Required upcoming safe default |
+| 1 | Standing → sit | Fitted runtime clip and review reference |
+| 2 | Seated blink → drowsy → tired | Runtime eye-only sequence and review reference |
+| 3 | Tired sit → loaf | v36 runtime clip and review GIF with seven seconds of tired breathing |
+| 4 | Loaf → sleep | Draft |
+| 5 | Sleeping breathing | Draft |
+| 6 | Wake → loaf | Draft |
+| 7a | Loaf → sit | Draft standalone clip; untuck also used in live Stand recovery |
+| 7b | Sit → stand | Fitted reverse runtime clip and review reference |
+| 8 | Post-nap stretch | Draft |
+| 9 | Quiet standing/sitting idle | Runtime breathing; optional blink drafts for both poses |
+| 10 | Notice user | Draft |
+| 11 | Happy greeting and sustained tail wag | Two drafts |
+| 12 | Single bark | Draft, bark marker |
+| 13 | Treat | Draft, offer and hide markers |
+| 14 | Unlock reaction | Draft, reveal/fanfare/sparkle markers |
+| 15 | Accessory fitting | Draft, wearable attachment marker |
+| M06 | Seated happy and tired recovery | Runtime face switch; eased recovery draft |
+| M07–M12 | Low posture moods | Loaf moods live; sleeping shares one eyes-closed art set in review |
 
-## One-at-a-time production queue
+## Verification when advancing a draft
 
-Review pose → motion → timing → integrate → validate, then advance. One clip is in active visual review. A design reference is not approval.
-
-| Priority | Brief scenario | Deliverable | Art/app status |
-| --- | --- | --- | --- |
-| Done | 1 | Neutral → sit, v32 | Approved, main |
-| Done / partial | 9 | Standing/happy/sitting grounded breathing, v34 | Approved, main; optional blink/ear variations not delivered |
-| Done | 2 / M05 | Seated blink → drowsy → tired, face only | v35 approved and integrated |
-| **1** | 3, latest request | Tired sit → loaf endpoint/entry; trigger after 7s | v36 GIF/endpoint awaiting review; not integrated |
-| 2 | 7b, explicit request | Sit → stand, weight shift/back-leg extension | Queued; reversing sit-down is not automatic approval |
-| 4 | M06 | Seated happy and tired → neutral/happy recovery | Queued |
-| Later | 4 | Loaf/lying awake → sleeping, chin toward paws | Queued |
-| Later | 5 | Grounded sleeping breathing | Queued |
-| Later | 6 | Sleeping → awake loaf | Queued |
-| Later | 7a | Loaf → sitting push-up | Queued |
-| Later | 8 | Post-nap stretch and return | Queued |
-| Later | 9 remainder | Quiet blink/optional ear variation per posture | Queued |
-| Later | 10 | Notice user / interested tilt | Queued |
-| Later | 11 | Greeting / separate sustained tail wag | Queued |
-| Later | 12 | Single bark / sound marker | Queued |
-| Later | 13 | Treat sniff/bite/chew/blep / separate prop | Queued |
-| Later | 14 | Unlock reaction / separate reveal, sparkle, fanfare | Queued |
-| Later | 15 | Accessory fitting reaction / pose anchors | Queued |
-
-Loaf is the latest requested low resting mode. Show its exact endpoint first; older lying-awake experiments are not automatically accepted as loaf.
-
-## Coverage tests to add as routes are implemented
-
-Parameterize M01–M12, the 16 body routes, and interruption cases. Assert body and face independently, plus active clip, deadline owner, planted paws, and reduced-motion endpoint. Include 6999ms/7000ms, cancellation at 6999ms, duplicate tired updates, stale clip completion, navigation, equipment, and settings. Queued rows are missing implementation, not fabricated passing tests.
+Check native pixels and normal-speed motion first. Fit all wardrobe slots to its frames, prove reduced-motion behavior, and add timing/cancellation and recovery coverage before enabling a new route. Ask for separate Windows and Mac runtime results.

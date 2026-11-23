@@ -1,0 +1,308 @@
+[
+  {
+    "clip": "01-stand-to-sit",
+    "durationMs": [
+      750,
+      130,
+      120,
+      120,
+      140,
+      150,
+      180,
+      950
+    ],
+    "markersMs": {},
+    "previewLayers": [],
+    "playback": "once"
+  },
+  {
+    "clip": "02-seated-tired",
+    "durationMs": [
+      400,
+      100,
+      350,
+      450,
+      250,
+      1000
+    ],
+    "markersMs": {},
+    "previewLayers": [],
+    "playback": "once"
+  },
+  {
+    "clip": "03-tired-to-loaf",
+    "durationMs": [
+      800,
+      450,
+      650,
+      900,
+      800,
+      450,
+      650,
+      900,
+      800,
+      600,
+      220,
+      220,
+      1100
+    ],
+    "markersMs": {
+      "lower": 7000
+    },
+    "previewLayers": [],
+    "playback": "once"
+  },
+  {
+    "clip": "04-loaf-to-sleep",
+    "durationMs": [
+      800,
+      450,
+      240,
+      1200
+    ],
+    "markersMs": {},
+    "previewLayers": [],
+    "playback": "once"
+  },
+  {
+    "clip": "05-sleep-breathing",
+    "durationMs": [
+      1100,
+      500,
+      800,
+      1000
+    ],
+    "markersMs": {},
+    "previewLayers": [],
+    "playback": "loop"
+  },
+  {
+    "clip": "06-wake-to-loaf",
+    "durationMs": [
+      650,
+      150,
+      240,
+      250,
+      1050
+    ],
+    "markersMs": {},
+    "previewLayers": [],
+    "playback": "once"
+  },
+  {
+    "clip": "07a-loaf-to-sit",
+    "durationMs": [
+      700,
+      170,
+      220,
+      220,
+      100,
+      900
+    ],
+    "markersMs": {},
+    "previewLayers": [],
+    "playback": "once"
+  },
+  {
+    "clip": "07b-sit-to-stand",
+    "durationMs": [
+      900,
+      180,
+      150,
+      140,
+      120,
+      120,
+      130,
+      750
+    ],
+    "markersMs": {},
+    "previewLayers": [],
+    "playback": "once"
+  },
+  {
+    "clip": "08-post-nap-stretch",
+    "durationMs": [
+      500,
+      180,
+      900,
+      220,
+      800
+    ],
+    "markersMs": {},
+    "previewLayers": [],
+    "playback": "once"
+  },
+  {
+    "clip": "09-sitting-idle",
+    "durationMs": [
+      800,
+      450,
+      650,
+      900,
+      800,
+      100,
+      800
+    ],
+    "markersMs": {},
+    "previewLayers": [],
+    "playback": "loop"
+  },
+  {
+    "clip": "09-standing-idle",
+    "durationMs": [
+      800,
+      450,
+      650,
+      900,
+      800,
+      100,
+      800
+    ],
+    "markersMs": {},
+    "previewLayers": [],
+    "playback": "loop"
+  },
+  {
+    "clip": "10-notice-user",
+    "durationMs": [
+      500,
+      120,
+      650,
+      140,
+      600
+    ],
+    "markersMs": {},
+    "previewLayers": [],
+    "playback": "once"
+  },
+  {
+    "clip": "11a-happy-greeting",
+    "durationMs": [
+      500,
+      170,
+      150,
+      150,
+      150,
+      270,
+      650
+    ],
+    "markersMs": {},
+    "previewLayers": [],
+    "playback": "once"
+  },
+  {
+    "clip": "11b-tail-wag-loop",
+    "durationMs": [
+      180,
+      170,
+      180,
+      170
+    ],
+    "markersMs": {},
+    "previewLayers": [],
+    "playback": "loop"
+  },
+  {
+    "clip": "12-single-bark",
+    "durationMs": [
+      450,
+      190,
+      130,
+      180,
+      700
+    ],
+    "markersMs": {
+      "bark": 640
+    },
+    "previewLayers": [
+      "bark-rays"
+    ],
+    "playback": "once"
+  },
+  {
+    "clip": "13-receive-treat",
+    "durationMs": [
+      400,
+      180,
+      220,
+      140,
+      180,
+      130,
+      520,
+      750
+    ],
+    "markersMs": {
+      "offer_treat": 400,
+      "hide_treat": 800
+    },
+    "previewLayers": [
+      "treat"
+    ],
+    "playback": "once"
+  },
+  {
+    "clip": "14-unlock-celebration",
+    "durationMs": [
+      450,
+      100,
+      210,
+      150,
+      170,
+      500,
+      700
+    ],
+    "markersMs": {
+      "reveal": 450,
+      "fanfare": 760,
+      "sparkle": 760
+    },
+    "previewLayers": [
+      "sparkles"
+    ],
+    "playback": "once"
+  },
+  {
+    "clip": "15-accessory-fitting",
+    "durationMs": [
+      600,
+      140,
+      400,
+      500,
+      700
+    ],
+    "markersMs": {
+      "attach_wearable": 740
+    },
+    "previewLayers": [
+      "bandana-sample"
+    ],
+    "playback": "once"
+  },
+  {
+    "clip": "m06-seated-happy-and-recovery",
+    "durationMs": [
+      650,
+      140,
+      100,
+      330,
+      850,
+      700
+    ],
+    "markersMs": {},
+    "previewLayers": [],
+    "playback": "once"
+  },
+  {
+    "clip": "m07-m12-low-posture-moods",
+    "durationMs": [
+      900,
+      900,
+      900,
+      900,
+      900
+    ],
+    "markersMs": {},
+    "previewLayers": [],
+    "playback": "once"
+  }
+]

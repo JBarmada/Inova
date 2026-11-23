@@ -2,11 +2,11 @@
 
 Saved November 23, 2026 for the artist. Read [ARTIST_GUIDE.md](ARTIST_GUIDE.md) and inspect the latest [art review index](../art/pocket-pup/README.md) before drawing. Version numbers indicate experiments, not approval.
 
-Current checkpoint: the user approved v32 neutral → sit and v34 grounded breathing, and requested their integration into main. Next reviews proceed one clip at a time. Latest explicit rules override the older motion beats below: sitting → tired changes only the face, preserves the seated body, and should lead to loaf after seven uninterrupted seconds once that transition is approved. Sit → stand also needs its own reviewed animation. Loaf, later rest/wake clips, and personality clips remain unfinished.
+Current checkpoint: [all scenarios have review assets](../art/pocket-pup/to-be-reviewed-animations/README.md). The current update uses fitted sit/stand and v36 loaf in the app. Sitting → tired changes only the face and leads to loaf after seven uninterrupted seconds in the stable tired face. The later rest/wake and personality GIFs are drafts. The descriptions below provide the original visual briefs.
 
 ## Character rules
 
-Approved sit/breathing is published on main as `b187094`. Follow [TRANSITION_TABLE.md](TRANSITION_TABLE.md) for posture/mood coverage, routes, timer guards, interruptions, and the one-at-a-time queue. Current review is [v35 seated tiredness](../art/pocket-pup/v35/README.md), not a runtime hierarchy implementation.
+Follow [TRANSITION_TABLE.md](TRANSITION_TABLE.md) for posture/mood coverage, route availability, timer guards, and interruptions.
 
 - Preserve the exact selected [standing neutral](../art/pocket-pup/v9/fur-details.png) and [approved sitting](../art/pocket-pup/v26/sitting-idle.png) endpoints.
 - Work on a transparent **64 × 64 grid**, using binary transparency and nearest-neighbor previews.

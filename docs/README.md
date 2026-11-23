@@ -4,6 +4,10 @@ Updated November 22, 2026. The repository now includes a shared starter as well 
 
 ## Start here
 
+- **Animation work:** [To Be Reviewed Animations](../art/pocket-pup/to-be-reviewed-animations/README.md) and [coverage table](TRANSITION_TABLE.md).
+
+- [Generate motion and fit it to Pocket Pup](MOTION_FITTING_WORKFLOW.md).
+
 - [Pocket Pup animation continuation prompt and loaf review checkpoint](ANIMATION_CONTINUATION.md).
 
 - [Wardrobe continuation prompt and exact stopping point](WARDROBE_CONTINUATION.md).

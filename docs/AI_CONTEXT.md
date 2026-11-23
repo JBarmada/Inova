@@ -6,9 +6,9 @@ Inova is a SCOPE club final project for the theme Evolve. It is an evolving pixe
 
 ## Established team direction
 
-For resumed Track A art/animation work, use [the continuation prompt](ANIMATION_CONTINUATION.md). Main contains the v36 loaf preview files, but the user has not approved that transition; review the GIF before enabling any loaf timer or playback.
+For resumed art or animation work, start with the [review package](../art/pocket-pup/to-be-reviewed-animations/README.md) and [continuation handoff](ANIMATION_CONTINUATION.md).
 
-Current functional checkout: the primary project folder on `main`; see [consolidation inventory](MAIN_CONSOLIDATION.md). Existing worktrees are preserved snapshots. Approved v32 sit, v34 breathing, and v35 seated tiredness are integrated alongside four-slot wardrobe, reliable quit, and startup feedback. Mood changes preserve posture. The v36 loaf clip is review-only; its seven-second runtime timer and animated sit-to-stand remain unfinished. See [TRANSITION_TABLE.md](TRANSITION_TABLE.md).
+The animation update adds fitted sit/stand, distinct seated Happy and Tired faces, v36 lowering after seven seconds of stable seated tiredness, and continuous breathing across supported art. Mood changes preserve posture. The repository also includes four-slot wardrobe, reliable quit, and startup feedback. Inspect the checkout's branch before assuming these changes are present. [Transition table](TRANSITION_TABLE.md).
 
 - UI controls should use recognizable icons where text labels can be replaced clearly, with accessible names/tooltips and keyboard focus. Wardrobe uses a hanger destination icon, T-shirt body category, five inventory filters, top clear-outfit icon, and only side-by-side human Stand/Sit pose controls. These project-wide interface rules are recorded in AGENTS.md.
 

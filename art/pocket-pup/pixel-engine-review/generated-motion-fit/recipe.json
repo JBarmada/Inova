@@ -1,0 +1,18 @@
+{
+  "sheet": "pixel-engine-review/sit-stand-adjustable/generated-pose-study.png",
+  "output": "pixel-engine-review/generated-motion-fit",
+  "grid": [4, 2],
+  "neutral_head_source": "v9/fur-details.png",
+  "clip": "sit-down",
+  "reverse_clip": "stand-up",
+  "frames": [
+    {"exact": "v9/fur-details.png", "ms": 750},
+    {"cell": 1, "neutral_head_y": 0, "ms": 130, "erase": [[45, 41], [45, 42], [45, 43], [45, 44]]},
+    {"cell": 2, "neutral_head_y": 0, "ms": 120, "erase": [[39, 29], [39, 30], [39, 31]]},
+    {"cell": 3, "neutral_head_y": -1, "ms": 120},
+    {"cell": 4, "neutral_head_y": -1, "ms": 140},
+    {"cell": 5, "neutral_head_y": -2, "ms": 150},
+    {"cell": 6, "neutral_head_y": -2, "ms": 180, "erase": [[38, 27], [38, 28], [38, 29], [38, 30], [38, 31]]},
+    {"exact": "v26/sitting-idle.png", "ms": 950}
+  ]
+}

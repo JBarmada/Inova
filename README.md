@@ -21,7 +21,7 @@ The current app includes:
 
 Consolidation checks passed all **65 tests**, source size/type checks, the frontend production build, and Windows release compilation. These are the recorded consolidation results; a fresh combined native UI walkthrough and Mac validation remain pending. See [implementation status](docs/IMPLEMENTATION_STATUS.md) for evidence and limitations.
 
-Planning is a deterministic sample, with **no live AI or external integrations**. Sound is synthesized; final clothing art and recorded audio remain unfinished. The loaf animation is preserved for review, with its runtime timer disabled; animated stand-up also remains unfinished.
+Planning is a deterministic sample, with **no live AI or external integrations**. Sound is synthesized. Final clothing art and recorded audio remain unfinished. The animation update adds fitted Stand, seated Happy, and a seven-second stable tired hold before lowering to loaf. [Animation review package](art/pocket-pup/to-be-reviewed-animations/README.md).
 
 ## Run the app
 
@@ -45,7 +45,7 @@ These are focused areas to divide among people or tackle in separate sessions. W
 | Work area | Owns | Start here |
 | --- | --- | --- |
 | Dog artist | Base dog, expressions, approved still poses, consistent pixel style | [Artist guide](docs/ARTIST_GUIDE.md) |
-| Animator | Transition frames, timing, breathing, and runtime pose/mood playback | [Animation handoff](docs/ANIMATION_CONTINUATION.md), [coverage table](docs/TRANSITION_TABLE.md) |
+| Animator | Transition frames, timing, breathing, and runtime pose/mood playback | [Animation review package](art/pocket-pup/to-be-reviewed-animations/README.md), [coverage table](docs/TRANSITION_TABLE.md) |
 | Item creator and fitter | Clothing/prop artwork, catalog entries, layer order, fitting across approved poses | [Item contract](docs/WARDROBE_SPEC.md), [asset record](docs/ASSETS.md) |
 | Adoption and pet interactions | Naming/selection flow, pet actions, and the events that request dog reactions | [Companion handoff](docs/tasks/A_COMPANION.md) |
 | Wardrobe interface | Inventory filters, preview, worn-item controls, equip/remove feedback | [Wardrobe handoff](docs/WARDROBE_CONTINUATION.md) |

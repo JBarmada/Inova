@@ -2,7 +2,7 @@ import type { dogArt } from "./dogArt";
 
 export type FaceFrame = keyof typeof dogArt;
 export const TIRED_FACE_STEPS: [FaceFrame, number][] = [
-  ["sitting", 900], ["sitting-blink", 100], ["sitting", 350],
+  ["sitting-blink", 100], ["sitting", 350],
   ["sitting-drowsy", 450], ["sitting-blink", 250],
 ];
 

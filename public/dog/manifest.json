@@ -5,7 +5,15 @@
   ],
   "alpha": "binary",
   "scale": "integer nearest-neighbor",
-  "sitTransitionMs": 160,
+  "sitTransitionMs": 840,
+  "fittedFrameDurationsMs": [
+    130,
+    120,
+    120,
+    140,
+    150,
+    180
+  ],
   "standingNeck": [
     22,
     42
@@ -44,6 +52,42 @@
     "bandana": {
       "source": "art/pocket-pup/v6/layers/bandana.png",
       "sha256": "0e1bad0877bcc0d95b724b53cc1d75db7faacc262e23ae1635ab66cc0306ba1d"
+    },
+    "fitted/sit-02": {
+      "source": "art/pocket-pup/pixel-engine-review/generated-motion-fit/editable/frame-02.png",
+      "sha256": "3d3f9d25a7f4722c5a2128096cf5d9b19a72ebb437a0de2fb47d38201e10a03b"
+    },
+    "fitted/sit-03": {
+      "source": "art/pocket-pup/pixel-engine-review/generated-motion-fit/editable/frame-03.png",
+      "sha256": "5f89441e466f78b90139e49b639838797c912ba7e6958959bc7b1661da7ae32f"
+    },
+    "fitted/sit-04": {
+      "source": "art/pocket-pup/pixel-engine-review/generated-motion-fit/editable/frame-04.png",
+      "sha256": "4418d6b4dcc66b7cb423d4e3a32d4950d2811be97b44257fc94cd80ec6a80824"
+    },
+    "fitted/sit-05": {
+      "source": "art/pocket-pup/pixel-engine-review/generated-motion-fit/editable/frame-05.png",
+      "sha256": "5790508e130025320300100715083dd2491daec61f922602372262f12536b40e"
+    },
+    "fitted/sit-06": {
+      "source": "art/pocket-pup/pixel-engine-review/generated-motion-fit/editable/frame-06.png",
+      "sha256": "7bf4f830a35d329d82bd1cf9df2b7cb4e5726f5c0eb7b5d068e1784857b42780"
+    },
+    "fitted/sit-07": {
+      "source": "art/pocket-pup/pixel-engine-review/generated-motion-fit/editable/frame-07.png",
+      "sha256": "36d076c936f02bf48a015916dd779200eea2587aecb63ef95bbc9c4031c36bfe"
+    },
+    "loaf-bend": {
+      "source": "art/pocket-pup/v36/bend-elbows.png",
+      "sha256": "c193cd6cd198bc999fc7ff764dc24b90e1b99d0f54c061cac10c637732be9e2c"
+    },
+    "loaf-tuck": {
+      "source": "art/pocket-pup/v36/tuck-paws.png",
+      "sha256": "33bfa4c37f2105c7b056443d1d034433e89087f90fec589dcf0d1fd0af4e9b2c"
+    },
+    "loaf-tired": {
+      "source": "art/pocket-pup/v36/loaf.png",
+      "sha256": "c2c48ca14ec46a33229096912b17510756ca3ff7f409e8366e946efe593c9e51"
     },
     "notebook": {
       "source": "tools/export_runtime_art.py",
@@ -192,6 +236,269 @@
         "art/pocket-pup/v34/sitting-3.png"
       ],
       "sha256": "5182bb5bda39db6d0df403214374133794fab9247dce279f66175c854ad3394b"
+    },
+    "sitting-happy": {
+      "source": [
+        "art/pocket-pup/v32/02.png",
+        "art/pocket-pup/v6/sprites/happy.png"
+      ],
+      "sha256": "81134d880f50ddf549c4f44d9e4875edf71ecc382976bc8f3d70194230b3ed22"
+    },
+    "breathing/sitting-happy-0": {
+      "source": [
+        "art/pocket-pup/v32/02.png",
+        "art/pocket-pup/v6/sprites/happy.png",
+        "art/pocket-pup/v34/sitting-0.png"
+      ],
+      "sha256": "81134d880f50ddf549c4f44d9e4875edf71ecc382976bc8f3d70194230b3ed22"
+    },
+    "breathing/sitting-happy-1": {
+      "source": [
+        "art/pocket-pup/v32/02.png",
+        "art/pocket-pup/v6/sprites/happy.png",
+        "art/pocket-pup/v34/sitting-1.png"
+      ],
+      "sha256": "6453f63c2a9e47a2b5f713876a73179c0f7c92d588b25349a725c1769c23e9a1"
+    },
+    "breathing/sitting-happy-2": {
+      "source": [
+        "art/pocket-pup/v32/02.png",
+        "art/pocket-pup/v6/sprites/happy.png",
+        "art/pocket-pup/v34/sitting-2.png"
+      ],
+      "sha256": "1f2fdd082b0a0c03c88f3f5320988710319fe66b45a483c2960223caa0117aed"
+    },
+    "breathing/sitting-happy-3": {
+      "source": [
+        "art/pocket-pup/v32/02.png",
+        "art/pocket-pup/v6/sprites/happy.png",
+        "art/pocket-pup/v34/sitting-3.png"
+      ],
+      "sha256": "6453f63c2a9e47a2b5f713876a73179c0f7c92d588b25349a725c1769c23e9a1"
+    },
+    "loaf-idle": {
+      "source": [
+        "art/pocket-pup/v36/loaf.png",
+        "public/dog/sitting.png",
+        "public/dog/sitting-tired.png"
+      ],
+      "sha256": "9bfbf645ec28c36cfe5969e7160ecb9551cfbafcbb602edd62a4c51a239a3872"
+    },
+    "loaf-happy": {
+      "source": [
+        "art/pocket-pup/v36/loaf.png",
+        "public/dog/sitting.png",
+        "public/dog/sitting-happy.png"
+      ],
+      "sha256": "e5916d96c1a2241660c5259dc66c79d5835c1c9c850ebc7b61f76823fdd5836b"
+    },
+    "breathing/tired-0": {
+      "source": "public/dog/tired.png",
+      "sha256": "eba3b7339dd9a34d2f3d625a72237322a2874d03a7f819c91a82f70d55018eec"
+    },
+    "breathing/tired-1": {
+      "source": "public/dog/tired.png",
+      "sha256": "9674df50eb863e3532c8c4452477b4b7f594611f3bf70a90c77d8eb30e3ac4ec"
+    },
+    "breathing/tired-2": {
+      "source": "public/dog/tired.png",
+      "sha256": "1679cc4f58fe33d00327a5035b758194f56c18a04b6323d2c0a13b40fd383c06"
+    },
+    "breathing/tired-3": {
+      "source": "public/dog/tired.png",
+      "sha256": "9674df50eb863e3532c8c4452477b4b7f594611f3bf70a90c77d8eb30e3ac4ec"
+    },
+    "breathing/tuck-0": {
+      "source": "public/dog/tuck.png",
+      "sha256": "380c75cd83b69f108b9fbb88c32942d3b9c10bf4c302b0273242f76feac8da49"
+    },
+    "breathing/tuck-1": {
+      "source": "public/dog/tuck.png",
+      "sha256": "fe00206c5e986908df6c2f2a3f39238de4b77782858638a681fe7230fac4ac71"
+    },
+    "breathing/tuck-2": {
+      "source": "public/dog/tuck.png",
+      "sha256": "6205d5894fc9f73b2243c914908ebb506a9063a974e98ade5d209a68f17e2b2f"
+    },
+    "breathing/tuck-3": {
+      "source": "public/dog/tuck.png",
+      "sha256": "fe00206c5e986908df6c2f2a3f39238de4b77782858638a681fe7230fac4ac71"
+    },
+    "breathing/loaf-bend-0": {
+      "source": "public/dog/loaf-bend.png",
+      "sha256": "c148a38a39237e92bfa8712dd66f8f7ba96ec043b1523446f3eed1a96d7435c8"
+    },
+    "breathing/loaf-bend-1": {
+      "source": "public/dog/loaf-bend.png",
+      "sha256": "812c8629469a2f527e54407ed85d9c6742e63e148b43e8894fa0cacdf3e2edfa"
+    },
+    "breathing/loaf-bend-2": {
+      "source": "public/dog/loaf-bend.png",
+      "sha256": "12fcd0da36cfbb91ad0a61ba3cf37ce1c6a668a0a818dd73359795be78208486"
+    },
+    "breathing/loaf-bend-3": {
+      "source": "public/dog/loaf-bend.png",
+      "sha256": "812c8629469a2f527e54407ed85d9c6742e63e148b43e8894fa0cacdf3e2edfa"
+    },
+    "breathing/loaf-tuck-0": {
+      "source": "public/dog/loaf-tuck.png",
+      "sha256": "00f31721083942de36e2db8accbc1a4494c7618c7e22cd3d9d2e15a41f7c48e7"
+    },
+    "breathing/loaf-tuck-1": {
+      "source": "public/dog/loaf-tuck.png",
+      "sha256": "6c0675e9495472f01e11d2b391945903f14883edb85c20ed7759b53ea6651c57"
+    },
+    "breathing/loaf-tuck-2": {
+      "source": "public/dog/loaf-tuck.png",
+      "sha256": "1617d64314472e6e3a88eb846f65df8244ad9804f881f9a310fdececbe537683"
+    },
+    "breathing/loaf-tuck-3": {
+      "source": "public/dog/loaf-tuck.png",
+      "sha256": "6c0675e9495472f01e11d2b391945903f14883edb85c20ed7759b53ea6651c57"
+    },
+    "breathing/loaf-idle-0": {
+      "source": "public/dog/loaf-idle.png",
+      "sha256": "9bfbf645ec28c36cfe5969e7160ecb9551cfbafcbb602edd62a4c51a239a3872"
+    },
+    "breathing/loaf-idle-1": {
+      "source": "public/dog/loaf-idle.png",
+      "sha256": "1d7159727a99c9dc555ced0e3f9ed2376196d815e7c26eae7aef7e08582b138a"
+    },
+    "breathing/loaf-idle-2": {
+      "source": "public/dog/loaf-idle.png",
+      "sha256": "03d3bb8708bcf74deab15865b9308c8c2abb1085b79765f60b97f7aa64ed8141"
+    },
+    "breathing/loaf-idle-3": {
+      "source": "public/dog/loaf-idle.png",
+      "sha256": "1d7159727a99c9dc555ced0e3f9ed2376196d815e7c26eae7aef7e08582b138a"
+    },
+    "breathing/loaf-happy-0": {
+      "source": "public/dog/loaf-happy.png",
+      "sha256": "e5916d96c1a2241660c5259dc66c79d5835c1c9c850ebc7b61f76823fdd5836b"
+    },
+    "breathing/loaf-happy-1": {
+      "source": "public/dog/loaf-happy.png",
+      "sha256": "c419efe084f7933ce64d90e89c84691ae451c569afd97525e818e8263187a171"
+    },
+    "breathing/loaf-happy-2": {
+      "source": "public/dog/loaf-happy.png",
+      "sha256": "a33064de462d6da1e9e059e9218a6d47523bb5029fc051d09cc445ac3615fd79"
+    },
+    "breathing/loaf-happy-3": {
+      "source": "public/dog/loaf-happy.png",
+      "sha256": "c419efe084f7933ce64d90e89c84691ae451c569afd97525e818e8263187a171"
+    },
+    "breathing/loaf-tired-0": {
+      "source": "public/dog/loaf-tired.png",
+      "sha256": "ac03c70eade88c72bbbb74d7e84454a2e634cd918473d9e9f93fdf8ecc9c667b"
+    },
+    "breathing/loaf-tired-1": {
+      "source": "public/dog/loaf-tired.png",
+      "sha256": "337d59b51166d5af8a4b2d8bbf7a551544a95dde0e14c1bc8a45e7e5dddb6be9"
+    },
+    "breathing/loaf-tired-2": {
+      "source": "public/dog/loaf-tired.png",
+      "sha256": "d32587a8f9cd46f0e696ec953387b5df69b69d6216782e3c6e6fdcf895477db5"
+    },
+    "breathing/loaf-tired-3": {
+      "source": "public/dog/loaf-tired.png",
+      "sha256": "337d59b51166d5af8a4b2d8bbf7a551544a95dde0e14c1bc8a45e7e5dddb6be9"
+    },
+    "breathing/fitted/sit-02-0": {
+      "source": "public/dog/fitted/sit-02.png",
+      "sha256": "a0d0c7a4176f64db98918898b59bf7b28742f48261acd4225f7a4504e8e4cdd0"
+    },
+    "breathing/fitted/sit-02-1": {
+      "source": "public/dog/fitted/sit-02.png",
+      "sha256": "f7868853d9ee55cbc195e5d2b23cf5d8f2851add8d40b64a6d01e546ac1a9d79"
+    },
+    "breathing/fitted/sit-02-2": {
+      "source": "public/dog/fitted/sit-02.png",
+      "sha256": "b21a5bd0e25fa13dea6f9fd1ec8c4469e6981625446301282fa29d4578002ef1"
+    },
+    "breathing/fitted/sit-02-3": {
+      "source": "public/dog/fitted/sit-02.png",
+      "sha256": "f7868853d9ee55cbc195e5d2b23cf5d8f2851add8d40b64a6d01e546ac1a9d79"
+    },
+    "breathing/fitted/sit-03-0": {
+      "source": "public/dog/fitted/sit-03.png",
+      "sha256": "b31f7e2514f4bf3d8e585add96d4837410f20cf10a872e940e563ed32e697bba"
+    },
+    "breathing/fitted/sit-03-1": {
+      "source": "public/dog/fitted/sit-03.png",
+      "sha256": "55898598be4ad4b527cc76daf4dcad2b0ae998391dfbb89b4933fa34edb7990d"
+    },
+    "breathing/fitted/sit-03-2": {
+      "source": "public/dog/fitted/sit-03.png",
+      "sha256": "bc5e0568ee1531c3124c327c4f830cbcdaad06544ca2d0ebaa497c7ac6c120bc"
+    },
+    "breathing/fitted/sit-03-3": {
+      "source": "public/dog/fitted/sit-03.png",
+      "sha256": "55898598be4ad4b527cc76daf4dcad2b0ae998391dfbb89b4933fa34edb7990d"
+    },
+    "breathing/fitted/sit-04-0": {
+      "source": "public/dog/fitted/sit-04.png",
+      "sha256": "d2fec3217361457b65d3a225d80b34cc7830d10ae758a919ec69a76cd891de88"
+    },
+    "breathing/fitted/sit-04-1": {
+      "source": "public/dog/fitted/sit-04.png",
+      "sha256": "27b82e3cc879769246f4c0ffb07d389cd83c8f53395d8a9edeb169b473e3cf1f"
+    },
+    "breathing/fitted/sit-04-2": {
+      "source": "public/dog/fitted/sit-04.png",
+      "sha256": "cd3efb5dfb1ac864ff8ab2cdce8ef36565287d2641d1ff0afab8a822f60937a4"
+    },
+    "breathing/fitted/sit-04-3": {
+      "source": "public/dog/fitted/sit-04.png",
+      "sha256": "27b82e3cc879769246f4c0ffb07d389cd83c8f53395d8a9edeb169b473e3cf1f"
+    },
+    "breathing/fitted/sit-05-0": {
+      "source": "public/dog/fitted/sit-05.png",
+      "sha256": "441110052c7d7d6ec6326f5ca3f878d22bc980474f067a171246d99bbac18d41"
+    },
+    "breathing/fitted/sit-05-1": {
+      "source": "public/dog/fitted/sit-05.png",
+      "sha256": "c878e77b7abbe18be826bb4f923110cf5ed65ef954a599795a81ff3bb70da40a"
+    },
+    "breathing/fitted/sit-05-2": {
+      "source": "public/dog/fitted/sit-05.png",
+      "sha256": "faeb7a3337604444ed86be8c5e53741c6a45d1c026f41e14e344c2bb9aab7ea1"
+    },
+    "breathing/fitted/sit-05-3": {
+      "source": "public/dog/fitted/sit-05.png",
+      "sha256": "c878e77b7abbe18be826bb4f923110cf5ed65ef954a599795a81ff3bb70da40a"
+    },
+    "breathing/fitted/sit-06-0": {
+      "source": "public/dog/fitted/sit-06.png",
+      "sha256": "8466ee519bde25fa446f6bbbb9ea9cf96c83870fafd571565d3b97e190599b35"
+    },
+    "breathing/fitted/sit-06-1": {
+      "source": "public/dog/fitted/sit-06.png",
+      "sha256": "e78659c8157e094326889a4c130a0db0cb5a021138f7152f31dbd5313f5214fa"
+    },
+    "breathing/fitted/sit-06-2": {
+      "source": "public/dog/fitted/sit-06.png",
+      "sha256": "417d733a4c548921fde3b14699b652f802e75973f78d280f3a0c7f433b8da01b"
+    },
+    "breathing/fitted/sit-06-3": {
+      "source": "public/dog/fitted/sit-06.png",
+      "sha256": "e78659c8157e094326889a4c130a0db0cb5a021138f7152f31dbd5313f5214fa"
+    },
+    "breathing/fitted/sit-07-0": {
+      "source": "public/dog/fitted/sit-07.png",
+      "sha256": "385a1502b697dbbe007b34ac60bc10ab25347beabb7390d816587764e61b78f2"
+    },
+    "breathing/fitted/sit-07-1": {
+      "source": "public/dog/fitted/sit-07.png",
+      "sha256": "f124b97d5e65aa20b22b3f474f338334a2479e6cc2903457825869d90c572ea5"
+    },
+    "breathing/fitted/sit-07-2": {
+      "source": "public/dog/fitted/sit-07.png",
+      "sha256": "24a6cbcffadfb55e394e2e53a57a69b329c3983caf5830f8300df78516d2f1d7"
+    },
+    "breathing/fitted/sit-07-3": {
+      "source": "public/dog/fitted/sit-07.png",
+      "sha256": "f124b97d5e65aa20b22b3f474f338334a2479e6cc2903457825869d90c572ea5"
     }
   },
   "license": "project art; no repository-wide distribution license selected"

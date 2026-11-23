@@ -16,7 +16,7 @@ export function PetPanel({ floating, onToyExpanded }: { floating: boolean; onToy
   const { run, busy, message } = useAction();
   async function changePose() {
     if (!state.settings.devMode) return;
-    const kind = pose === "sitting" ? "stand" : "sit";
+    const kind = pose === "sitting" || pose === "loaf" ? "stand" : "sit";
     playCue("click", state.settings.muted);
     setRequest((previous) => ({ kind, id: (previous?.id ?? 0) + 1 }));
   }

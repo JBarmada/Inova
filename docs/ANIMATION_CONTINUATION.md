@@ -1,8 +1,19 @@
 # Continue Pocket Pup art and animation
 
-Handoff requested November 23, 2026. This chat stopped at the user's request after saving this prompt. This document does not approve the pending loaf design or start more implementation.
+**Current handoff. Start with [To Be Reviewed Animations](../art/pocket-pup/to-be-reviewed-animations/README.md).** The full table now has native sprite and GIF drafts. The user's overnight instruction supersedes the earlier one-clip production pause. Review the drafts individually before adding the remaining routes to the app.
+
+- Live: fitted stand/sit, seated Happy, seated Tired followed by seven seconds and v36 loaf, recovery through sitting, and a continuous breath phase across supported poses and clips.
+- Start the next review with [loaf to sleep](../art/pocket-pup/to-be-reviewed-animations/04-loaf-to-sleep/frames.png), [sleep breathing](../art/pocket-pup/to-be-reviewed-animations/05-sleep-breathing/preview.gif), and [wake to loaf](../art/pocket-pup/to-be-reviewed-animations/06-wake-to-loaf/preview.gif). Check the chin position, eye timing, and paw contact at native resolution before discussing a sleep timer.
+- Use the [transition table](TRANSITION_TABLE.md) for current behavior, the [artist scenarios](ANIMATION_SCENARIOS.md) for the visual briefs, and the [generate-then-fit workflow](MOTION_FITTING_WORKFLOW.md) for regenerated motion. Keep the original head and four-slot wardrobe behavior. Review timing markers with sound and effect owners.
+- Rebuild previews with `python tools/build_animation_review.py` from the primary checkout. The [review index](../art/pocket-pup/to-be-reviewed-animations/README.md) links all editable frames and both GIF speeds.
+
+## Historical v36 checkpoint
+
+The copy-ready prompt below is kept as a record of the earlier stopping point. Consult the current handoff above for scope and runtime support.
 
 ## Copy-ready continuation prompt
+
+Use the [generate-then-fit workflow](MOTION_FITTING_WORKFLOW.md) for new Pocket Pup animation work. The fitted sit and stand frames are the current editing reference after the user's side-by-side comparison. The older checkpoints below describe separate work.
 
 Continue Inova Track A dog art/animation from the latest GitHub main. Use the primary checkout `C:\Users\creat\Desktop\school\Scope Final Project`, inspect its branch/status and fetch current main first. Preserve unrelated work. Old worktrees, including `pocket-pup-integration`, are historical snapshots; do not merge their stale app files over main. Use a focused branch for new changes and follow current AGENTS.md.
 

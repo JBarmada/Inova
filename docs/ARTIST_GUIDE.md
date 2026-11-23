@@ -2,6 +2,8 @@
 
 Saved at the user's request, November 23, 2026. Future artist chats should read this before modifying the dog or its animations, then inspect the latest files in [the art review index](../art/pocket-pup/README.md). File version numbers record experiments, not approvals.
 
+**Start with the [To Be Reviewed Animations index](../art/pocket-pup/to-be-reviewed-animations/README.md).** It covers the whole transition table and links numbered native frames, two GIF speeds, and sound/effect timing. Check the [live versus draft status](TRANSITION_TABLE.md) before integrating any clip.
+
 ## Animation planning reference
 
 Current order and missing outcomes are in [TRANSITION_TABLE.md](TRANSITION_TABLE.md). Approved sit/breathing is on main `b187094`. Next is v35 sitting → tired face with a fixed head/body; loaf after seven seconds and sit → stand remain separate reviews. Do not implement or advance beyond a new clip before the user reviews its GIF or transition state.
@@ -18,6 +20,12 @@ These links are instructional references, not reusable sprite assets. No tutoria
 
 ## Preserve the selected artwork
 
+Use the [generate-then-fit workflow](MOTION_FITTING_WORKFLOW.md) for future art. Generate a motion reference, then fit it to the original dog on the 64 × 64 grid. After comparing individual frames, the user preferred the fitted sit and stand study for its whole pixels and consistent sizing. The fitted clips are the basis for further pixel edits.
+
+Latest direction: retain the selected original dog artwork. Pixel Engine is a source of animation motion ideas; adapt and verify its motion using the original dog rather than replacing the character design with a generated still. Generated or hybrid artwork remains an unapproved experiment.
+
+For standing neutral face measurements and the automated source-pixel check, see [NEUTRAL_FACE_SPEC.md](NEUTRAL_FACE_SPEC.md). The check does not replace visual review or apply to other expressions without a separate spec.
+
 - Standing neutral: `art/pocket-pup/v9/fur-details.png`.
 - Approved sitting: `art/pocket-pup/v26/sitting-idle.png`.
 - Full sheet including approved sitting: `art/pocket-pup/v27/reference-sheet.png`.
@@ -27,6 +35,8 @@ These links are instructional references, not reusable sprite assets. No tutoria
 - Neutral uses the brown C14 :3 mouth and upper-right eye dots. Happy :D pink is `#df8b87`. No toe lines on sitting paws.
 
 ## Lessons from rejected transition drafts
+
+For the sit and stand revision, the user asked for independent review agents and iteration. Have one compare the individual pixels and silhouette with the approved sprites, and another examine foot contact, body weight, and timing through the sequence. Address their frame-specific findings and send the updated frames back for review before showing a candidate. The user's visual approval is still required for integration.
 
 For breathing idles, the user rejected translating the entire PNG upward as a floating bob. The current [v34 breathing study](../art/pocket-pup/v34/README.md) keeps paws planted and uses a one-pixel upper-body/chest rise with solid neck overlap. It remains preview-only. Read [Saint11's Character Idle](https://www.patreon.com/saint11/posts/character-idle-12464240) and [Slynyrd's idle-cycle lesson](https://www.slynyrd.com/blog/2018/8/19/pixelblog-8-intro-to-animation) for subtle movement and consistent timing before refining it.
 
