@@ -1,5 +1,9 @@
 # Implementation Status and Handoff
 
+## Quest entry integration check — November 23, 2026
+
+A fictional automated test now exercises the single-entry path through a mocked local model response, detail review, saved commitment and proposal, source IDs, effort cap, and duplicate submission guard. `npm run check` passed 145 tests and all 20 atlas checks. This test does not replace a native UI run or prove live-model reliability.
+
 ## Animation asset spot check — November 23, 2026
 
 The source frame sheets and runtime atlases for post-nap stretch and unlock celebration were inspected side by side; their static pose sequences correspond. This is a two-clip asset spot check, not verification of timing, other clips, wearable alignment, or rendering in the app. Those checks remain pending.
