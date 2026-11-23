@@ -2,7 +2,7 @@
 
 ## Native unavailable-AI recovery — November 23, 2026
 
-With the temporary Ollama service stopped, a fictional local quest request returned an unavailable-or-timeout message suggesting starting Ollama and installing the selected model. The sample quest button then successfully proposed a quest in the same Windows session. The feedback is rendered below the commitment list, so it was below the visible area after clicking the first commitment; move feedback adjacent to the initiating action and verify it is visible and announced. This verifies the stopped-service recovery path; other network and model failures remain separate checks.
+With the temporary Ollama service stopped, a fictional local quest request returned an unavailable-or-timeout message suggesting starting Ollama and installing the selected model. The sample quest button then successfully proposed a quest in the same Windows session. The feedback was below the visible area after clicking the first commitment. It is now rendered next to the initiating action; `npm run check` passed 118 tests and the frontend build. Native visual and screen-reader verification remain pending. This verifies the stopped-service recovery path; other network and model failures remain separate checks.
 
 ## Native permission revocation check — November 23, 2026
 
