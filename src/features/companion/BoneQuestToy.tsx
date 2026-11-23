@@ -1,22 +1,26 @@
-import { useRef, useState } from "react";
+import { useCallback, useRef, useState } from "react";
 import type { AppState } from "../../shared/schema";
 import { playCue } from "../../services/audio";
 import { toyQuests } from "./toyQuests";
 import { ToyQuestRow } from "./ToyQuestRow";
 import { ToyComposer } from "./ToyComposer";
 import { QuestToyIcon } from "./QuestToyIcon";
+import { useOutsideDismiss } from "./useOutsideDismiss";
 
 export function BoneQuestToy({ state, onExpandedChange }: { state: AppState; onExpandedChange?: (open: boolean) => void }) {
   const [open, setOpen] = useState(false);
   const button = useRef<HTMLButtonElement>(null);
+  const container = useRef<HTMLDivElement>(null);
   const quests = toyQuests(state.quests);
   const active = quests.filter((quest) => quest.status !== "completed").length;
-  function setExpanded(next: boolean) {
+  const setExpanded = useCallback((next: boolean) => {
     setOpen(next);
     onExpandedChange?.(next);
     playCue("squeak", state.settings.muted);
-  }
-  return <div className={`bone-quest-wrap ${open ? "is-open" : ""}`} onKeyDown={(event) => {
+  }, [onExpandedChange, state.settings.muted]);
+  const collapse = useCallback(() => setExpanded(false), [setExpanded]);
+  useOutsideDismiss(open, container, collapse);
+  return <div ref={container} className={`bone-quest-wrap ${open ? "is-open" : ""}`} onKeyDown={(event) => {
     if (event.key === "Escape") { setExpanded(false); button.current?.focus(); }
   }}>
     <button ref={button} className={`bone-toy${state.settings.devMode ? " is-dev" : ""}`} type="button" aria-label={open ? "Close quest toy" : "Open quest toy"}
@@ -26,7 +30,7 @@ export function BoneQuestToy({ state, onExpandedChange }: { state: AppState; onE
     </button>
     {open && <section id="toy-quest-board" className="toy-quest-panel" aria-label="Pawprint adventures">
       <header className="toy-board-heading">
-        <h3><span aria-hidden="true">✦</span><span>Fetch a Lil' Side Quest</span><span aria-hidden="true">✦</span></h3><button aria-label="Close quest board" title="Close" onClick={() => { setExpanded(false); button.current?.focus(); }}>×</button></header>
+        <h3><span aria-hidden="true">✦</span><span>Fetch a Lil' Side Quest</span><span aria-hidden="true">✦</span></h3></header>
       <ToyComposer state={state} />
       {quests.length > 0 ? <ul className="toy-quest-list" aria-label="Your quests">{quests.map((quest) => <ToyQuestRow quest={quest} key={quest.id} />)}</ul>
         : <p className="toy-empty">Every adventure starts with a little plan. Add yours above.</p>}

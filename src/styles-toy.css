@@ -15,7 +15,6 @@ html.pet-mode .floating { --companion-width: calc(100vw - 16px); overflow: visib
 .toy-board-heading { position: relative; text-align: center; padding: 0 10px 12px; border-bottom: 2px solid #d9b06d; }
 .toy-board-heading h3 { display: flex; align-items: center; justify-content: center; gap: 8px; margin: 0; font-size: 17px; line-height: 1.3; font-weight: 800; letter-spacing: -.7px; }
 .toy-board-heading h3 > span[aria-hidden] { flex: 0 0 auto; color: #087c7e; font-size: 13px; }
-.toy-board-heading button { position: absolute; top: -24px; right: -10px; padding: 0; width: 22px; height: 22px; border: 0; box-shadow: none; background: #f7d578; color: #875523; font-size: 18px; }
 .toy-quest-panel .toy-composer { display: grid; grid-template-columns: minmax(0, 1fr) 28px; align-items: stretch; gap: 0; margin: 12px 0 10px; border: 1px solid #cfad75; }
 .toy-quest-panel .toy-composer input { min-width: 0; width: 100%; padding: 8px; border: 0; border-radius: 0; background: #fff9e6; font: 11px/1.4 monospace; }
 .toy-composer .toy-add { align-self: stretch; padding: 0; border: 0; border-left: 1px solid #cfad75; border-radius: 0; background: #168589; color: #fff6dd; box-shadow: none; font-size: 17px; }

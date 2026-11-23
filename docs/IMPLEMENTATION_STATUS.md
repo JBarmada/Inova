@@ -6,6 +6,8 @@ Main integration checkpoint: November 23, 2026. The user approved the reviewed c
 
 ## Implemented starter
 
+- The quest board has no close/X icon. Clicking outside the toy/board collapses it; interacting inside stays open. Losing native window focus (for example, clicking another app) also collapses it. Clicking the toy again and Escape still close it. Listeners are installed only while open and cleaned up on dismissal/unmount, including late native subscriptions. Outside dismissal does not steal focus back from the clicked target.
+
 - Home navigation uses a monochrome pixel bone toy for Quests, matching the other dark navigation icons. Floating mode retains the detailed gold/teal toy artwork. This supersedes the earlier shared colored navigation-art choice below; only the home icon rendering changed.
 
 - Tauri 2/Rust desktop shell with React/TypeScript/Vite interface and locked npm/Cargo dependencies.
