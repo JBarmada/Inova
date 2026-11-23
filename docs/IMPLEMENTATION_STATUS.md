@@ -1,5 +1,9 @@
 # Implementation Status and Handoff
 
+## Build-out worktree — November 23, 2026
+
+The isolated build-out branch adds editable titles for proposed, accepted, and deferred quests; completed and dismissed quests remain unchanged. Existing IDs, evidence, rewards, and saved schema are preserved. See [build-out checklist](BUILD_OUT_CHECKLIST.md) for pending work and baseline.
+
 ## Dog control gate and menu dismissal correction — November 23, 2026
 
 All manual dog controls now share `DogDeveloperControls`, gated by adoption and Dev mode in both home and floating mode. Future dog buttons belong there. Normal-mode render tests reject any new dog action button outside the gate; adoption and wardrobe previews remain available. The redundant minimize icon and its styling are removed. Outside clicks, focus loss and Escape still retract the menu into the toy; no explicit dismissal button is needed.

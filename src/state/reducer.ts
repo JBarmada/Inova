@@ -21,6 +21,13 @@ function apply(state: AppState, action: Action): AppState {
       if (!action.quest.sourceIds.includes(action.quest.commitmentId)) throw Error("Quest must cite its commitment.");
       if (action.quest.sourceIds.some((id) => id !== action.quest.commitmentId && !state.memories.some((memory) => memory.id === id && memory.aiAllowed))) throw Error("Quest refers to unavailable evidence.");
       return { ...state, quests: [...state.quests, action.quest] };
+    case "edit-quest": {
+      const title = action.title.trim();
+      if (!title || title.length > 4000) throw Error("Quest title must contain 1–4000 characters.");
+      const quest = state.quests.find((entry) => entry.id === action.id);
+      if (!quest || quest.status === "completed" || quest.status === "dismissed") throw Error("This quest cannot be edited.");
+      return { ...state, quests: state.quests.map((entry) => entry.id === action.id ? { ...entry, title } : entry) };
+    }
     case "quest-status": return changeQuestStatus(state, action);
     case "complete-quest": return completeQuest(state, action.id);
     case "equip": case "unequip": case "wardrobe-scenario": return changeEquipment(state, action);
