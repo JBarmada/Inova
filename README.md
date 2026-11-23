@@ -6,13 +6,24 @@ Inova is a SCOPE club final project for the theme **Evolve**. You build habits a
 
 ## Current status
 
-Pocket Pup's approved neutral/tuck/sit sequence and grounded breathing loops are integrated. Breathing keeps the paws planted and respects reduced motion. See [the integration handoff](docs/POCKET_PUP_INTEGRATION.md) for controls, source assets, verification, and pending animation work.
+Functional work is consolidated on **`main`** as of November 23, 2026. Continue in the primary project folder, `C:\Users\creat\Desktop\school\Scope Final Project`. Older worktrees remain preserved for recovery; see the [consolidation inventory](docs/MAIN_CONSOLIDATION.md) before reusing their changes.
 
-Main includes the reviewed floating quest toy, home/floating placement restoration, Settings/developer controls, and an icon toolbar with separate Companion, Quests, Wardrobe, and Memories pages. Quest navigation uses the same golden/teal toy artwork as the desktop companion. See the November 23 integration checkpoint in [implementation status](docs/IMPLEMENTATION_STATUS.md) for checks and remaining platform limitations.
+Built with **Tauri 2 + Rust + React + TypeScript + Vite**, targeting Windows and Mac. Three builders are working toward **December 1, 2026**.
 
-Shared starter: **Tauri 2 + Rust + React + TypeScript + Vite**, targeting Windows and Mac. Three builders are working toward **December 1, 2026**. The starter connects adoption, a floating-mode control, sample quests, deterministic rewards, wardrobe, and local memory storage. This branch uses selected Pocket Pup dog sprites with placeholder wearable markers and synthesized sound; planning is a visibly labeled deterministic sample, with no live AI or external integrations. See [verified status and limitations](docs/IMPLEMENTATION_STATUS.md).
+The current app includes:
 
-## Run the starter
+- Adoption and naming, approved Pocket Pup sit motion, grounded breathing, and seated tired expressions. Mood changes preserve posture; reduced motion is supported.
+- A transparent, always-on-top floating companion, independent home/floating placement restoration, and an expandable quest toy with manual commitment entry and quest actions.
+- Separate Companion, Quests, Wardrobe, and Memories pages with pixel navigation icons. Home uses a monochrome quest icon; the floating toy retains its gold/teal artwork.
+- A four-slot wardrobe for hats, glasses, socks, and body clothing, with category filters, standing/sitting previews, compact outfit controls, and developer test outfits. Wearable graphics remain placeholders.
+- Labeled sample quest planning, distinct quest states, duplicate-safe demonstration rewards, and local reflections with per-entry personalization permission and deletion.
+- Settings for sound, developer mode, and optional status; startup loading/retry feedback; and a shared save-and-quit flow for native X and floating Settings > Quit Inova.
+
+Consolidation checks passed all **65 tests**, source size/type checks, the frontend production build, and Windows release compilation. These are the recorded consolidation results; a fresh combined native UI walkthrough and Mac validation remain pending. See [implementation status](docs/IMPLEMENTATION_STATUS.md) for evidence and limitations.
+
+Planning is a deterministic sample, with **no live AI or external integrations**. Sound is synthesized; final clothing art and recorded audio remain unfinished. The loaf animation is preserved for review, with its runtime timer disabled; animated stand-up also remains unfinished.
+
+## Run the app
 
 Install the [platform prerequisites](docs/SETUP.md), then:
 
@@ -22,6 +33,10 @@ npm run desktop
 ```
 
 For a browser interface preview without Rust, use `npm run dev`. This preview cannot demonstrate desktop overlay behavior.
+
+Run checks with `npm run check`. Build the native app without an installer using `npm run tauri build -- --no-bundle`. Build and test the Mac app on a Mac; Windows compilation does not verify Mac behavior.
+
+The wardrobe migrates validated older saves to schema v2 on the next successful action. Older app builds cannot read v2 saves, so avoid launching preserved worktree versions against the same desktop data. Browser preview and desktop saves are separate.
 
 ## Pick your track
 
@@ -39,6 +54,8 @@ Read the [team plan](docs/TEAM_PLAN.md) and [shared agreements](docs/SHARED_CONT
 - **Product and design:** follow the [document index](docs/README.md).
 - **What to build first:** review the [proposed minimum scope](docs/06-must-have-scope.md).
 - **Picking up implementation:** read [current status and handoff](docs/IMPLEMENTATION_STATUS.md).
+- **Worktree recovery:** read the [main consolidation inventory](docs/MAIN_CONSOLIDATION.md).
+- **Wardrobe continuation:** read the [saved stopping point and next steps](docs/WARDROBE_CONTINUATION.md).
 - **Working together:** follow [CONTRIBUTING.md](CONTRIBUTING.md).
 
 ## The intended experience
