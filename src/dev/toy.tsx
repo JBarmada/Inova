@@ -1,6 +1,6 @@
 import { createRoot } from "react-dom/client";
 import { useState } from "react";
-import { initialize, dispatch } from "../state/store";
+import { initialize, dispatch, useInova } from "../state/store";
 import { PetPanel } from "../features/companion/PetPanel";
 import { CompanionControls } from "../features/companion/CompanionControls";
 import "../styles.css";
@@ -19,7 +19,8 @@ async function seed() {
 
 function ToyPreview() {
   const [expanded, setExpanded] = useState(false);
-  return <main className={`app floating${expanded ? " toy-expanded" : ""}`}>
+  const state = useInova();
+  return <main data-reduced-motion={state.settings.reduceMotion || undefined} className={`app floating${expanded ? " toy-expanded" : ""}`}>
     <CompanionControls floating disabled={false} onHome={() => window.location.assign("/")} />
     <PetPanel floating onToyExpanded={setExpanded} />
   </main>;

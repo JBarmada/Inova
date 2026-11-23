@@ -120,3 +120,7 @@ An accepted quest may store a plan with UTC start/end, the user-entered availabi
 ## Quest-length preference (build-out worktree)
 
 `settings.questMinuteLimit` is an explicit user-selected maximum for new suggestions; zero means no maximum and is the default for older saves. Both planners respect the maximum and the reducer rejects a new proposal above the current limit, including after an in-flight change. Users may still edit a quest to another duration. The setting does not rewrite prior quests or infer a preference from a reflection.
+
+## Reduced motion (build-out worktree)
+
+`settings.reduceMotion` defaults false for older saves. Effective reduced motion is the logical OR of this setting and the OS preference. Dog playback, toy transition timings and relevant CSS animations use the effective choice; the startup loader has not loaded saved settings and follows only the OS. The setting does not enable developer controls.

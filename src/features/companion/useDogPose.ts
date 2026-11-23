@@ -1,3 +1,4 @@
+import { useReducedMotion } from "../../shared/useReducedMotion";
 import { useEffect, useRef, useState } from "react";
 import type { AppState } from "../../shared/schema";
 import { preloadDogArt } from "./dogArt";
@@ -10,14 +11,7 @@ export function useDogPose(state: AppState, request: PoseRequest = null) {
   const [ready, setReady] = useState(false);
   const [error, setError] = useState("");
   const playback = useRef<ReturnType<typeof createPosePlayback> | null>(null);
-  const [reduced, setReduced] = useState(() => window.matchMedia("(prefers-reduced-motion: reduce)").matches);
-  useEffect(() => {
-    const query = window.matchMedia("(prefers-reduced-motion: reduce)");
-    const update = () => setReduced(query.matches);
-    query.addEventListener("change", update);
-    update();
-    return () => query.removeEventListener("change", update);
-  }, []);
+  const reduced = useReducedMotion(state.settings.reduceMotion);
   useEffect(() => {
     let mounted = true;
     void preloadDogArt().then(() => { if (mounted) setReady(true); }).catch((reason: unknown) => {

@@ -6,3 +6,5 @@
 @media (prefers-reduced-motion: reduce) { .reward-reveal { animation: none; } }
 
 .reward-reveal > [role="status"] { display: grid; gap: 6px; }
+
+.app[data-reduced-motion="true"] .reward-reveal { animation: none; }

@@ -1,5 +1,12 @@
 # Implementation Status and Handoff
 
+## In-app reduced motion — November 23, 2026
+
+Settings now includes a persistent Reduce motion toggle. Either this toggle or the operating system preference reduces dog posture/face/breathing playback, floating toy transitions, hover transitions, and reward animation. Older saves default the toggle off; the operating system preference is always honored. Startup appears before saved settings are loaded, so its loader follows only the operating system preference. No manual dog controls were added.
+
+`npm run check` passed 112 tests, size/type checks and production build; isolated Windows release compilation passed. In a fictional Windows floating profile, the setting was enabled and the toy opened and dismissed directly; Settings Quit remained visible. This was a spot check, not continuous animation measurement or an audible/muted test. Mac remains pending.
+
+
 ## Floating planned-time visibility — November 23, 2026
 
 Accepted quests with a saved manual plan show its start and recorded time zone on the floating board; quests without a plan show no invented time. `npm run check` passed 110 tests, size/type checks and production build; isolated Windows release compilation passed. The fictional four-minute plan created in the earlier test survived a native restart and appeared on the floating board with its time zone. Mac and narrow-screen visual checks remain pending.

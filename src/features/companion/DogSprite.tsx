@@ -8,8 +8,8 @@ import { useBreathingArt } from "./useBreathingArt";
 
 export function DogSprite({ state, pose = "standing" }: { state: AppState; pose?: DogPose }) {
   const [failed, setFailed] = useState(false);
-  const frame = useDogFace(pose, state.pet.mood);
-  const breathing = useBreathingArt(frame);
+  const frame = useDogFace(pose, state.pet.mood, state.settings.reduceMotion);
+  const breathing = useBreathingArt(frame, state.settings.reduceMotion);
   const outfit = Object.values(state.equipment).filter((id) => id !== null).map((id) => itemById(id).name);
   const description = `${state.pet.name}, ${frame}${outfit.length ? `, wearing ${outfit.join(", ")}` : ""}`;
   return <div className={`dog dog-${frame}`} role="img" aria-label={description} data-pose={frame}>

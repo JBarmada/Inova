@@ -9,7 +9,7 @@ import { useOutsideDismiss } from "./useOutsideDismiss";
 import { useToyExpansion } from "./useToyExpansion";
 
 export function BoneQuestToy({ state, onExpandedChange }: { state: AppState; onExpandedChange?: (open: boolean) => void }) {
-  const { phase, open, mounted, button, panel, expand, collapse } = useToyExpansion();
+  const { phase, open, mounted, button, panel, expand, collapse } = useToyExpansion(state.settings.reduceMotion);
   const quests = toyQuests(state.quests);
   const active = quests.filter((quest) => quest.status !== "completed").length;
   const minimize = useCallback((returnFocus = false) => {

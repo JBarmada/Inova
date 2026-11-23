@@ -12,6 +12,7 @@ function apply(state: AppState, action: Action): AppState {
     case "mute": return { ...state, settings: { ...state.settings, muted: action.muted } };
     case "dev-mode": return { ...state, settings: { ...state.settings, devMode: action.enabled } };
     case "status-bar": return { ...state, settings: { ...state.settings, showStatus: action.enabled } };
+    case "reduce-motion": return { ...state, settings: { ...state.settings, reduceMotion: action.enabled } };
     case "local-model": return { ...state, settings: { ...state.settings, localModel: action.model } };
     case "quest-minute-limit": return { ...state, settings: { ...state.settings, questMinuteLimit: action.minutes } };
     case "add-commitment":

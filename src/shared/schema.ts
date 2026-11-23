@@ -36,7 +36,7 @@ export const memorySchema = z.object({
 });
 const commonSchema = z.object({
   pet: z.object({ name: z.string().max(40), adopted: z.boolean(), mood: moodSchema }),
-  settings: z.object({ muted: z.boolean(), devMode: z.boolean().default(false), showStatus: z.boolean().default(false), localModel: localModelSchema.default("gemma3:12b"), questMinuteLimit: z.number().int().min(0).max(120).default(0) }),
+  settings: z.object({ muted: z.boolean(), devMode: z.boolean().default(false), showStatus: z.boolean().default(false), localModel: localModelSchema.default("gemma3:12b"), questMinuteLimit: z.number().int().min(0).max(120).default(0), reduceMotion: z.boolean().default(false) }),
   commitments: z.array(commitmentSchema),
   quests: z.array(questSchema),
   memories: z.array(memorySchema),

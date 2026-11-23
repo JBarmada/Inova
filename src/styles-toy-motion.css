@@ -37,3 +37,7 @@
 }
 
 .toy-quest-panel[hidden] { display: none; }
+
+.app[data-reduced-motion="true"] .bone-quest-wrap[data-phase] > .bone-toy,
+.app[data-reduced-motion="true"] .bone-quest-wrap[data-phase] > .toy-quest-panel { animation: none; }
+.app[data-reduced-motion="true"] .bone-quest-wrap.is-open > .bone-toy { visibility: hidden; }

@@ -8,6 +8,7 @@ export type Action =
   | { type: "mute"; muted: boolean }
   | { type: "dev-mode"; enabled: boolean }
   | { type: "status-bar"; enabled: boolean }
+  | { type: "reduce-motion"; enabled: boolean }
   | { type: "local-model"; model: AppState["settings"]["localModel"] }
   | { type: "quest-minute-limit"; minutes: number }
   | { type: "add-commitment"; commitment: Commitment }

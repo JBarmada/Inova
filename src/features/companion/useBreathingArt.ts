@@ -1,19 +1,13 @@
+import { useReducedMotion } from "../../shared/useReducedMotion";
 import { useEffect, useState } from "react";
 import { createBreathingPlayback } from "./breathingPlayback";
 import { breathingArt, dogArt, preloadDogArt } from "./dogArt";
 
-export function useBreathingArt(frame: keyof typeof dogArt) {
+export function useBreathingArt(frame: keyof typeof dogArt, userReduced: boolean) {
   const family = frame.startsWith("sitting") ? "sitting" : frame === "tucking" ? "transition" : "standing";
   const [state, setState] = useState({ family, phase: 0 });
   const [ready, setReady] = useState(false);
-  const [reduced, setReduced] = useState(() => window.matchMedia("(prefers-reduced-motion: reduce)").matches);
-  useEffect(() => {
-    const media = window.matchMedia("(prefers-reduced-motion: reduce)");
-    const update = () => setReduced(media.matches);
-    media.addEventListener("change", update);
-    update();
-    return () => media.removeEventListener("change", update);
-  }, []);
+  const reduced = useReducedMotion(userReduced);
   useEffect(() => {
     let active = true;
     void preloadDogArt().then(() => { if (active) setReady(true); }).catch(() => undefined);

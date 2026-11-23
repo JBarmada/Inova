@@ -37,7 +37,7 @@ export function App() {
     if (floating) void run(async () => { await toggleFloating(); setTab("companion"); }, "");
     else selectTab("companion");
   }
-  return <main ref={appElement} className={floating ? `app floating${toyExpanded ? " toy-expanded" : ""}` : "app"}>
+  return <main ref={appElement} data-reduced-motion={state.settings.reduceMotion || undefined} className={floating ? `app floating${toyExpanded ? " toy-expanded" : ""}` : "app"}>
     {floating ? <CompanionControls onHome={openHome} disabled={busy} floating />
       : <header className="masthead"><h1>Inova</h1>
         <nav className="home-navigation" aria-label="Main navigation">{tabs.map((entry) => <button key={entry} className="nav-icon-button"

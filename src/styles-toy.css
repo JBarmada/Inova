@@ -41,3 +41,5 @@ html.pet-mode .floating { --companion-width: calc(100vw - 16px); overflow: visib
 .toy-row-feedback { flex: 1 1 100%; }
 .toy-empty { font: 12px/1.7 monospace; color: #76664c; text-align: center; margin: 16px 0; }
 @media (prefers-reduced-motion: reduce) { .bone-toy:hover:not(:disabled) { transform: none; } }
+
+.app[data-reduced-motion="true"] .bone-toy:hover:not(:disabled) { transform: none; }

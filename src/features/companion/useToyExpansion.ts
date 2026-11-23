@@ -1,20 +1,15 @@
+import { useReducedMotion } from "../../shared/useReducedMotion";
 import { useEffect, useRef, useState } from "react";
 
 export type ToyPhase = "closed" | "opening" | "open" | "closing";
 
-export function useToyExpansion() {
+export function useToyExpansion(userReduced: boolean) {
   const [phase, setPhase] = useState<ToyPhase>("closed");
-  const [reduced, setReduced] = useState(() => window.matchMedia("(prefers-reduced-motion: reduce)").matches);
+  const reduced = useReducedMotion(userReduced);
   const restoreFocus = useRef(false);
   const button = useRef<HTMLButtonElement>(null);
   const panel = useRef<HTMLElement>(null);
   const open = phase === "opening" || phase === "open";
-  useEffect(() => {
-    const media = window.matchMedia("(prefers-reduced-motion: reduce)");
-    const update = () => setReduced(media.matches);
-    media.addEventListener("change", update);
-    return () => media.removeEventListener("change", update);
-  }, []);
   useEffect(() => {
     if (phase === "opening") panel.current?.focus({ preventScroll: true });
     if (phase === "closed" && restoreFocus.current) {

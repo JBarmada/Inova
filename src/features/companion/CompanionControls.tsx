@@ -36,6 +36,8 @@ export function CompanionControls({ onHome, onFloat, disabled, floating }: { onH
       <h2>Settings</h2>
       <label className="setting-row"><span>Sound</span><input type="checkbox" checked={!state.settings.muted} disabled={busy}
         onChange={(event) => void run(() => dispatch({ type: "mute", muted: !event.target.checked }), "")} /></label>
+      <label className="setting-row" title="Your operating system motion setting is also respected"><span>Reduce motion</span><input type="checkbox" checked={state.settings.reduceMotion} disabled={busy}
+        onChange={(event) => void run(() => dispatch({ type: "reduce-motion", enabled: event.target.checked }), "")} /></label>
       <label className="setting-row"><span>Dev mode</span><input type="checkbox" checked={state.settings.devMode} disabled={busy}
         onChange={(event) => void run(() => dispatch({ type: "dev-mode", enabled: event.target.checked }), "")} /></label>
       <label className="setting-row"><span>Status bar</span><input type="checkbox" checked={state.settings.showStatus} disabled={busy}
