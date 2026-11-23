@@ -8,7 +8,7 @@ Update this table after each meaningful increment with its actual status, remain
 
 | Area | Current status | Remaining acceptance or dependency |
 | --- | --- | --- |
-| Quest entry | Implemented: one shared input, local proposal or sample labeled during review and after saving, editable quests, optional detail review, and recognition of abbreviated hour estimates. | Visually test the review and date picker in desktop and floating mode; check model omissions and corrections with fictional inputs. |
+| Quest entry | Implemented: one shared input, local proposal or sample labeled during review and after saving, editable quests, optional detail review, and recognition of abbreviated hour estimates. Offline sample fallback always opens a labeled review before saving. | Visually test the review and date picker in desktop and floating mode; check model omissions and corrections with fictional inputs. |
 | Rewards and reflections | Implemented: distinct quest states, duplicate-safe demo rewards, visible reveals, linked editable memories and permission controls. A fictional browser-storage reload test covers duplicate rewards, revocation and deletion. | Run the complete save/restart/revoke/delete and duplicate-reward flow with fictional data in the integrated native build. Final reward balancing is open. |
 | Pocket Pup animations | Integrated for testing: 20 clips, automatic sleep/wake and selected reactions, Dev-mode selector. Two source/atlas pairs were inspected statically. | Review every clip, timing and wearable fit in the running app; confirm visual approval and asset provenance before release. Preserve the original checkout. |
 | Floating companion and toy | Implemented: transparent window, toy expansion, outside-click/focus-loss/Escape dismissal, Dev-mode-gated dog controls. | Verify drag with a real mouse, screen-edge placement, restart, resizing and continuous transition timing. The combined build has not had a complete native visual pass. |
@@ -21,7 +21,7 @@ Update this table after each meaningful increment with its actual status, remain
 | Spooky appearances and revival | Exploratory only. | The team must choose triggers and revival rules before implementation. |
 | Sound, accessibility and release | Partial: synthesized cues, mute/reduced-motion controls, and Windows spot checks. | Verify audible and muted feedback, keyboard/screen-reader behavior, recovery and native layout. Mac build/runtime requires a Mac. |
 
-Latest automated evidence: `npm run check` passed 156 tests, all 20 clip-atlas checks, type/size checks and the frontend build. The current Windows Rust library compiled in release mode; an earlier full Windows build passed for the animation integration. The combined native visual review remains pending because automatic review blocked a screen inspection containing unrelated sensitive content. See [implementation status](IMPLEMENTATION_STATUS.md) and [handoff](HANDOFF_BUILD_OUT.md) for details.
+Latest automated evidence: `npm run check` passed 157 tests, all 20 clip-atlas checks, type/size checks and the frontend build. The current Windows Rust library compiled in release mode; an earlier full Windows build passed for the animation integration. The combined native visual review remains pending because automatic review blocked a screen inspection containing unrelated sensitive content. See [implementation status](IMPLEMENTATION_STATUS.md) and [handoff](HANDOFF_BUILD_OUT.md) for details.
 
 ## Historical checkpoint and log
 
@@ -126,3 +126,5 @@ November 23: the missing-detail review labels a sample fallback before saving. `
 November 23: quest detail review recognizes abbreviated hour estimates such as 2h; npm run check passed 155 tests and the production build. Native review remains pending.
 
 November 23: a fictional browser-storage round trip now checks reward deduplication and memory revocation/deletion after reload. `npm run check` passed 156 tests; native storage and restart remain unverified for this flow.
+
+November 23: sample fallback now requires labeled review even when no details were detected. `npm run check` passed 157 tests; native visual review remains pending.

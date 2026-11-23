@@ -5,6 +5,9 @@ import { prepareQuest } from "../../services/prepareQuest";
 import { QuestDetailsReview } from "./QuestDetailsReview";
 
 type Draft = Awaited<ReturnType<typeof prepareQuest>>;
+export function needsQuestReview(result: Draft): boolean {
+  return Boolean(result.fallback || result.detailsWarning || result.details?.deadlineLocal || result.details?.deadlineDate || result.details?.effortMinutes);
+}
 export function QuestComposer({ state, compact = false }: { state: AppState; compact?: boolean }) {
   const [text, setText] = useState("");
   const [busy, setBusy] = useState(false);
@@ -19,7 +22,7 @@ export function QuestComposer({ state, compact = false }: { state: AppState; com
     setBusy(true); setMessage("Thinking…");
     try {
       const result = await prepareQuest(text, state);
-      if (result.detailsWarning || result.details?.deadlineLocal || result.details?.deadlineDate || result.details?.effortMinutes) { setMessage(""); setDraft(result); }
+      if (needsQuestReview(result)) { setMessage(""); setDraft(result); }
       else await save(result);
     } catch (error) { setMessage(error instanceof Error ? error.message : "Could not save. Please try again."); }
     finally { setBusy(false); }

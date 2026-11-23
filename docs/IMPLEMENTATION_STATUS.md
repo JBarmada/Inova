@@ -2,7 +2,7 @@
 
 ## Latest Windows compilation — November 23, 2026
 
-The current Rust library compiled for Windows in release mode with `cargo build --release --lib --locked --offline`. The most recent `npm run check` passed 155 tests, all 20 atlas checks, type/size checks, and the frontend build. This does not verify the final executable's native UI, animation timing, or Mac behavior.
+The current Rust library compiled for Windows in release mode with `cargo build --release --lib --locked --offline`. The most recent `npm run check` passed 157 tests, all 20 atlas checks, type/size checks, and the frontend build. This does not verify the final executable's native UI, animation timing, or Mac behavior.
 
 ## Date-only quest intake and model checks — November 23, 2026
 
@@ -370,4 +370,8 @@ Main integration checkpoint: November 23, 2026. The user approved the reviewed c
 
 Update this record with actual results as work lands. Repository documents are the shared implementation reference; companion Pages do not automatically sync. GitHub: https://github.com/JBarmada/Inova.
 
+
+# November 23 — sample fallback review
+
+The shared quest composer now always presents the labeled sample review before saving when local AI is unavailable, including inputs with no detected deadline or effort. This applies to the desktop and floating composers. `npm run check` passed 157 tests and the frontend build; visual verification in the combined native app remains pending.
 
