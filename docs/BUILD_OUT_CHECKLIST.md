@@ -69,3 +69,7 @@ November 23: added an in-app Reduce motion setting, combined with OS preference 
 November 23: local AI response reads now stop accumulating above 65,536 bytes. `npm run check` passed 112 tests; Windows release and 2 Rust HTTP-boundary tests passed. A fresh real Ollama request after the change and Mac remain pending.
 
 November 23: quest completion now triggers a temporary four-second happy presentation instead of permanently changing saved mood. `npm run check` passed 114 tests and isolated Windows release passed; a fictional native floating completion showed the reaction and retained idle mood. Existing saved happy moods are preserved; audio and Mac remain pending.
+
+November 23, 7:33 a.m.: primary checkout was on `codex/pocket-pup-animation-review` at `3103109` with extensive uncommitted changes. Its status identifies 20 approved clips; obtain a stable reviewed snapshot before reconciling overlapping companion/audio/motion files. The current branch retains its own work and does not incorporate that dirty snapshot.
+
+November 23: after bounded-response and preference updates, a real fictional 4B request produced a five-minute saved proposal. Its language arguably assumed an existing outline, so semantic grounding remains unresolved. The temporary service was stopped.

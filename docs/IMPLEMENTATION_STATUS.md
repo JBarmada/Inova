@@ -1,5 +1,14 @@
 # Implementation Status and Handoff
 
+## Live constrained 4B recheck — November 23, 2026
+
+After the response-boundary and preference changes, the isolated Windows app used the local Gemma 3 4B model with a five-minute maximum on the fictional commitment “Practice a fictional project outline.” The structured proposal was five minutes and saved successfully. Its instruction to review an outline's structure arguably assumes an existing outline that was not supplied, so grounding remains a real concern despite valid JSON and duration. This is a single additional trial, not evidence of reliable model behavior. The temporary service was stopped afterward.
+
+## Animation integration handoff — November 23, 2026
+
+At the 7:33 a.m. inventory, the primary checkout was on `codex/pocket-pup-animation-review` at `3103109`, with extensive uncommitted runtime, art and documentation changes. Its current implementation status describes 20 approved clips, but the active uncommitted files overlap the build-out branch's companion, audio, motion accessibility and app-shell work. No snapshot was copied or overwritten. Coordinate a stable reviewed commit or patch with that work's owner, compare its exact assets and source with the approval record, then integrate in an isolated checkout and rerun normal/dev control gating, reduced motion, rewards, wardrobe fitting, floating UI and native tests. Do not simply cherry-pick an earlier draft or replace either set of changes.
+
+
 ## Temporary completion reaction — November 23, 2026
 
 Completing an accepted quest no longer persists a permanent happy mood. After a successful save, the companion shows its existing happy presentation for four seconds and then returns to the previously saved mood; repeated completions extend the reaction. Failed or duplicate saves do not trigger it. This is automatic presentation, not a new manual dog control. Previously saved happy moods are preserved because their origin cannot be distinguished safely.
