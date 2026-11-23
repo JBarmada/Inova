@@ -51,3 +51,10 @@ For the implemented four-slot wardrobe, use the [isolated fictional test workflo
 Check deterministic rules with code when implemented. Review usefulness, clarity, and warmth with humans. Repeat difficult model-dependent scenarios and preserve failures for regression checking. Compare revisions on the same inputs.
 
 A working demo establishes the demonstrated behavior. It does not establish improvements in grades, wellbeing, sleep, or long-term retention.
+
+## Floating control and toy regression
+
+1. With Dev mode off, float the dog and reveal controls: Sit/Stand and manual mood buttons are absent. Enable Dev mode: pose controls appear below the toy and remain clickable. Disable it: both developer groups disappear. Home pose controls remain available.
+2. Open the toy: observe stretch into the menu with no separate toy left above it. Minimize: observe compression back to the toy, with its quest count restored. Repeat with Escape, outside click and focus loss; keyboard minimize/Escape returns focus to the toy, outside clicks preserve their target.
+3. Repeat muted and with reduced motion. Verify visible outcomes, accessible names and usable composer/list actions; do not require an animation when reduced motion is enabled.
+4. In the native app on Windows and Mac, verify stable horizontal placement, enough expanded height, no clipped retraction, and compact height after closing. Browser preview does not establish these native behaviors.

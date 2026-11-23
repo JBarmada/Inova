@@ -22,10 +22,10 @@ export function PetPanel({ floating, onToyExpanded }: { floating: boolean; onToy
     {!floating && <h2>{state.pet.adopted ? state.pet.name : "Adopt a dog"}</h2>}
     <div className="dog-stage" data-tauri-drag-region={floating || undefined} tabIndex={floating ? 0 : undefined}
       aria-label={floating ? "Your dog. Focus to reveal companion controls." : undefined}><DogSprite state={state} pose={pose} /></div>
-    {state.pet.adopted && <div className="pose-controls hover-reveal"><button disabled={busy || !ready || pose === "tucking"}
+    {floating && state.pet.adopted && <BoneQuestToy state={state} onExpandedChange={onToyExpanded} />}
+    {state.pet.adopted && (!floating || state.settings.devMode) && <div className="pose-controls hover-reveal"><button disabled={busy || !ready || pose === "tucking"}
       onClick={() => void run(changePose, "")} aria-label={pose === "sitting" ? "Ask your dog to stand" : "Ask your dog to sit"}>
       {pose === "sitting" ? "Stand up" : "Sit"}</button></div>}
-    {floating && state.pet.adopted && <BoneQuestToy state={state} onExpandedChange={onToyExpanded} />}
     {!state.pet.adopted ? <form onSubmit={(event) => {
       event.preventDefault();
       void run(() => dispatch({ type: "adopt", name }), "");

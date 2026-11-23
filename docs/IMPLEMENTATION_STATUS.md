@@ -1,5 +1,13 @@
 # Implementation Status and Handoff
 
+## Floating controls and toy transition — November 23, 2026
+
+- Floating Sit/Stand now follows the Settings Dev mode toggle. Home pose controls remain available. Floating pose controls sit after the toy/menu in layout, with a separate stacking level, avoiding the negative-margin overlap.
+- Opening the quest toy stretches its artwork into the illustrated menu; the standalone toy and badge disappear while expanded. A Minimize quest menu icon retracts the menu into the toy. Escape, outside clicks and focus-loss dismissal retain the same collapse path. Explicit minimize/Escape restores focus to the toy after retraction; outside dismissal preserves the clicked target. The panel becomes inert while closing and unmounts afterward.
+- The native canvas keeps its stable width. Expanded height is held through retraction, then compacted once the menu is gone. Reduced motion skips the stretch/compression. Existing art and mute-aware synthesized squeak are reused; no new assets or persisted fields were introduced.
+- Fresh `npm run check`: 85 source-file size checks, TypeScript, 67 tests in 15 files, and production build passed. Windows `npm run tauri build -- --no-bundle` passed. Browser checks on isolated fictional `/dev/toy.html` data verified Dev mode off/on, unobstructed Stand action, expanded toy disappearance, minimize, Escape/focus restoration, outside dismissal, and the same visible states with sound muted. Reduced-motion behavior was inspected in source, not exercised through a browser media override. Audible output, native resize animation, and Mac runtime remain unverified.
+- Try the animation with `npm run dev -- --port 5196`, then open `http://127.0.0.1:5196/dev/toy.html`. This development-only page uses fictional demo records in that separate browser origin; it is not the native overlay.
+
 ## Consolidated main — November 23, 2026
 
 The primary project folder is now the `main` checkout. See [consolidation inventory](MAIN_CONSOLIDATION.md) for every worktree and the recovery checkpoint. Continue functional work here rather than in the old worktrees.

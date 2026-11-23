@@ -9,7 +9,7 @@
 .pose-controls { display: flex; justify-content: center; margin: 0 0 12px; }
 .pose-controls button { min-width: 96px; }
 .floating .dog { width: 128px; height: 128px; }
-.floating .pose-controls { margin-bottom: 4px; }
+.floating .pose-controls { position: relative; z-index: 4; width: var(--companion-width); margin: 6px 0 4px; }
 .floating .pose-controls button { padding: 4px 10px; font-size: 12px; min-width: 80px; }
 .floating:has(.pose-controls:hover) .hover-reveal { opacity: 1; visibility: visible; pointer-events: auto; transition-delay: 0s; }
 

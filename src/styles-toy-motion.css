@@ -1,0 +1,39 @@
+.bone-quest-wrap { min-height: 42px; }
+.bone-quest-wrap.is-open > .bone-toy { position: absolute; top: 0; pointer-events: none; }
+.bone-quest-wrap[data-phase="open"] > .bone-toy { visibility: hidden; }
+.bone-quest-wrap.is-open .toy-quest-count { visibility: hidden; }
+.toy-quest-panel { transform-origin: 50% 0; }
+.toy-quest-panel:focus { outline: none; }
+.toy-quest-panel:focus-visible { outline: 2px dashed #087d7b; outline-offset: -12px; }
+.toy-minimize { position: absolute; right: -16px; top: -30px; display: grid; place-items: center; width: 28px; height: 28px; padding: 4px; border: 0; background: #fff4cf; color: #087d7b; box-shadow: 1px 1px #d7ae65; }
+.toy-minimize:hover:not(:disabled) { background: #e8dfb7; }
+.bone-quest-wrap[data-phase="opening"] > .bone-toy { animation: toy-stretch .44s ease-in both; }
+.bone-quest-wrap[data-phase="opening"] > .toy-quest-panel { animation: menu-unfold .44s cubic-bezier(.2,.8,.3,1) both; }
+.bone-quest-wrap[data-phase="closing"] > .bone-toy { animation: toy-return .34s ease-out both; }
+.bone-quest-wrap[data-phase="closing"] > .toy-quest-panel { animation: menu-fold .34s ease-in both; }
+@keyframes toy-stretch {
+  0% { transform: scale(1); opacity: 1; }
+  45% { transform: scale(3.4, .7); opacity: 1; }
+  75%, 100% { transform: scale(4.2, 1.2); opacity: 0; }
+}
+@keyframes menu-unfold {
+  0%, 15% { transform: scale(.21, .06); opacity: 0; }
+  45% { transform: scale(.8, .12); opacity: .8; }
+  80% { transform: scale(1.015, 1.025); opacity: 1; }
+  100% { transform: scale(1); opacity: 1; }
+}
+@keyframes menu-fold {
+  0% { transform: scale(1); opacity: 1; }
+  60% { transform: scale(.85, .13); opacity: .8; }
+  100% { transform: scale(.21, .06); opacity: 0; }
+}
+@keyframes toy-return {
+  0%, 30% { transform: scale(4.2, 1.2); opacity: 0; }
+  65% { transform: scale(2.5, .65); opacity: 1; }
+  90% { transform: scale(.92, 1.1); opacity: 1; }
+  100% { transform: scale(1); opacity: 1; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .bone-quest-wrap[data-phase] > .bone-toy, .bone-quest-wrap[data-phase] > .toy-quest-panel { animation: none; }
+  .bone-quest-wrap.is-open > .bone-toy { visibility: hidden; }
+}

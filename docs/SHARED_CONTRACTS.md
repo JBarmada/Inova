@@ -66,3 +66,7 @@ Next required hierarchy: a mood change must not itself force a sitting dog to st
 Dog rendering takes shared state; it does not own inventory. Wardrobe writes equipment, and the same DogSprite reflects it in both home and floating mode. Use stable catalog IDs and agreed anchors.
 
 Shared dispatch produces a click or reward tone after successful persistence. Local navigation interactions call the audio service. Recorded barks, door sounds, book sounds, richer fanfare, and polished effects remain track work. Do not invent a separate sound setting.
+
+## Floating pose and toy controls
+
+Floating Sit/Stand is a developer control and follows settings.devMode, alongside manual mood controls. Home pose controls remain available without Dev mode. Floating pose controls follow the toy/menu in layout. Opening the toy hides its standalone trigger after a stretch transition; Minimize, Escape and outside/focus-loss dismissal retract the menu. Preserve stable canvas width, reduced-motion behavior, mute, and keyboard focus recovery. Animation phase is local UI state, not persisted pet or quest state.
