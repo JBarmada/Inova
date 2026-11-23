@@ -1,5 +1,17 @@
 # Build-out handoff — November 23, 2026
 
+## Current checkpoint — November 23, 1:45 p.m. Pacific
+
+This section supersedes conflicting statements in the earlier handoff below. Work remains in `.worktrees/inova-complete` on `codex/inova-complete`. The primary checkout and its uncommitted animation work were preserved. A snapshot was reconciled in `.worktrees/animation-buildout` and integrated into the buildout for testing; do not overwrite the primary checkout. The branch has local commits after remote `fc10ea0`. An attempted push to the existing `origin` was rejected by automatic approval review because the destination was not established as trusted; do not use an alternate route to bypass that decision. Confirm the remote destination with the user before retrying.
+
+The desktop Quests page and floating toy share a single input. Local AI proposes a quest and, when supported by exact source text, optional effort and a deadline with an explicitly stated time. The user reviews those details before saving. A date without a time is not assigned one; use More options for manual entry. The sample fallback is labeled. A direct fictional Ollama trial with Gemma 3 12B extracted both details; 4B missed the deadline. These are limited trials, not reliability claims. The local service was running at this checkpoint; check its current state rather than assuming it persists.
+
+Twenty animation clips are present, with a Dev-mode preview selector, sleep/wake playback and selected automatic reactions. All 20 atlas dimensions are now checked by `npm run check`; 137 tests and the frontend build passed. Windows `cargo check` passed after the latest Rust edits; the animation integration also passed a release build before subsequent planner edits. The integrated clips, wearable alignment, and the quest detail review need visual testing. Automatic review blocked the attempted Windows inspection because the screen included unrelated sensitive content; do not work around that rejection. Mac remains untested.
+
+The Tailscale browser preview returned HTTP 200 locally at this checkpoint. Its browser build uses sample fallback because the Rust/Ollama boundary and native overlay are desktop-only. For desktop testing, restart the app after backend changes; the previously used ports 1420 and 1421 may be occupied, so identify their owners before stopping anything. The user has a separate test profile; do not replace or delete it.
+
+Next: obtain confirmation of the push destination; visually review animation playback and quest review in both layouts when authorized; verify floating drag with a real mouse, timing, placement and restart; expand local-model grounding and omission tests; test mute, audible cues, duplicate rewards and recovery; and complete remaining agreed core and stretch features in dependency order. External integrations, new art approvals, Mac and unresolved product decisions remain pending. See the checklist and implementation status for details.
+
 ## Where work lives
 
 - Isolated checkout: `C:\Users\creat\Desktop\school\Scope Final Project\.worktrees\inova-complete`.
