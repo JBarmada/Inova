@@ -19,3 +19,10 @@ export const samplePlanner: Planner = {
     };
   },
 };
+
+export async function proposeSample(commitment: Commitment, state: AppState) {
+  const quest = await samplePlanner.propose(commitment, state);
+  const memorySnapshot = state.memories.filter((entry) => quest.sourceIds.includes(entry.id))
+    .map(({ id, text }) => ({ id, text }));
+  return { quest, memorySnapshot };
+}

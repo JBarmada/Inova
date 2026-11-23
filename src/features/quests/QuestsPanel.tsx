@@ -3,7 +3,7 @@ import { useInova, dispatch } from "../../state/store";
 import { useAction } from "../../shared/useAction";
 import { newId, now } from "../../shared/actions";
 import { proposeLocal } from "../../services/localPlanner";
-import { samplePlanner } from "../../services/planner";
+import { proposeSample } from "../../services/planner";
 import { QuestCard } from "./QuestCard";
 
 export function QuestsPanel() {
@@ -31,8 +31,8 @@ export function QuestsPanel() {
         } finally { setPlanning(false); }
       }, "Local AI quest proposed.")}>Make local AI quest</button>
       <button disabled={busy} onClick={() => void run(async () => {
-        const quest = await samplePlanner.propose(entry, state);
-        await dispatch({ type: "propose-quest", quest });
+        const result = await proposeSample(entry, state);
+        await dispatch({ type: "propose-quest", ...result });
       }, "Sample quest proposed.")}>Make sample quest</button></div></div>)}
     {planning && <p role="status">Your dog is thinking with local AI…</p>}
     {message && <p role="status">{message}</p>}

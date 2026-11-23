@@ -96,3 +96,7 @@ New completions from either quest view carry an optional ISO UTC completedAt tim
 ## Outfit shuffle (build-out worktree)
 
 The optional shuffle chooses one owned item per compatible slot and applies the outfit atomically. The reducer and state schema reject unowned items and mismatched slots. It never grants items or changes reward records.
+
+## Sample planner snapshot (build-out worktree)
+
+Proposals that cite memories require transient ID/text snapshots for both the sample and local planners. Saving rejects changed, revoked, or deleted reflection context; snapshots are not stored. This applies in the home page and floating toy.

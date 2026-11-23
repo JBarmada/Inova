@@ -1,5 +1,12 @@
 # Implementation Status and Handoff
 
+## Sample planner privacy race — November 23, 2026
+
+Sample proposals now carry a transient snapshot of any reflected text they used, just like local proposals. The reducer rejects a proposal if a linked reflection changed, was deleted, or lost permission before the save. The snapshot is never persisted. Both home and floating sample-planning paths use this check.
+
+`npm run check` passed 90 tests, size/type checks and the production build. Windows release compilation passed; native UI and Mac remain pending.
+
+
 ## Inspect suggestion context — November 23, 2026
 
 Each quest in the main Quests page offers an expandable view of its commitment and linked reflections that are still allowed for personalization. It identifies those reflections as context provided to the planner, rather than claiming the model relied on every one. Editing, revoking or deleting a reflection removes the old reference; private and unrelated reflections are not displayed as sources.

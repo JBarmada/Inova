@@ -16,10 +16,10 @@ function apply(state: AppState, action: Action): AppState {
       return { ...state, commitments: [...state.commitments, action.commitment] };
     case "propose-quest":
       if (state.quests.some((entry) => entry.id === action.quest.id)) return state;
-      if (action.quest.planner === "local" && (!action.memorySnapshot ||
+      if ((action.quest.planner === "local" && !action.memorySnapshot) ||
         action.quest.sourceIds.filter((id) => id !== action.quest.commitmentId).some((id) =>
-          !action.memorySnapshot?.some((snapshot) => snapshot.id === id)))) {
-        throw Error("Local quest evidence is incomplete.");
+          !action.memorySnapshot?.some((snapshot) => snapshot.id === id))) {
+        throw Error("Quest evidence is incomplete.");
       }
       if (action.memorySnapshot?.some((snapshot) => !state.memories.some((memory) =>
         memory.id === snapshot.id && memory.aiAllowed && memory.text === snapshot.text))) {

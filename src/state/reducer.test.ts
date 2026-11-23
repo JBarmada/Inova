@@ -53,7 +53,7 @@ describe("shared domain agreements", () => {
     state = reduce(state, { type: "memory-permission", id: "m1", allowed: true });
     const draft = await samplePlanner.propose(state.commitments[0], state);
     expect(draft.sourceIds).toContain("m1");
-    state = reduce(state, { type: "propose-quest", quest: draft });
+    state = reduce(state, { type: "propose-quest", quest: draft, memorySnapshot: [{ id: memory.id, text: memory.text }] });
     const revoked = reduce(state, { type: "memory-permission", id: "m1", allowed: false });
     expect(revoked.quests[0].reason).not.toContain(memory.text);
     state = reduce(state, { type: "delete-memory", id: "m1" });

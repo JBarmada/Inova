@@ -2,7 +2,7 @@ import { useRef, useState } from "react";
 import type { AppState, Commitment } from "../../shared/schema";
 import { newId, now } from "../../shared/actions";
 import { dispatch } from "../../state/store";
-import { samplePlanner } from "../../services/planner";
+import { proposeSample } from "../../services/planner";
 import { useAction } from "../../shared/useAction";
 
 export function ToyComposer({ state }: { state: AppState }) {
@@ -15,8 +15,8 @@ export function ToyComposer({ state }: { state: AppState }) {
     const commitment = pending.current?.title === title ? pending.current : { id: newId(), title, createdAt: now() };
     await dispatch({ type: "add-commitment", commitment });
     pending.current = commitment;
-    const quest = await samplePlanner.propose(commitment, state);
-    await dispatch({ type: "propose-quest", quest });
+    const result = await proposeSample(commitment, state);
+    await dispatch({ type: "propose-quest", ...result });
     pending.current = null;
     setText("");
   }
