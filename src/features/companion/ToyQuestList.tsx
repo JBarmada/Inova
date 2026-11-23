@@ -41,4 +41,3 @@ export function ToyQuestList({ quests, muted }: { quests: Quest[]; muted: boolea
     </>}
   </div>;
 }
-
