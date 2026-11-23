@@ -3,6 +3,7 @@ import { z } from "zod";
 import type { AppState, Commitment, Quest } from "../shared/schema";
 import { newId } from "../shared/actions";
 import { suggestedDetails, type SuggestedDetails } from "./suggestedDetails";
+import { planningMemories } from "./planningMemories";
 
 const resultSchema = z.object({ title: z.string().trim().min(1).max(240),
   reason: z.string().trim().min(1).max(1000), minutes: z.number().int().min(1).max(120),
@@ -11,7 +12,7 @@ const resultSchema = z.object({ title: z.string().trim().min(1).max(240),
 export type MemorySnapshot = { id: string; text: string };
 
 export async function proposeLocal(commitment: Commitment, state: AppState, call = invoke): Promise<{ quest: Quest; memorySnapshot: MemorySnapshot[]; details: SuggestedDetails }> {
-  const memorySnapshot = state.memories.filter((entry) => entry.aiAllowed).slice(-3)
+  const memorySnapshot = planningMemories(commitment.title, state.memories)
     .map(({ id, text }) => ({ id, text }));
   if (call === invoke && !isTauri()) throw Error("Local AI requires the desktop app. The sample planner is available here.");
   const input = JSON.stringify({ localNow: new Date().toLocaleString("sv-SE").replace(" ", "T"), commitment: { id: commitment.id, title: commitment.title, deadline: commitment.deadline, effortMinutes: commitment.effortMinutes }, reflections: memorySnapshot, maxQuestMinutes: state.settings.questMinuteLimit || undefined });

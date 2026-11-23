@@ -1,5 +1,6 @@
 import type { AppState, Commitment, Quest } from "../shared/schema";
 import { newId } from "../shared/actions";
+import { planningMemories } from "./planningMemories";
 
 export interface Planner {
   propose(commitment: Commitment, state: AppState): Promise<Quest>;
@@ -7,7 +8,7 @@ export interface Planner {
 
 export const samplePlanner: Planner = {
   async propose(commitment, state) {
-    const memory = state.memories.filter((entry) => entry.aiAllowed).at(-1);
+    const memory = planningMemories(commitment.title, state.memories, 1)[0];
     const minutes = Math.min(10, commitment.effortMinutes ?? 10, state.settings.questMinuteLimit || 120);
     return {
       id: newId(), commitmentId: commitment.id,

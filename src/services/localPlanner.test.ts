@@ -87,3 +87,13 @@ it("returns grounded model details separately from the quest", async () => {
   expect(result.details).toEqual({ deadlineLocal: "2026-11-27T17:00", effortMinutes: 120 });
   expect(result.quest).not.toHaveProperty("deadlineEvidence");
 });
+
+it("sends the best matching permitted reflections and preserves their source IDs", async () => {
+  const make = (id: string, text: string, aiAllowed = true) => ({ id, text, aiAllowed, createdAt: commitment.createdAt });
+  const state = { ...initialState(), memories: [make("match", "Painting helps"), make("private", "painting", false),
+    make("m-a", "One"), make("m-b", "Two"), make("m-c", "Three")] };
+  const call = vi.fn().mockResolvedValue(JSON.stringify({ title: "Paint", reason: "Start small", minutes: 5 }));
+  const result = await proposeLocal({ ...commitment, title: "Start painting" }, state, call as unknown as typeof invoke);
+  expect(JSON.parse(call.mock.calls[0][1].input).reflections.map((memory: { id: string }) => memory.id)).toEqual(["match", "m-c", "m-b"]);
+  expect(result.quest.sourceIds).toEqual(["c", "match", "m-c", "m-b"]);
+});

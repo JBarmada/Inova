@@ -1,5 +1,9 @@
 # Implementation Status and Handoff
 
+## Choosing permitted reflections — November 23, 2026
+
+Both local and sample planners now rank permitted reflections by shared words with the commitment, then recency. This is a simple local keyword heuristic, not semantic retrieval: it can miss related wording and may include recent unrelated permitted entries when there are fewer matches. Only permitted records are selected; selected IDs and stale-content checks remain intact. `npm run check` passed 140 tests, all 20 clip-atlas checks, and the frontend build. Native UI and Mac remain pending.
+
 ## Memory book feedback — November 23, 2026
 
 Opening or closing a memory book plays a short synthesized cue when sound is enabled; the existing visible book and status text remain available when muted. Repeated cues are throttled. `npm run check` passed 137 tests, 20 atlas checks, and the frontend build. Audible playback and native visual verification remain pending; Mac remains pending.
