@@ -1,5 +1,9 @@
 # Implementation Status and Handoff
 
+## Windows dragging check — November 23, 2026
+
+In the isolated Windows test profile, automated drags on the floating dog did not change the persisted floating position, even after focusing it; the same automation moved the decorated home title bar and saved its new position. This does not distinguish an application drag failure from a timing limitation in the synthetic gesture, because the floating drag is initiated asynchronously by Tauri. Treat floating dragging and placement persistence as unverified and investigate with a real mouse or a controlled held-pointer test before release. The test profile was quit normally.
+
 ## Optional perspective exercise — November 23, 2026
 
 Memories includes optional prompts for a situation, known facts and uncertainty, another possible perspective, and a possible next step. Responses are user-authored; the prompts generate no factual claims or AI discussion. The draft is temporary until explicitly saved as a memory, which starts excluded from suggestions and can be permitted later using the existing memory control.
