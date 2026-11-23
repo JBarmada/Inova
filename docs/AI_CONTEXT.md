@@ -6,6 +6,8 @@ Inova is a SCOPE club final project for the theme Evolve. It is an evolving pixe
 
 ## Established team direction
 
+Current animation review: [TRANSITION_TABLE.md](TRANSITION_TABLE.md) covers posture/mood combinations, routes, deadline cancellation, and queued clips. Main `b187094` has approved sit/breathing. Review v35 seated tiredness before implementing it; then review seven-second loaf entry and sit-to-stand separately. A mood update must preserve body posture.
+
 Approved Pocket Pup v32 sit motion and v34 grounded breathing are integrated with the latest main UI/toy work. See [POCKET_PUP_INTEGRATION.md](POCKET_PUP_INTEGRATION.md). Posture/mood hierarchy, seven-second tired-sit → loaf, and animated sit → stand are the next scenarios, each requiring a visible preview and user review before proceeding.
 
 - Pixel dog art, with a small selection of adoptable base dogs as the desired experience.

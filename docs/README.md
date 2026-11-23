@@ -21,6 +21,8 @@ Updated November 22, 2026. The repository now includes a shared starter as well 
 
 ## Implementation references
 
+- [Dog transition coverage table and review queue](TRANSITION_TABLE.md).
+
 - [Pocket Pup art and breathing integration](POCKET_PUP_INTEGRATION.md).
 - [Artist planning guide and scenario brief](ARTIST_GUIDE.md).
 

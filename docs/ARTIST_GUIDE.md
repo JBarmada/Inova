@@ -4,6 +4,8 @@ Saved at the user's request, November 23, 2026. Future artist chats should read 
 
 ## Animation planning reference
 
+Current order and missing outcomes are in [TRANSITION_TABLE.md](TRANSITION_TABLE.md). Approved sit/breathing is on main `b187094`. Next is v35 sitting → tired face with a fixed head/body; loaf after seven seconds and sit → stand remain separate reviews. Do not implement or advance beyond a new clip before the user reviews its GIF or transition state.
+
 For the detailed artist brief, read [Animation scenarios and deliverables](ANIMATION_SCENARIOS.md). It covers the neutral-to-sit milestone, rest and wake-up chains, personality reactions, game interactions, and review requirements. Later scenarios remain planned work until the current neutral-to-sit breakdown is approved.
 
 Pedro Medeiros / Saint11: [Animation Planning](https://www.patreon.com/saint11/posts/animation-7585006).

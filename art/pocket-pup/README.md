@@ -4,6 +4,7 @@ Track A art draft, November 22, 2026. The user selected Pocket Pup (option 4) fr
 
 ## Current review files
 
+- Active review: [v35 seated tired face](v35/seated-tired-preview.gif), [states](v35/seated-face-frames.png), [notes](v35/README.md). Head/body/paws fixed; seven-second tired hold shown, loaf not drawn. See [coverage/queue](../../docs/TRANSITION_TABLE.md). Approved sit/breathing is on main `b187094`.
 - Latest [grounded breathing GIF](v34/breathing-preview.gif), [frame comparison](v34/breathing-frames.png), and [research notes](v34/README.md). Replaces rejected v33 floating bob with fixed paws and a subtle chest/upper-body rise. Preview only; no app change.
 - Bob review only: [neutral, happy, and sitting GIF](v33/bobbing-preview.gif). Whole-sprite two-pixel bob; **not added to the app**, pending user approval. [Notes](v33/README.md).
 - App integration: the user approved v32 for integration. Runtime assets now live in `public/dog/`; see [the app handoff](../../docs/POCKET_PUP_INTEGRATION.md). Historical review labels below reflect earlier stages. Later motion is still excluded.

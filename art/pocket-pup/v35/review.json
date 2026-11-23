@@ -1,0 +1,23 @@
+{
+  "phaseOrder": [
+    "neutral",
+    "blink",
+    "neutral",
+    "drowsy",
+    "blink",
+    "tired"
+  ],
+  "durationsMs": [
+    900,
+    100,
+    350,
+    450,
+    250,
+    7000
+  ],
+  "status": "awaiting face-transition review; not integrated",
+  "scenario": "M05 / scenario 2",
+  "fixed": "every pixel outside two 3x4 eye boxes; head, body, mouth, paws and alpha unchanged",
+  "loaf": "not shown or implemented; separate next review",
+  "main": "approved sitting and breathing published as b187094"
+}

@@ -1,5 +1,9 @@
 # Implementation Status and Handoff
 
+## Follow-up review branch — no new runtime behavior
+
+Approved sit/breathing is published to main as `b187094`. `codex/pose-hierarchy-review` adds [the transition ledger](TRANSITION_TABLE.md) and [v35 seated facial preview](../art/pocket-pup/v35/README.md). Non-eye pixels and seven-second preview hold were checked. Posture-preserving mood changes, actual seven-second loaf deadline/entry, and animated stand-up remain pending review/integration. App source is identical to main during this first review.
+
 ## Pocket Pup and breathing integration — November 23
 
 The approved v32 neutral/tuck/sit sequence and v34 grounded breathing loops now render in the app. The integration is based on main `2dd9b1e` and preserves its quest-board organization, toy dismissal, navigation, wardrobe/memories split, and native layout code. Breathing uses the exact reviewed PNG phases (800/450/650/900ms), keeps paw pixels fixed, follows the neck with the bandana, pauses during the tuck, and stops for reduced motion.

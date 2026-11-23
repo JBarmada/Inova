@@ -1,5 +1,7 @@
 # Artwork and Audio Plan
 
+Review-only v35: seated tiredness derives from approved v26 with original edits confined to two eye regions. No new external artwork. Exact non-eye/alpha pixels and seven-second GIF hold checked. Not a runtime asset and not included in main `b187094`.
+
 ## Integrated Pocket Pup assets — November 23
 
 `public/dog/manifest.json` records source filenames and SHA-256 hashes. Approved neutral/tuck/sit are exact copies of v32's three PNGs; happy/tired/bandana come from the existing reference sheet. Twelve breathing PNGs copy the approved v34 study exactly. Paws remain fixed; the native head artwork is not rescaled. Canvas is 64 by 64, binary RGBA, enlarged with nearest-neighbor only. `tools/export_runtime_art.py` rebuilds these files and validates source copies/grounded paw rows.

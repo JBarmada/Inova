@@ -6,6 +6,8 @@ Current checkpoint: the user approved v32 neutral → sit and v34 grounded breat
 
 ## Character rules
 
+Approved sit/breathing is published on main as `b187094`. Follow [TRANSITION_TABLE.md](TRANSITION_TABLE.md) for posture/mood coverage, routes, timer guards, interruptions, and the one-at-a-time queue. Current review is [v35 seated tiredness](../art/pocket-pup/v35/README.md), not a runtime hierarchy implementation.
+
 - Preserve the exact selected [standing neutral](../art/pocket-pup/v9/fur-details.png) and [approved sitting](../art/pocket-pup/v26/sitting-idle.png) endpoints.
 - Work on a transparent **64 × 64 grid**, using binary transparency and nearest-neighbor previews.
 - Keep the head at its original pixel size, including the full right cheek outline.
@@ -47,13 +49,15 @@ Current checkpoint: the user approved v32 neutral → sit and v34 grounded breat
 
 **Scenario:** The seated dog gradually becomes drowsy.
 
-**Motion beats:** Normal blink → longer blink → heavy eyelids → small head dip → relaxed tired sit.
+**Motion beats:** Normal blink → longer blink → heavy eyelids → tired face while remaining seated.
 
-The head may translate slightly, but its shape stays intact. Keep the seated body and planted paws stable. Suggest tiredness through the eyelids and posture rather than stretching the face.
+Latest user correction: only facial pixels change. Keep head position/shape, seated body, chest, and planted paws fixed. The older optional head dip is superseded. Breathing is an independent approved loop and must not become a posture reset.
 
 **Ending:** A distinct tired-sitting key pose that can hold comfortably.
 
 ### 3. Tired sitting → lying awake
+
+Latest request calls the target **loaf mode**, reached after seven seconds of stable tired sitting. Show its endpoint first. The older extended-forepaw lying-awake beats below are reference planning, not automatic approval of that loaf design.
 
 **Scenario:** The dog decides to lie down, but remains awake.
 
