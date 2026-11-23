@@ -29,3 +29,5 @@ November 23: quest-linked reflection increment passed 84 tests and Windows relea
 November 23: isolated Windows test app verified edited sample quest completion, notebook reveal, local 12B proposal, restart, floating board opening and outside dismissal. See model trial evidence for exact limits.
 
 November 23: seven-day local recap added with optional completion timestamps and explicit legacy-undated handling. `npm run check` passed 86 tests and Windows release compilation passed; native visual review and Mac remain pending.
+
+November 23: added an owned-items-only outfit shuffle as one validated, persistent action. `npm run check` passed 88 tests and Windows release compilation passed; native visual review and Mac remain pending.

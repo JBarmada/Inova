@@ -4,8 +4,8 @@ import { itemById } from "../../shared/catalog";
 import { ItemGlyph } from "./ItemGlyph";
 import { WardrobeIcon } from "./WardrobeIcon";
 
-export function OutfitStrip({ state, busy, onRemove, onClear }: {
-  state: AppState; busy: boolean; onRemove: (slot: WearableSlot) => void; onClear: () => void;
+export function OutfitStrip({ state, busy, onRemove, onClear, onShuffle }: {
+  state: AppState; busy: boolean; onRemove: (slot: WearableSlot) => void; onClear: () => void; onShuffle: () => void;
 }) {
   return <div className="outfit-strip" role="group" aria-label="Currently worn">
     {wearableSlots.map((slot) => {
@@ -19,6 +19,8 @@ export function OutfitStrip({ state, busy, onRemove, onClear }: {
         {item && <span className="equipped-dot" aria-hidden="true" />}
       </button>;
     })}
+    <button className="wardrobe-icon-button" aria-label="Shuffle owned outfit" title="Shuffle owned outfit"
+      disabled={busy || state.ownedItems.length === 0} onClick={onShuffle}><WardrobeIcon kind="shuffle" /></button>
     <button className="wardrobe-icon-button outfit-clear" aria-label="Clear outfit" title="Clear outfit"
       disabled={busy || !Object.values(state.equipment).some(Boolean)} onClick={onClear}><WardrobeIcon kind="clear" /></button>
   </div>;

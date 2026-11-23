@@ -92,3 +92,7 @@ A new memory can optionally cite a completed quest ID. The reducer validates tha
 ## Dated completions and recap (build-out worktree)
 
 New completions from either quest view carry an optional ISO UTC completedAt timestamp; legacy completed quests remain valid without one. Repeated completion cannot change the original timestamp. The local seven-day recap counts only dates in the last 168 hours and never infers dates for older records. Memory counts include private entries without copying their text or changing personalization permissions.
+
+## Outfit shuffle (build-out worktree)
+
+The optional shuffle chooses one owned item per compatible slot and applies the outfit atomically. The reducer and state schema reject unowned items and mismatched slots. It never grants items or changes reward records.

@@ -10,6 +10,7 @@ import { WardrobeIcon } from "./WardrobeIcon";
 import { OutfitStrip } from "./OutfitStrip";
 import { WardrobeFilters, WardrobePoses, type PreviewPose, type WardrobeFilter } from "./WardrobeToolbar";
 import { playCue } from "../../services/audio";
+import { shuffledOutfit } from "./shuffleOutfit";
 import "../../styles-wardrobe.css";
 
 export function WardrobePanel() {
@@ -23,7 +24,8 @@ export function WardrobePanel() {
       <WardrobePoses pose={pose} onPose={(value) => { setPose(value); playCue("click", state.settings.muted); }} /></div>
     <OutfitStrip state={state} busy={busy}
       onRemove={(slot) => void run(() => dispatch({ type: "unequip", slot }), `${slot} removed.`)}
-      onClear={() => void run(() => dispatch({ type: "equip", item: null }), "Outfit cleared.")} />
+      onClear={() => void run(() => dispatch({ type: "equip", item: null }), "Outfit cleared.")}
+      onShuffle={() => void run(() => dispatch({ type: "equip-outfit", equipment: shuffledOutfit(state.ownedItems) }), "Outfit shuffled.")} />
     {wearableSlots.filter((slot) => filter === "all" || slot === filter).map((slot) => <section key={slot} className="wardrobe-category" aria-label={`${slot} items`}><h3>{slot}</h3>
       <div className="wardrobe">{items.filter((item) => item.slot === slot).map((item) => {
         const equipped = state.equipment[slot] === item.id;

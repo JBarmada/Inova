@@ -40,7 +40,7 @@ function apply(state: AppState, action: Action): AppState {
     }
     case "quest-status": return changeQuestStatus(state, action);
     case "complete-quest": return completeQuest(state, action.id, action.completedAt);
-    case "equip": case "unequip": case "wardrobe-scenario": return changeEquipment(state, action);
+    case "equip": case "unequip": case "equip-outfit": case "wardrobe-scenario": return changeEquipment(state, action);
     case "add-memory":
       if (state.memories.some((entry) => entry.id === action.memory.id)) return state;
       if (action.memory.questId && !state.quests.some((quest) => quest.id === action.memory.questId && quest.status === "completed")) {

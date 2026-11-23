@@ -1,5 +1,12 @@
 # Implementation Status and Handoff
 
+## Owned outfit shuffle — November 23, 2026
+
+The outfit strip offers an optional shuffle that selects an owned item independently for each wearable slot and leaves slots with no owned items empty. The entire outfit is saved as one validated action; locked items and incompatible slots are rejected, and ownership and quest rewards are unchanged. The selection remains visible with sound muted and survives serialization.
+
+`npm run check` passed 88 tests, size/type checks and the production build. Windows release compilation passed. Native visual review and Mac remain pending.
+
+
 ## Seven-day recap — November 23, 2026
 
 The Memories page can show a local seven-day recap of dated completed adventures and the number of memories saved. New completions record an optional UTC timestamp; older undated completions remain valid and are counted separately without inventing dates. Private memories contribute only to the count and are not sent to AI. Duplicate completions cannot rewrite the timestamp. The date window excludes future and older records.
