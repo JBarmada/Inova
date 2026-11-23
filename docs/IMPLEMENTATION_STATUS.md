@@ -2,11 +2,11 @@
 
 ## Shared quest details and animation testing — November 23, 2026
 
-The shared one-field quest composer can extract a stated deadline and total effort via the local model. Suggestions require matching source text and an editable review before saving; missing or malformed suggestions are ignored. The sample fallback stays labeled and does not extract details. A small direct Ollama trial with fictional input found both details using Gemma 3 12B; 4B found effort but missed the deadline. This is not a reliability guarantee, and model guesses require review. The previous single-field entry note below describes an earlier version.
+The shared one-field quest composer can extract a stated deadline and total effort via the local model. Suggestions require matching source text and an editable review before saving; missing or malformed suggestions are ignored. Deadlines are suggested only when the evidence includes an explicit time; date-only input needs manual entry under More options. The sample fallback stays labeled and does not extract details. A small direct Ollama trial with fictional input found both details using Gemma 3 12B; 4B found effort but missed the deadline. This is not a reliability guarantee, and model guesses require review. The previous single-field entry note below describes an earlier version.
 
 A snapshot of the primary checkout's animation work was reconciled in a staging worktree and integrated for testing without changing the original checkout. It adds clip playback, sleep/wake transitions, greetings, reward reactions, and a Dev-mode clip selector. Visual approval and wearable alignment across clips remain pending. The old animation handoff below records the earlier pre-integration state.
 
-`npm run check` passed 136 tests, source-size and type checks, and the frontend build. Windows `cargo check` passed; interactive visual review was blocked by automatic review because unrelated sensitive content was visible. Mac remains pending.
+`npm run check` passed 137 tests, source-size and type checks, all 20 atlas checks, and the frontend build. Windows `cargo check` passed; interactive visual review was blocked by automatic review because unrelated sensitive content was visible. Mac remains pending.
 
 ## Shared quest entry — November 23, 2026
 
