@@ -2,6 +2,29 @@
 
 Worktree: `.worktrees/inova-complete`, branch `codex/inova-complete`, based on `origin/main` at `851ca60` on November 23, 2026. The primary checkout contains active uncommitted artwork, animation, and documentation; do not copy or replace it without reconciling the owning work. Existing older worktrees are retained.
 
+## Current backlog and acceptance — November 23, afternoon
+
+Update this table after each meaningful increment with its actual status, remaining acceptance, dependencies, and verification. The dated entries below are a historical record. **Implemented** means code exists in this branch, not that every platform or visual detail is approved. The branch has been pushed and has not been merged into main.
+
+| Area | Current status | Remaining acceptance or dependency |
+| --- | --- | --- |
+| Quest entry | Implemented: one shared input, local proposal or labeled sample, editable quests, optional detail review. | Visually test the review and date picker in desktop and floating mode; check model omissions and corrections with fictional inputs. |
+| Rewards and reflections | Implemented: distinct quest states, duplicate-safe demo rewards, visible reveals, linked editable memories and permission controls. | Run the complete save/restart/revoke/delete and duplicate-reward flow with fictional data in the integrated native build. Final reward balancing is open. |
+| Pocket Pup animations | Integrated for testing: 20 clips, automatic sleep/wake and selected reactions, Dev-mode selector. Two source/atlas pairs were inspected statically. | Review every clip, timing and wearable fit in the running app; confirm visual approval and asset provenance before release. Preserve the original checkout. |
+| Floating companion and toy | Implemented: transparent window, toy expansion, outside-click/focus-loss/Escape dismissal, Dev-mode-gated dog controls. | Verify drag with a real mouse, screen-edge placement, restart, resizing and continuous transition timing. The combined build has not had a complete native visual pass. |
+| Adoption, wardrobe and bookshelf | Implemented: naming, layered placeholder wearables, owned-item shuffle, dated readable books, search and editing. | Complete the end-to-end adoption/equip/restart flow and visual/accessibility checks; final item art and more base dogs need assets and review. |
+| Local AI and personalization | Provisional: local 12B/4B provider, permitted-memory selection, source IDs, validation, bounded failure and sample fallback. | Expand quality, grounding, injection and machine-performance trials; improve setup/lifecycle and choose a final default. A small 4B trial produced incorrect extracted values. |
+| Recaps, exploration and perspective | Partial: seven-day local recap, on-demand sample exploration, user-authored perspective prompts. | Validate recaps with varied saved history; personalized/automatic exploration and AI-supported discussion remain backlog. |
+| Adulting and world growth | Backlog: practical checklists/conversations, more rooms and richer shelf decorations. | Agree on a small useful flow and approved assets; do not present placeholder or sample behavior as a live integration. |
+| Treats, toys and cosmetics | Partial: animation clips and Dev-mode playback exist; placeholder wardrobe supports four slots. | Decide ordinary interaction and reward rules consistent with the direct-control Dev-mode requirement; approve art and test sound/visual feedback. |
+| External integrations | Blocked on selected provider, permitted access and product scope. | Keep manual paths usable; implement any future integration read-only until a specific write is authorized. |
+| Spooky appearances and revival | Exploratory only. | The team must choose triggers and revival rules before implementation. |
+| Sound, accessibility and release | Partial: synthesized cues, mute/reduced-motion controls, and Windows spot checks. | Verify audible and muted feedback, keyboard/screen-reader behavior, recovery and native layout. Mac build/runtime requires a Mac. |
+
+Latest automated evidence: `npm run check` passed 155 tests, all 20 clip-atlas checks, type/size checks and the frontend build. The current Windows Rust library compiled in release mode; an earlier full Windows build passed for the animation integration. The combined native visual review remains pending because automatic review blocked a screen inspection containing unrelated sensitive content. See [implementation status](IMPLEMENTATION_STATUS.md) and [handoff](HANDOFF_BUILD_OUT.md) for details.
+
+## Historical checkpoint and log
+
 - [x] Establish isolated worktree and install locked dependencies.
 - [x] Baseline `npm run check`: 72 tests, type/size checks and frontend build passed.
 - [ ] Diagnose native toy-frame synchronization and startup delay; validate Windows overlay and Mac separately. Native Windows open/outside-dismiss and a restart were observed with fictional data; frame timing, dragging, positioning and Mac remain unverified.
@@ -16,7 +39,7 @@ Worktree: `.worktrees/inova-complete`, branch `codex/inova-complete`, based on `
 - [ ] Implement the documented stretch backlog in dependency order, respecting unresolved product/art decisions and external access limits.
 - [ ] Verify complete fictional-data flow, audio/mute, reduced motion, Windows and Mac; update asset provenance and release handoff.
 
-Each feature requires observable acceptance and recorded validation. Distinguish current branch results from work on other branches. Open item: the primary checkout's fitted animation changes are uncommitted and may still be under active review.
+Each feature requires observable acceptance and recorded validation. Distinguish current branch results from work on other branches. The primary checkout's original uncommitted animation work remains preserved; the separate snapshot is integrated for testing, with combined visual review still open.
 
 November 23: `npm run check` passed 76 tests, size/type checks and production build after quest and memory editing. Windows/Mac runtime walkthrough and persistence checks for these changes remain outstanding.
 

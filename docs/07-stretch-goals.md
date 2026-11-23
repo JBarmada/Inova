@@ -1,6 +1,6 @@
 # What We Hope to Reach if Possible
 
-Stretch backlog. These items matter to the vision but should not prevent completion of the minimum experience.
+Stretch backlog. These items matter to the vision but should not prevent completion of the minimum experience. For current implementation status, acceptance criteria, and blockers, see the [build-out backlog](BUILD_OUT_CHECKLIST.md); the list below remains the product vision, not a claim that each item is finished.
 
 # First additions after the core works
 
