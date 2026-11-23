@@ -1,5 +1,7 @@
 # Three Person Build Plan
 
+**Build-out update:** Some next-deliverable entries below describe the earlier main checkpoint. For current isolated-branch capabilities, outstanding work, and verification, use [implementation status](IMPLEMENTATION_STATUS.md) and the [build-out checklist](BUILD_OUT_CHECKLIST.md). The primary checkout and other worktrees remain preserved.
+
 Three active builders, both Windows and Mac, deadline December 1, 2026. Assign a lead per active task; names and individual operating systems are not assigned yet.
 
 ## Focused work areas

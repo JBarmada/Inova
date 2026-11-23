@@ -1,5 +1,7 @@
 # Shared Architecture
 
+**Build-out update:** The isolated `codex/inova-complete` branch adds an optional loopback Ollama provider through Rust, selectable 12B/4B models, and a deterministic sample fallback. It sends only permitted reflections, validates proposals, and retains ordinary application control of rewards. See [implementation status](IMPLEMENTATION_STATUS.md) and [shared contracts](SHARED_CONTRACTS.md); starter-only statements below are historical where superseded.
+
 Working agreement for the November 22 starter. Tauri is team-selected; the implementation defaults below keep the three feature tracks compatible until the team deliberately changes them.
 
 ## Framework and boundaries
