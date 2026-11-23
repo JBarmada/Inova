@@ -62,3 +62,14 @@ describe("shared domain agreements", () => {
     expect(state.quests[0].sourceIds).not.toContain("m1");
   });
 });
+
+it("enforces total effort when saving a proposed quest", () => {
+  const state = fixture();
+  const commitment = { ...state.commitments[0], effortMinutes: 5 };
+  const withEffort = { ...state, commitments: [commitment] };
+  expect(() => reduce(withEffort, { type: "propose-quest", quest: quest() })).toThrow("total effort");
+  expect(reduce(withEffort, { type: "propose-quest", quest: { ...quest(), minutes: 5 } }).quests).toHaveLength(1);
+  expect(() => reduce(state, { type: "add-planned-quest", commitment: { ...commitment, id: "c2" },
+    quest: { ...quest("q2"), commitmentId: "c2", sourceIds: ["c2"] }, memorySnapshot: [] })).toThrow("total effort");
+  expect(state.commitments).toHaveLength(1);
+});

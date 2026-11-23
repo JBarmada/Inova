@@ -33,6 +33,8 @@ function apply(state: AppState, action: Action): AppState {
         throw Error("A reflection changed while planning. Please try again.");
       }
       if (!state.commitments.some((entry) => entry.id === action.quest.commitmentId)) throw Error("Unknown commitment.");
+      if (state.commitments.some((entry) => entry.id === action.quest.commitmentId && entry.effortMinutes && action.quest.minutes > entry.effortMinutes))
+        throw Error("Quest duration exceeds the estimated total effort.");
       if (action.quest.completedAt || action.quest.plan) throw Error("A proposed quest cannot have a completion date or plan.");
       if (action.quest.status !== "proposed") throw Error("New quests must be proposals.");
       if (state.settings.questMinuteLimit && action.quest.minutes > state.settings.questMinuteLimit) throw Error("This quest exceeds your current length limit. Please plan again.");

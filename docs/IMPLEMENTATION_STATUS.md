@@ -1,5 +1,9 @@
 # Implementation Status and Handoff
 
+## Quest effort guard — November 23, 2026
+
+The shared state reducer rejects a newly proposed quest longer than its commitment's estimated total effort, including atomic one-field submissions. The reviewed composer caps its proposal before saving; explicit later quest edits retain the existing flexibility. `npm run check` passed 142 tests, all 20 atlas checks and the frontend build. Native UI and Mac remain pending.
+
 ## Choosing permitted reflections — November 23, 2026
 
 Both local and sample planners now rank permitted reflections by shared words with the commitment, then recency. This is a simple local keyword heuristic, not semantic retrieval: it can miss related wording and may include recent unrelated permitted entries when there are fewer matches. Only permitted records are selected; selected IDs and stale-content checks remain intact. `npm run check` passed 140 tests, all 20 clip-atlas checks, and the frontend build. Native UI and Mac remain pending.
