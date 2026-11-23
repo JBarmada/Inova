@@ -59,3 +59,7 @@ footer { margin-top: 48px; padding-top: 20px; border-top: 2px solid #d4c6a7; }
 .startup-error { padding: 32px; background: #fff9e9; min-height: 100vh; }
 @media (max-width: 600px) { .masthead { flex-wrap: wrap; } .app:not(.floating) { padding: 24px; } .commitment { flex-wrap: wrap; } }
 @media (max-width: 600px) { .masthead .home-navigation { order: 3; flex-basis: 100%; } }
+.quest-composer { display: flex; max-width: 680px; gap: 8px; }
+.quest-composer input { min-width: 0; flex: 1; }
+.quest-composer button { flex: 0 0 auto; }
+@media (max-width: 480px) { .quest-composer { flex-wrap: wrap; } }

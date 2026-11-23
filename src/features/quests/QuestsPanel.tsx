@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useInova, dispatch } from "../../state/store";
 import { useAction } from "../../shared/useAction";
 import { CommitmentForm } from "./CommitmentForm";
+import { QuestComposer } from "./QuestComposer";
 import { ExplorationIdeas } from "./ExplorationIdeas";
 import { formatDeadline } from "./commitmentDetails";
 import { checkLocalModel, proposeLocal } from "../../services/localPlanner";
@@ -16,7 +17,8 @@ export function QuestsPanel() {
   const [modelMessage, setModelMessage] = useState("");
   const { run, busy, message } = useAction();
   return <section><p className="eyebrow">ONE SMALL STEP</p><h2>What would you like to start?</h2>
-    <p>Local AI requires Ollama and the selected model. Only reflections you permit are included. The sample option works without AI.</p>
+    <QuestComposer state={state} />
+    <details><summary>More options</summary>
     <label>Local model<select value={state.settings.localModel} disabled={busy} onChange={(event) => {
       setActiveCommitment(null);
       setModelMessage("");
@@ -55,6 +57,7 @@ export function QuestsPanel() {
       {activeCommitment === entry.id && planning && <p role="status">Your dog is thinking with local AI…</p>}
       {activeCommitment === entry.id && message && <p role="status">{message}</p>}</div>)}
     {!activeCommitment && message && <p role="status">{message}</p>}
+    </details>
     {state.quests.length === 0 && <p className="empty">Your first small adventure goes here.</p>}
     {state.quests.map((quest) => <QuestCard quest={quest} key={quest.id} />)}
   </section>;

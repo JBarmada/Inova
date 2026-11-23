@@ -1,5 +1,11 @@
 # Implementation Status and Handoff
 
+## Shared quest entry — November 23, 2026
+
+Home Quests and the floating toy now use the same single-field composer. It asks the selected local model for a proposed title, reason, and duration; if planning fails, the app explicitly labels the sample fallback. Existing detailed commitment entry, model selection, duration preference, and exploration remain under More options. Both commitment and proposed quest are saved together, with current length and reflection-permission checks applied at save time. Quest title and duration remain editable; deadlines and total effort are not extracted from free text yet.
+
+`npm run check` passed 121 tests, type/size checks, and the frontend build. Windows release compilation and native UI checks are recorded separately; Mac remains pending.
+
 ## Tailscale browser preview — November 23, 2026
 
 An isolated Vite preview can bind to the machine's private Tailscale IP on a separate port. In browsers on plain HTTP, `crypto.randomUUID` may be unavailable, so ID creation now falls back to cryptographically random bytes using `crypto.getRandomValues` and creates a version-4 UUID. No insecure random fallback is used. The browser stores its own local data and cannot perform native floating-window or Rust/Ollama operations. Do not enter sensitive data into the HTTP preview; it is intended only for fictional testing. The desktop app and other preview remain separate.
