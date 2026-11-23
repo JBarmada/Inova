@@ -1,5 +1,10 @@
 # Implementation Status and Handoff
 
+## Native Windows spot checks — November 23, 2026
+
+Using the isolated fictional test profile, the Memories recap displayed zero dated activities and identified one older undated completion. The wardrobe shuffle equipped the single owned notebook badge and displayed confirmation. A proposed quest's duration was edited from 5 to 7 minutes, and its context disclosure showed the linked commitment and no linked reflections. After closing and reopening the test app, the notebook remained equipped and the quest retained 7 minutes. A white window appeared briefly immediately after launch, before the app content; its duration and first loader frame were not measured. These spot checks do not establish audible sound, reduced-motion, floating placement, or Mac behavior.
+
+
 ## Repeated sound control — November 23, 2026
 
 Rapid repeated cues of the same kind no longer overlap while their short synthesized tone is playing. Different cue types can still overlap. Muted actions do not create an audio context, and unavailable audio does not block interaction. `npm run check` passed 93 tests, size/type checks and production build; Windows release compilation passed. Tests use a simulated audio context; audible playback, native UI and Mac remain pending.

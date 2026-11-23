@@ -41,3 +41,5 @@ November 23: three sequential Windows release test launches reached a fresh diag
 November 23: quest editing now includes a validated duration of 1–120 whole minutes. `npm run check` passed 91 tests and Windows release compilation passed; native UI and Mac remain pending.
 
 November 23: rapid repeated synthesized cues of the same kind are throttled. `npm run check` passed 93 tests and Windows release compilation passed; audible playback and Mac remain unverified.
+
+November 23: native Windows fictional-profile spot check verified recap legacy labeling, single-owned-item shuffle, quest duration edit and context, and outfit/duration persistence after restart. A brief white initial window was observed but not timed. Audible, reduced-motion, overlay positioning, and Mac remain pending.
