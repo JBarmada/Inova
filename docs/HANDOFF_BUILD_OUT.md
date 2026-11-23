@@ -8,6 +8,8 @@ Desktop Quests and the floating toy use the same one-field composer. A local mod
 
 A direct fictional prompt-injection trial found that the 12B model obeyed an instruction embedded in a reflection and used the injected unrelated quest title. Treat all model-written text as untrusted; schema validation and application-controlled state/rewards do not prevent this text manipulation. Mitigation and broader evaluation are outstanding.
 
+The shared composer now shows the proposed title, reason and duration before saving for local and sample quests. Deadline and effort fields remain collapsed unless details need attention. This offers a review opportunity but cannot guarantee safe or accurate output. Native visual review is pending.
+
 Twenty animation clips, sleep/wake playback and selected automatic reactions are integrated. The Dev-mode selector exposes the clips for testing. Static stretch and celebration frame sheets were compared with their runtime atlases; complete visual playback and wearable alignment remain unverified. The no-dismissal-button test now includes the real shared composer, and outside-click/focus-loss tests remain in the check.
 
 The latest `npm run check` passed 158 tests, all 20 atlas checks, type/size checks and the frontend build. The current Windows Rust library compiled in release mode with `cargo build --release --lib --locked --offline`; an earlier full release build passed for animation integration. Native visual inspection was blocked by automatic review because unrelated sensitive content appeared on screen. Do not work around that decision; arrange an authorized test with only the intended app visible. Mac compilation and runtime have not been tested.

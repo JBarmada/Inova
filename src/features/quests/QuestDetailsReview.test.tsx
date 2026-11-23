@@ -8,9 +8,19 @@ it("asks for a time when only a date was suggested", async () => {
   const draft = await prepareQuest("Paint by Friday", initialState(), async () => { throw Error("offline"); });
   const markup = renderToStaticMarkup(<QuestDetailsReview draft={{ ...draft, details: { deadlineDate: "2026-11-27" } }}
     onSave={async () => {}} onCancel={() => {}} />);
-  expect(markup).toContain("Sample quest. Add any missing details:");
+  expect(markup).toContain("Sample quest");
   expect(markup).toContain('type="date"');
   expect(markup).toContain('value="2026-11-27"');
   expect(markup).toContain('type="time"');
   expect(markup).not.toContain('type="datetime-local"');
+});
+
+it("shows proposed text for review before saving, with optional details collapsed", async () => {
+  const draft = await prepareQuest("Start drawing", initialState(), async () => { throw Error("offline"); });
+  const markup = renderToStaticMarkup(<QuestDetailsReview draft={draft} onSave={async () => {}} onCancel={() => {}} />);
+  expect(markup).toContain(draft.quest.title);
+  expect(markup).toContain(draft.quest.reason);
+  expect(markup).toContain("Sample quest");
+  expect(markup).toContain("<details><summary>Deadline and effort</summary>");
+  expect(markup).toContain("Add quest");
 });
