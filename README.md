@@ -12,18 +12,18 @@ Built with **Tauri 2 + Rust + React + TypeScript + Vite**, targeting Windows and
 
 The current app includes:
 
-- Adoption and naming, approved Pocket Pup sit motion, grounded breathing, and seated tired expressions. Mood changes preserve posture; reduced motion is supported.
+- Adoption and naming, Pocket Pup pose and mood playback, sleep/wake transitions, and 20 animation clips available for Dev-mode testing. Reduced motion is supported; integrated clips and wearable alignment still need visual review.
 - A transparent, always-on-top floating companion, independent home/floating placement restoration, and an expandable quest toy with manual commitment entry and quest actions.
 - Separate Companion, Quests, Wardrobe, and Memories pages with pixel navigation icons. Home uses a monochrome quest icon; the floating toy retains its gold/teal artwork.
 - A four-slot wardrobe for hats, glasses, socks, and body clothing, with category filters, standing/sitting previews, compact outfit controls, and developer test outfits. Wearable graphics remain placeholders.
-- Manual commitments with optional local deadlines and effort estimates; editable quests and manual time plans checked against supplied windows, deadlines, and other accepted plans; distinct quest states, duplicate-safe demonstration rewards with visible reveals, and quest-linked reflections with editing, search, permissions, and deletion.
+- A shared one-field quest entry in the desktop page and floating toy, with local model suggestions, a labeled sample fallback, and review of extracted deadlines and effort. Editable quests and manual time plans use distinct states and duplicate-safe demonstration rewards; quest-linked reflections support editing, search, permissions, and deletion.
 - Optional local Ollama planning with selectable Gemma 3 12B/4B, a service/model check, permitted reflection context, validated proposals, and a separate deterministic sample fallback, and an optional user-selected suggestion-length limit. See [local AI setup](docs/SETUP.md#local-ai-build-out-worktree).
 - A local seven-day activity recap, which explicitly excludes older completions without recorded dates, and an outfit shuffle limited to owned items.
 - Settings for sound, reduced motion, developer mode, and optional status; startup loading/retry feedback; and a shared save-and-quit flow for native X and floating Settings > Quit Inova.
 
-The latest build-out check passed **121 tests**, source size/type checks and the frontend production build. Windows release compilation and focused native spot checks passed; Mac compilation and runtime, continuous toy-transition timing, and a complete end-to-end walkthrough remain pending. See [implementation status](docs/IMPLEMENTATION_STATUS.md) for evidence and limitations.
+The latest build-out check passed **155 tests**, all 20 clip-atlas checks, source size/type checks and the frontend production build. Windows release compilation passed for the animation integration and `cargo check` passed after the later planner changes. Integrated native visual review, Mac compilation and runtime, continuous toy-transition timing, and a complete end-to-end walkthrough remain pending. See [implementation status](docs/IMPLEMENTATION_STATUS.md) for evidence and limitations.
 
-Local AI requires a separately installed and running Ollama service and model; the labeled sample planner works without it. There are no external account integrations or actual schedule optimization. Sound is synthesized; final clothing art and recorded audio remain unfinished. The loaf animation is preserved for review, with its runtime timer disabled; animated stand-up also remains unfinished.
+Local AI requires a separately installed and running Ollama service and model; the labeled sample planner works without it. There are no external account integrations or actual schedule optimization. Sound is synthesized; final clothing art and recorded audio remain unfinished. The integrated animations are available for testing and still need visual review in the combined build.
 
 ## Run the app
 
@@ -83,7 +83,7 @@ Game feel is central: clicks click, woofs bark, doors sound like doors, and rewa
 
 ## What is settled and what is open
 
-Pixel art, desktop companionship, layered cosmetics, and strong audiovisual feedback are established preferences. Tauri, both desktop platforms, three builders, and the deadline are confirmed. Individual track owners, the live AI provider and budget, final reward balancing, account integrations, and spooky-mode triggers remain open. The [wardrobe prototype](docs/WARDROBE_SPEC.md) supports hat, glasses, socks, and body together, with anchored placeholders and developer test outfits. Reward rules remain demonstrations; the full minimum feature list is still a proposed target.
+Pixel art, desktop companionship, layered cosmetics, and strong audiovisual feedback are established preferences. Tauri, both desktop platforms, three builders, and the deadline are confirmed. Individual track owners, the final AI provider and budget, final reward balancing, account integrations, and spooky-mode triggers remain open; local Ollama is the provisional build-out provider. The [wardrobe prototype](docs/WARDROBE_SPEC.md) supports hat, glasses, socks, and body together, with anchored placeholders and developer test outfits. Reward rules remain demonstrations; the full minimum feature list is still a proposed target.
 
 The full vision includes adulting help, exploration suggestions, optional perspective exercises, an expanding world, and possible calendar or academic integrations. See the backlog before treating an idea as required.
 
