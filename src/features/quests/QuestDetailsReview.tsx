@@ -22,7 +22,7 @@ export function QuestDetailsReview({ draft, onSave, onCancel }: {
     finally { setBusy(false); }
   }
   return <div className="quest-details-review">
-    <p>{draft.detailsWarning ? "Some details need your help:" : "Check the details I found:"}</p>
+    <p>{draft.fallback ? "Sample quest. Add any missing details:" : draft.detailsWarning ? "Some details need your help:" : "Check the details I found:"}</p>
     {dateOnly ? <>
       <label>Deadline date <input type="date" value={date} onChange={(event) => setDate(event.target.value)} /></label>
       {date && <label>Deadline time (your local time) <input type="time" value={time} onChange={(event) => setTime(event.target.value)} /></label>}
