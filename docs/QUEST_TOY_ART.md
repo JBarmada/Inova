@@ -2,6 +2,8 @@
 
 Implemented in the isolated `fix/window-layout` branch, `.worktrees/window-layout`. This extends the toy prototype from the other worktree, inspected at `70d3fd5`, rather than replacing the shared checkout or its in-progress dog artwork.
 
+The user approved integrating this reviewed version into main on November 23, 2026. Use main for new work; the isolated worktree commands below remain useful only for the original review checkout.
+
 ## Selected interaction
 
 Expansion keeps the dog's screen position anchored: widening adjusts the native window's left edge by half the width difference, rather than moving the dog right inside a fixed left edge. Closing reverses that adjustment. The board expands below the toy; monitor-edge clamping can reposition the window to keep it visible.

@@ -2,6 +2,8 @@
 
 Branch: fix/window-layout. Worktree: .worktrees/window-layout under the shared project folder.
 
+Integration update, November 23, 2026: the user approved integrating the reviewed UI into main. Main now contains this branch's complete companion/layout/toy work and separate Wardrobe/Memories pages. Earlier warnings below describe how the isolated branch was prepared; they do not mean this approved integration is pending. The original shared checkout and the other chat's unfinished frame/art work remain untouched. Continue integration work from main rather than reapplying these commits.
+
 ## Scope
 
 Fix floating page scrollbars and excess space. Remember home and floating positions separately, restoring home size and maximized state as well. Persist placement between launches without mixing it into personal app state.

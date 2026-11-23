@@ -2,6 +2,8 @@
 
 Shared starter checkpoint: November 22, 2026. Three builders; Windows and Mac; deadline December 1. Inspect current code before relying on this checkpoint after later changes.
 
+Main integration checkpoint: November 23, 2026. The user approved the reviewed companion/toy/navigation work through bac64bc for main. This integration preserves the original dirty checkout, the separate Pocket Pup drafts, and the other chat's unfinished frame-fix worktree. Those unfinished changes have not been incorporated. Local main checkout: `.worktrees/main-integration` under the project folder; teammates use the normal GitHub main branch.
+
 ## Implemented starter
 
 - Tauri 2/Rust desktop shell with React/TypeScript/Vite interface and locked npm/Cargo dependencies.
@@ -39,8 +41,8 @@ Shared starter checkpoint: November 22, 2026. Three builders; Windows and Mac; d
 
 ## Verified in this setup
 
-- `npm run check`: size checker, TypeScript, twenty-three domain/settings/window-layout/toy tests, and frontend production build passed in the isolated window-layout worktree.
-- `npm run tauri build -- --no-bundle`: Windows release compilation passed and produced src-tauri/target/release/inova.exe.
+- Fresh `npm ci` and `npm run check` passed in the main integration checkout: size limits, TypeScript, all twenty-three tests, and frontend production build.
+- `npm run tauri build -- --no-bundle`: Windows release compilation passed on the identical application source at bac64bc in the window-layout worktree, producing src-tauri/target/release/inova.exe there. The main integration changes only handoff documentation; a second native build was not run in the new checkout.
 - Browser preview UI: adoption, adding a commitment, proposing/accepting/completing a sample quest, unlocking/equipping the notebook, saving/opening a dated reflection, and retaining the adopted/equipped dog after reload were observed.
 - Browser controls check: Home/Settings icons and compact status render; enabling dev mode reveals mood controls, disabling it hides them, and the sound setting changes independently. Native layout still needs platform runtime confirmation.
 - Domain tests check duplicate rewards, ineligible completion states, locked items, fabricated evidence, and private/revoked/deleted memory handling.

@@ -41,6 +41,8 @@ Start with [setup](SETUP.md), [architecture](ARCHITECTURE.md), [shared contracts
 
 ## Where to look next
 
+Main includes the reviewed floating quest toy and layout/settings fixes, a single icon toolbar, and separate Companion, Quests, Wardrobe, and Memories pages. Quest navigation and floating interactions share the golden/teal toy artwork. The dog renderer is still the original placeholder; the separate Pocket Pup art work and another chat's unfinished frame changes are not part of this integration. See IMPLEMENTATION_STATUS.md and WINDOW_LAYOUT_HANDOFF.md before reapplying older branch work.
+
 - [Behavior](01-app-behavior.md), [full vision](02-full-vision.md), [game feel](03-game-feel.md).
 - [Dog assets](04-dog-art-and-items.md), [memory world](05-memory-bookshelf-and-world.md).
 - [Minimum scope](06-must-have-scope.md), [stretch goals](07-stretch-goals.md), [open decisions](08-decisions-and-open-questions.md).
