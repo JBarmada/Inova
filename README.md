@@ -34,7 +34,9 @@ npm ci
 npm run desktop
 ```
 
-For a browser interface preview without Rust, use `npm run dev`. This preview cannot demonstrate desktop overlay behavior.
+For a browser interface preview without Rust, use `npm run dev`. This preview cannot demonstrate desktop overlay behavior or call the local Rust/Ollama planner.
+
+To test an animation, adopt a dog, open Settings, enable **Dev mode**, and return to Companion. Select a clip below the dog and press **Play**. The selector and other direct dog controls disappear when Dev mode is off. In floating mode, hover or focus the companion to reveal the controls. The quest toy closes by clicking outside, losing focus, or pressing Escape.
 
 Run checks with `npm run check`. Build the native app without an installer using `npm run tauri build -- --no-bundle`. Build and test the Mac app on a Mac; Windows compilation does not verify Mac behavior.
 
