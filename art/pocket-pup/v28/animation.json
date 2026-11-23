@@ -1,0 +1,91 @@
+{
+  "status": "first animation review, not integrated",
+  "frameSize": [
+    64,
+    64
+  ],
+  "playback": "one-way rest sequence; GIF repeats with a hard reset to standing",
+  "frames": [
+    {
+      "name": "neutral",
+      "file": "frames/00-neutral.png",
+      "durationMs": 1100
+    },
+    {
+      "name": "fold-hind-legs-1",
+      "file": "frames/01-fold-hind-legs-1.png",
+      "durationMs": 180
+    },
+    {
+      "name": "fold-hind-legs-2",
+      "file": "frames/02-fold-hind-legs-2.png",
+      "durationMs": 180
+    },
+    {
+      "name": "fold-hind-legs-3",
+      "file": "frames/03-fold-hind-legs-3.png",
+      "durationMs": 180
+    },
+    {
+      "name": "sitting",
+      "file": "frames/04-sitting.png",
+      "durationMs": 1300
+    },
+    {
+      "name": "sit-tired",
+      "file": "frames/05-sit-tired.png",
+      "durationMs": 1400
+    },
+    {
+      "name": "bend-elbows-1",
+      "file": "frames/06-bend-elbows-1.png",
+      "durationMs": 190
+    },
+    {
+      "name": "bend-elbows-2",
+      "file": "frames/07-bend-elbows-2.png",
+      "durationMs": 190
+    },
+    {
+      "name": "bend-elbows-3",
+      "file": "frames/08-bend-elbows-3.png",
+      "durationMs": 190
+    },
+    {
+      "name": "bend-elbows-4",
+      "file": "frames/09-bend-elbows-4.png",
+      "durationMs": 190
+    },
+    {
+      "name": "lying-down",
+      "file": "frames/10-lying-down.png",
+      "durationMs": 1300
+    },
+    {
+      "name": "sleeping",
+      "file": "frames/11-sleeping.png",
+      "durationMs": 900
+    },
+    {
+      "name": "sleep-breath",
+      "file": "frames/12-sleep-breath.png",
+      "durationMs": 700
+    },
+    {
+      "name": "sleeping",
+      "file": "frames/13-sleeping.png",
+      "durationMs": 900
+    },
+    {
+      "name": "sleep-breath",
+      "file": "frames/14-sleep-breath.png",
+      "durationMs": 700
+    },
+    {
+      "name": "sleeping",
+      "file": "frames/15-sleeping.png",
+      "durationMs": 900
+    }
+  ],
+  "sprites": "transparent PNG frames are the implementation source"
+}

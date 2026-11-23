@@ -1,0 +1,15 @@
+{
+  "status": "expression study, not integrated",
+  "canvas": [
+    64,
+    64
+  ],
+  "source": "v9/fur-details.png",
+  "options": [
+    "tiny-blep",
+    "little-tongue",
+    "side-blep",
+    "happy-pant"
+  ],
+  "preview": "Two static expressions alternating, not a full tongue animation cycle"
+}

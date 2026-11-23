@@ -1,0 +1,12 @@
+{
+  "source": "v28 first five frames, unchanged",
+  "durationsMs": [
+    1400,
+    900,
+    900,
+    900,
+    1800
+  ],
+  "status": "neutral-to-sit review only; later chain paused",
+  "loop": "hard reset from sitting to neutral, not an animated stand-up"
+}

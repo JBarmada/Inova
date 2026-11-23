@@ -1,0 +1,20 @@
+{
+  "status": "preview only; runtime unchanged",
+  "periodMs": 2800,
+  "timingsMs": [
+    800,
+    450,
+    650,
+    900
+  ],
+  "motion": "one-pixel upper-body extension; all paw rows fixed",
+  "sources": {
+    "neutral": "b2d180354c4a9c094370a0fb01d6c76e7230b4d15a6e48c7e95a59fe91a99462",
+    "happy": "0524a181d54cc4bbfa37e1defdce40c17a775738ee160b4648840afba406fce9",
+    "sitting": "7cecd8380a3ec73105599e8c1d9a17e2b926a789d2debbf1d3d49cb84e9031b9"
+  },
+  "references": [
+    "https://www.patreon.com/saint11/posts/character-idle-12464240",
+    "https://www.slynyrd.com/blog/2018/8/19/pixelblog-8-intro-to-animation"
+  ]
+}

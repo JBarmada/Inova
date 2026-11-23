@@ -19,6 +19,8 @@ Label any simulated time jump, mock integration, placeholder art, or generated s
 
 ## Representative checks
 
+Pocket Pup: adopt, wait eight seconds for the approved tuck/sit, replay Sit/Stand, and verify breathing while standing and sitting. Check planted paws and bandana following the inhale. Repeat muted and with reduced motion. Change moods/unmount mid-transition to check cleanup. Current stand-up is direct and seated mood preservation is a pending review-gated change; do not count these as completed scenarios. Test native floating/dragging on Windows and Mac separately from the browser.
+
 | Case | Expected behavior |
 | --- | --- |
 | Student has a suitable free interval | A suggested session fits the known interval and deadline |

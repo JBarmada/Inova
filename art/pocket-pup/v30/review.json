@@ -1,0 +1,23 @@
+{
+  "status": "neutral-to-sit review; later work paused",
+  "changedFrames": [
+    2,
+    3,
+    4
+  ],
+  "checks": [
+    "exact neutral",
+    "exact approved sit",
+    "identical front paw pixels in frames 2-5",
+    "identical chest core in frames 2-5",
+    "native translated head",
+    "solid neck overlap"
+  ],
+  "timingMs": [
+    1400,
+    900,
+    900,
+    900,
+    1800
+  ]
+}

@@ -1,0 +1,9 @@
+{
+  "status": "jointed motion review, not integrated",
+  "frames": 16,
+  "approvedSitting": "exact v26 pixels",
+  "head": "native source pixels, translation only",
+  "neck": "solid 8-pixel corridor and no enclosed single-pixel neck holes",
+  "motion": "explicit hip/elbow/wrist positions; body polygons redrawn, never resized",
+  "playback": "one-way sequence; preview resets from sleeping to standing"
+}

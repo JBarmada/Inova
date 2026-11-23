@@ -1,0 +1,86 @@
+{
+  "status": "first animation review, not integrated",
+  "frameSize": [
+    64,
+    64
+  ],
+  "playback": "one-way rest sequence; GIF repeats with a hard reset to standing",
+  "frames": [
+    {
+      "name": "neutral",
+      "file": "frames/00-neutral.png",
+      "durationMs": 1100
+    },
+    {
+      "name": "sit-down-1",
+      "file": "frames/01-sit-down-1.png",
+      "durationMs": 130
+    },
+    {
+      "name": "sit-down-2",
+      "file": "frames/02-sit-down-2.png",
+      "durationMs": 130
+    },
+    {
+      "name": "sit-down-3",
+      "file": "frames/03-sit-down-3.png",
+      "durationMs": 130
+    },
+    {
+      "name": "sitting",
+      "file": "frames/04-sitting.png",
+      "durationMs": 1300
+    },
+    {
+      "name": "sit-tired",
+      "file": "frames/05-sit-tired.png",
+      "durationMs": 1400
+    },
+    {
+      "name": "lowering-1",
+      "file": "frames/06-lowering-1.png",
+      "durationMs": 160
+    },
+    {
+      "name": "lowering-2",
+      "file": "frames/07-lowering-2.png",
+      "durationMs": 160
+    },
+    {
+      "name": "lowering-3",
+      "file": "frames/08-lowering-3.png",
+      "durationMs": 160
+    },
+    {
+      "name": "lying-down",
+      "file": "frames/09-lying-down.png",
+      "durationMs": 1300
+    },
+    {
+      "name": "sleeping",
+      "file": "frames/10-sleeping.png",
+      "durationMs": 900
+    },
+    {
+      "name": "sleep-breath",
+      "file": "frames/11-sleep-breath.png",
+      "durationMs": 700
+    },
+    {
+      "name": "sleeping",
+      "file": "frames/12-sleeping.png",
+      "durationMs": 900
+    },
+    {
+      "name": "sleep-breath",
+      "file": "frames/13-sleep-breath.png",
+      "durationMs": 700
+    },
+    {
+      "name": "sleeping",
+      "file": "frames/14-sleeping.png",
+      "durationMs": 900
+    }
+  ],
+  "sprites": "transparent PNG frames are the implementation source"
+}

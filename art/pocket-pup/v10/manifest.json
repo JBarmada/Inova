@@ -1,0 +1,19 @@
+{
+  "status": "muzzle alternatives awaiting selection",
+  "base": "v9/fur-details.png",
+  "canvas": [
+    64,
+    64
+  ],
+  "detailPixels": {
+    "selected-base": 0,
+    "warm-freckles": 4,
+    "whisker-pores": 6,
+    "short-whiskers": 10,
+    "muzzle-shadow": 12,
+    "soft-combination": 16
+  },
+  "mouth": "C14 brown, unchanged",
+  "eyeHighlight": "upper-right, unchanged",
+  "emptyGapRow": 32
+}

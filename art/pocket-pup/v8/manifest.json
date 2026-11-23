@@ -1,0 +1,44 @@
+{
+  "status": "review alternatives, not integrated",
+  "frame": [
+    64,
+    64
+  ],
+  "noseRows": [
+    30,
+    31
+  ],
+  "emptyGapRow": 32,
+  "mouthTopRow": 33,
+  "widths": [
+    8,
+    10,
+    12,
+    14
+  ],
+  "families": {
+    "A": "CLASSIC",
+    "B": "SOFT",
+    "C": "DEEP",
+    "D": "FELINE"
+  },
+  "corners": {
+    "UL": [
+      0,
+      0
+    ],
+    "UR": [
+      2,
+      0
+    ],
+    "LL": [
+      0,
+      2
+    ],
+    "LR": [
+      2,
+      2
+    ]
+  },
+  "sourceSha256": "6f1bb6df59806716808aac1b0b4ee59f5d601cfef3e28037016811edb6ee05bd"
+}

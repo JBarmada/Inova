@@ -21,6 +21,9 @@ Updated November 22, 2026. The repository now includes a shared starter as well 
 
 ## Implementation references
 
+- [Pocket Pup art and breathing integration](POCKET_PUP_INTEGRATION.md).
+- [Artist planning guide and scenario brief](ARTIST_GUIDE.md).
+
 - [Agent and data requirements](AGENT_REQUIREMENTS.md).
 - [Curriculum context](CURRICULUM_CONTEXT.md).
 - [Demo and behavior checks](DEMO_AND_CHECKS.md).

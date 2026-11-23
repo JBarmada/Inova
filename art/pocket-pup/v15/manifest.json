@@ -1,0 +1,16 @@
+{
+  "status": "review draft, not integrated",
+  "canvas": [
+    64,
+    64
+  ],
+  "pose": "sitting awake",
+  "sourceFace": "v9/fur-details.png",
+  "headTranslation": [
+    2,
+    -3
+  ],
+  "groundY": 55,
+  "accessoriesSupported": [],
+  "notes": "New seated body; original alert face preserved."
+}

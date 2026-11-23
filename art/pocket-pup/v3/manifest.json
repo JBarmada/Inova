@@ -1,0 +1,77 @@
+{
+  "status": "art review draft, not integrated",
+  "version": 3,
+  "canvas": [
+    64,
+    64
+  ],
+  "palette": {
+    "outline": "#4b2d22",
+    "deep_shadow": "#9c592c",
+    "coat_shadow": "#d99346",
+    "coat": "#f0aa53",
+    "coat_light": "#ffbd6d",
+    "cream_shadow": "#f3d39a",
+    "cream": "#ffe5b3",
+    "cream_light": "#fff1d0",
+    "nose": "#513024",
+    "tongue": "#df8b87",
+    "tongue_shadow": "#b65b65",
+    "bandana": "#4f938a",
+    "bandana_dark": "#34645f"
+  },
+  "alpha": "0 or 255 only",
+  "sourceSha256": "0397f85a7c13006fa6b51f64a06676d17e4d697e6a3a8582114e794277ddd3b8",
+  "standingAnchors": {
+    "groundY": 55,
+    "neck": [
+      22,
+      42
+    ],
+    "head": [
+      20,
+      28
+    ]
+  },
+  "awakeFace": {
+    "noseBox": [
+      18,
+      32,
+      21,
+      33
+    ],
+    "mouthCenterX": 19.5,
+    "clearNoseMouthRows": [
+      34,
+      35
+    ],
+    "happyBlush": true,
+    "happyMouth": ":3",
+    "barkingBrows": "slightly furrowed"
+  },
+  "bandanaSupported": [
+    "idle",
+    "happy",
+    "tired",
+    "barking",
+    "blink"
+  ],
+  "sleeping": {
+    "groundY": 55,
+    "accessoriesSupported": []
+  },
+  "stripOrder": [
+    "idle",
+    "happy",
+    "tired",
+    "barking",
+    "blink",
+    "sleeping"
+  ],
+  "stripFrameSize": [
+    64,
+    64
+  ],
+  "scale": "integer multiples, nearest-neighbor only",
+  "animation": "GIF is an expression slideshow with a blink, not a walk or bark cycle"
+}

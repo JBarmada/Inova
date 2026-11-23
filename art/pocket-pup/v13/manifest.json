@@ -1,0 +1,16 @@
+{
+  "status": "review alternatives, not integrated",
+  "canvas": [
+    64,
+    64
+  ],
+  "source": "v9/fur-details.png",
+  "tongueColor": "#e1a0a0",
+  "tonguePixels": {
+    "tiny-peek": 4,
+    "soft-dog-smile": 10,
+    "happy-little-pup": 10
+  },
+  "reference": "user-supplied Shiba photo: relaxed smile and tongue held within mouth",
+  "constraints": "no tongue highlights, texture, seam, outline, or shading"
+}

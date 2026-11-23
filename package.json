@@ -9,7 +9,7 @@
     "build": "tsc --noEmit && vite build",
     "preview": "vite preview --host 127.0.0.1",
     "typecheck": "tsc --noEmit",
-    "test": "vitest run",
+    "test": "vitest run --dir src",
     "check:size": "node scripts/check-size.mjs",
     "check": "npm run check:size && npm run typecheck && npm test && npm run build",
     "tauri": "tauri",

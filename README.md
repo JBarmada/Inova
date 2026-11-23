@@ -6,6 +6,8 @@ Inova is a SCOPE club final project for the theme **Evolve**. You build habits a
 
 ## Current status
 
+Pocket Pup's approved neutral/tuck/sit sequence and grounded breathing loops are integrated. Breathing keeps the paws planted and respects reduced motion. See [the integration handoff](docs/POCKET_PUP_INTEGRATION.md) for controls, source assets, verification, and pending animation work.
+
 Main includes the reviewed floating quest toy, home/floating placement restoration, Settings/developer controls, and an icon toolbar with separate Companion, Quests, Wardrobe, and Memories pages. Quest navigation uses the same golden/teal toy artwork as the desktop companion. See the November 23 integration checkpoint in [implementation status](docs/IMPLEMENTATION_STATUS.md) for checks and remaining platform limitations.
 
 Shared starter: **Tauri 2 + Rust + React + TypeScript + Vite**, targeting Windows and Mac. Three builders are working toward **December 1, 2026**. The starter connects adoption, a floating-mode control, sample quests, deterministic rewards, wardrobe, and local memory storage. Artwork and sound are placeholders; planning is a visibly labeled deterministic sample, with no live AI or external integrations. See [verified status and limitations](docs/IMPLEMENTATION_STATUS.md).

@@ -6,6 +6,8 @@ Inova is a SCOPE club final project for the theme Evolve. It is an evolving pixe
 
 ## Established team direction
 
+Approved Pocket Pup v32 sit motion and v34 grounded breathing are integrated with the latest main UI/toy work. See [POCKET_PUP_INTEGRATION.md](POCKET_PUP_INTEGRATION.md). Posture/mood hierarchy, seven-second tired-sit → loaf, and animated sit → stand are the next scenarios, each requiring a visible preview and user review before proceeding.
+
 - Pixel dog art, with a small selection of adoptable base dogs as the desired experience.
 - A game-like adoption center and lightweight wardrobe-style picker.
 - A transparent, draggable dog above desktop windows during everyday use.

@@ -1,5 +1,13 @@
 # Artwork and Audio Plan
 
+## Integrated Pocket Pup assets — November 23
+
+`public/dog/manifest.json` records source filenames and SHA-256 hashes. Approved neutral/tuck/sit are exact copies of v32's three PNGs; happy/tired/bandana come from the existing reference sheet. Twelve breathing PNGs copy the approved v34 study exactly. Paws remain fixed; the native head artwork is not rescaled. Canvas is 64 by 64, binary RGBA, enlarged with nearest-neighbor only. `tools/export_runtime_art.py` rebuilds these files and validates source copies/grounded paw rows.
+
+All dog art derives from the selected project concept and original project pixel edits. The source concept and historical study notes are under `art/pocket-pup/`. User-supplied photo/stock references informed the studies and are not bundled as source photographs. Artist tutorials are linked for instruction only, with no copied tutorial artwork. No repository-wide distribution license has been selected. Notebook is an original provisional pixel prop authored by the integration exporter; final item art remains pending. Audio remains synthesized.
+
+Breathing is now approved for runtime use; historical v34 notes saying preview-only describe its pre-approval state. Other rejected studies and unapproved rest-chain clips are not runtime assets.
+
 Asset checklist and provenance record. The starter includes original placeholder dog art, simple CSS equipment shapes, generated app icons, and synthesized click/reward tones. Final artwork, recorded sounds, counts, dimensions, and animation conventions remain to be agreed.
 
 ## Initial visual needs

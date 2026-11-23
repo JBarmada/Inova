@@ -1,0 +1,22 @@
+{
+  "status": "preview only; not added to the app",
+  "periodMs": 1200,
+  "nativePixelOffsets": [
+    0,
+    -1,
+    -2,
+    -1
+  ],
+  "durationsMs": [
+    450,
+    200,
+    350,
+    200
+  ],
+  "motion": "rigid whole-sprite translation; no resizing or redrawing",
+  "sources": {
+    "neutral": "b2d180354c4a9c094370a0fb01d6c76e7230b4d15a6e48c7e95a59fe91a99462",
+    "happy": "0524a181d54cc4bbfa37e1defdce40c17a775738ee160b4648840afba406fce9",
+    "sitting": "7cecd8380a3ec73105599e8c1d9a17e2b926a789d2debbf1d3d49cb84e9031b9"
+  }
+}

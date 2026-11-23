@@ -1,5 +1,13 @@
 # Implementation Status and Handoff
 
+## Pocket Pup and breathing integration — November 23
+
+The approved v32 neutral/tuck/sit sequence and v34 grounded breathing loops now render in the app. The integration is based on main `2dd9b1e` and preserves its quest-board organization, toy dismissal, navigation, wardrobe/memories split, and native layout code. Breathing uses the exact reviewed PNG phases (800/450/650/900ms), keeps paw pixels fixed, follows the neck with the bandana, pauses during the tuck, and stops for reduced motion.
+
+`npm run check` passed: source sizes, TypeScript, **31 tests in 7 source test files**, and production build. Test discovery is limited to `src` so nested worktrees and local backups do not inflate results. Windows release library compilation passed with `cargo build --release --lib --locked --offline`; running executables were not replaced. Browser preview showed current main navigation/wardrobe, standing/sitting controls, bandana, and changing breathing frame URLs. Native runtime behavior and Mac compilation/runtime remain unverified for this integration.
+
+The user's next requested hierarchy is not silently treated as delivered: seated mood changes must preserve posture, tired sitting should lead to loaf after seven seconds, and standing up needs a reviewed transition. These are the next review-gated scenarios; existing direct stand-up/mood-reset behavior remains a known limitation until those clips are approved. See [integration notes](POCKET_PUP_INTEGRATION.md) and the artist scenario brief.
+
 Shared starter checkpoint: November 22, 2026. Three builders; Windows and Mac; deadline December 1. Inspect current code before relying on this checkpoint after later changes.
 
 Main integration checkpoint: November 23, 2026. The user approved the reviewed companion/toy/navigation work through bac64bc for main. This integration preserves the original dirty checkout, the separate Pocket Pup drafts, and the separate frame-fix worktree. The user subsequently approved integrating the captured/verified frame fix; main now reserves a stable floating canvas width and includes its evidence. Local main checkout: `.worktrees/main-integration` under the project folder; teammates use the normal GitHub main branch.

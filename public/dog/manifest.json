@@ -1,0 +1,102 @@
+{
+  "canvas": [
+    64,
+    64
+  ],
+  "alpha": "binary",
+  "scale": "integer nearest-neighbor",
+  "sitTransitionMs": 160,
+  "standingNeck": [
+    22,
+    42
+  ],
+  "seatedNeck": [
+    21,
+    39
+  ],
+  "breathingDurationsMs": [
+    800,
+    450,
+    650,
+    900
+  ],
+  "assets": {
+    "neutral": {
+      "source": "art/pocket-pup/v32/00.png",
+      "sha256": "b2d180354c4a9c094370a0fb01d6c76e7230b4d15a6e48c7e95a59fe91a99462"
+    },
+    "tuck": {
+      "source": "art/pocket-pup/v32/01.png",
+      "sha256": "cceff2a645487902eceac96c900721fd09e212a7b5a6f301db3f97b24fed499e"
+    },
+    "sitting": {
+      "source": "art/pocket-pup/v32/02.png",
+      "sha256": "7cecd8380a3ec73105599e8c1d9a17e2b926a789d2debbf1d3d49cb84e9031b9"
+    },
+    "happy": {
+      "source": "art/pocket-pup/v6/sprites/happy.png",
+      "sha256": "0524a181d54cc4bbfa37e1defdce40c17a775738ee160b4648840afba406fce9"
+    },
+    "tired": {
+      "source": "art/pocket-pup/v6/sprites/tired.png",
+      "sha256": "a4474d63999e70ca8346aa8bee1fe846da4da98c955b940ab9e5daee41714d1b"
+    },
+    "bandana": {
+      "source": "art/pocket-pup/v6/layers/bandana.png",
+      "sha256": "0e1bad0877bcc0d95b724b53cc1d75db7faacc262e23ae1635ab66cc0306ba1d"
+    },
+    "notebook": {
+      "source": "tools/export_runtime_art.py",
+      "status": "original placeholder pixel prop, final item art pending"
+    },
+    "breathing/neutral-0": {
+      "source": "art/pocket-pup/v34/neutral-0.png",
+      "sha256": "b2d180354c4a9c094370a0fb01d6c76e7230b4d15a6e48c7e95a59fe91a99462"
+    },
+    "breathing/neutral-1": {
+      "source": "art/pocket-pup/v34/neutral-1.png",
+      "sha256": "0dfcb0cf80ffa764cee9dc755d96a03350369391bc9ec2728f71106e05c5a9e5"
+    },
+    "breathing/neutral-2": {
+      "source": "art/pocket-pup/v34/neutral-2.png",
+      "sha256": "9b6aa2db0e5da2a8f4f620e754c813192ae24e94ff2abccae81b1ed37fbdc442"
+    },
+    "breathing/neutral-3": {
+      "source": "art/pocket-pup/v34/neutral-3.png",
+      "sha256": "0dfcb0cf80ffa764cee9dc755d96a03350369391bc9ec2728f71106e05c5a9e5"
+    },
+    "breathing/happy-0": {
+      "source": "art/pocket-pup/v34/happy-0.png",
+      "sha256": "0524a181d54cc4bbfa37e1defdce40c17a775738ee160b4648840afba406fce9"
+    },
+    "breathing/happy-1": {
+      "source": "art/pocket-pup/v34/happy-1.png",
+      "sha256": "fa1e09aa20d6c42a99cbba098228692540a9cd246fff6e0fc1eff261dd199d85"
+    },
+    "breathing/happy-2": {
+      "source": "art/pocket-pup/v34/happy-2.png",
+      "sha256": "d6e16f204e44288e1fdf9feaeb7e2eb3ba9c62732b293edb0b1d2a78129371ff"
+    },
+    "breathing/happy-3": {
+      "source": "art/pocket-pup/v34/happy-3.png",
+      "sha256": "fa1e09aa20d6c42a99cbba098228692540a9cd246fff6e0fc1eff261dd199d85"
+    },
+    "breathing/sitting-0": {
+      "source": "art/pocket-pup/v34/sitting-0.png",
+      "sha256": "7cecd8380a3ec73105599e8c1d9a17e2b926a789d2debbf1d3d49cb84e9031b9"
+    },
+    "breathing/sitting-1": {
+      "source": "art/pocket-pup/v34/sitting-1.png",
+      "sha256": "cda56425492da971ff2ad8d2e9c97f92433831d7b150cb28542449d9ebb1a99d"
+    },
+    "breathing/sitting-2": {
+      "source": "art/pocket-pup/v34/sitting-2.png",
+      "sha256": "a633240c8de55909e1ef3acdcc32589c20fb1432f8b3fdfa9a9ad883eae2562b"
+    },
+    "breathing/sitting-3": {
+      "source": "art/pocket-pup/v34/sitting-3.png",
+      "sha256": "cda56425492da971ff2ad8d2e9c97f92433831d7b150cb28542449d9ebb1a99d"
+    }
+  },
+  "license": "project art; no repository-wide distribution license selected"
+}

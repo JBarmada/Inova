@@ -1,0 +1,17 @@
+{
+  "status": "finishing study, not integrated",
+  "base": "v8/C14.png",
+  "mouthColor": "#4b2d22",
+  "eyeHighlight": "upper-right",
+  "emptyGapRow": 32,
+  "canvas": [
+    64,
+    64
+  ],
+  "detailPixelsVersusBrownBase": {
+    "clean-brown": 0,
+    "soft-face": 14,
+    "fur-details": 16,
+    "balanced": 30
+  }
+}
