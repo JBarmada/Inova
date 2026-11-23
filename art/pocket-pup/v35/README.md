@@ -1,5 +1,7 @@
 # Review 1: sitting to tired face
 
+**Approved and integrated November 23:** runtime uses this face-only sequence and preserves seated posture through mood changes. Grounded breathing continues across the eye frames. The seven-second loaf deadline/clip remains a separate pending review; runtime holds tired sitting indefinitely. The paragraphs below record the original preview.
+
 [GIF](seated-tired-preview.gif), [four facial states](seated-face-frames.png).
 
 A sitting dog that becomes tired stays sitting. Every pixel outside two 3 by 4 eye regions is unchanged from approved v26: head position/shape, mouth, neck, chest, body, paws, tail, and alpha are identical. Breathing is paused in this inspection GIF to make the face-only boundary clear.

@@ -1,6 +1,6 @@
 # Artwork and Audio Plan
 
-Review-only v35: seated tiredness derives from approved v26 with original edits confined to two eye regions. No new external artwork. Exact non-eye/alpha pixels and seven-second GIF hold checked. Not a runtime asset and not included in main `b187094`.
+Approved v35: seated blink/drowsy/tiredness derives from approved v26 with original edits confined to two eye regions. No new external artwork. Exact non-eye/alpha pixels checked. Runtime copies live under `public/dog/sitting-*.png`; breathing variants combine these eye edits with approved v34 seated breathing. Exporter records source paths and hashes and checks fixed alpha/paw rows. Historical v35 review-only notes describe its pre-approval state.
 
 ## Integrated Pocket Pup assets — November 23
 

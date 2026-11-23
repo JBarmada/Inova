@@ -9,6 +9,33 @@ from PIL import Image, ImageDraw
 ROOT = Path(__file__).resolve().parents[1]
 
 
+def export_seated_faces(destination, records):
+    base = Image.open(destination / "sitting.png").convert("RGBA")
+    for kind in ("blink", "drowsy", "tired"):
+        name = f"sitting-{kind}"
+        relative = f"art/pocket-pup/v35/{name}.png"
+        source = ROOT / relative
+        copyfile(source, destination / f"{name}.png")
+        face = Image.open(source).convert("RGBA")
+        changes = [(x, y) for y in range(64) for x in range(64)
+                   if face.getpixel((x, y)) != base.getpixel((x, y))]
+        assert all(24 <= y <= 27 and (13 <= x <= 15 or 24 <= x <= 26) for x, y in changes)
+        assert face.getchannel("A").tobytes() == base.getchannel("A").tobytes()
+        records[name] = {"source": relative, "sha256": hashlib.sha256(source.read_bytes()).hexdigest()}
+        for phase in range(4):
+            breath = Image.open(destination / f"breathing/sitting-{phase}.png").convert("RGBA")
+            image = breath.copy()
+            for x, y in changes:
+                image.putpixel((x, y - (1 if phase == 2 else 0)), face.getpixel((x, y)))
+            assert image.getchannel("A").tobytes() == breath.getchannel("A").tobytes()
+            assert image.crop((0, 50, 64, 64)).tobytes() == base.crop((0, 50, 64, 64)).tobytes()
+            target = destination / f"breathing/{name}-{phase}.png"
+            image.save(target)
+            records[f"breathing/{name}-{phase}"] = {
+                "source": [relative, f"art/pocket-pup/v34/sitting-{phase}.png"],
+                "sha256": hashlib.sha256(target.read_bytes()).hexdigest()}
+
+
 def main():
     destination = ROOT / "public/dog"
     destination.mkdir(parents=True, exist_ok=True)
@@ -50,6 +77,7 @@ def main():
             records[f"breathing/{name}-{phase}"] = {
                 "source": f"art/pocket-pup/v34/{source.name}",
                 "sha256": hashlib.sha256(target.read_bytes()).hexdigest()}
+    export_seated_faces(destination, records)
     metadata = {"canvas": [64, 64], "alpha": "binary", "scale": "integer nearest-neighbor",
                 "sitTransitionMs": 160, "standingNeck": [22, 42], "seatedNeck": [21, 39],
                 "breathingDurationsMs": [800, 450, 650, 900],

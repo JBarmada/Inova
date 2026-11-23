@@ -96,6 +96,102 @@
     "breathing/sitting-3": {
       "source": "art/pocket-pup/v34/sitting-3.png",
       "sha256": "cda56425492da971ff2ad8d2e9c97f92433831d7b150cb28542449d9ebb1a99d"
+    },
+    "sitting-blink": {
+      "source": "art/pocket-pup/v35/sitting-blink.png",
+      "sha256": "8107b034e565b46784643ddb984a1359943bf554e6a5a2054aee58d362e50cad"
+    },
+    "breathing/sitting-blink-0": {
+      "source": [
+        "art/pocket-pup/v35/sitting-blink.png",
+        "art/pocket-pup/v34/sitting-0.png"
+      ],
+      "sha256": "8107b034e565b46784643ddb984a1359943bf554e6a5a2054aee58d362e50cad"
+    },
+    "breathing/sitting-blink-1": {
+      "source": [
+        "art/pocket-pup/v35/sitting-blink.png",
+        "art/pocket-pup/v34/sitting-1.png"
+      ],
+      "sha256": "f77f29b5cafa7d2a85bce6606756aac962f77ae00dc72be6daf4d0d290ca006d"
+    },
+    "breathing/sitting-blink-2": {
+      "source": [
+        "art/pocket-pup/v35/sitting-blink.png",
+        "art/pocket-pup/v34/sitting-2.png"
+      ],
+      "sha256": "45473c98b10d647c097bc02ba153f0b20111a81662496f92ee88ca736760c30a"
+    },
+    "breathing/sitting-blink-3": {
+      "source": [
+        "art/pocket-pup/v35/sitting-blink.png",
+        "art/pocket-pup/v34/sitting-3.png"
+      ],
+      "sha256": "f77f29b5cafa7d2a85bce6606756aac962f77ae00dc72be6daf4d0d290ca006d"
+    },
+    "sitting-drowsy": {
+      "source": "art/pocket-pup/v35/sitting-drowsy.png",
+      "sha256": "4c82c9bc5ef37420548043664a8229d7f91b256470f8b271787661f58d9d3df3"
+    },
+    "breathing/sitting-drowsy-0": {
+      "source": [
+        "art/pocket-pup/v35/sitting-drowsy.png",
+        "art/pocket-pup/v34/sitting-0.png"
+      ],
+      "sha256": "4c82c9bc5ef37420548043664a8229d7f91b256470f8b271787661f58d9d3df3"
+    },
+    "breathing/sitting-drowsy-1": {
+      "source": [
+        "art/pocket-pup/v35/sitting-drowsy.png",
+        "art/pocket-pup/v34/sitting-1.png"
+      ],
+      "sha256": "d1c72a58eaa03c09d503d1f1fc871fccb854fa6309cea92a0cb4e7f868354da7"
+    },
+    "breathing/sitting-drowsy-2": {
+      "source": [
+        "art/pocket-pup/v35/sitting-drowsy.png",
+        "art/pocket-pup/v34/sitting-2.png"
+      ],
+      "sha256": "4997dcc1f1e285f9a900352feccba89152ce8d0655a850fbc0e5e6cecf0f0b13"
+    },
+    "breathing/sitting-drowsy-3": {
+      "source": [
+        "art/pocket-pup/v35/sitting-drowsy.png",
+        "art/pocket-pup/v34/sitting-3.png"
+      ],
+      "sha256": "d1c72a58eaa03c09d503d1f1fc871fccb854fa6309cea92a0cb4e7f868354da7"
+    },
+    "sitting-tired": {
+      "source": "art/pocket-pup/v35/sitting-tired.png",
+      "sha256": "e5b4fc75401698c1f8988d3bf134cb178b49591b851c96cf17c37859e40e557d"
+    },
+    "breathing/sitting-tired-0": {
+      "source": [
+        "art/pocket-pup/v35/sitting-tired.png",
+        "art/pocket-pup/v34/sitting-0.png"
+      ],
+      "sha256": "e5b4fc75401698c1f8988d3bf134cb178b49591b851c96cf17c37859e40e557d"
+    },
+    "breathing/sitting-tired-1": {
+      "source": [
+        "art/pocket-pup/v35/sitting-tired.png",
+        "art/pocket-pup/v34/sitting-1.png"
+      ],
+      "sha256": "5182bb5bda39db6d0df403214374133794fab9247dce279f66175c854ad3394b"
+    },
+    "breathing/sitting-tired-2": {
+      "source": [
+        "art/pocket-pup/v35/sitting-tired.png",
+        "art/pocket-pup/v34/sitting-2.png"
+      ],
+      "sha256": "278e6cd0d6891209bf5be29e106e5759db1f0d2a2db36fe210b107abeeb8afef"
+    },
+    "breathing/sitting-tired-3": {
+      "source": [
+        "art/pocket-pup/v35/sitting-tired.png",
+        "art/pocket-pup/v34/sitting-3.png"
+      ],
+      "sha256": "5182bb5bda39db6d0df403214374133794fab9247dce279f66175c854ad3394b"
     }
   },
   "license": "project art; no repository-wide distribution license selected"

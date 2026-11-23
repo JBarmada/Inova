@@ -14,9 +14,8 @@ export function PetPanel({ floating, onToyExpanded }: { floating: boolean; onToy
   const { pose, ready, error } = useDogPose(state, request);
   const { run, busy, message } = useAction();
   async function changePose() {
-    const kind = state.pet.mood === "idle" && pose === "sitting" ? "stand" : "sit";
-    if (state.pet.mood !== "idle") await dispatch({ type: "mood", mood: "idle" });
-    else playCue("click", state.settings.muted);
+    const kind = pose === "sitting" ? "stand" : "sit";
+    playCue("click", state.settings.muted);
     setRequest((previous) => ({ kind, id: (previous?.id ?? 0) + 1 }));
   }
   return <section className="pet-panel" aria-label="Your companion">
@@ -24,8 +23,8 @@ export function PetPanel({ floating, onToyExpanded }: { floating: boolean; onToy
     <div className="dog-stage" data-tauri-drag-region={floating || undefined} tabIndex={floating ? 0 : undefined}
       aria-label={floating ? "Your dog. Focus to reveal companion controls." : undefined}><DogSprite state={state} pose={pose} /></div>
     {state.pet.adopted && <div className="pose-controls hover-reveal"><button disabled={busy || !ready || pose === "tucking"}
-      onClick={() => void run(changePose, "")} aria-label={pose === "sitting" && state.pet.mood === "idle" ? "Ask your dog to stand" : "Ask your dog to sit"}>
-      {pose === "sitting" && state.pet.mood === "idle" ? "Stand up" : "Sit"}</button></div>}
+      onClick={() => void run(changePose, "")} aria-label={pose === "sitting" ? "Ask your dog to stand" : "Ask your dog to sit"}>
+      {pose === "sitting" ? "Stand up" : "Sit"}</button></div>}
     {floating && state.pet.adopted && <BoneQuestToy state={state} onExpandedChange={onToyExpanded} />}
     {!state.pet.adopted ? <form onSubmit={(event) => {
       event.preventDefault();

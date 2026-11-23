@@ -1,5 +1,7 @@
 # Pocket Pup integration handoff
 
+**Seated tiredness update November 23:** approved v35 facial sequence integrated. Mood updates preserve posture; pose commands preserve mood; breathing continues across seated eye frames. 37 tests and frontend checks pass, Windows release library compiles, browser checks confirm seated tiredness and recovery. Native runtime/Mac unverified. Loaf deadline/clip and animated standing up remain review-gated. See TRANSITION_TABLE.md.
+
 ## Main integration update — November 23
 
 The user approved v34 grounded breathing and integration into main. The branch was safely advanced to main `2dd9b1e`, preserving current main navigation, quest toy, completed-adventure grouping, wardrobe/memories split, and native layout. Only the dog renderer, presentation hooks/assets, pose control, test-scan scope, and related documentation are added; the inherited old App/shared-state files are not used to overwrite newer main work.

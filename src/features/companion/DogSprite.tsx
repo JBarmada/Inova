@@ -1,14 +1,14 @@
 import { useState } from "react";
 import type { AppState } from "../../shared/schema";
-import { dogFrame } from "./dogArt";
+import { useDogFace } from "./useDogFace";
 import type { DogPose } from "./posePlayback";
 import { useBreathingArt } from "./useBreathingArt";
 
 export function DogSprite({ state, pose = "standing" }: { state: AppState; pose?: DogPose }) {
   const [failed, setFailed] = useState(false);
-  const frame = dogFrame(state.pet.mood, pose);
+  const frame = useDogFace(pose, state.pet.mood);
   const breathing = useBreathingArt(frame);
-  const seated = frame === "sitting" || frame === "tucking";
+  const seated = pose === "sitting" || pose === "tucking";
   const description = `${state.pet.name}, ${frame}${state.equippedItem ? `, ${state.equippedItem} equipped` : ""}`;
   return <div className={`dog dog-${frame}`} role="img" aria-label={description} data-pose={frame}>
     <img className="dog-base" src={failed ? "/inova.svg" : breathing.src} width={64} height={64}

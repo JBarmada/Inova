@@ -1,8 +1,12 @@
 # Implementation Status and Handoff
 
-## Follow-up review branch — no new runtime behavior
+## Approved seated tiredness - November 23
 
-Approved sit/breathing is published to main as `b187094`. `codex/pose-hierarchy-review` adds [the transition ledger](TRANSITION_TABLE.md) and [v35 seated facial preview](../art/pocket-pup/v35/README.md). Non-eye pixels and seven-second preview hold were checked. Posture-preserving mood changes, actual seven-second loaf deadline/entry, and animated stand-up remain pending review/integration. App source is identical to main during this first review.
+The user approved v35. Mood changes now preserve the local seated pose; tiredness plays the reviewed eye-only sequence, then holds tired sitting with grounded breathing. Pose commands retain the shared mood. Happy sitting currently uses the approved neutral seated face plus sparkle, pending its expression review. Breathing phase continues across seated face frames. No persisted schema change.
+
+`npm run check` passed size limits, TypeScript, **37 tests in 8 files**, and the production build. Windows release library compilation passed (`cargo build --release --lib --locked --offline`); running apps were not replaced. Browser checks with fictional Mochi observed tired sitting, idle/happy recovery staying seated, fitted bandana, and seated breathing URLs. Native runtime and Mac verification remain pending.
+
+The next review is tired sit to loaf after seven seconds. Loaf and its runtime deadline remain disabled until approval. Sit to stand still changes directly and awaits its separate rise clip. Navigation currently remounts local posture; it is tracked in [the coverage ledger](TRANSITION_TABLE.md).
 
 ## Pocket Pup and breathing integration — November 23
 

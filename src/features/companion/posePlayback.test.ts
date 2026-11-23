@@ -53,9 +53,56 @@ describe("companion pose playback", () => {
     playback.dispose();
   });
 
-  it("keeps shared happy/tired moods ahead of the local idle pose", () => {
-    expect(dogFrame("happy", "sitting")).toBe("happy");
-    expect(dogFrame("tired", "tucking")).toBe("tired");
+  it("chooses posture-compatible faces without substituting standing", () => {
+    expect(dogFrame("happy", "sitting")).toBe("sitting");
+    expect(dogFrame("tired", "tucking")).toBe("tucking");
+    expect(dogFrame("tired", "sitting")).toBe("sitting-tired");
     expect(dogFrame("idle", "sitting")).toBe("sitting");
+  });
+
+});
+
+describe("mood and posture independence", () => {
+  it("preserves sitting through tiredness, duplicate events and recovery", () => {
+    vi.useFakeTimers();
+    const show = vi.fn();
+    const playback = createPosePlayback(show, true);
+    playback.sit();
+    playback.setMood("tired");
+    playback.setMood("tired");
+    vi.advanceTimersByTime(60_000);
+    playback.setMood("happy");
+    playback.setMood("idle");
+    expect(show.mock.calls.flat()).toEqual(["standing", "sitting"]);
+    playback.dispose();
+  });
+
+  it("finishes the approved tuck when tiredness arrives mid-clip", () => {
+    vi.useFakeTimers();
+    const show = vi.fn();
+    const playback = createPosePlayback(show, false);
+    playback.sit();
+    vi.advanceTimersByTime(80);
+    playback.setMood("tired");
+    playback.sit();
+    vi.advanceTimersByTime(80);
+    expect(show.mock.calls.flat()).toEqual(["standing", "tucking", "sitting"]);
+    playback.dispose();
+  });
+
+  it("only schedules automatic sitting for standing idle", () => {
+    vi.useFakeTimers();
+    const show = vi.fn();
+    const playback = createPosePlayback(show, false, "tired");
+    vi.advanceTimersByTime(60_000);
+    expect(show).toHaveBeenCalledTimes(1);
+    playback.setMood("idle");
+    vi.advanceTimersByTime(IDLE_SIT_DELAY - 1);
+    expect(show).toHaveBeenCalledTimes(1);
+    vi.advanceTimersByTime(1);
+    expect(show).toHaveBeenLastCalledWith("tucking");
+    playback.setReducedMotion(true);
+    expect(show).toHaveBeenLastCalledWith("sitting");
+    playback.dispose();
   });
 });

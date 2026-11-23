@@ -2,7 +2,7 @@
 
 Updated November 23, 2026. This is a behavior/review ledger, not a claim that every row runs in the app. Main `b187094` contains approved v32 sit motion and v34 breathing. Follow-up work is isolated on `codex/pose-hierarchy-review`.
 
-**Active review: M05, sitting → tired face.** [GIF](../art/pocket-pup/v35/seated-tired-preview.gif) / [states](../art/pocket-pup/v35/seated-face-frames.png). Runtime is unchanged while this is reviewed. Do not advance to loaf or stand-up before resolving this review.
+**Approved/integrated: M05, sitting to tired face (v35).** Mood changes preserve posture and the approved eye-only sequence runs with grounded breathing. Next review is tired sit to loaf after a seven-second hold; the runtime deadline and loaf clip remain disabled until that review. Animated stand-up follows separately.
 
 ## Hierarchy
 
@@ -22,9 +22,9 @@ Updated November 23, 2026. This is a behavior/review ledger, not a claim that ev
 | M01 | Standing | Idle | Standing neutral/breathing; idle sit timer | Live |
 | M02 | Standing | Happy | Standing happy/breathing | Live static face; greeting queued |
 | M03 | Standing | Tired | Standing tired; no invented automatic posture route | Live static face |
-| M04 | Sitting | Idle | Stay seated, neutral face/breathing; clear loaf deadline | Sit live; mood-recovery routing pending |
-| M05 | Sitting | Tired | Stay seated; face-only transition; 7s deadline at stable tired state | **v35 preview awaiting review; runtime/timer pending** |
-| M06 | Sitting | Happy | Stay seated; happy face; cancel loaf deadline | Preview queued |
+| M04 | Sitting | Idle | Stay seated, neutral face/breathing; clear loaf deadline | Live; idle recovery remains seated; loaf deadline not enabled |
+| M05 | Sitting | Tired | Stay seated; face-only transition; 7s deadline at stable tired state | **v35 approved/live; seven-second loaf timer pending** |
+| M06 | Sitting | Happy | Stay seated; happy face; cancel loaf deadline | Posture live; neutral seated face + sparkle fallback; happy face queued |
 | M07 | Loaf | Idle | Stay loaf; relaxed awake face | Endpoint/face queued |
 | M08 | Loaf | Happy | Stay loaf; happy face; rising requires pose command | Queued |
 | M09 | Loaf | Tired | Stay loaf; drowsy face; no unapproved sleep timer | Queued |
@@ -32,7 +32,7 @@ Updated November 23, 2026. This is a behavior/review ledger, not a claim that ev
 | M11 | Sleeping | Happy | Stay sleeping; retain happy intent for waking, never standing-happy substitution | Queued; wake trigger to review |
 | M12 | Sleeping | Tired | Stay sleeping; no duplicate sleep-entry clip | Queued |
 
-**Known main bug:** the old renderer chooses standing happy/tired from mood, and its pose hook resets when mood changes. M04–M06 require the reviewed posture-aware implementation; they are not marked complete.
+**Resolved posture bug:** mood updates no longer reset the local pose or substitute standing artwork for seated tiredness. Mood changes during the tuck complete the approved seated endpoint first. Navigation still remounts presentation; full shared ownership and future loaf/wake routes remain pending.
 
 ## All 16 stable body routes
 
@@ -51,16 +51,16 @@ Only entries marked live exist in the app. Historical draft art does not count a
 | --- | --- | --- |
 | Adopted standing idle for 8s | Approved neutral → tuck → sit | Live |
 | Not adopted | No rest deadlines/automatic pose clips | Current sit path live |
-| Sit while already seated | No duplicate clip; keep mood/posture | Pending hierarchy |
-| Stand while already standing | No duplicate stand-up | Pending hierarchy |
-| Tired sitting reaches 7s | Loaf entry once, only if still seated+tired | Pending face + loaf approval |
+| Sit while already seated | No duplicate clip; keep mood/posture | Live |
+| Stand while already standing | No duplicate stand-up | Live no-op; stand-up clip queued |
+| Tired sitting reaches 7s | Loaf entry once, only if still seated+tired | Pending loaf approval |
 | Happy/idle arrives before 7s | Cancel deadline; change face in place | Pending |
 | Stand arrives before 7s | Cancel deadline; reviewed stand-up; retain mood | Pending stand-up review |
 | Repeated tired event/rerender | Preserve original deadline; no stacked timers | Pending |
-| Mood during tuck/rise/lower | Retain latest mood; apply compatible face at stable boundary | Pending |
+| Mood during tuck/rise/lower | Retain latest mood; apply compatible face at stable boundary | Live for tuck; future clips pending |
 | Pose command during clip | Coalesce to latest intent; finish safe boundary, then route | Proposed; validate with clip |
 | Posture clip during inhale | Stop loop; use canonical clip frames without scaling | Current tuck live; future clips pending |
-| Face clip during breathing | Preserve posture/ground contact and compatible breath phase | Pending face integration |
+| Face clip during breathing | Preserve posture/ground contact and compatible breath phase | Live for seated face variants |
 | Equip/remove | Preserve pose/mood/deadline; use fitted layers | Sitting layers live; later fitting pending |
 | Unfitted item on planned pose | Review fit/fallback before enabling clip; keep inventory/equipment record | Review gate |
 | Mute/status/dev changes | Preserve pose/deadlines; visible action feedback | Settings live; new deadlines pending |
@@ -82,9 +82,9 @@ Review pose → motion → timing → integrate → validate, then advance. One 
 | --- | --- | --- | --- |
 | Done | 1 | Neutral → sit, v32 | Approved, main |
 | Done / partial | 9 | Standing/happy/sitting grounded breathing, v34 | Approved, main; optional blink/ear variations not delivered |
-| **1** | **2 / M05** | **Seated blink → drowsy → tired, face only** | **v35 awaiting review; not integrated** |
-| 2 | 3, latest request | Tired sit → loaf endpoint/entry; trigger after 7s | Queued; endpoint first |
-| 3 | 7b, explicit request | Sit → stand, weight shift/back-leg extension | Queued; reversing sit-down is not automatic approval |
+| Done | 2 / M05 | Seated blink → drowsy → tired, face only | v35 approved and integrated |
+| **1** | 3, latest request | Tired sit → loaf endpoint/entry; trigger after 7s | Queued; endpoint first |
+| 2 | 7b, explicit request | Sit → stand, weight shift/back-leg extension | Queued; reversing sit-down is not automatic approval |
 | 4 | M06 | Seated happy and tired → neutral/happy recovery | Queued |
 | Later | 4 | Loaf/lying awake → sleeping, chin toward paws | Queued |
 | Later | 5 | Grounded sleeping breathing | Queued |

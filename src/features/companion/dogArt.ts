@@ -4,15 +4,21 @@ import type { DogPose } from "./posePlayback";
 export const dogArt = {
   standing: "/dog/neutral.png", tucking: "/dog/tuck.png", sitting: "/dog/sitting.png",
   happy: "/dog/happy.png", tired: "/dog/tired.png",
+  "sitting-blink": "/dog/sitting-blink.png", "sitting-drowsy": "/dog/sitting-drowsy.png",
+  "sitting-tired": "/dog/sitting-tired.png",
 };
 
 const breaths = (name: string) => Array.from({ length: 4 }, (_, phase) => `/dog/breathing/${name}-${phase}.png`);
 export const breathingArt: Partial<Record<keyof typeof dogArt, string[]>> = {
   standing: breaths("neutral"), happy: breaths("happy"), sitting: breaths("sitting"),
+  "sitting-blink": breaths("sitting-blink"), "sitting-drowsy": breaths("sitting-drowsy"),
+  "sitting-tired": breaths("sitting-tired"),
 };
 
 export function dogFrame(mood: AppState["pet"]["mood"], pose: DogPose) {
-  return mood === "idle" ? pose : mood;
+  if (pose === "tucking") return "tucking";
+  if (pose === "sitting") return mood === "tired" ? "sitting-tired" : "sitting";
+  return mood === "idle" ? "standing" : mood;
 }
 
 let ready: Promise<void> | undefined;
