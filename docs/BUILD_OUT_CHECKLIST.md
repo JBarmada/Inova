@@ -95,3 +95,5 @@ November 23: added a regression check that both quest entry points begin with on
 November 23: clip cue markers are now checked against playback frame boundaries, preventing a timing edit from silently skipping a bark or fanfare marker. `npm run check` passed 144 tests and all 20 atlas checks. Audible playback is not yet verified.
 
 November 23: date-only review now has a rendering regression test confirming that it requests a date and time; `npm run check` passed 155 tests. This does not verify native layout or date-picker behavior.
+
+November 23: the no-dismissal-button regression now renders the actual shared composer in the toy board. It checks the frame header and empty-board button count, and outside-click/focus-loss tests remain in `npm run check`. The full check passed 155 tests.

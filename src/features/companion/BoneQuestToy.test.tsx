@@ -8,7 +8,6 @@ vi.mock("./useToyExpansion", () => ({ useToyExpansion: () => ({
   phase: fixture.open ? "open" : "closed", open: fixture.open, mounted: fixture.open, button: { current: null }, panel: { current: null },
   expand: vi.fn(), collapse: vi.fn(),
 }) }));
-vi.mock("./ToyComposer", () => ({ ToyComposer: () => <div>Composer</div> }));
 
 it("keeps the expanded board free of close/minimize controls in normal and developer modes", () => {
   for (const devMode of [false, true]) {
@@ -17,7 +16,10 @@ it("keeps the expanded board free of close/minimize controls in normal and devel
     const markup = renderToStaticMarkup(<BoneQuestToy state={state} />);
     const board = markup.split('id="toy-quest-board"')[1];
     expect(board).toBeDefined();
-    expect(board).not.toContain("<button");
+    const heading = board.split("</header>")[0];
+    expect(heading).not.toContain("<button");
+    expect(board).toContain('aria-label="Make a quest"');
+    expect(board.match(/<button\b/g)).toHaveLength(1);
     expect(markup).not.toMatch(/aria-label="[^"]*(?:minimize|close|collapse)/i);
   }
 });
@@ -28,6 +30,6 @@ it("keeps the closed board hidden and inert while retaining its draft-bearing co
   const board = markup.split('id="toy-quest-board"')[1];
   expect(board).toMatch(/\shidden=""/);
   expect(board).toMatch(/\sinert=""/);
-  expect(board).toContain("Composer");
+  expect(board).toContain("Your next adventure");
   fixture.open = true;
 });
