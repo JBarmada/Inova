@@ -22,3 +22,9 @@ export async function proposeLocal(commitment: Commitment, state: AppState, call
   return { memorySnapshot, quest: { ...result.data, id: newId(), commitmentId: commitment.id,
     sourceIds: [commitment.id, ...memorySnapshot.map((memory) => memory.id)], status: "proposed", planner: "local" } };
 }
+
+export async function checkLocalModel(model: AppState["settings"]["localModel"], call = invoke): Promise<boolean> {
+  if (call === invoke && !isTauri()) throw Error("Local AI requires the desktop app. The sample planner is available here.");
+  try { return await call<boolean>("local_model_available", { model }); }
+  catch (error) { throw Error(typeof error === "string" ? error : "Could not check local AI. Try the sample planner."); }
+}

@@ -1,5 +1,10 @@
 # Implementation Status and Handoff
 
+## Local AI availability check — November 23, 2026
+
+Quests offers an explicit check for the selected local model. The Rust command queries Ollama's loopback model list with a short timeout, validates the supported model name, and sends no commitment or reflection content. A missing service or model gives a useful sample-planner alternative. The status is displayed beside the check and cleared on model changes. `npm run check` passed 98 tests and production/type/size checks; isolated Windows release compilation passed. Native Windows testing showed both the installed 4B model and the stopped-service recovery message. The service was stopped afterward. A live missing-model case and Mac remain pending.
+
+
 ## Floating toy native spot check — November 23, 2026
 
 In the isolated Windows release profile, the open toy reached the expanded menu with the standalone toy hidden and no frame-dismiss button. Clicking the dog outside the panel restored the closed toy. With Dev mode off, manual dog buttons were absent; enabling it exposed Sit and mood controls below the toy, and disabling it removed them. Floating Settings Quit was used to close the test. A screenshot captured an intermediate opening frame, but there was no continuous frame recording or timing measurement; monitor-edge behavior, drag/placement, audible feedback, reduced motion, and Mac remain unverified.

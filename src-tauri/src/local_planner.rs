@@ -3,7 +3,7 @@ use std::time::Duration;
 
 #[tauri::command]
 pub async fn local_quest(input: String, model: String) -> Result<String, String> {
-    if model != "gemma3:12b" && model != "gemma3:4b" { return Err("Unsupported local model.".into()); }
+    validate_model(&model)?;
     if input.len() > 24000 { return Err("Planning context is too large.".into()); }
     let client = reqwest::Client::builder().no_proxy().redirect(reqwest::redirect::Policy::none())
         .connect_timeout(Duration::from_secs(2)).timeout(Duration::from_secs(120))
@@ -27,4 +27,25 @@ pub async fn local_quest(input: String, model: String) -> Result<String, String>
     let value: Value = serde_json::from_slice(&bytes).map_err(|_| "Local AI returned an invalid response.")?;
     value.pointer("/message/content").and_then(Value::as_str).map(str::to_owned)
         .ok_or_else(|| "Local AI response was missing its content.".into())
+}
+
+fn validate_model(model: &str) -> Result<(), String> {
+    if model == "gemma3:12b" || model == "gemma3:4b" { Ok(()) }
+    else { Err("Unsupported local model.".into()) }
+}
+
+#[tauri::command]
+pub async fn local_model_available(model: String) -> Result<bool, String> {
+    validate_model(&model)?;
+    let client = reqwest::Client::builder().no_proxy().redirect(reqwest::redirect::Policy::none())
+        .connect_timeout(Duration::from_secs(2)).timeout(Duration::from_secs(4))
+        .build().map_err(|_| "Could not initialize local planner.")?;
+    let response = client.get("http://127.0.0.1:11434/api/tags").send().await
+        .map_err(|_| "Ollama is not responding. Start it or use the sample planner.")?;
+    if !response.status().is_success() { return Err("Ollama could not list models. Try the sample planner.".into()); }
+    let bytes = response.bytes().await.map_err(|_| "Could not read the local model list.")?;
+    if bytes.len() > 65536 { return Err("The local model list is too large to check.".into()); }
+    let value: Value = serde_json::from_slice(&bytes).map_err(|_| "Ollama returned an invalid model list.")?;
+    let models = value.get("models").and_then(Value::as_array).ok_or("Ollama returned an invalid model list.")?;
+    Ok(models.iter().any(|entry| entry.get("name").and_then(Value::as_str) == Some(model.as_str())))
 }

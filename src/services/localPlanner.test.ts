@@ -53,3 +53,12 @@ it("sends the selected local model to the native boundary", async () => {
   await proposeLocal(commitment, state, call as unknown as typeof invoke);
   expect(call.mock.calls[0][1].model).toBe("gemma3:4b");
 });
+
+it("checks only the selected model and reports a stopped service", async () => {
+  const { checkLocalModel } = await import("./localPlanner");
+  const call = vi.fn().mockResolvedValue(false);
+  expect(await checkLocalModel("gemma3:4b", call as unknown as typeof invoke)).toBe(false);
+  expect(call).toHaveBeenCalledWith("local_model_available", { model: "gemma3:4b" });
+  call.mockRejectedValue("Ollama is not responding. Start it or use the sample planner.");
+  await expect(checkLocalModel("gemma3:4b", call as unknown as typeof invoke)).rejects.toThrow("sample planner");
+});
