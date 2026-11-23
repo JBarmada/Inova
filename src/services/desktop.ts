@@ -108,14 +108,20 @@ export function fitFloatingSize(width: number, height: number): Promise<void> {
   return enqueue(async () => {
     if (!floating) return;
     const window = getCurrentWindow();
-    const [size, scale] = await Promise.all([window.innerSize(), window.scaleFactor()]);
+    const [size, scale, position, previousOuter] = await Promise.all([
+      window.innerSize(), window.scaleFactor(), window.outerPosition(), window.outerSize(),
+    ]);
     const cssToLogical = (globalThis.devicePixelRatio || scale) / scale;
     const target = Math.ceil(Math.max(FLOAT_HEIGHT, height) * cssToLogical);
     const targetWidth = Math.ceil(Math.max(FLOAT_WIDTH, width) * cssToLogical);
     if (Math.abs(size.height / scale - target) > 1 || Math.abs(size.width / scale - targetWidth) > 1) {
       await window.setSize(new LogicalSize(targetWidth, target));
-      const [position, outer, monitors] = await Promise.all([window.outerPosition(), window.outerSize(), availableMonitors()]);
-      const point = visiblePosition({ ...position, width: targetWidth, height: target, maximized: false }, outer, monitors.map((monitor) => monitor.workArea));
+      const [outer, monitors] = await Promise.all([window.outerSize(), availableMonitors()]);
+      const center = position.x + previousOuter.width / 2;
+      const areas = monitors.map((monitor) => monitor.workArea);
+      const area = areas.find(({ position: p, size: s }) => center >= p.x && center < p.x + s.width && position.y >= p.y && position.y < p.y + s.height);
+      const anchored = { x: position.x + Math.trunc((previousOuter.width - outer.width) / 2), y: position.y, width: targetWidth, height: target, maximized: false };
+      const point = visiblePosition(anchored, outer, area ? [area] : areas);
       await window.setPosition(new PhysicalPosition(point.x, point.y));
     }
   });

@@ -4,6 +4,8 @@ Implemented in the isolated `fix/window-layout` branch, `.worktrees/window-layou
 
 ## Selected interaction
 
+Expansion keeps the dog's screen position anchored: widening adjusts the native window's left edge by half the width difference, rather than moving the dog right inside a fixed left edge. Closing reverses that adjustment. The board expands below the toy; monitor-edge clamping can reposition the window to keep it visible.
+
 The floating dog carries a small gold-and-teal toy with an active quest count. Clicking it opens an illustrated adventure board. All non-dismissed quests appear, with proposed/deferred quests offering a toy-shaped Fetch action and accepted quests offering completion. Completed adventures remain visible. The board grows with more rows until the monitor-height allowance requires internal list scrolling. Home and floating placement remain separate.
 
 Follow-up layout: center the dog over the board in both widths, with the toy under its chin. Toy clicks play a synthesized squeak using the existing mute setting. Native sizing accounts for webview zoom independently of OS display scale, and the panel clips decorative painting to its own bounds. The screenshot report alone does not establish which native scaling/rendering condition caused the original clipping; verify this revision in the desktop app.
@@ -21,7 +23,7 @@ The current frame uses CSS border-image with fixed-size corners and stretched ra
 
 ## Validation and review
 
-- `npm run check`: 21 tests, TypeScript, source-size limits, and Vite production build passed. Native mocks cover zoom in, zoom out, and avoiding double OS scaling.
+- `npm run check`: 22 tests, TypeScript, source-size limits, and Vite production build passed. Native mocks cover zoom in, zoom out, and avoiding double OS scaling.
 - `npm run tauri build -- --no-bundle`: Windows release compilation passed.
 - Browser: three fictional quests shown together; added a fourth from the composer, then accepted it with its toy action. Reviewed the expanded frame, small toy, and internal list scrolling.
 - Native runtime placement/resizing and Mac appearance still require manual checks. Moving between monitors with different work heights while already floating also needs review.

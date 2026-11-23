@@ -138,3 +138,19 @@ it("keeps the compact window fitted when the webview is zoomed out", async () =>
   await desktop.fitFloatingSize(248, 208);
   expect(fake.size).toEqual({ width: 199, height: 167 });
 });
+
+it("keeps the dog's screen center and top fixed while the toy opens and closes", async () => {
+  fake.scale = 1.5;
+  vi.stubGlobal("devicePixelRatio", 1.875);
+  const desktop = await import("./desktop");
+  await desktop.setPetMode(true);
+  await desktop.fitFloatingSize(248, 240);
+  fake.position = { x: 600, y: 100 };
+  const center = fake.position.x + fake.size.width / 2;
+  for (const width of [384, 248, 384, 248]) {
+    await desktop.fitFloatingSize(width, width === 384 ? 450 : 240);
+    expect(Math.abs(fake.position.x + fake.size.width / 2 - center)).toBeLessThanOrEqual(0.5);
+    expect(fake.position.y).toBe(100);
+  }
+  expect(fake.position.x).toBe(600);
+});
