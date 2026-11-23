@@ -1,5 +1,10 @@
 # Implementation Status and Handoff
 
+## Bounded local AI responses — November 23, 2026
+
+Local quest and model-list responses are now read incrementally with a 65,536-byte accumulated-body limit; an oversized Content-Length is rejected early, and oversized chunked bodies stop accumulation. Existing connection and overall timeouts remain. `npm run check` passed 112 tests, type/size checks and production build; Windows release compilation passed. Two Rust release tests exercised exact-limit, oversized declared and chunked HTTP responses, plus the model allowlist. A fresh real Ollama request after this change and Mac remain pending.
+
+
 ## In-app reduced motion — November 23, 2026
 
 Settings now includes a persistent Reduce motion toggle. Either this toggle or the operating system preference reduces dog posture/face/breathing playback, floating toy transitions, hover transitions, and reward animation. Older saves default the toggle off; the operating system preference is always honored. Startup appears before saved settings are loaded, so its loader follows only the operating system preference. No manual dog controls were added.

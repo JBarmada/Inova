@@ -22,8 +22,7 @@ pub async fn local_quest(input: String, model: String) -> Result<String, String>
     let response = client.post("http://127.0.0.1:11434/api/chat").json(&payload).send().await
         .map_err(|_| "Local AI is unavailable or timed out. Start Ollama and install the selected model.")?;
     if !response.status().is_success() { return Err("Local AI could not generate a quest. Check that the selected model is installed.".into()); }
-    let bytes = response.bytes().await.map_err(|_| "Local AI response could not be read.")?;
-    if bytes.len() > 65536 { return Err("Local AI response was too large.".into()); }
+    let bytes = read_bounded(response, 65536).await?;
     let value: Value = serde_json::from_slice(&bytes).map_err(|_| "Local AI returned an invalid response.")?;
     value.pointer("/message/content").and_then(Value::as_str).map(str::to_owned)
         .ok_or_else(|| "Local AI response was missing its content.".into())
@@ -43,9 +42,24 @@ pub async fn local_model_available(model: String) -> Result<bool, String> {
     let response = client.get("http://127.0.0.1:11434/api/tags").send().await
         .map_err(|_| "Ollama is not responding. Start it or use the sample planner.")?;
     if !response.status().is_success() { return Err("Ollama could not list models. Try the sample planner.".into()); }
-    let bytes = response.bytes().await.map_err(|_| "Could not read the local model list.")?;
-    if bytes.len() > 65536 { return Err("The local model list is too large to check.".into()); }
+    let bytes = read_bounded(response, 65536).await?;
     let value: Value = serde_json::from_slice(&bytes).map_err(|_| "Ollama returned an invalid model list.")?;
     let models = value.get("models").and_then(Value::as_array).ok_or("Ollama returned an invalid model list.")?;
     Ok(models.iter().any(|entry| entry.get("name").and_then(Value::as_str) == Some(model.as_str())))
 }
+
+async fn read_bounded(mut response: reqwest::Response, limit: usize) -> Result<Vec<u8>, String> {
+    if response.content_length().is_some_and(|length| length > limit as u64) {
+        return Err("Local AI response is too large.".into());
+    }
+    let mut body = Vec::new();
+    while let Some(chunk) = response.chunk().await.map_err(|_| "Local AI response could not be read.")? {
+        if chunk.len() > limit.saturating_sub(body.len()) { return Err("Local AI response is too large.".into()); }
+        body.extend_from_slice(&chunk);
+    }
+    Ok(body)
+}
+
+#[cfg(test)]
+#[path = "local_planner_tests.rs"]
+mod tests;
