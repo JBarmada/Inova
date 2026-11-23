@@ -1,34 +1,36 @@
 # Build-out handoff — November 23, 2026
 
-## Current checkpoint — November 23, 1:45 p.m. Pacific
+## Current checkpoint — November 23, afternoon
 
-This section supersedes conflicting statements in the earlier handoff below. Work remains in `.worktrees/inova-complete` on `codex/inova-complete`. The primary checkout and its uncommitted animation work were preserved. A snapshot was reconciled in `.worktrees/animation-buildout` and integrated into the buildout for testing; do not overwrite the primary checkout. The buildout commits through `0be1ea3` were pushed to the existing `origin/codex/inova-complete` branch after GitHub verified that the connected account owns the repository and has push access. The repository is public; review future additions accordingly.
+This section supersedes conflicting statements in the earlier handoff below. Work remains on `codex/inova-complete` in an isolated worktree. The branch has been pushed to the existing public repository and has not been merged into main. The primary checkout and its uncommitted work remain intact. An animation snapshot was reconciled in a staging worktree and integrated into the buildout for testing.
 
-The desktop Quests page and floating toy share a single input. Local AI proposes a quest and, when supported by exact source text, optional effort and a deadline with an explicitly stated time. The user reviews those details before saving. A recognized date without a time opens a review asking for a time or allowing the date to be cleared. Recognizable missing or conflicting details also open review. The sample fallback is labeled. A direct fictional Ollama trial with Gemma 3 12B extracted both details; 4B missed the deadline. These are limited trials, not reliability claims. The local service was running at this checkpoint; check its current state rather than assuming it persists.
+Desktop Quests and the floating toy use the same one-field composer. A local model proposes the quest and optional date/time and effort; extracted values require matching evidence and review. Date-only suggestions ask for a time or can be cleared. Recognizable missing or conflicting details open review; simple weekday, time and unit checks catch some mistakes but do not guarantee accuracy. The sample fallback is labeled and prompts for details when recognizable hints are missing. A small direct fictional 12B trial extracted a date-only example and a separate date/time/effort example; a 4B trial produced incorrect details. See implementation status for timings and limits. Permitted reflections are ranked by simple keyword overlap and recency, with source IDs and stale-permission checks retained.
 
-Twenty animation clips are present, with a Dev-mode preview selector, sleep/wake playback and selected automatic reactions. All 20 atlas dimensions are now checked by `npm run check`; 154 tests and the frontend build passed. Windows `cargo check` passed after the latest Rust edits; the animation integration also passed a release build before subsequent planner edits. The integrated clips, wearable alignment, and the quest detail review need visual testing. Automatic review blocked the attempted Windows inspection because the screen included unrelated sensitive content; do not work around that rejection. Mac remains untested.
+Twenty animation clips, sleep/wake playback and selected automatic reactions are integrated. The Dev-mode selector exposes the clips for testing. Static stretch and celebration frame sheets were compared with their runtime atlases; complete visual playback and wearable alignment remain unverified. The no-dismissal-button test now includes the real shared composer, and outside-click/focus-loss tests remain in the check.
 
-The Tailscale browser preview returned HTTP 200 locally at this checkpoint. Its browser build uses sample fallback because the Rust/Ollama boundary and native overlay are desktop-only. For desktop testing, restart the app after backend changes; the previously used ports 1420 and 1421 may be occupied, so identify their owners before stopping anything. The user has a separate test profile; do not replace or delete it.
+The latest `npm run check` passed 155 tests, all 20 atlas checks, type/size checks and the frontend build. The current Windows Rust library compiled in release mode with `cargo build --release --lib --locked --offline`; an earlier full release build passed for animation integration. Native visual inspection was blocked by automatic review because unrelated sensitive content appeared on screen. Do not work around that decision; arrange an authorized test with only the intended app visible. Mac compilation and runtime have not been tested.
 
-Next: visually review animation playback and quest review in both layouts when authorized; verify floating drag with a real mouse, timing, placement and restart; expand local-model grounding and omission tests; test mute, audible cues, duplicate rewards and recovery; and complete remaining agreed core and stretch features in dependency order. External integrations, new art approvals, Mac and unresolved product decisions remain pending. See the checklist and implementation status for details.
+Use the setup instructions and fictional data for testing. Enable Dev mode in Settings and select a clip on Companion to test it; restart the desktop backend after Rust changes. Browser previews use the sample fallback because the Rust planner and native overlay require desktop. Do not stop unknown processes or reuse a live profile concurrently, and do not reset or overwrite other worktrees.
+
+Next: visually review the date-only form and animation playback in both layouts, including clothing alignment and the native date picker; verify floating drag, placement, restart and transition timing; run full fictional save/reward/recovery, mute/audible, reduced-motion and accessibility checks; expand live-model quality and injection testing; and work through remaining agreed core and stretch features. More dog variants/final art, external integrations, Mac and unresolved spooky/world product decisions remain pending. Read [BUILD_OUT_CHECKLIST.md](BUILD_OUT_CHECKLIST.md) and [IMPLEMENTATION_STATUS.md](IMPLEMENTATION_STATUS.md) for detail and historical evidence.
 
 ## Where work lives
 
-- Isolated checkout: `C:\Users\creat\Desktop\school\Scope Final Project\.worktrees\inova-complete`.
+- Isolated checkout: `.worktrees/inova-complete`.
 - Branch: `codex/inova-complete`, pushed to `origin`; based on `main` at `851ca60`. This branch has not been merged into main.
 - Primary checkout: at the 7:33 a.m. inspection it was `codex/pocket-pup-animation-review` at `3103109` with extensive overlapping, uncommitted art/runtime changes. Its status lists 20 approved clips, but obtain a stable reviewed snapshot and reconcile source, assets, and approval evidence before integration. Do not replace those files or cherry-pick an older draft blindly. Other worktrees were preserved.
 
 ## Run and verify
 
 ```powershell
-cd "C:\Users\creat\Desktop\school\Scope Final Project\.worktrees\inova-complete"
+cd "<path-to-inova-complete>"
 $env:Path = "$env:USERPROFILE\.cargo\bin;$env:Path"
 npm run desktop
 ```
 
 In another terminal from the same folder, `npm run check` runs the size, TypeScript, test, and frontend build checks. The most recent run passed 118 tests. Windows release compilation passed using the isolated `.tools/native-buildout.json` identifier. That test binary uses a separate profile; use `npm run desktop` for the normal app. New optional state fields can be lost if an older build later saves the same profile; back up personal data before changing versions.
 
-Local AI requires a running compatible Ollama service and an installed model; the sample planner works without either. This machine's ignored `.tools/ollama` contains the development runtime and models but is not pushed to Git. Setup and model commands are in [SETUP.md](SETUP.md); recorded benchmarks and failures are in [model evidence](evidence/local-models-2026-11-23/README.md). No model service was left running by the build-out work.
+Local AI requires a running compatible Ollama service and an installed model; the sample planner works without either. Setup and model commands are in [SETUP.md](SETUP.md); recorded benchmarks and failures are in [model evidence](evidence/local-models-2026-11-23/README.md). Service state can change between sessions.
 
 ## What works in this branch
 
