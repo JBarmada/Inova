@@ -2,7 +2,7 @@
 
 ## Latest Windows compilation — November 23, 2026
 
-The current Rust library compiled for Windows in release mode with `cargo build --release --lib --locked --offline`. The most recent `npm run check` passed 157 tests, all 20 atlas checks, type/size checks, and the frontend build. This does not verify the final executable's native UI, animation timing, or Mac behavior.
+The current Rust library compiled for Windows in release mode with `cargo build --release --lib --locked --offline`. The most recent `npm run check` passed 158 tests, all 20 atlas checks, type/size checks, and the frontend build. This does not verify the final executable's native UI, animation timing, or Mac behavior.
 
 ## Date-only quest intake and model checks — November 23, 2026
 
@@ -375,3 +375,7 @@ Update this record with actual results as work lands. Repository documents are t
 
 The shared quest composer now always presents the labeled sample review before saving when local AI is unavailable, including inputs with no detected deadline or effort. This applies to the desktop and floating composers. `npm run check` passed 157 tests and the frontend build; visual verification in the combined native app remains pending.
 
+
+## November 23 — recap ordering
+
+The seven-day local recap lists recent completions newest first and tests its time boundaries. The automated check passed 158 tests; native saved-history and Mac verification remain pending.

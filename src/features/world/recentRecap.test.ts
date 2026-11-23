@@ -25,3 +25,14 @@ it("counts only dated completions and memories in the trailing seven days", () =
   ], memories: [{ id: "m", text: "private", aiAllowed: false, createdAt: "2026-11-23T01:00:00.000Z" }] };
   expect(recentRecap(state, now)).toEqual({ quests: [state.quests[0]], memoryCount: 1, undatedCount: 1 });
 });
+
+it("orders recent adventures newest first and excludes the seven-day boundary and future activity", () => {
+  const completed = (id: string, completedAt: string) => ({ ...base, id, status: "completed" as const, completedAt });
+  const state = { ...initialState(), quests: [
+    completed("older", "2026-11-20T12:00:00.000Z"), completed("boundary", "2026-11-16T12:00:00.000Z"),
+    completed("now", "2026-11-23T12:00:00.000Z"), completed("future", "2026-11-23T12:00:00.001Z"),
+    completed("invalid", "invalid"), completed("newer", "2026-11-22T12:00:00.000Z"),
+  ] };
+  expect(recentRecap(state, now).quests.map((quest) => quest.id)).toEqual(["now", "newer", "older"]);
+  expect(state.quests[0].id).toBe("older");
+});
