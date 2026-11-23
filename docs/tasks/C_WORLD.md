@@ -8,7 +8,7 @@ A student sees what an experience unlocked, equips an owned item on the same dog
 
 ## Start in these files
 
-- src/features/world/WorldPanel.tsx and MemoryShelf.tsx.
+- src/features/world/WardrobePanel.tsx and MemoryShelf.tsx (separate Wardrobe and Memories tabs; the combined WorldPanel was removed).
 - src/shared/catalog.ts.
 - Add world-specific styles and item/book assets in clearly named paths.
 - Coordinate equipment rendering with Track A's DogSprite.

@@ -14,7 +14,7 @@ export function MemoryShelf() {
     await dispatch({ type: "add-memory", memory: { id: newId(), text, createdAt: now(), aiAllowed: allowed } });
     setText("");
   }
-  return <section className="memory-shelf"><h3>Your memory bookshelf</h3>
+  return <section className="memory-shelf" aria-label="Memories"><h2>Memories</h2>
     <form onSubmit={(event) => { event.preventDefault(); void run(save, "A memory was added to your shelf."); }}>
       <label>A reflection<textarea required value={text} maxLength={4000} onChange={(event) => setText(event.target.value)} placeholder="What helped today?" /></label>
       <label className="checkbox"><input type="checkbox" checked={allowed} onChange={(event) => setAllowed(event.target.checked)} />Allow this entry to inform suggestions</label>

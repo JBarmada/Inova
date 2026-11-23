@@ -4,6 +4,7 @@ import { playCue } from "../../services/audio";
 import { toyQuests } from "./toyQuests";
 import { ToyQuestRow } from "./ToyQuestRow";
 import { ToyComposer } from "./ToyComposer";
+import { QuestToyIcon } from "./QuestToyIcon";
 
 export function BoneQuestToy({ state, onExpandedChange }: { state: AppState; onExpandedChange?: (open: boolean) => void }) {
   const [open, setOpen] = useState(false);
@@ -20,7 +21,7 @@ export function BoneQuestToy({ state, onExpandedChange }: { state: AppState; onE
   }}>
     <button ref={button} className={`bone-toy${state.settings.devMode ? " is-dev" : ""}`} type="button" aria-label={open ? "Close quest toy" : "Open quest toy"}
       aria-expanded={open} aria-controls="toy-quest-board" title="Your next little adventures" onClick={() => setExpanded(!open)}>
-      <img src="/art/quest-toy-icon-v1.png" width="82" height="42" alt="Golden bone toy with teal rope" draggable={false} />
+      <QuestToyIcon alt="Golden bone toy with teal rope" />
       {active > 0 && <span className="toy-quest-count">{active}</span>}
     </button>
     {open && <section id="toy-quest-board" className="toy-quest-panel" aria-label="Pawprint adventures">

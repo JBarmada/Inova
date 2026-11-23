@@ -59,7 +59,7 @@ Open the printed local URL. No Rust toolchain is needed for this preview. Browse
 1. Adopt a dog and name it.
 2. On desktop, select Float my dog, drag the dog area, and select Open home to return.
 3. Add a commitment under quests; make, accept, and complete a sample quest.
-4. Equip the unlocked notebook under Wardrobe & memories.
+4. Equip the unlocked notebook under Wardrobe (shirt icon). Open Memories separately with the open-book icon.
 5. Open the bookshelf and save/read a reflection. Personalization is opt-in per entry.
 6. Restart or reload and confirm that state persists.
 

@@ -4,16 +4,18 @@ import { useAction } from "./shared/useAction";
 import { setPetMode } from "./services/desktop";
 import { PetPanel } from "./features/companion/PetPanel";
 import { QuestsPanel } from "./features/quests/QuestsPanel";
-import { WorldPanel } from "./features/world/WorldPanel";
+import { WardrobePanel } from "./features/world/WardrobePanel";
+import { MemoryShelf } from "./features/world/MemoryShelf";
 import { playCue } from "./services/audio";
 import { CompanionControls } from "./features/companion/CompanionControls";
 import { PixelStatus } from "./features/companion/PixelStatus";
 import { useFloatingLayout } from "./features/companion/useFloatingLayout";
 import { PixelIcon } from "./features/companion/PixelIcon";
+import { QuestToyIcon } from "./features/companion/QuestToyIcon";
 
-const tabs = ["companion", "quests", "world"] as const;
+const tabs = ["companion", "quests", "wardrobe", "memories"] as const;
 type Tab = typeof tabs[number];
-const tabLabels = { companion: "Companion", quests: "Quests", world: "Wardrobe & memories" };
+const tabLabels = { companion: "Companion", quests: "Quests", wardrobe: "Wardrobe", memories: "Memories" };
 
 export function App() {
   const state = useInova();
@@ -41,12 +43,13 @@ export function App() {
       : <header className="masthead"><h1>Inova</h1>
         <nav className="home-navigation" aria-label="Main navigation">{tabs.map((entry) => <button key={entry} className="nav-icon-button"
           aria-label={tabLabels[entry]} title={tabLabels[entry]} aria-current={tab === entry ? "page" : undefined}
-          onClick={() => selectTab(entry)}><PixelIcon kind={entry} /></button>)}</nav>
+          onClick={() => selectTab(entry)}>{entry === "quests" ? <QuestToyIcon className="nav-quest-toy" /> : <PixelIcon kind={entry} />}</button>)}</nav>
         <CompanionControls onHome={openHome} onFloat={() => void run(toggleFloating, "")} disabled={busy} floating={false} />
       </header>}
     {(floating || tab === "companion") && <PetPanel floating={floating} onToyExpanded={setToyExpanded} />}
     {!floating && tab === "quests" && <QuestsPanel />}
-    {!floating && tab === "world" && <WorldPanel />}
+    {!floating && tab === "wardrobe" && <WardrobePanel />}
+    {!floating && tab === "memories" && <MemoryShelf />}
     {message && <PixelStatus text={message} />}
   </main>;
 }

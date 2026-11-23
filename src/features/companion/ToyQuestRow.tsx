@@ -2,6 +2,7 @@ import type { Quest } from "../../shared/schema";
 import { dispatch } from "../../state/store";
 import { useAction } from "../../shared/useAction";
 import { adventureTitle, toyStatus } from "./toyQuests";
+import { QuestToyIcon } from "./QuestToyIcon";
 
 export function ToyQuestRow({ quest }: { quest: Quest }) {
   const { run, busy, message } = useAction();
@@ -12,7 +13,7 @@ export function ToyQuestRow({ quest }: { quest: Quest }) {
     {fetchable && <button className="toy-accept" disabled={busy}
       title="Fetch this quest" aria-label={`Accept quest: ${quest.title}`}
       onClick={() => void run(() => dispatch({ type: "quest-status", id: quest.id, status: "accepted" }), "Quest fetched. Let's go!")}>
-      <img src="/art/quest-toy-icon-v1.png" alt="" /><span>Fetch</span></button>}
+      <QuestToyIcon /><span>Fetch</span></button>}
     {quest.status === "accepted" && <button className="toy-complete" disabled={busy}
       title="Mark adventure complete" aria-label={`Complete quest: ${quest.title}`}
       onClick={() => void run(() => dispatch({ type: "complete-quest", id: quest.id }), "A little adventure, a little growth.")}>✓</button>}
