@@ -14,3 +14,9 @@ it("offers the same single quest input in both layouts", () => {
     expect(markup).not.toMatch(/Ollama|local model|deadline/i);
   }
 });
+
+it("explains why quest creation is unavailable before adoption", () => {
+  const markup = renderToStaticMarkup(<QuestComposer state={initialState()} />);
+  expect(markup).toContain("Adopt your dog to start a quest.");
+  expect(markup).toMatch(/<button[^>]*disabled/);
+});

@@ -41,7 +41,6 @@ export function QuestsPanel() {
     </select></label><p>This limit applies to new suggestions; you can still edit a quest yourself.</p>
     <CommitmentForm adopted={state.pet.adopted} />
     <ExplorationIdeas />
-    {!state.pet.adopted && <p>Adopt your dog before beginning quests.</p>}
     {state.commitments.map((entry) => <div className="commitment" key={entry.id}><span>{entry.title}{entry.deadline && <> · Due {formatDeadline(entry.deadline)}</>}{entry.effortMinutes && <> · {entry.effortMinutes} min estimated total</>}</span>
       <div className="actions"><button disabled={busy} onClick={() => { setActiveCommitment(entry.id); void run(async () => {
         setPlanning(true);

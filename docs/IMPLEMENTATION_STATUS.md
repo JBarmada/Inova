@@ -1,5 +1,9 @@
 # Implementation Status and Handoff
 
+## Quest entry before adoption — November 23, 2026
+
+The shared quest composer explains why creation is unavailable until a dog is adopted; the message is visible without opening More options. `npm run check` passed 143 tests, all 20 atlas checks, and the frontend build. Native visual review and Mac remain pending.
+
 ## Quest effort guard — November 23, 2026
 
 The shared state reducer rejects a newly proposed quest longer than its commitment's estimated total effort, including atomic one-field submissions. The reviewed composer caps its proposal before saving; explicit later quest edits retain the existing flexibility. `npm run check` passed 142 tests, all 20 atlas checks and the frontend build. Native UI and Mac remain pending.
