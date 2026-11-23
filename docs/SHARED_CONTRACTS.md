@@ -108,3 +108,7 @@ Settings persist `localModel`, defaulting to `gemma3:12b` for older saves. The o
 ## Completion reflections and floating drafts (build-out worktree)
 
 A successful completion reveal offers an optional reflection linked to the completed quest, with personalization disabled by default. Saving uses the existing memory action and validates the completed quest link. The floating board remains mounted but hidden and inert after retraction, retaining unsaved composer/reflection text during the same floating session. Leaving floating mode or quitting discards unsaved drafts. Completed disclosure resets on closing; outside click, focus loss, and Escape remain the dismissal paths.
+
+## Commitment details (build-out worktree)
+
+Manual commitments may have `deadline: { at, timeZone }` (ISO UTC plus IANA zone) and `effortMinutes` (1–10080 whole minutes). Omitted values stay unknown. The main form interprets deadline input in the device local zone and rejects nonexistent local times; ambiguous repeated times use the platform Date interpretation. Existing commitments without these fields load unchanged. The sample proposal does not exceed a supplied total effort; local proposals exceeding it are rejected. Neither planner checks availability or schedules a time. Older builds can drop the optional fields when saving, so do not use an older checkout on current data.

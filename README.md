@@ -16,12 +16,12 @@ The current app includes:
 - A transparent, always-on-top floating companion, independent home/floating placement restoration, and an expandable quest toy with manual commitment entry and quest actions.
 - Separate Companion, Quests, Wardrobe, and Memories pages with pixel navigation icons. Home uses a monochrome quest icon; the floating toy retains its gold/teal artwork.
 - A four-slot wardrobe for hats, glasses, socks, and body clothing, with category filters, standing/sitting previews, compact outfit controls, and developer test outfits. Wearable graphics remain placeholders.
-- Editable quest titles and durations, distinct quest states, duplicate-safe demonstration rewards with visible reveals, and quest-linked reflections with editing, search, permissions, and deletion.
+- Manual commitments with optional local deadlines and effort estimates; editable quest titles and durations, distinct quest states, duplicate-safe demonstration rewards with visible reveals, and quest-linked reflections with editing, search, permissions, and deletion.
 - Optional local Ollama planning with selectable Gemma 3 12B/4B, a service/model check, permitted reflection context, validated proposals, and a separate deterministic sample fallback. See [local AI setup](docs/SETUP.md#local-ai-build-out-worktree).
 - A local seven-day activity recap, which explicitly excludes older completions without recorded dates, and an outfit shuffle limited to owned items.
 - Settings for sound, developer mode, and optional status; startup loading/retry feedback; and a shared save-and-quit flow for native X and floating Settings > Quit Inova.
 
-The latest build-out check passed **100 tests**, source size/type checks and the frontend production build. Windows release compilation and focused native spot checks passed; Mac compilation and runtime, continuous toy-transition timing, and a complete end-to-end walkthrough remain pending. See [implementation status](docs/IMPLEMENTATION_STATUS.md) for evidence and limitations.
+The latest build-out check passed **103 tests**, source size/type checks and the frontend production build. Windows release compilation and focused native spot checks passed; Mac compilation and runtime, continuous toy-transition timing, and a complete end-to-end walkthrough remain pending. See [implementation status](docs/IMPLEMENTATION_STATUS.md) for evidence and limitations.
 
 Local AI requires a separately installed and running Ollama service and model; the labeled sample planner works without it. There are no external account integrations or actual schedule optimization. Sound is synthesized; final clothing art and recorded audio remain unfinished. The loaf animation is preserved for review, with its runtime timer disabled; animated stand-up also remains unfinished.
 

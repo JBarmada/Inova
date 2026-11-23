@@ -1,5 +1,12 @@
 # Implementation Status and Handoff
 
+## Optional commitment details — November 23, 2026
+
+The main Quests page accepts an optional deadline in the device's local time and optional total effort in whole minutes. A deadline is stored as an ISO UTC instant plus the device's IANA time zone and displayed in that zone; nonexistent local times are rejected. Ambiguous repeated daylight-saving times follow the platform's Date interpretation. Older records remain valid without details. The deterministic sample limits its proposed duration to a smaller supplied total estimate. Local AI receives the supplied constraints, and overlong output is rejected; neither path schedules a time or checks availability. Existing smaller-build saves may silently drop these new optional fields if opened and saved by an older version.
+
+`npm run check` passed 103 tests, size/type checks and production build; isolated Windows release compilation passed. Native Windows testing saved a fictional four-minute estimate and produced a four-minute sample quest. Deadline conversion and invalid-date/zone cases were tested in code; native date-picker entry, DST ambiguity, full planner behavior and Mac remain pending.
+
+
 ## Completion reflection — November 23, 2026
 
 After a saved completion, both quest views offer an optional reflection linked to that completed quest. Personalization remains off unless explicitly enabled. The floating board keeps its hidden, inert content mounted while collapsed, so an unfinished draft survives outside dismissal and reopening during the same floating session; it is not persisted until saved and does not survive leaving floating mode or quitting. Completed disclosure still resets when the board closes. No frame dismissal button was added.

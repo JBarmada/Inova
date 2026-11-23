@@ -6,8 +6,13 @@ const text = z.string().trim().min(1).max(4000);
 export const localModelSchema = z.enum(["gemma3:12b", "gemma3:4b"]);
 export const moodSchema = z.enum(["idle", "happy", "tired"]);
 export const questStatusSchema = z.enum(["proposed", "accepted", "deferred", "dismissed", "completed"]);
+const timeZone = z.string().min(1).max(100).refine((zone) => {
+  try { new Intl.DateTimeFormat("en", { timeZone: zone }); return true; } catch { return false; }
+}, "Invalid time zone.");
 export const commitmentSchema = z.object({
   id, title: text, createdAt: z.iso.datetime(),
+  deadline: z.object({ at: z.iso.datetime(), timeZone }).optional(),
+  effortMinutes: z.number().int().min(1).max(10080).optional(),
 });
 export const questSchema = z.object({
   id, commitmentId: id, title: text, reason: text,

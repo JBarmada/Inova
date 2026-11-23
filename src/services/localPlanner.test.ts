@@ -62,3 +62,12 @@ it("checks only the selected model and reports a stopped service", async () => {
   call.mockRejectedValue("Ollama is not responding. Start it or use the sample planner.");
   await expect(checkLocalModel("gemma3:4b", call as unknown as typeof invoke)).rejects.toThrow("sample planner");
 });
+
+it("passes supplied commitment constraints and rejects a quest longer than estimated total effort", async () => {
+  const detailed = { ...commitment, deadline: { at: "2026-12-01T20:00:00.000Z", timeZone: "America/Los_Angeles" }, effortMinutes: 5 };
+  const call = vi.fn().mockResolvedValue(JSON.stringify({ title: "A step", reason: "Start small", minutes: 10 }));
+  await expect(proposeLocal(detailed, initialState(), call as unknown as typeof invoke)).rejects.toThrow("estimated total effort");
+  const sent = JSON.parse(call.mock.calls[0][1].input);
+  expect(sent.commitment.deadline).toEqual(detailed.deadline);
+  expect(sent.commitment.effortMinutes).toBe(5);
+});

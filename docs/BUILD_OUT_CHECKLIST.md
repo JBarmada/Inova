@@ -55,3 +55,5 @@ November 23: current Windows release spot check confirmed expanded toy hiding, o
 November 23: a user-triggered local AI availability check now reports an installed model or stopped service without sending reflections. `npm run check` passed 98 tests, isolated Windows build passed, and both installed/stopped states were observed natively; live missing-model and Mac remain pending.
 
 November 23: completion feedback now offers an optional linked reflection. Floating drafts survive board dismissal during the same session and remain private by default; they are not persisted before saving. `npm run check` passed 100 tests; isolated Windows release and the fictional floating completion/dismiss/reopen/save path passed. Main-page reflection, muted/reduced motion and Mac remain pending.
+
+November 23: added optional local deadline/time-zone and total effort to manual commitments, supplied those constraints to local AI, and bounded sample/local proposed duration by total effort. `npm run check` passed 103 tests and isolated Windows build passed; native effort/sample path checked. Native deadline entry, scheduling/availability, DST ambiguity, and Mac remain pending.

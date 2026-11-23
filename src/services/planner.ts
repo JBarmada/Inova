@@ -8,14 +8,15 @@ export interface Planner {
 export const samplePlanner: Planner = {
   async propose(commitment, state) {
     const memory = state.memories.filter((entry) => entry.aiAllowed).at(-1);
+    const minutes = Math.min(10, commitment.effortMinutes ?? 10);
     return {
       id: newId(), commitmentId: commitment.id,
-      title: `Spend 10 minutes starting: ${commitment.title}`,
+      title: `Spend ${minutes} minutes starting: ${commitment.title}`,
       reason: memory
-        ? `Sample planner. Consider your saved reflection: ${memory.text}`
+        ? `Sample planner. Consider your saved reflection: ${memory.text} No schedule was checked.`
         : "Sample planner: try a small starting step. No schedule or AI service was consulted.",
       sourceIds: [commitment.id, ...(memory ? [memory.id] : [])],
-      minutes: 10, status: "proposed", planner: "sample",
+      minutes, status: "proposed", planner: "sample",
     };
   },
 };
