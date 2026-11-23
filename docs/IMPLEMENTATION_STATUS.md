@@ -1,5 +1,10 @@
 # Implementation Status and Handoff
 
+## Floating toy native spot check — November 23, 2026
+
+In the isolated Windows release profile, the open toy reached the expanded menu with the standalone toy hidden and no frame-dismiss button. Clicking the dog outside the panel restored the closed toy. With Dev mode off, manual dog buttons were absent; enabling it exposed Sit and mood controls below the toy, and disabling it removed them. Floating Settings Quit was used to close the test. A screenshot captured an intermediate opening frame, but there was no continuous frame recording or timing measurement; monitor-edge behavior, drag/placement, audible feedback, reduced motion, and Mac remain unverified.
+
+
 ## Local memory search — November 23, 2026
 
 The bookshelf filters locally by case-insensitive reflection text and shows an empty-results message. The search does not send records anywhere or change permissions. Book buttons include date/time and their position in the current result list for accessibility. The existing open-book style preserves line breaks. `npm run check` passed 97 tests, size/type checks and production build; Windows release compilation passed. Native visual review and Mac remain pending.
