@@ -45,7 +45,7 @@ The minimum can start with one polished dog and a few items. Multiple base dogs 
 
 Team-selected framework: Tauri 2, with Rust for the desktop core and React/TypeScript/Vite for the interface. Both Windows and Mac are required. There are three active builders; deadline December 1, 2026. The starter uses local state through one store and a browser preview adapter. No sign-in or cloud sync is implemented. Model provider, spending limit, integrations, and final reward balancing remain open.
 
-Start with [setup](SETUP.md), [architecture](ARCHITECTURE.md), [shared contracts](SHARED_CONTRACTS.md), and the [three-person plan](TEAM_PLAN.md). Tracks A, B, and C own companion, quests/AI, and wardrobe/memory respectively. Individual names remain unassigned.
+Start with [setup](SETUP.md), [architecture](ARCHITECTURE.md), [shared contracts](SHARED_CONTRACTS.md), and the [three-person plan](TEAM_PLAN.md). The README and TEAM_PLAN.md now split work into dog art, animation, items/fitting, adoption/interactions, wardrobe, desktop shell, quests/progression, AI/personalization, memories, sound/effects, and testing/release. The older A/B/C handoffs are background references. Leads are assigned per active task; individual names remain unassigned.
 
 ## Where to look next
 

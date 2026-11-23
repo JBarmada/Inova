@@ -1,5 +1,7 @@
 # Track A Companion and Desktop
 
+Historical broad-track handoff. Choose current responsibilities from [the focused team plan](../TEAM_PLAN.md); this file supplies feature context, not an exclusive assignment. Check current status and continuation handoffs before applying its older implementation assumptions.
+
 Choose one of the three builders for this track. Branch suggestion: feature/companion. Read ../SETUP.md, ../ARCHITECTURE.md, and ../SHARED_CONTRACTS.md first.
 
 ## Your complete feature

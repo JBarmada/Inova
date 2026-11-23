@@ -41,9 +41,9 @@ The main-window-only Rust quit_app command destroys the native window after savi
 
 ## Shared ownership
 
-The companion developer is the initial integration owner for App.tsx, native configuration, window controls, package dependencies, and shared styles. The quest developer owns quest domain rules and the planner. The world developer owns the item catalog and memory UI. Changes to schemas, action types, storage, or the shared reducer require coordination with the affected developers.
+Use the focused areas in [TEAM_PLAN.md](TEAM_PLAN.md). Name an active integration lead for App.tsx, native configuration, window controls, dependencies and shared styles. Quests/progression coordinates reward rules; items/fitting coordinates catalog IDs and anchors; memories and AI coordinate consent and deletion. No individual owner is assigned by this document.
 
-The integration role is a merge responsibility, not a claim that this person must author every shared change. Keep feature styles in separate files once work grows; avoid three people repeatedly editing styles.css.
+Changes to schemas, action types, storage or the shared reducer require coordination with every affected area. Integration is a review/merge responsibility, not a claim that one person authors every shared change. Keep feature styles in separate files and avoid concurrent edits to shared styles without agreement. Historical A/B/C handoffs do not override these current boundaries.
 
 ## Starter limitations
 

@@ -38,15 +38,25 @@ Run checks with `npm run check`. Build the native app without an installer using
 
 The wardrobe migrates validated older saves to schema v2 on the next successful action. Older app builds cannot read v2 saves, so avoid launching preserved worktree versions against the same desktop data. Browser preview and desktop saves are separate.
 
-## Pick your track
+## Choose a work area
 
-| Track | Feature | Handoff |
+These are focused areas to divide among people or tackle in separate sessions. With three builders, keep only a few tasks active at once; one person can cover several areas. Owners are not assigned yet.
+
+| Work area | Owns | Start here |
 | --- | --- | --- |
-| A | Adoption and desktop companion | [Start Track A](docs/tasks/A_COMPANION.md) |
-| B | Commitments and AI quests | [Start Track B](docs/tasks/B_QUESTS.md) |
-| C | Wardrobe and memory world | [Start Track C](docs/tasks/C_WORLD.md) |
+| Dog artist | Base dog, expressions, approved still poses, consistent pixel style | [Artist guide](docs/ARTIST_GUIDE.md) |
+| Animator | Transition frames, timing, breathing, and runtime pose/mood playback | [Animation handoff](docs/ANIMATION_CONTINUATION.md), [coverage table](docs/TRANSITION_TABLE.md) |
+| Item creator and fitter | Clothing/prop artwork, catalog entries, layer order, fitting across approved poses | [Item contract](docs/WARDROBE_SPEC.md), [asset record](docs/ASSETS.md) |
+| Adoption and pet interactions | Naming/selection flow, pet actions, and the events that request dog reactions | [Companion handoff](docs/tasks/A_COMPANION.md) |
+| Wardrobe interface | Inventory filters, preview, worn-item controls, equip/remove feedback | [Wardrobe handoff](docs/WARDROBE_CONTINUATION.md) |
+| Desktop shell and navigation | Floating/home UI, dragging, window placement, Settings, startup, and quit | [Architecture](docs/ARCHITECTURE.md), [startup handoff](docs/STARTUP_LOADING_HANDOFF.md) |
+| Quests and progression | Manual commitments, quest editing/lifecycle, completion, deterministic rewards | [Quest handoff](docs/tasks/B_QUESTS.md), [shared rules](docs/SHARED_CONTRACTS.md) |
+| AI and personalization | Provider connection, grounded suggestions, permitted memory context, validation and fallback | [AI requirements](docs/AGENT_REQUIREMENTS.md), [quest handoff](docs/tasks/B_QUESTS.md) |
+| Memories and bookshelf | Reflections, dated books, readable entries, memory permissions and deletion | [Memory design](docs/05-memory-bookshelf-and-world.md), [world handoff](docs/tasks/C_WORLD.md) |
+| Sound and effects | Bark/equip/book cues, reward reveals, visual feedback, mute and reduced motion | [Game feel](docs/03-game-feel.md), [asset record](docs/ASSETS.md) |
+| Testing and release | Reproduction steps, regression checks, Windows/Mac coverage, builds and demo readiness | [Testing handoff](docs/NATIVE_UI_TEST_CONTINUATION.md), [demo checks](docs/DEMO_AND_CHECKS.md) |
 
-Read the [team plan](docs/TEAM_PLAN.md) and [shared agreements](docs/SHARED_CONTRACTS.md) before editing shared files. Choose which person takes each track; names are not assigned yet.
+Bug fixing belongs to every area: the testing owner coordinates reproductions and verification, while the affected area owns the repair. Shared state, save migrations, dependencies, and merges require coordination. See the [team plan](docs/TEAM_PLAN.md) for boundaries and next deliverables. The older A/B/C handoffs remain useful background, but no longer define the work split.
 
 ## Start here
 

@@ -11,7 +11,7 @@ git clone git@github.com:JBarmada/Inova.git
 cd Inova
 ```
 
-Follow [setup](docs/SETUP.md), run `npm ci`, then `npm run desktop`. For interface work without Rust, use `npm run dev` and the browser preview. Read the [three-person plan](docs/TEAM_PLAN.md) and [shared contracts](docs/SHARED_CONTRACTS.md), then choose Track A, B, or C.
+Follow [setup](docs/SETUP.md), run `npm ci`, then `npm run desktop`. For interface work without Rust, use `npm run dev` and the browser preview. Read the [team plan](docs/TEAM_PLAN.md) and [shared contracts](docs/SHARED_CONTRACTS.md), then choose a focused work area and a small task from the current README table. The older A/B/C handoffs are background references.
 
 ## Work together
 
