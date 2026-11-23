@@ -3,7 +3,7 @@ import type { WindowLayout } from "./windowGeometry";
 
 const fake = vi.hoisted(() => ({
   position: { x: 100, y: 80 }, size: { width: 1040, height: 780 },
-  maximized: false, decorated: true, resizable: true, onTop: false,
+  maximized: false, decorated: true, resizable: true, onTop: false, scale: 1,
   saved: { version: 1 } as WindowLayout,
   rejectWrite: false,
 }));
@@ -17,7 +17,7 @@ vi.mock("@tauri-apps/api/window", () => ({
     outerPosition: async () => ({ ...fake.position }),
     innerSize: async () => ({ ...fake.size }),
     outerSize: async () => ({ ...fake.size }),
-    scaleFactor: async () => 1,
+    scaleFactor: async () => fake.scale,
     isMaximized: async () => fake.maximized,
     unmaximize: async () => { fake.maximized = false; },
     maximize: async () => { fake.maximized = true; },
@@ -25,7 +25,7 @@ vi.mock("@tauri-apps/api/window", () => ({
     setDecorations: async (value: boolean) => { fake.decorated = value; },
     setResizable: async (value: boolean) => { fake.resizable = value; },
     setPosition: async (value: { x: number; y: number }) => { fake.position = { ...value }; },
-    setSize: async (value: { width: number; height: number }) => { fake.size = { ...value }; },
+    setSize: async (value: { width: number; height: number }) => { fake.size = { width: value.width * fake.scale, height: value.height * fake.scale }; },
     onMoved: async () => () => undefined,
     onResized: async () => () => undefined,
     onCloseRequested: async () => () => undefined,
@@ -40,9 +40,10 @@ vi.mock("./windowLayoutStorage", () => ({
 }));
 
 beforeEach(() => {
+  vi.unstubAllGlobals();
   vi.resetModules();
   Object.assign(fake, { position: { x: 100, y: 80 }, size: { width: 1040, height: 780 },
-    maximized: false, decorated: true, resizable: true, onTop: false, saved: { version: 1 }, rejectWrite: false });
+    maximized: false, decorated: true, resizable: true, onTop: false, scale: 1, saved: { version: 1 }, rejectWrite: false });
 });
 
 it("keeps home and floating positions independent through repeated switches", async () => {
@@ -109,4 +110,31 @@ it("widens for the quest board and collapses back to the dog's compact width", a
   expect(fake.size).toEqual({ width: 384, height: 650 });
   await desktop.fitFloatingSize(248, 208);
   expect(fake.size).toEqual({ width: 248, height: 208 });
+});
+
+it("fits zoomed CSS content into the native window without clipping", async () => {
+  vi.stubGlobal("devicePixelRatio", 1.5);
+  const desktop = await import("./desktop");
+  await desktop.setPetMode(true);
+  await desktop.fitFloatingSize(384, 600);
+  expect(fake.size).toEqual({ width: 576, height: 900 });
+  await desktop.setPetMode(false);
+  expect(fake.size).toEqual({ width: 1040, height: 780 });
+});
+
+it("does not apply OS display scaling twice when fitting the board", async () => {
+  fake.scale = 2;
+  vi.stubGlobal("devicePixelRatio", 2);
+  const desktop = await import("./desktop");
+  await desktop.setPetMode(true);
+  await desktop.fitFloatingSize(384, 300);
+  expect(fake.size).toEqual({ width: 768, height: 600 });
+});
+
+it("keeps the compact window fitted when the webview is zoomed out", async () => {
+  vi.stubGlobal("devicePixelRatio", 0.8);
+  const desktop = await import("./desktop");
+  await desktop.setPetMode(true);
+  await desktop.fitFloatingSize(248, 208);
+  expect(fake.size).toEqual({ width: 199, height: 167 });
 });

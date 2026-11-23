@@ -39,7 +39,7 @@ For every asset added, record its repository path, creator or source URL, licens
 | public/inova.svg | Original code-authored placeholder for Inova | Created for this project | No | 32 by 32 logical pixel grid; displayed at larger scale |
 | src-tauri/icons desktop files | Generated from public/inova.svg by Tauri icon CLI | Derived from the original project placeholder | No | Regenerate with npm run tauri icon public/inova.svg |
 | src/styles-dog.css equipment shapes | Original project CSS | Created for this project | No | Temporary notebook/bandana shapes |
-| src/services/audio.ts | Original synthesized tones | Created for this project | No | Click and reward only; no recorded bark |
+| src/services/audio.ts | Original synthesized tones | Created for this project | No | Click, reward, and pitch-swept toy squeak; no recorded bark |
 | public/art/quest-toy-icon-v1.png | Built-in image generation, Inova design conversation | Generated for this project; no third-party asset license asserted | Yes | Transparent golden rubber bone with teal/orange rope; see QUEST_TOY_ART.md |
 | public/art/quest-toy-frame-v1.png | Built-in image generation, Inova design conversation | Generated for this project; no third-party asset license asserted | Yes | Blank cream quest board, golden bone corners, braided rope; responsive nine-slice border |
 | art/pocket-pup/source/concept-board.png | Inova design conversation; user selected Pocket Pup | Generated for this project | Yes | Preserved source for reproducible conversion |

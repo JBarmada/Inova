@@ -1,6 +1,6 @@
 let context: AudioContext | undefined;
 
-export function playCue(kind: "click" | "reward", muted: boolean): void {
+export function playCue(kind: "click" | "reward" | "squeak", muted: boolean): void {
   if (muted) return;
   try {
     context ??= new AudioContext();
@@ -8,14 +8,21 @@ export function playCue(kind: "click" | "reward", muted: boolean): void {
     const oscillator = context.createOscillator();
     const gain = context.createGain();
     const time = context.currentTime;
-    oscillator.type = "square";
-    oscillator.frequency.setValueAtTime(kind === "reward" ? 660 : 330, time);
-    oscillator.frequency.setValueAtTime(kind === "reward" ? 990 : 220, time + 0.06);
+    oscillator.type = kind === "squeak" ? "triangle" : "square";
+    if (kind === "squeak") {
+      oscillator.frequency.setValueAtTime(700, time);
+      oscillator.frequency.exponentialRampToValueAtTime(1850, time + 0.07);
+      oscillator.frequency.exponentialRampToValueAtTime(850, time + 0.24);
+    } else {
+      oscillator.frequency.setValueAtTime(kind === "reward" ? 660 : 330, time);
+      oscillator.frequency.setValueAtTime(kind === "reward" ? 990 : 220, time + 0.06);
+    }
     gain.gain.setValueAtTime(0.035, time);
-    gain.gain.exponentialRampToValueAtTime(0.001, time + 0.16);
+    const duration = kind === "squeak" ? 0.25 : 0.16;
+    gain.gain.exponentialRampToValueAtTime(0.001, time + duration);
     oscillator.connect(gain).connect(context.destination);
     oscillator.start(time);
-    oscillator.stop(time + 0.17);
+    oscillator.stop(time + duration + 0.01);
   } catch {
     // Sound is supplementary; feedback remains visible if audio is unavailable.
   }

@@ -11,7 +11,7 @@ export function useFloatingLayout(floating: boolean) {
     const root = element.current;
     let disposed = false;
     if (isTauri()) void currentMonitor().then((monitor) => {
-      if (monitor && !disposed) root.style.setProperty("--float-work-height", `${monitor.workArea.size.height / monitor.scaleFactor}px`);
+      if (monitor && !disposed) root.style.setProperty("--float-work-height", `${monitor.workArea.size.height / (window.devicePixelRatio || monitor.scaleFactor)}px`);
     }).catch(console.error);
     let frame = 0;
     function measure() {
@@ -25,9 +25,11 @@ export function useFloatingLayout(floating: boolean) {
     }
     const observer = new ResizeObserver(measure);
     observer.observe(element.current);
+    window.addEventListener("resize", measure);
     measure();
     return () => {
       observer.disconnect();
+      window.removeEventListener("resize", measure);
       disposed = true;
       cancelAnimationFrame(frame);
       document.documentElement.classList.remove("pet-mode");

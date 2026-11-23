@@ -109,8 +109,9 @@ export function fitFloatingSize(width: number, height: number): Promise<void> {
     if (!floating) return;
     const window = getCurrentWindow();
     const [size, scale] = await Promise.all([window.innerSize(), window.scaleFactor()]);
-    const target = Math.max(FLOAT_HEIGHT, Math.ceil(height));
-    const targetWidth = Math.max(FLOAT_WIDTH, Math.ceil(width));
+    const cssToLogical = (globalThis.devicePixelRatio || scale) / scale;
+    const target = Math.ceil(Math.max(FLOAT_HEIGHT, height) * cssToLogical);
+    const targetWidth = Math.ceil(Math.max(FLOAT_WIDTH, width) * cssToLogical);
     if (Math.abs(size.height / scale - target) > 1 || Math.abs(size.width / scale - targetWidth) > 1) {
       await window.setSize(new LogicalSize(targetWidth, target));
       const [position, outer, monitors] = await Promise.all([window.outerPosition(), window.outerSize(), availableMonitors()]);

@@ -21,11 +21,13 @@ Shared starter checkpoint: November 22, 2026. Three builders; Windows and Mac; d
 - Floating mode includes a generated golden bone/teal rope toy. Clicking it expands an illustrated quest board showing every non-dismissed quest, with proposed, accepted, deferred, and completed states kept distinct. The frame grows with its contents; the list scrolls internally at the screen-height limit.
 - The toy board's commitment field and check button save a manual commitment and propose a sample quest. Each proposed/deferred quest has a toy-shaped Fetch action to accept it; accepted quests can be completed there using the existing reward rules. Display copy uses adventure language without changing stored records.
 - Expanded floating windows fit both width and height, and clamp their placement back into the monitor work area after resizing. Escape/close collapses the board. Keyboard focus, visible feedback, and the shared sound setting remain available.
+- Floating dog and toy are centered in both compact and expanded mode, with the toy below the chin. Native content fitting converts CSS pixels through the webview pixel ratio and OS scale so zoom does not clip the board or leave an oversized compact window; resize events remeasure the content. The frame's painting stays inside its own bounds.
+- Toy open/close plays a short synthesized rubber-toy squeak, honoring the existing mute setting. This is synthesized sound, not a recorded squeaker.
 - Feature folders and three task handoffs, with shared agreements and Windows/Mac CI configuration.
 
 ## Verified in this setup
 
-- `npm run check`: size checker, TypeScript, eighteen domain/settings/window-layout/toy tests, and frontend production build passed in the isolated window-layout worktree.
+- `npm run check`: size checker, TypeScript, twenty-one domain/settings/window-layout/toy tests, and frontend production build passed in the isolated window-layout worktree.
 - `npm run tauri build -- --no-bundle`: Windows release compilation passed and produced src-tauri/target/release/inova.exe.
 - Browser preview UI: adoption, adding a commitment, proposing/accepting/completing a sample quest, unlocking/equipping the notebook, saving/opening a dated reflection, and retaining the adopted/equipped dog after reload were observed.
 - Browser controls check: Home/Settings icons and compact status render; enabling dev mode reveals mood controls, disabling it hides them, and the sound setting changes independently. Native layout still needs platform runtime confirmation.

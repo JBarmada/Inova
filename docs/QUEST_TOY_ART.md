@@ -6,6 +6,8 @@ Implemented in the isolated `fix/window-layout` branch, `.worktrees/window-layou
 
 The floating dog carries a small gold-and-teal toy with an active quest count. Clicking it opens an illustrated adventure board. All non-dismissed quests appear, with proposed/deferred quests offering a toy-shaped Fetch action and accepted quests offering completion. Completed adventures remain visible. The board grows with more rows until the monitor-height allowance requires internal list scrolling. Home and floating placement remain separate.
 
+Follow-up layout: center the dog over the board in both widths, with the toy under its chin. Toy clicks play a synthesized squeak using the existing mute setting. Native sizing accounts for webview zoom independently of OS display scale, and the panel clips decorative painting to its own bounds. The screenshot report alone does not establish which native scaling/rendering condition caused the original clipping; verify this revision in the desktop app.
+
 At the top, type a commitment and press check (or Enter). This saves the commitment and proposes a deterministic sample quest. Accepting that proposal is a separate, explicit toy action. The existing reducer validates transitions, persistence, and rewards; no new persisted schema is introduced. Quest titles are formatted for display only. This is not live AI.
 
 ## Assets and generation briefs
@@ -19,7 +21,7 @@ The current frame uses CSS border-image with fixed-size corners and stretched ra
 
 ## Validation and review
 
-- `npm run check`: 18 tests, TypeScript, source-size limits, and Vite production build passed.
+- `npm run check`: 21 tests, TypeScript, source-size limits, and Vite production build passed. Native mocks cover zoom in, zoom out, and avoiding double OS scaling.
 - `npm run tauri build -- --no-bundle`: Windows release compilation passed.
 - Browser: three fictional quests shown together; added a fourth from the composer, then accepted it with its toy action. Reviewed the expanded frame, small toy, and internal list scrolling.
 - Native runtime placement/resizing and Mac appearance still require manual checks. Moving between monitors with different work heights while already floating also needs review.
