@@ -8,6 +8,7 @@ Updated November 22, 2026. The repository now includes a shared starter as well 
 
 - [AI context](AI_CONTEXT.md) — compact briefing for a teammate's assistant.
 - [Implementation status](IMPLEMENTATION_STATUS.md) — what exists, what is missing, and next steps.
+- [Startup timing and loader continuation prompt](STARTUP_LOADING_HANDOFF.md) — current implementation, measurement limits, and instructions for the next AI.
 - [Repository contributor instructions](../AGENTS.md) and [team workflow](../CONTRIBUTING.md).
 
 ## Product reading order
