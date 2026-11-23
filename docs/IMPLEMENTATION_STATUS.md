@@ -6,6 +6,10 @@ Main integration checkpoint: November 23, 2026. The user approved the reviewed c
 
 ## Implemented starter
 
+- Wardrobe UI refinement: top clear-outfit icon; side-by-side human Stand/Sit icons; All/Hat/Glasses/Socks/Body inventory filters; hanger navigation distinct from the T-shirt category; icon wear/remove/locked/worn states. The normal transition selector and implementation paragraph are removed. Icon rules are recorded project-wide in AGENTS.md. No inventory schema/reward changes in this refinement.
+
+- Icon refinement verification: `npm run check` passed 67 source-file size checks, TypeScript, all 45 tests, and frontend production build. Windows release compilation passed. Browser review verified all five filters, both poses, Enter/Space activation, and the narrow layout; [current screenshot](evidence/wardrobe-slots/icon-controls.jpg). Native Windows/Mac UI runtime remains unverified for this branch.
+
 - November 23 wardrobe worktree (`codex/wardrobe-slots`, rebased onto main `2dd9b1e`): four simultaneous worn slots, pose-aware SVG placeholders, ten catalog entries, three developer-gated fictional outfit scenarios, individual removal/clear-all, and schema-v1-to-v2 migration. Selected Pocket Pup exports and existing pose playback are integrated without replacing main's quest toy/navigation/window-layout changes, including newest-first/completed quest grouping. See [contract and test steps](WARDROBE_SPEC.md).
 
 - Outside dismissal tests the actual toy button and board separately, not their full-width layout wrapper. Empty space beside the toy and the gap above the board now count as outside. The wrapper is not text-selectable, while board text remains selectable.

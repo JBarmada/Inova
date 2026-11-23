@@ -1,5 +1,11 @@
 .wardrobe-preview { display: flex; align-items: center; gap: 24px; flex-wrap: wrap; }
-.wardrobe-preview select { padding: 10px; background: #fffdf5; border: 2px solid #b6aa8d; color: inherit; }
+.wardrobe-heading { display: flex; align-items: center; justify-content: space-between; gap: 16px; }
+.wardrobe-filters, .wardrobe-poses { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+.wardrobe-filters { margin-bottom: 12px; }
+.wardrobe-icon-button { display: inline-grid; place-items: center; width: 44px; height: 44px; padding: 8px; flex: 0 0 auto; }
+.wardrobe-icon-button[aria-pressed="true"] { background: #d6e6bd; border-color: #6a7f4c; box-shadow: inset 0 0 0 2px #93a875; }
+.wardrobe-icon-button:focus-visible { outline: 3px solid #6a7f4c; outline-offset: 3px; }
+.equipped-slot-icon { display: inline-flex; color: #77674d; }
 .equipment-slots { display: grid; grid-template-columns: repeat(auto-fit, minmax(155px, 1fr)); gap: 12px; margin: 20px 0; }
 .equipment-slots article { border: 2px solid #c5b795; padding: 12px; background: #fff8e8; }
 .equipment-slots h3, .wardrobe-category > h3 { text-transform: capitalize; }

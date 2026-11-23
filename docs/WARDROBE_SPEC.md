@@ -26,7 +26,9 @@ Notebook and bandana retain their existing IDs and quest rewards. To preserve th
 
 Placeholder layer order: body, socks, glasses, hat. Glasses track the eye line; hats sit on the head; body markers sit on the chest; socks track visible feet. Sitting shifts head/body anchors up three pixels, tucking up two. Happy/tired use their standing-shaped art rather than stale seated anchors. Final garment fitting, occlusion masks, and alternate breeds remain future work. A missing dog image shows an explicit fallback and suppresses misleading wearable layers.
 
-Wardrobe's pose selector previews neutral-expression standing, sitting, and the experimental tuck, independently of the pet's current mood. Companion retains the shared mood and adds existing Pocket Pup pose playback. Idle sitting uses an eight-second timer; the tuck is a 160ms art study, not a newly approved animation. Reduced motion skips it. Existing toy, window-layout, and navigation code from main remain intact.
+Wardrobe previews neutral-expression standing and sitting through two side-by-side human pose icons, independently of the pet's current mood. Draft transition poses are not exposed in the wardrobe picker or scenario previews. Companion retains the shared mood and existing Pocket Pup pose playback. Idle sitting uses an eight-second timer; the tuck is a 160ms art study, not a newly approved animation. Reduced motion skips it. Existing toy, window-layout, and navigation code from main remain intact.
+
+The five icon filters are All items (four squares), Hats, Glasses, Socks, and Body clothing (T-shirt). All preserves the grouped inventory layout; a category shows only that clothing category, leaving the current outfit untouched. Wardrobe navigation uses a hanger, deliberately distinct from the T-shirt category. Clear outfit is a hanger/remove icon beside the page heading. Pose, filter, wear, worn, lock, and per-slot remove controls use accessible names and tooltips, with visible selected/focus states. Item names remain readable text. The earlier implementation/slot-explanation paragraph is removed from the screen. See AGENTS.md for project-wide icon rules.
 
 ## Persistence and compatibility
 
@@ -40,7 +42,7 @@ From this worktree run `npm ci`, then `npm run dev -- --port 5194`. Open `http:/
 
 1. Adopt a fictional dog. In Settings enable Dev mode, then open Wardrobe.
 2. Expand Developer wardrobe scenarios. Applying one explicitly grants its prototype items locally and saves its outfit; it does not create quests, memories, or reward history.
-3. Apply Rainy study walk: all four slots are worn. Compare Standing, Sitting, and Transition study. Inspect the nine static scenario previews for anchor differences.
+3. Apply Rainy study walk: all four slots are worn. Compare the Stand and Sit icons. Inspect the six static scenario previews for anchor differences. Click each of the five category filters; only the inventory category changes, and All items restores all four groups.
 4. Apply Cozy library day, then wear Trail cap: only the hat changes.
 5. Remove glasses or socks; the other slots stay equipped. Clear outfit; owned items remain available to equip again.
 6. Reload: ownership and equipment persist. Disable Dev mode: the scenario controls disappear and the current outfit remains. Muting sound still leaves visible and accessible feedback.

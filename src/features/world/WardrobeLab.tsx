@@ -11,7 +11,7 @@ export function WardrobeLab({ state }: { state: AppState }) {
     <p>Fictional test outfits. Applying one grants these prototype items on this device and saves the outfit. Quest rewards and memories stay unchanged.</p>
     <div className="wardrobe-scenarios">{wardrobeScenarios.map((scenario) => <article key={scenario.id}>
       <h3>{scenario.name}</h3><p>{scenario.description}</p>
-      <div className="scenario-poses">{(["standing", "tucking", "sitting"] as const).map((pose) => <figure key={pose}>
+      <div className="scenario-poses">{(["standing", "sitting"] as const).map((pose) => <figure key={pose}>
         <DogSprite state={{ ...state, pet: { ...state.pet, mood: "idle" }, equipment: scenario.equipment }} pose={pose} />
         <figcaption>{pose}</figcaption></figure>)}</div>
       <button disabled={busy} onClick={() => void run(() => dispatch({ type: "wardrobe-scenario", id: scenario.id }), `${scenario.name} applied.`)}>Apply {scenario.name}</button>
