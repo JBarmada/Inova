@@ -1,5 +1,9 @@
 # Implementation Status and Handoff
 
+## Native permission revocation check — November 23, 2026
+
+In the isolated Windows profile, a fictional perspective memory was explicitly allowed, included in a sample quest, and then disallowed. The persisted quest retained its commitment source but removed the memory source and replaced the copied rationale with a removal notice; the memory remained present with permission off. This verifies the sample path only, not every local-model or external integration scenario.
+
 ## Windows dragging check — November 23, 2026
 
 In the isolated Windows test profile, automated drags on the floating dog did not change the persisted floating position, even after focusing it; the same automation moved the decorated home title bar and saved its new position. This does not distinguish an application drag failure from a timing limitation in the synthetic gesture, because the floating drag is initiated asynchronously by Tauri. Treat floating dragging and placement persistence as unverified and investigate with a real mouse or a controlled held-pointer test before release. The test profile was quit normally.

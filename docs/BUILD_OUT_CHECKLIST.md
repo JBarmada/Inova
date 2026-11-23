@@ -79,3 +79,5 @@ November 23: added on-demand, month-labeled sample exploration ideas using an ex
 November 23: added a user-authored perspective exercise, optionally saved as a private memory. `npm run check` passed 118 tests; isolated Windows release compilation and fictional native save/read/permission-off check passed. No AI discussion or factual claims are generated; Mac remains pending.
 
 November 23: synthetic Windows gestures moved and saved the decorated home window, but repeated floating-dog drags did not change its saved position. Tauri starts floating dragging asynchronously, so gesture timing versus an app defect remains unresolved. Test with a real mouse or held-pointer automation before claiming floating drag/placement works.
+
+November 23: native fictional sample-planner privacy check allowed a memory, generated a sourced quest, and revoked permission; the saved quest dropped the memory source and copied rationale while retaining the commitment source. The memory remained with permission off.
