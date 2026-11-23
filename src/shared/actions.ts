@@ -17,6 +17,7 @@ export type Action =
   | { type: "unequip"; slot: WearableSlot }
   | { type: "wardrobe-scenario"; id: WardrobeScenarioId }
   | { type: "add-memory"; memory: Memory }
+  | { type: "edit-memory"; id: string; text: string }
   | { type: "memory-permission"; id: string; allowed: boolean }
   | { type: "delete-memory"; id: string };
 

@@ -2,7 +2,7 @@
 
 ## Build-out worktree — November 23, 2026
 
-The isolated build-out branch adds editable titles for proposed, accepted, and deferred quests; completed and dismissed quests remain unchanged. Existing IDs, evidence, rewards, and saved schema are preserved. See [build-out checklist](BUILD_OUT_CHECKLIST.md) for pending work and baseline.
+The isolated build-out branch adds memory editing with stale quest rationale/source removal on changed content, and editable titles for proposed, accepted, and deferred quests; completed and dismissed quests remain unchanged. Existing IDs, evidence, rewards, and saved schema are preserved. See [build-out checklist](BUILD_OUT_CHECKLIST.md) for pending work and baseline.
 
 ## Dog control gate and menu dismissal correction — November 23, 2026
 

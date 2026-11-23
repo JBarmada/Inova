@@ -34,6 +34,15 @@ function apply(state: AppState, action: Action): AppState {
     case "add-memory":
       if (state.memories.some((entry) => entry.id === action.memory.id)) return state;
       return { ...state, memories: [...state.memories, action.memory] };
+    case "edit-memory": {
+      const text = action.text.trim();
+      if (!text || text.length > 4000) throw Error("Memory must contain 1–4000 characters.");
+      const memory = state.memories.find((entry) => entry.id === action.id);
+      if (!memory) throw Error("Memory no longer exists.");
+      if (memory.text === text) return state;
+      const cleared = forgetReference(state, action.id);
+      return { ...cleared, memories: cleared.memories.map((entry) => entry.id === action.id ? { ...entry, text } : entry) };
+    }
     case "memory-permission":
       return { ...forgetReference(state, action.allowed ? "" : action.id), memories: state.memories.map((entry) => entry.id === action.id ? { ...entry, aiAllowed: action.allowed } : entry) };
     case "delete-memory": return { ...forgetReference(state, action.id), memories: state.memories.filter((entry) => entry.id !== action.id) };

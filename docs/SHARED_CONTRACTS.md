@@ -72,3 +72,7 @@ Shared dispatch produces a click or reward tone after successful persistence. Lo
 All manual dog pose, mood, animation and future direct controls must live inside `DogDeveloperControls`, whose shared gate requires adoption and settings.devMode in home and floating mode. PetPanel's normal-mode render tests reject any new dog buttons outside this gate. Automatic posture/face/breathing behavior, adoption, navigation, quests, equipment and wardrobe-only previews retain their existing behavior.
 
 The floating controls follow the toy/menu in layout. Opening the toy hides its standalone trigger after a stretch transition. Outside clicks, focus loss and Escape retract the menu; no close/minimize/collapse button belongs on the frame. Escape restores toy focus; outside clicks preserve their target. The board render test forbids a redundant dismissal button, and outside-dismiss tests protect inside/outside targeting, focus-loss dismissal and listener cleanup. These run in `npm run check`. Preserve stable canvas width, reduced motion and mute. Animation phase is local UI state, not persisted pet or quest state.
+
+## Editing quest and memory text
+
+Quest titles can be edited until completion or dismissal; editing retains IDs, status, source evidence, and rewards. Memory edits retain the entry ID, date, permission, and quest link. A changed memory invalidates copied quest rationale and removes that memory source ID, matching the revocation/deletion cleanup boundary. Unchanged text preserves references.
