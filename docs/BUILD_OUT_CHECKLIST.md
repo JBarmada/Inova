@@ -15,3 +15,5 @@ Worktree: `.worktrees/inova-complete`, branch `codex/inova-complete`, based on `
 Each feature requires observable acceptance and recorded validation. Distinguish current branch results from work on other branches. Open item: the primary checkout's fitted animation changes are uncommitted and may still be under active review.
 
 November 23: `npm run check` passed 76 tests, size/type checks and production build after quest and memory editing. Windows/Mac runtime walkthrough and persistence checks for these changes remain outstanding.
+
+Windows release compilation (`npm run tauri build -- --no-bundle`) passed in this worktree after the editing increments. Native interaction and Mac runtime remain unverified.
