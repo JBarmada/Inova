@@ -16,7 +16,7 @@
 .floating .reactions { margin: 4px 0; gap: 6px; }
 .floating .reactions button { border-width: 1px; box-shadow: 1px 1px #d4c6a7; font-size: 10px; padding: 3px 7px; }
 .floating .hover-reveal { opacity: 0; visibility: hidden; pointer-events: none; transition: opacity .12s ease, visibility 0s linear .18s; }
-.floating:has(.dog-stage:hover, .companion-controls:hover, .reactions:hover, .status-wrap:hover, :focus-visible, .companion-settings) .hover-reveal { opacity: 1; visibility: visible; pointer-events: auto; transition-delay: 0s; }
+.floating:has(.pet-panel:hover, .companion-controls:hover, .reactions:hover, .status-wrap:hover, :focus-visible, .companion-settings) .hover-reveal { opacity: 1; visibility: visible; pointer-events: auto; transition-delay: 0s; }
 .floating .dog-stage:focus-visible { outline: 1px dashed #9a8867; outline-offset: -3px; }
 .floating .pet-panel { position: relative; z-index: 0; }
 .bone-quest-wrap { position: relative; display: flex; justify-content: center; margin: -2px 0 4px; z-index: 3; }
