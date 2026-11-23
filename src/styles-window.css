@@ -1,0 +1,6 @@
+html.pet-mode, html.pet-mode body, html.pet-mode #root { width: 100%; height: 100%; margin: 0; overflow: hidden; background: transparent; }
+.floating { width: 100%; height: auto; min-height: 0; overflow: hidden; }
+.floating .dog-stage { height: 160px; min-height: 160px; }
+.floating .bone-quest-wrap { position: static; display: block; margin: 0; }
+.floating .bone-toy { position: absolute; left: calc(50% + 48px); top: 88px; }
+.floating .bone-quest-box { position: relative; left: auto; top: auto; width: 100%; max-height: 240px; overflow: auto; margin: 8px 0; overflow-wrap: anywhere; }

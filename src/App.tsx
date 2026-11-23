@@ -8,6 +8,7 @@ import { WorldPanel } from "./features/world/WorldPanel";
 import { playCue } from "./services/audio";
 import { CompanionControls } from "./features/companion/CompanionControls";
 import { PixelStatus } from "./features/companion/PixelStatus";
+import { useFloatingLayout } from "./features/companion/useFloatingLayout";
 
 const tabs = ["companion", "quests", "world"] as const;
 type Tab = typeof tabs[number];
@@ -16,6 +17,7 @@ export function App() {
   const state = useInova();
   const [tab, setTab] = useState<Tab>("companion");
   const [floating, setFloating] = useState(false);
+  const appElement = useFloatingLayout(floating);
   const { run, message, busy } = useAction();
   async function toggleFloating() {
     await setPetMode(!floating);
@@ -30,7 +32,7 @@ export function App() {
     if (floating) void run(async () => { await toggleFloating(); setTab("companion"); }, "");
     else selectTab("companion");
   }
-  return <main className={floating ? "app floating" : "app"}>
+  return <main ref={appElement} className={floating ? "app floating" : "app"}>
     {!floating && <header className="masthead"><div><p className="eyebrow">A LITTLE GROWTH, TOGETHER</p>
       <h1>Inova<span> shared starter</span></h1></div>
       <button disabled={busy || !state.pet.adopted} onClick={() => void run(toggleFloating, "")}>Float my dog ↗</button>

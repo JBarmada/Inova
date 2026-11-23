@@ -1,5 +1,6 @@
 @import url("./styles-dog.css");
 @import url("./styles-companion.css");
+@import url("./styles-window.css");
 
 :root { font-family: ui-monospace, "Cascadia Code", monospace; color: #302e28; background: transparent; font-synthesis: none; }
 * { box-sizing: border-box; }

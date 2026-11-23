@@ -6,6 +6,7 @@ Shared starter checkpoint: November 22, 2026. Three builders; Windows and Mac; d
 
 - Tauri 2/Rust desktop shell with React/TypeScript/Vite interface and locked npm/Cargo dependencies.
 - One window with normal home and compact transparent always-on-top mode controls; native drag-region markup.
+- Isolated layout fix: separate persistent home/floating geometry, home size/maximized restoration, monitor work-area clamping, and content-fitted floating height. Floating page scrollbars are suppressed and the quest popup is kept within the window's width.
 - Adoption/name, simple selectable moods, original placeholder dog art, and separate equipment shapes.
 - Manual commitment entry and a labeled deterministic sample Planner interface.
 - Quest proposal, acceptance, deferral, dismissal, and completion.
@@ -22,7 +23,7 @@ Shared starter checkpoint: November 22, 2026. Three builders; Windows and Mac; d
 
 ## Verified in this setup
 
-- `npm run check`: size checker, TypeScript, eight domain/settings tests, and frontend production build passed.
+- `npm run check`: size checker, TypeScript, fifteen domain/settings/window-layout tests, and frontend production build passed in the isolated window-layout worktree.
 - `npm run tauri build -- --no-bundle`: Windows release compilation passed and produced src-tauri/target/release/inova.exe.
 - Browser preview UI: adoption, adding a commitment, proposing/accepting/completing a sample quest, unlocking/equipping the notebook, saving/opening a dated reflection, and retaining the adopted/equipped dog after reload were observed.
 - Browser controls check: Home/Settings icons and compact status render; enabling dev mode reveals mood controls, disabling it hides them, and the sound setting changes independently. Native layout still needs platform runtime confirmation.
@@ -35,7 +36,7 @@ Shared starter checkpoint: November 22, 2026. Three builders; Windows and Mac; d
 - The GitHub CLI token on the initial workstation is invalid, so authenticated Actions inspection is unavailable; SSH Git access works.
 - No live AI, credentials, scheduling engine, assignment/calendar/grade integration, cloud sync, or sign-in.
 - No recorded bark, final sprite set, multiple adoptable variants, mature animation, dedicated book/door audio, or full item reveal sequence.
-- No quest editing, memory editing, multiple equipment slots, click-through, exact window-position restore, or spooky-mode mechanics yet.
+- No quest editing, memory editing, multiple equipment slots, click-through, or spooky-mode mechanics yet. New placement restoration and popup sizing still need hands-on Windows/Mac confirmation.
 - The bone toy is CSS placeholder art and the quest popup is read-only; quest actions still happen on the full quests screen.
 - Desktop stores are plaintext. Browser preview and desktop data are separate; concurrent preview tabs/processes are outside the starter's state model.
 

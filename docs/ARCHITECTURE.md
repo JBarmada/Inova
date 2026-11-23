@@ -40,7 +40,9 @@ The integration role is a merge responsibility, not a claim that this person mus
 
 ## Starter limitations
 
-Transparency does not imply click-through. Transparent padding can still intercept desktop clicks; selective click-through and full-screen/virtual-desktop behavior need platform testing and further work. Floating mode currently changes the same window size and does not restore its prior exact position or dimensions. Its control area can scroll if content exceeds the compact window.
+Transparency does not imply click-through. Transparent padding can still intercept desktop clicks; selective click-through and full-screen/virtual-desktop behavior need platform testing and further work. Home and floating placement are saved independently in window-layout.json, including normal home size and maximized state. Move/resize events are debounced and placement is saved before mode switches and graceful close. Startup restores home geometry; entering floating mode restores its separate remembered position.
+
+Floating mode starts at 248 by 208 logical pixels and fits its height to actual content. A dedicated stylesheet removes page scrollbars only in floating mode. The quest popup remains within the floating width and joins the layout while open; exceptionally long popup text may scroll inside its own panel. Remembered window positions are clamped back to an available monitor work area if necessary. Home mode retains ordinary page scrolling.
 
 The sample planner is deterministic and includes only explicitly allowed memories in its context. There is no AI request, model credential, RAG index, or background scheduler. Future live requests belong behind a Rust command/provider boundary, not a secret exposed through VITE_ variables.
 
