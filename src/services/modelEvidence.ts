@@ -8,7 +8,7 @@ export function plausibleDate(date: string, evidence: string): boolean {
 }
 
 export function plausibleEffort(minutes: number, evidence: string): boolean {
-  const matches = [...evidence.toLowerCase().matchAll(/\b(\d+|one|two|three|four|five|six|seven|eight|nine|ten|half)\s*(hours?|hrs?|minutes?|mins?)\b/g)];
+  const matches = [...evidence.toLowerCase().matchAll(/\b(\d+|one|two|three|four|five|six|seven|eight|nine|ten|half)\s*(hours?|hrs?|h|minutes?|mins?)\b/g)];
   if (!matches.length) return true;
   const total = matches.reduce((sum, [, amount, unit]) => sum + (numbers[amount] ?? Number(amount)) * (unit.startsWith("h") ? 60 : 1), 0);
   return total === minutes;

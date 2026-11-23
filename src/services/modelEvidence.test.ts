@@ -8,6 +8,8 @@ it("rejects a weekday that conflicts with the suggested date", () => {
 it("checks recognizable effort quantities and leaves ambiguous wording for review", () => {
   expect(plausibleEffort(120, "about two hours")).toBe(true);
   expect(plausibleEffort(2, "about two hours")).toBe(false);
+  expect(plausibleEffort(120, "2h")).toBe(true);
+  expect(plausibleEffort(2, "2h")).toBe(false);
   expect(plausibleEffort(90, "one hour and 30 minutes")).toBe(true);
   expect(plausibleEffort(30, "a short while")).toBe(true);
 });

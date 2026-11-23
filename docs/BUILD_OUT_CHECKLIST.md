@@ -8,7 +8,7 @@ Update this table after each meaningful increment with its actual status, remain
 
 | Area | Current status | Remaining acceptance or dependency |
 | --- | --- | --- |
-| Quest entry | Implemented: one shared input, local proposal or sample labeled during review and after saving, editable quests, optional detail review. | Visually test the review and date picker in desktop and floating mode; check model omissions and corrections with fictional inputs. |
+| Quest entry | Implemented: one shared input, local proposal or sample labeled during review and after saving, editable quests, optional detail review, and recognition of abbreviated hour estimates. | Visually test the review and date picker in desktop and floating mode; check model omissions and corrections with fictional inputs. |
 | Rewards and reflections | Implemented: distinct quest states, duplicate-safe demo rewards, visible reveals, linked editable memories and permission controls. | Run the complete save/restart/revoke/delete and duplicate-reward flow with fictional data in the integrated native build. Final reward balancing is open. |
 | Pocket Pup animations | Integrated for testing: 20 clips, automatic sleep/wake and selected reactions, Dev-mode selector. Two source/atlas pairs were inspected statically. | Review every clip, timing and wearable fit in the running app; confirm visual approval and asset provenance before release. Preserve the original checkout. |
 | Floating companion and toy | Implemented: transparent window, toy expansion, outside-click/focus-loss/Escape dismissal, Dev-mode-gated dog controls. | Verify drag with a real mouse, screen-edge placement, restart, resizing and continuous transition timing. The combined build has not had a complete native visual pass. |
@@ -122,3 +122,5 @@ November 23: date-only review now has a rendering regression test confirming tha
 November 23: the no-dismissal-button regression now renders the actual shared composer in the toy board. It checks the frame header and empty-board button count, and outside-click/focus-loss tests remain in `npm run check`. The full check passed 155 tests.
 
 November 23: the missing-detail review labels a sample fallback before saving. `npm run check` passed 155 tests and all 20 atlas checks; native visual review remains pending.
+
+November 23: quest detail review recognizes abbreviated hour estimates such as 2h; npm run check passed 155 tests and the production build. Native review remains pending.
