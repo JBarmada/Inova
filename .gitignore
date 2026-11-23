@@ -1,0 +1,40 @@
+# Credentials and machine-specific settings
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+credentials.json
+token.json
+.aws/
+
+# Dependencies and generated outputs
+node_modules/
+.venv/
+venv/
+__pycache__/
+*.py[cod]
+dist/
+build/
+coverage/
+.pytest_cache/
+.next/
+target/
+*.log
+
+# Editor and operating-system files
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+*.swp
+
+# Local application data and private exports
+local-data/
+private-data/
+secrets/
+*.db
+*.db-shm
+*.db-wal
+*.sqlite
+*.sqlite3
