@@ -1,5 +1,10 @@
 # Implementation Status and Handoff
 
+## Windows startup measurements — November 23, 2026
+
+Three sequential isolated release launches used the fictional `com.inova.buildout.verify` profile and fresh startup-diagnostic writes. Process launch to diagnostic detection (100 ms polling) took 996, 791, and 771 ms. Renderer navigation to UI-ready effect took 199, 162, and 171 ms; save initialization took 33, 28, and 27 ms, and window initialization took 99, 70, and 72 ms. The processes closed normally after measurement. The reported 30-second delay did not reproduce in this small warm-launch sample. These runs used hidden test windows; they do not prove first visible frame, loader visuals, a cold machine boot, development startup, or Mac behavior. No bottleneck fix is claimed. Use the existing diagnostic on an affected launch and compare the process/navigation phases before attributing a cause.
+
+
 ## Sample planner privacy race — November 23, 2026
 
 Sample proposals now carry a transient snapshot of any reflected text they used, just like local proposals. The reducer rejects a proposal if a linked reflection changed, was deleted, or lost permission before the save. The snapshot is never persisted. Both home and floating sample-planning paths use this check.

@@ -41,3 +41,7 @@ The initial isolated dependency-install/check command was rejected before execut
 ## Current stopping point
 
 The user requested a continuation prompt in the repository and asked this chat to stop. No further functional startup changes should be inferred from this handoff. The stale local draft remains under `.worktrees/startup-loading` on `fix/startup-loading`; main is the continuation source of truth.
+
+## Subsequent isolated measurements — November 23
+
+On the build-out branch, three sequential hidden Windows release test launches using the separate fictional profile reached fresh diagnostic writes in 996, 791 and 771 ms from process launch (100 ms polling). Renderer UI-ready effect measured 199, 162 and 171 ms; save measured 33, 28 and 27 ms; window initialization measured 99, 70 and 72 ms. The reported delay did not reproduce in this warm sample. These are not cold-boot, development-build, first-visible-frame, loader-visual, or Mac measurements. No startup fix was inferred from them.
