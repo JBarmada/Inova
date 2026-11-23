@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import type { Quest } from "../../shared/schema";
 import { dispatch, dispatchWithReceipt } from "../../state/store";
 import { useAction } from "../../shared/useAction";
@@ -6,9 +6,10 @@ import { playCue } from "../../services/audio";
 import { RewardReveal, type CompletionReveal } from "../quests/RewardReveal";
 import { ToyQuestRow } from "./ToyQuestRow";
 
-export function ToyQuestList({ quests, muted }: { quests: Quest[]; muted: boolean }) {
+export function ToyQuestList({ quests, muted, mounted }: { quests: Quest[]; muted: boolean; mounted: boolean }) {
   const [reveal, setReveal] = useState<CompletionReveal | null>(null);
   const [showCompleted, setShowCompleted] = useState(false);
+  useEffect(() => { if (!mounted) setShowCompleted(false); }, [mounted]);
   const completedToggle = useRef<HTMLButtonElement>(null);
   const list = useRef<HTMLDivElement>(null);
   const { run, busy, message } = useAction();
@@ -19,7 +20,7 @@ export function ToyQuestList({ quests, muted }: { quests: Quest[]; muted: boolea
     void run(async () => {
       if (finishing) {
         const receipt = await dispatchWithReceipt({ type: "complete-quest", id: quest.id, completedAt: new Date().toISOString() });
-        setReveal({ ...receipt, title: quest.title });
+        setReveal({ ...receipt, questId: quest.id, title: quest.title });
         requestAnimationFrame(() => { if (list.current) list.current.scrollTop = 0; completedToggle.current?.focus({ preventScroll: true }); });
       } else { setReveal(null); await dispatch({ type: "quest-status", id: quest.id, status: "accepted" }); }
     }, finishing ? "" : "Quest fetched. Let's go!");

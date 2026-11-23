@@ -104,3 +104,7 @@ Proposals that cite memories require transient ID/text snapshots for both the sa
 ## Local model choice (build-out worktree)
 
 Settings persist `localModel`, defaulting to `gemma3:12b` for older saves. The only supported values are `gemma3:12b` and `gemma3:4b`; the Rust boundary independently rejects all others. The selection controls future local requests and does not change existing quests. The sample planner remains separate.
+
+## Completion reflections and floating drafts (build-out worktree)
+
+A successful completion reveal offers an optional reflection linked to the completed quest, with personalization disabled by default. Saving uses the existing memory action and validates the completed quest link. The floating board remains mounted but hidden and inert after retraction, retaining unsaved composer/reflection text during the same floating session. Leaving floating mode or quitting discards unsaved drafts. Completed disclosure resets on closing; outside click, focus loss, and Escape remain the dismissal paths.

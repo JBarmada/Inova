@@ -4,3 +4,5 @@
 .reward-item svg { flex: 0 0 auto; }
 @keyframes reward-appear { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
 @media (prefers-reduced-motion: reduce) { .reward-reveal { animation: none; } }
+
+.reward-reveal > [role="status"] { display: grid; gap: 6px; }

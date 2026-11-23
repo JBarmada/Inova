@@ -35,3 +35,5 @@
   .bone-quest-wrap[data-phase] > .bone-toy, .bone-quest-wrap[data-phase] > .toy-quest-panel { animation: none; }
   .bone-quest-wrap.is-open > .bone-toy { visibility: hidden; }
 }
+
+.toy-quest-panel[hidden] { display: none; }

@@ -1,5 +1,12 @@
 # Implementation Status and Handoff
 
+## Completion reflection — November 23, 2026
+
+After a saved completion, both quest views offer an optional reflection linked to that completed quest. Personalization remains off unless explicitly enabled. The floating board keeps its hidden, inert content mounted while collapsed, so an unfinished draft survives outside dismissal and reopening during the same floating session; it is not persisted until saved and does not survive leaving floating mode or quitting. Completed disclosure still resets when the board closes. No frame dismissal button was added.
+
+`npm run check` passed 100 tests, size/type checks and production build; isolated Windows release compilation passed. In the fictional Windows floating profile, an accepted quest was completed, its reward was displayed, a draft survived outside dismissal/reopening, and saving produced a linked memory with personalization off. Native main-page reflection, reduced motion, audible feedback and Mac remain pending.
+
+
 ## Local AI availability check — November 23, 2026
 
 Quests offers an explicit check for the selected local model. The Rust command queries Ollama's loopback model list with a short timeout, validates the supported model name, and sends no commitment or reflection content. A missing service or model gives a useful sample-planner alternative. The status is displayed beside the check and cleared on model changes. `npm run check` passed 98 tests and production/type/size checks; isolated Windows release compilation passed. Native Windows testing showed both the installed 4B model and the stopped-service recovery message. The service was stopped afterward. A live missing-model case and Mac remain pending.

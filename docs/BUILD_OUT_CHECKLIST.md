@@ -53,3 +53,5 @@ November 23: added local case-insensitive reflection search and distinguishable 
 November 23: current Windows release spot check confirmed expanded toy hiding, outside dismissal, no dismissal icon, dev controls below toy and dev-mode off/on/off gating. A single intermediate frame was seen; continuous transition timing, drag/placement, muted/reduced-motion runtime and Mac remain pending.
 
 November 23: a user-triggered local AI availability check now reports an installed model or stopped service without sending reflections. `npm run check` passed 98 tests, isolated Windows build passed, and both installed/stopped states were observed natively; live missing-model and Mac remain pending.
+
+November 23: completion feedback now offers an optional linked reflection. Floating drafts survive board dismissal during the same session and remain private by default; they are not persisted before saving. `npm run check` passed 100 tests; isolated Windows release and the fictional floating completion/dismiss/reopen/save path passed. Main-page reflection, muted/reduced motion and Mac remain pending.

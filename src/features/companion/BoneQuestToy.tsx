@@ -28,13 +28,13 @@ export function BoneQuestToy({ state, onExpandedChange }: { state: AppState; onE
       <QuestToyIcon alt="Golden bone toy with teal rope" />
       {active > 0 && <span className="toy-quest-count">{active}</span>}
     </button>
-    {mounted && <section ref={panel} id="toy-quest-board" className="toy-quest-panel" aria-label="Pawprint adventures"
-      tabIndex={-1} inert={!open}>
+    <section ref={panel} id="toy-quest-board" className="toy-quest-panel" aria-label="Pawprint adventures"
+      tabIndex={-1} inert={!open} hidden={!mounted}>
       <header className="toy-board-heading">
         <h3><span aria-hidden="true">✦</span><span>Fetch a Lil' Side Quest</span><span aria-hidden="true">✦</span></h3></header>
       <ToyComposer state={state} />
-      {quests.length > 0 ? <ToyQuestList quests={quests} muted={state.settings.muted} />
+      {quests.length > 0 ? <ToyQuestList quests={quests} muted={state.settings.muted} mounted={mounted} />
         : <p className="toy-empty">Every adventure starts with a little plan. Add yours above.</p>}
-    </section>}
+    </section>
   </div>;
 }
