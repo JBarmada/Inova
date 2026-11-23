@@ -75,3 +75,5 @@ November 23, 7:33 a.m.: primary checkout was on `codex/pocket-pup-animation-revi
 November 23: after bounded-response and preference updates, a real fictional 4B request produced a five-minute saved proposal. Its language arguably assumed an existing outline, so semantic grounding remains unresolved. The temporary service was stopped.
 
 November 23: added on-demand, month-labeled sample exploration ideas using an explicitly entered interest, time, and challenge. `npm run check` passed 116 tests and isolated Windows release compilation passed; a fictional native five-minute idea was saved as a proposed quest. No calendar, AI, or automatic monthly generation is involved; Mac remains pending.
+
+November 23: added a user-authored perspective exercise, optionally saved as a private memory. `npm run check` passed 118 tests; isolated Windows release compilation and fictional native save/read/permission-off check passed. No AI discussion or factual claims are generated; Mac remains pending.

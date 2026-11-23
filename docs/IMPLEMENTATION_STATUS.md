@@ -1,5 +1,11 @@
 # Implementation Status and Handoff
 
+## Optional perspective exercise — November 23, 2026
+
+Memories includes optional prompts for a situation, known facts and uncertainty, another possible perspective, and a possible next step. Responses are user-authored; the prompts generate no factual claims or AI discussion. The draft is temporary until explicitly saved as a memory, which starts excluded from suggestions and can be permitted later using the existing memory control.
+
+`npm run check` passed 118 tests, type/size checks, and production build; isolated Windows release compilation passed. A fictional native exercise was saved, opened on the bookshelf, and shown with its suggestion permission unchecked. Mac remains pending.
+
 ## On-demand exploration ideas — November 23, 2026
 
 Quests offers a month-labeled sample idea based on a user-entered interest, available minutes, and challenge. It does not inspect calendars, infer interests, call AI, or generate ideas automatically each month. The user chooses whether to add the idea as a proposed quest; its commitment and quest save together, subject to the current suggestion-length limit.

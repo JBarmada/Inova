@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useInova, dispatch } from "../../state/store";
 import { useAction } from "../../shared/useAction";
 import { RecentRecap } from "./RecentRecap";
+import { PerspectiveExercise } from "./PerspectiveExercise";
 import { findMemories } from "./findMemories";
 import { newId, now } from "../../shared/actions";
 
@@ -25,6 +26,7 @@ export function MemoryShelf() {
   }
   return <section className="memory-shelf" aria-label="Memories"><h2>Memories</h2>
     <RecentRecap state={state} />
+    <PerspectiveExercise />
     <form onSubmit={(event) => { event.preventDefault(); void run(save, "A memory was added to your shelf."); }}>
       <label>A reflection<textarea required value={text} maxLength={4000} onChange={(event) => setText(event.target.value)} placeholder="What helped today?" /></label>
       <label>Related completed adventure (optional)<select value={questId} disabled={busy} onChange={(event) => setQuestId(event.target.value)}>
