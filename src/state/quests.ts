@@ -1,7 +1,7 @@
 import type { Action } from "../shared/actions";
 import type { AppState } from "../shared/schema";
 
-export function completeQuest(state: AppState, id: string): AppState {
+export function completeQuest(state: AppState, id: string, completedAt?: string): AppState {
   const quest = state.quests.find((entry) => entry.id === id);
   if (!quest || quest.status !== "accepted" || state.rewardedQuestIds.includes(id)) return state;
   const rewardedQuestIds = [...state.rewardedQuestIds, id];
@@ -11,7 +11,7 @@ export function completeQuest(state: AppState, id: string): AppState {
   return {
     ...state, rewardedQuestIds, ownedItems: [...ownedItems],
     pet: { ...state.pet, mood: "happy" },
-    quests: state.quests.map((entry) => entry.id === id ? { ...entry, status: "completed" } : entry),
+    quests: state.quests.map((entry) => entry.id === id ? { ...entry, status: "completed", ...(completedAt ? { completedAt } : {}) } : entry),
   };
 }
 

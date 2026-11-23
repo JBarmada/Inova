@@ -26,6 +26,7 @@ function apply(state: AppState, action: Action): AppState {
         throw Error("A reflection changed while planning. Please try again.");
       }
       if (!state.commitments.some((entry) => entry.id === action.quest.commitmentId)) throw Error("Unknown commitment.");
+      if (action.quest.completedAt) throw Error("A proposed quest cannot have a completion date.");
       if (action.quest.status !== "proposed") throw Error("New quests must be proposals.");
       if (!action.quest.sourceIds.includes(action.quest.commitmentId)) throw Error("Quest must cite its commitment.");
       if (action.quest.sourceIds.some((id) => id !== action.quest.commitmentId && !state.memories.some((memory) => memory.id === id && memory.aiAllowed))) throw Error("Quest refers to unavailable evidence.");
@@ -38,7 +39,7 @@ function apply(state: AppState, action: Action): AppState {
       return { ...state, quests: state.quests.map((entry) => entry.id === action.id ? { ...entry, title } : entry) };
     }
     case "quest-status": return changeQuestStatus(state, action);
-    case "complete-quest": return completeQuest(state, action.id);
+    case "complete-quest": return completeQuest(state, action.id, action.completedAt);
     case "equip": case "unequip": case "wardrobe-scenario": return changeEquipment(state, action);
     case "add-memory":
       if (state.memories.some((entry) => entry.id === action.memory.id)) return state;

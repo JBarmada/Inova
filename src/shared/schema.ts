@@ -11,7 +11,7 @@ export const commitmentSchema = z.object({
 export const questSchema = z.object({
   id, commitmentId: id, title: text, reason: text,
   sourceIds: z.array(id), minutes: z.number().int().min(1).max(120),
-  status: questStatusSchema, planner: z.enum(["sample", "local"]),
+  status: questStatusSchema, planner: z.enum(["sample", "local"]), completedAt: z.iso.datetime().optional(),
 });
 export const memorySchema = z.object({
   id, text, createdAt: z.iso.datetime(), aiAllowed: z.boolean(),

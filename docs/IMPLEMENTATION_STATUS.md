@@ -1,5 +1,11 @@
 # Implementation Status and Handoff
 
+## Seven-day recap — November 23, 2026
+
+The Memories page can show a local seven-day recap of dated completed adventures and the number of memories saved. New completions record an optional UTC timestamp; older undated completions remain valid and are counted separately without inventing dates. Private memories contribute only to the count and are not sent to AI. Duplicate completions cannot rewrite the timestamp. The date window excludes future and older records.
+
+`npm run check` passed 86 tests, size/type checks and production build. Windows release compilation passed. Native runtime, visual review and Mac remain pending.
+
 ## Memories linked to adventures — November 23, 2026
 
 A new reflection can optionally reference a completed quest; the open book shows its title. The shared reducer rejects new references to unfinished or missing quests, while standalone memories remain available. The selected link is preserved through editing and the save schema stays at version 2. The form resets the link and personalization permission after saving.

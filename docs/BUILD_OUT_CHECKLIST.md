@@ -27,3 +27,5 @@ November 23: reward receipt and reveal increment passed 82 tests and Windows rel
 November 23: quest-linked reflection increment passed 84 tests and Windows release compilation; browser preview verified a fictional linked entry survived reload.
 
 November 23: isolated Windows test app verified edited sample quest completion, notebook reveal, local 12B proposal, restart, floating board opening and outside dismissal. See model trial evidence for exact limits.
+
+November 23: seven-day local recap added with optional completion timestamps and explicit legacy-undated handling. `npm run check` passed 86 tests and Windows release compilation passed; native visual review and Mac remain pending.

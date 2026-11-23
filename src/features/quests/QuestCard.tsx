@@ -20,7 +20,7 @@ export function QuestCard({ quest }: { quest: Quest }) {
     {!terminal && !editing && <div className="actions">
       <button disabled={busy} onClick={() => { setTitle(quest.title); setEditing(true); }}>Edit</button>
       {quest.status !== "accepted" && <button disabled={busy} onClick={() => void run(() => dispatch({ type: "quest-status", id: quest.id, status: "accepted" }))}>Accept</button>}
-      {quest.status === "accepted" && <button className="primary" disabled={busy} onClick={() => void run(async () => { const receipt = await dispatchWithReceipt({ type: "complete-quest", id: quest.id }); setReveal({ ...receipt, title: quest.title }); }, "")}>Complete</button>}
+      {quest.status === "accepted" && <button className="primary" disabled={busy} onClick={() => void run(async () => { const receipt = await dispatchWithReceipt({ type: "complete-quest", id: quest.id, completedAt: new Date().toISOString() }); setReveal({ ...receipt, title: quest.title }); }, "")}>Complete</button>}
       <button disabled={busy} onClick={() => void run(() => dispatch({ type: "quest-status", id: quest.id, status: "deferred" }))}>Later</button>
       <button disabled={busy} onClick={() => void run(() => dispatch({ type: "quest-status", id: quest.id, status: "dismissed" }))}>Dismiss</button>
     </div>}

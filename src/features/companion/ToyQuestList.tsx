@@ -18,7 +18,7 @@ export function ToyQuestList({ quests, muted }: { quests: Quest[]; muted: boolea
     const finishing = quest.status === "accepted";
     void run(async () => {
       if (finishing) {
-        const receipt = await dispatchWithReceipt({ type: "complete-quest", id: quest.id });
+        const receipt = await dispatchWithReceipt({ type: "complete-quest", id: quest.id, completedAt: new Date().toISOString() });
         setReveal({ ...receipt, title: quest.title });
         requestAnimationFrame(() => { if (list.current) list.current.scrollTop = 0; completedToggle.current?.focus({ preventScroll: true }); });
       } else { setReveal(null); await dispatch({ type: "quest-status", id: quest.id, status: "accepted" }); }

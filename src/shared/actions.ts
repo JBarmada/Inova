@@ -12,7 +12,7 @@ export type Action =
   | { type: "propose-quest"; quest: Quest; memorySnapshot?: { id: string; text: string }[] }
   | { type: "edit-quest"; id: string; title: string }
   | { type: "quest-status"; id: string; status: "accepted" | "deferred" | "dismissed" }
-  | { type: "complete-quest"; id: string }
+  | { type: "complete-quest"; id: string; completedAt?: string }
   | { type: "equip"; item: ItemId | null }
   | { type: "unequip"; slot: WearableSlot }
   | { type: "wardrobe-scenario"; id: WardrobeScenarioId }

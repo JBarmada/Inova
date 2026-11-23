@@ -88,3 +88,7 @@ The mutation queue provides a transient receipt only after a successful save: wh
 ## Reflection links (build-out worktree)
 
 A new memory can optionally cite a completed quest ID. The reducer validates that the referenced quest exists and is completed; existing valid standalone memories and saved records remain readable. The bookshelf displays the related quest title without implying that planning or acceptance alone is completion.
+
+## Dated completions and recap (build-out worktree)
+
+New completions from either quest view carry an optional ISO UTC completedAt timestamp; legacy completed quests remain valid without one. Repeated completion cannot change the original timestamp. The local seven-day recap counts only dates in the last 168 hours and never infers dates for older records. Memory counts include private entries without copying their text or changing personalization permissions.
