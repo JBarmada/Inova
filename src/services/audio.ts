@@ -1,13 +1,15 @@
 let context: AudioContext | undefined;
+const quietUntil = { click: 0, reward: 0, squeak: 0 };
 
 export function playCue(kind: "click" | "reward" | "squeak", muted: boolean): void {
   if (muted) return;
   try {
     context ??= new AudioContext();
     void context.resume().catch(() => undefined);
+    const time = context.currentTime;
+    if (time < quietUntil[kind]) return;
     const oscillator = context.createOscillator();
     const gain = context.createGain();
-    const time = context.currentTime;
     oscillator.type = kind === "squeak" ? "triangle" : "square";
     if (kind === "squeak") {
       oscillator.frequency.setValueAtTime(700, time);
@@ -23,6 +25,7 @@ export function playCue(kind: "click" | "reward" | "squeak", muted: boolean): vo
     oscillator.connect(gain).connect(context.destination);
     oscillator.start(time);
     oscillator.stop(time + duration + 0.01);
+    quietUntil[kind] = time + duration;
   } catch {
     // Sound is supplementary; feedback remains visible if audio is unavailable.
   }

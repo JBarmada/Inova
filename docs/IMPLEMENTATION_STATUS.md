@@ -1,5 +1,10 @@
 # Implementation Status and Handoff
 
+## Repeated sound control — November 23, 2026
+
+Rapid repeated cues of the same kind no longer overlap while their short synthesized tone is playing. Different cue types can still overlap. Muted actions do not create an audio context, and unavailable audio does not block interaction. `npm run check` passed 93 tests, size/type checks and production build; Windows release compilation passed. Tests use a simulated audio context; audible playback, native UI and Mac remain pending.
+
+
 ## Editable quest duration — November 23, 2026
 
 The main quest editor now changes the estimated duration as well as the title, limited to whole minutes from 1 to 120. Proposed, accepted and deferred quests remain editable; completed and dismissed quests remain terminal. Editing preserves the planner rationale, source IDs, status, and reward records. `npm run check` passed 91 tests, size/type checks and the production build; Windows release compilation passed. Native UI and Mac remain pending.
