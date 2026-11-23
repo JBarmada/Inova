@@ -5,6 +5,7 @@ import { newId, now } from "../../shared/actions";
 import { proposeLocal } from "../../services/localPlanner";
 import { proposeSample } from "../../services/planner";
 import { QuestCard } from "./QuestCard";
+import { localModelSchema } from "../../shared/schema";
 
 export function QuestsPanel() {
   const state = useInova();
@@ -16,7 +17,12 @@ export function QuestsPanel() {
     setTitle("");
   }
   return <section><p className="eyebrow">ONE SMALL STEP</p><h2>What would you like to start?</h2>
-    <p>Choose a local AI suggestion or the deterministic sample. Local AI requires Ollama with gemma3:12b; only reflections you permit are included.</p>
+    <p>Local AI requires Ollama and the selected model. Only reflections you permit are included. The sample option works without AI.</p>
+    <label>Local model<select value={state.settings.localModel} disabled={busy} onChange={(event) => {
+      const model = localModelSchema.parse(event.target.value);
+      void run(() => dispatch({ type: "local-model", model }), "Local model updated.");
+    }}><option value="gemma3:12b">Gemma 3 12B · larger, provisional default</option>
+      <option value="gemma3:4b">Gemma 3 4B · faster, may be less reliable</option></select></label>
     <form onSubmit={(event) => { event.preventDefault(); void run(add); }}>
       <label>A commitment<input required maxLength={4000} value={title} placeholder="Start my project outline" onChange={(event) => setTitle(event.target.value)} /></label>
       <button disabled={busy || !state.pet.adopted}>Add commitment</button>

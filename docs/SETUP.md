@@ -63,7 +63,7 @@ Open the printed local URL. No Rust toolchain is needed for this preview. Browse
 5. Open the bookshelf and save/read a reflection. Personalization is opt-in per entry.
 6. Restart or reload and confirm that state persists.
 
-The wardrobe branch uses selected Pocket Pup dog exports, temporary equipment fitting markers, and synthesized tones. It has no recorded bark, final garment art, live AI, account integration, or actual schedule optimization. See WARDROBE_SPEC.md for isolated test outfits and pose previews.
+The wardrobe branch uses selected Pocket Pup dog exports, temporary equipment fitting markers, and synthesized tones. It has no recorded bark, final garment art, account integration, or actual schedule optimization. Local AI is optional and requires the separate service described below. See WARDROBE_SPEC.md for isolated test outfits and pose previews.
 
 ## Checks and builds
 
@@ -84,7 +84,7 @@ Report issues with the repository's App issue template: platform, commit, exact 
 
 ## Local AI (build-out worktree)
 
-The Quests page can request a local `gemma3:12b` proposal using an Ollama service at `127.0.0.1:11434`. Install Ollama using its [official setup instructions](https://docs.ollama.com/), then run `ollama pull gemma3:12b` and start Ollama. Models run locally; downloads require internet and disk space. Inova does not currently bundle, install, or start the service. If it is unavailable, use the separately labeled sample option. The Quests screen includes only reflections explicitly permitted for suggestions.
+The Quests page can request a local `gemma3:12b` or `gemma3:4b` proposal using an Ollama service at `127.0.0.1:11434`. Select a model in Quests; 12B is the provisional default, while 4B can be faster but may be less reliable. Install Ollama using its [official setup instructions](https://docs.ollama.com/), pull the selected model with `ollama pull gemma3:12b` or `ollama pull gemma3:4b`, and start Ollama. Models run locally; downloads require internet and disk space. Inova does not currently bundle, install, or start the service. If it is unavailable, use the separately labeled sample option. The Quests screen includes only reflections explicitly permitted for suggestions.
 
 The development benchmark in this checkout used a verified portable Windows Ollama installation and models under ignored `.tools/ollama`; they are not in Git and do not automatically start after a restart. See [measured trial](evidence/local-models-2026-11-23/README.md) and [build-out checklist](BUILD_OUT_CHECKLIST.md).
 

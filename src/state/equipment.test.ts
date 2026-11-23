@@ -79,7 +79,7 @@ describe("version-one wardrobe migration", () => {
     expect(loaded.equipment).toEqual({ hat: null, glasses: null, socks: null, body: item });
     expect(loaded.ownedItems).toEqual(old.ownedItems);
     expect(loaded.memories).toEqual(old.memories);
-    expect(loaded.settings).toEqual({ muted: true, devMode: false, showStatus: false });
+    expect(loaded.settings).toEqual({ muted: true, devMode: false, showStatus: false, localModel: "gemma3:12b" });
     expect(loaded).not.toHaveProperty("equippedItem");
     expect(stateSchema.parse(loaded)).toEqual(loaded);
   });

@@ -1,5 +1,10 @@
 # Implementation Status and Handoff
 
+## Local model selection — November 23, 2026
+
+The Quests page offers the provisional Gemma 3 12B default and a faster 4B option labeled as potentially less reliable. The choice persists, older saves default to 12B, and the native boundary accepts only these two model names. Ollama and the selected model must already be installed and running; the separate sample planner remains available. `npm run check` passed 95 tests, size/type checks and production build; the isolated Windows release compiled. In the fictional native profile, 4B generated a valid quest, the local service reported the 4B Q4_K_M model, and both the selection and quest survived restart. The test service was stopped afterward. This single request is not a reliability evaluation; see the existing model trial for failures and limitations. Mac remains pending.
+
+
 ## Native Windows spot checks — November 23, 2026
 
 Using the isolated fictional test profile, the Memories recap displayed zero dated activities and identified one older undated completion. The wardrobe shuffle equipped the single owned notebook badge and displayed confirmation. A proposed quest's duration was edited from 5 to 7 minutes, and its context disclosure showed the linked commitment and no linked reflections. After closing and reopening the test app, the notebook remained equipped and the quest retained 7 minutes. A white window appeared briefly immediately after launch, before the app content; its duration and first loader frame were not measured. These spot checks do not establish audible sound, reduced-motion, floating placement, or Mac behavior.

@@ -8,6 +8,7 @@ export type Action =
   | { type: "mute"; muted: boolean }
   | { type: "dev-mode"; enabled: boolean }
   | { type: "status-bar"; enabled: boolean }
+  | { type: "local-model"; model: AppState["settings"]["localModel"] }
   | { type: "add-commitment"; commitment: Commitment }
   | { type: "propose-quest"; quest: Quest; memorySnapshot?: { id: string; text: string }[] }
   | { type: "edit-quest"; id: string; title: string; minutes?: number }

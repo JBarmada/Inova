@@ -3,6 +3,7 @@ import { emptyEquipment, equipmentSchema, itemIdSchema, wearableSlots } from "./
 
 const id = z.string().min(1).max(100);
 const text = z.string().trim().min(1).max(4000);
+export const localModelSchema = z.enum(["gemma3:12b", "gemma3:4b"]);
 export const moodSchema = z.enum(["idle", "happy", "tired"]);
 export const questStatusSchema = z.enum(["proposed", "accepted", "deferred", "dismissed", "completed"]);
 export const commitmentSchema = z.object({
@@ -19,7 +20,7 @@ export const memorySchema = z.object({
 });
 const commonSchema = z.object({
   pet: z.object({ name: z.string().max(40), adopted: z.boolean(), mood: moodSchema }),
-  settings: z.object({ muted: z.boolean(), devMode: z.boolean().default(false), showStatus: z.boolean().default(false) }),
+  settings: z.object({ muted: z.boolean(), devMode: z.boolean().default(false), showStatus: z.boolean().default(false), localModel: localModelSchema.default("gemma3:12b") }),
   commitments: z.array(commitmentSchema),
   quests: z.array(questSchema),
   memories: z.array(memorySchema),

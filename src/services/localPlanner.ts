@@ -13,7 +13,7 @@ export async function proposeLocal(commitment: Commitment, state: AppState, call
   if (call === invoke && !isTauri()) throw Error("Local AI requires the desktop app. The sample planner is available here.");
   const input = JSON.stringify({ commitment: { id: commitment.id, title: commitment.title }, reflections: memorySnapshot });
   let raw: string;
-  try { raw = await call<string>("local_quest", { input }); }
+  try { raw = await call<string>("local_quest", { input, model: state.settings.localModel }); }
   catch (error) { throw Error(typeof error === "string" ? error : "Local AI is unavailable. Try the sample planner."); }
   let parsed: unknown;
   try { parsed = JSON.parse(raw); } catch { throw Error("Local AI returned invalid JSON. Try again or use the sample planner."); }

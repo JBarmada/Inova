@@ -46,3 +46,10 @@ it("surfaces local service errors without preventing the sample fallback", async
   const call = vi.fn().mockRejectedValue("Local AI is unavailable. Start Ollama.");
   await expect(proposeLocal(commitment, initialState(), call as unknown as typeof invoke)).rejects.toThrow("Start Ollama");
 });
+
+it("sends the selected local model to the native boundary", async () => {
+  const state = { ...initialState(), settings: { ...initialState().settings, localModel: "gemma3:4b" as const } };
+  const call = vi.fn().mockResolvedValue(JSON.stringify({ title: "A step", reason: "Start small", minutes: 5 }));
+  await proposeLocal(commitment, state, call as unknown as typeof invoke);
+  expect(call.mock.calls[0][1].model).toBe("gemma3:4b");
+});

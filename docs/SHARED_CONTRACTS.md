@@ -100,3 +100,7 @@ The optional shuffle chooses one owned item per compatible slot and applies the 
 ## Sample planner snapshot (build-out worktree)
 
 Proposals that cite memories require transient ID/text snapshots for both the sample and local planners. Saving rejects changed, revoked, or deleted reflection context; snapshots are not stored. This applies in the home page and floating toy.
+
+## Local model choice (build-out worktree)
+
+Settings persist `localModel`, defaulting to `gemma3:12b` for older saves. The only supported values are `gemma3:12b` and `gemma3:4b`; the Rust boundary independently rejects all others. The selection controls future local requests and does not change existing quests. The sample planner remains separate.
