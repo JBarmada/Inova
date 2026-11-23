@@ -1,5 +1,11 @@
 # Implementation Status and Handoff
 
+## Tailscale browser preview — November 23, 2026
+
+An isolated Vite preview can bind to the machine's private Tailscale IP on a separate port. In browsers on plain HTTP, `crypto.randomUUID` may be unavailable, so ID creation now falls back to cryptographically random bytes using `crypto.getRandomValues` and creates a version-4 UUID. No insecure random fallback is used. The browser stores its own local data and cannot perform native floating-window or Rust/Ollama operations. Do not enter sensitive data into the HTTP preview; it is intended only for fictional testing. The desktop app and other preview remain separate.
+
+`npm run check` passed 119 tests and the production build; isolated Windows release compilation passed. The preview returned HTTP 200 from the local machine on the Tailscale IP. The in-app test browser was unavailable, and no separate phone connection was verified. Tailscale HTTPS Serve was not enabled on this tailnet. The preview process is temporary and must be restarted after shutdown.
+
 ## Native unavailable-AI recovery — November 23, 2026
 
 With the temporary Ollama service stopped, a fictional local quest request returned an unavailable-or-timeout message suggesting starting Ollama and installing the selected model. The sample quest button then successfully proposed a quest in the same Windows session. The feedback was below the visible area after clicking the first commitment. It is now rendered next to the initiating action; `npm run check` passed 118 tests and the frontend build. Native visual and screen-reader verification remain pending. This verifies the stopped-service recovery path; other network and model failures remain separate checks.
