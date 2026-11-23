@@ -43,3 +43,9 @@ html.pet-mode .floating { --companion-width: calc(100vw - 16px); overflow: visib
 @media (prefers-reduced-motion: reduce) { .bone-toy:hover:not(:disabled) { transform: none; } }
 
 .app[data-reduced-motion="true"] .bone-toy:hover:not(:disabled) { transform: none; }
+
+.toy-quest-panel .quest-details-review { font: 11px/1.4 monospace; }
+.toy-quest-panel .quest-details-review p { margin: 6px 0; }
+.toy-quest-panel .quest-details-review label { margin: 4px 0; }
+.toy-quest-panel .quest-details-review input { width: 100%; padding: 4px; font: inherit; }
+.toy-quest-panel .quest-details-review button { padding: 5px 8px; font: inherit; }

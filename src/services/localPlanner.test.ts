@@ -78,3 +78,12 @@ it("sends and enforces an explicit maximum quest length", async () => {
   await expect(proposeLocal(commitment, state, call as unknown as typeof invoke)).rejects.toThrow("length limit");
   expect(JSON.parse(call.mock.calls[0][1].input).maxQuestMinutes).toBe(5);
 });
+
+it("returns grounded model details separately from the quest", async () => {
+  const entry = { ...commitment, title: "Write by Friday at 5pm, two hours total" };
+  const call = vi.fn().mockResolvedValue(JSON.stringify({ title: "Begin writing", reason: "Start small", minutes: 10,
+    deadlineLocal: "2026-11-27T17:00", deadlineEvidence: "Friday at 5pm", effortMinutes: 120, effortEvidence: "two hours" }));
+  const result = await proposeLocal(entry, initialState(), call as unknown as typeof invoke);
+  expect(result.details).toEqual({ deadlineLocal: "2026-11-27T17:00", effortMinutes: 120 });
+  expect(result.quest).not.toHaveProperty("deadlineEvidence");
+});

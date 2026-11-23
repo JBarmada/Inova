@@ -63,3 +63,8 @@ footer { margin-top: 48px; padding-top: 20px; border-top: 2px solid #d4c6a7; }
 .quest-composer input { min-width: 0; flex: 1; }
 .quest-composer button { flex: 0 0 auto; }
 @media (max-width: 480px) { .quest-composer { flex-wrap: wrap; } }
+
+.quest-details-review { max-width: 680px; margin: 12px 0; }
+.quest-details-review label { display: block; margin: 8px 0; }
+.quest-details-review input { display: block; max-width: 100%; }
+.quest-details-review button { margin: 4px 8px 4px 0; }

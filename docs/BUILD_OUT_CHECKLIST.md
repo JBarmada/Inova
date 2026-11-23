@@ -83,3 +83,7 @@ November 23: synthetic Windows gestures moved and saved the decorated home windo
 November 23: native fictional sample-planner privacy check allowed a memory, generated a sourced quest, and revoked permission; the saved quest dropped the memory source and copied rationale while retaining the commitment source. The memory remained with permission off.
 
 November 23: with Ollama stopped, a native local-quest request reported an unavailable/timeout error; a sample quest then succeeded in the same session.
+
+November 23, afternoon: integrated the animation snapshot in an isolated staging branch and then the buildout branch, preserving the original checkout. Playback and the Dev-mode clip selector compile and have automated coverage; visual review, wearable alignment, native runtime, and Mac remain open. The earlier unintegrated snapshot note above is historical.
+
+November 23, afternoon: desktop and floating quest entry share a single input. Local AI can suggest explicitly sourced deadline and effort, shown for user review. A fictional direct model test succeeded with 12B; 4B missed the deadline. `npm run check` passed 136 tests; native visual review and Mac remain open.

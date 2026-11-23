@@ -2,8 +2,9 @@ import type { AppState, Commitment, Quest } from "../shared/schema";
 import { newId, now } from "../shared/actions";
 import { proposeLocal, type MemorySnapshot } from "./localPlanner";
 import { proposeSample } from "./planner";
+import type { SuggestedDetails } from "./suggestedDetails";
 
-type Proposal = { quest: Quest; memorySnapshot: MemorySnapshot[] };
+type Proposal = { quest: Quest; memorySnapshot: MemorySnapshot[]; details?: SuggestedDetails };
 type Planner = (commitment: Commitment, state: AppState) => Promise<Proposal>;
 
 export async function prepareQuest(text: string, state: AppState,
