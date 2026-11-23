@@ -19,7 +19,7 @@ Working behavior draft. This describes the intended experience; it is not a clai
 - Larger screens such as adoption, wardrobe, and the memory room open when needed.
 - Every deliberate user action produces an appropriate visible response and, when sound is enabled, an appropriate sound.
 
-The floating desktop companion is the intended product direction. Desktop operating system and implementation approach are still open. An in-browser dog alone would not satisfy the desktop overlay goal.
+The floating desktop companion is the intended product direction. The selected implementation is Tauri with a Rust core and React/TypeScript interface, targeting both Windows and Mac. An in-browser dog alone does not satisfy the desktop overlay goal; see implementation status for actual checks.
 
 # Growth loop
 

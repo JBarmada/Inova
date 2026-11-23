@@ -1,6 +1,6 @@
 # Inova Project Records
 
-Updated November 22, 2026. These are planning records, not implemented features. The full vision and proposed delivery scope are separate. Items labeled established direction come from the team discussion; must-have scope and remaining mechanics are drafts for team review.
+Updated November 22, 2026. The repository now includes a shared starter as well as planning records. Check implementation status before treating a planned feature as complete. The full vision, working agreements, proposed minimum scope, and stretch ideas remain distinct.
 
 ## Start here
 
@@ -40,3 +40,7 @@ Updated November 22, 2026. These are planning records, not implemented features.
 - [Decisions and Open Questions](https://chatgpt.com/space/page_5a0e3014fc908191845c9753789f205f)
 
 Repository files are the shared implementation reference. The online records are companion discussion drafts. Edits do not automatically sync between the repository and online records, and teammates do not need Page access to understand the project.
+- [Setup and run commands](SETUP.md).
+- [Three-person build plan](TEAM_PLAN.md) and [shared feature agreements](SHARED_CONTRACTS.md).
+- [Architecture and ownership](ARCHITECTURE.md).
+- Track handoffs: [A Companion](tasks/A_COMPANION.md), [B Quests](tasks/B_QUESTS.md), [C World](tasks/C_WORLD.md).

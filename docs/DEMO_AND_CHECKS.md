@@ -1,6 +1,6 @@
 # Demo and Behavior Checks
 
-Planned checks only. No application exists at the documentation baseline, so none of these are recorded as passed.
+Target behavior checks. A connected sample starter now exists; see IMPLEMENTATION_STATUS.md for the specific automated and browser checks actually performed. This checklist is broader than those verified results.
 
 ## Main demonstration
 

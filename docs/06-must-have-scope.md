@@ -1,6 +1,6 @@
 # What We Want to Reach for Sure
 
-Proposed minimum delivery scope based on the team's stated direction. Pixel art, strong game feel, and the floating desktop dog are established preferences. The exact delivery boundary still depends on team capacity and deadline.
+Proposed minimum delivery scope based on the team's stated direction. Pixel art, strong game feel, and the floating desktop dog are established preferences. The team has three builders, targets Windows and Mac with Tauri, and has a December 1, 2026 deadline. Confirm the final delivery boundary against that capacity.
 
 # Minimum complete experience
 

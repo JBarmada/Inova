@@ -2,7 +2,7 @@
 
 ## Project in one paragraph
 
-Inova is a SCOPE club final project for the theme Evolve. It is an evolving pixel dog desktop companion: users grow through small real-life quests, their dog gains cosmetics and experiences, and its support adapts through approved personal memories. It should feel like a game with a companion the user cares about. The repository currently contains planning records only.
+Inova is a SCOPE club final project for the theme Evolve. It is an evolving pixel dog desktop companion: users grow through small real-life quests, their dog gains cosmetics and experiences, and its support adapts through approved personal memories. It should feel like a game with a companion the user cares about. The repository contains a connected Tauri/React starter with placeholder artwork, synthesized tones, and an explicitly labeled sample planner.
 
 ## Established team direction
 
@@ -32,9 +32,11 @@ The minimum can start with one polished dog and a few items. Multiple base dogs 
 - A visible journal entry need not be available for AI personalization.
 - Optional spooky mode was discussed, including zombie/skeleton transformations, eye bags after an all-nighter, and potion or lightning revival. Triggers and revival requirements are undecided. Do not silently turn either the team's idea or an assistant's alternative into a settled rule.
 
-## Unknowns before architecture work
+## Framework and team
 
-Desktop operating system, stack, team size, deadline, budget, model provider, hosting, data storage, sign-in, and integration permissions are undecided. Do not select these by copying technology names from the curriculum examples. Agree on shared choices and write down the result.
+Team-selected framework: Tauri 2, with Rust for the desktop core and React/TypeScript/Vite for the interface. Both Windows and Mac are required. There are three active builders; deadline December 1, 2026. The starter uses local state through one store and a browser preview adapter. No sign-in or cloud sync is implemented. Model provider, spending limit, integrations, and final reward balancing remain open.
+
+Start with [setup](SETUP.md), [architecture](ARCHITECTURE.md), [shared contracts](SHARED_CONTRACTS.md), and the [three-person plan](TEAM_PLAN.md). Tracks A, B, and C own companion, quests/AI, and wardrobe/memory respectively. Individual names remain unassigned.
 
 ## Where to look next
 

@@ -11,7 +11,7 @@ git clone git@github.com:JBarmada/Inova.git
 cd Inova
 ```
 
-The repository currently contains documentation only. There are no application dependencies to install yet.
+Follow [setup](docs/SETUP.md), run `npm ci`, then `npm run desktop`. For interface work without Rust, use `npm run dev` and the browser preview. Read the [three-person plan](docs/TEAM_PLAN.md) and [shared contracts](docs/SHARED_CONTRACTS.md), then choose Track A, B, or C.
 
 ## Work together
 
@@ -34,7 +34,7 @@ Point it at the repository's AGENTS.md and AI context, then state your specific 
 - Label temporary mock data, simulated progression, and placeholder assets.
 - Keep secrets and personal data out of both files and commit history.
 - Record asset sources and permissions.
-- Add actual setup and run commands when the first application is introduced.
+- Run `npm run check`; relevant native changes also need a desktop compile and Windows/Mac runtime reports. Keep setup and status current.
 
 ## Documentation ownership
 

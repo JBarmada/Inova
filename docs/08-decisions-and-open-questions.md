@@ -5,6 +5,8 @@ Discussion record, November 22, 2026. This separates explicit preferences from p
 # Established direction from the team discussion
 
 - The project is named Inova, with repository `JBarmada/Inova`.
+- The team selected Tauri; the starter uses Rust, React, TypeScript, and Vite.
+- Both Windows and Mac are required. Three builders are active, with a December 1, 2026 deadline.
 - The companion is a pixel dog.
 - The app should feel like a game, including sound, animation, and effects.
 - Adoption should use a lightweight dog picker with an adoption-center feel.
@@ -17,7 +19,7 @@ Discussion record, November 22, 2026. This separates explicit preferences from p
 
 # Proposed implementation scope
 
-The minimum scope, initial asset counts, fixed reward rules, and manual-input-first plan are working proposals. Team size, deadline, budget, operating system, and required technologies have not yet been supplied.
+The minimum scope and initial asset counts remain working proposals. The starter implements manual input and demonstration reward rules (notebook at one completion, bandana at three); final balancing remains open. Platform, team size, deadline, and framework are now recorded above. Budget and judging details remain open.
 
 # Zombie and revival idea
 
@@ -29,8 +31,8 @@ My recommendation for discussion: make spooky transformations an optional playfu
 
 # Questions that affect the next specification
 
-1. Which desktop operating system must the floating dog support?
-2. What are the deadline, team size, budget, and judging requirements?
+1. Who will provide the hands-on Windows and Mac runtime reports?
+2. What are the AI spending limit, provider, and judging requirements?
 3. How many base dogs, emotion states, and items are realistic for the first build?
 4. What activity earns a cosmetic, and what earns a treat or toy?
 5. Are interaction items reusable or consumable?

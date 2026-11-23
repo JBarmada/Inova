@@ -25,7 +25,9 @@
 
 ## Implementation approach
 
-- No stack, model provider, desktop operating system, or hosting service has been selected yet. Resolve choices affecting shared interfaces before building competing foundations.
+- Use Tauri 2 + Rust + React + TypeScript + Vite. Target Windows and Mac; the three-person team has a December 1, 2026 deadline. Do not scaffold a competing app.
+- Read docs/ARCHITECTURE.md, docs/SHARED_CONTRACTS.md, docs/TEAM_PLAN.md, and your track handoff before changing code. Use the existing store and actions; coordinate persisted schema changes and migrations.
+- The live model provider, budget, and external integrations remain undecided. Keep the sample planner explicitly labeled and runnable.
 - Prefer a small complete user flow. Prove the desktop overlay early on the selected operating system.
 - Keep quests proposed, accepted, deferred, and completed as distinct states.
 - Use ordinary application rules for rewards, duplicate prevention, scheduling checks, and persistence. Model output does not bypass validation.
@@ -37,6 +39,8 @@
 
 - Preserve unrelated and uncommitted work. Coordinate shared data shapes and files before broad changes.
 - Use a focused branch by default; follow an explicitly agreed team workflow if one is later recorded.
+- Follow Track A/B/C boundaries in docs/TEAM_PLAN.md. Never overwrite another track's work to resolve a conflict.
+- Run npm run check and native compilation for relevant changes. Confirm native window behavior on both Windows and Mac rather than inferring it from the browser preview.
 - Run checks appropriate to the change. Report what actually ran and any unresolved failures.
 - Use docs/DEMO_AND_CHECKS.md for representative behavior checks, including muted sound and recovery paths.
 - Update docs/IMPLEMENTATION_STATUS.md with actual capabilities, commands, limitations, and next steps after meaningful implementation changes.

@@ -1,6 +1,6 @@
 # Artwork and Audio Plan
 
-Asset checklist and provenance record. No artwork or audio is included at the documentation baseline. Counts, dimensions, frame rate, and file conventions remain to be agreed.
+Asset checklist and provenance record. The starter includes original placeholder dog art, simple CSS equipment shapes, generated app icons, and synthesized click/reward tones. Final artwork, recorded sounds, counts, dimensions, and animation conventions remain to be agreed.
 
 ## Initial visual needs
 
@@ -36,5 +36,9 @@ For every asset added, record its repository path, creator or source URL, licens
 
 | Asset path | Creator or source | License or permission | AI generated | Notes |
 | --- | --- | --- | --- | --- |
+| public/inova.svg | Original code-authored placeholder for Inova | Created for this project | No | 32 by 32 logical pixel grid; displayed at larger scale |
+| src-tauri/icons desktop files | Generated from public/inova.svg by Tauri icon CLI | Derived from the original project placeholder | No | Regenerate with npm run tauri icon public/inova.svg |
+| src/styles-dog.css equipment shapes | Original project CSS | Created for this project | No | Temporary notebook/bandana shapes |
+| src/services/audio.ts | Original synthesized tones | Created for this project | No | Click and reward only; no recorded bark |
 
-No assets have been added yet. Do not use placeholders as evidence that the final asset set is complete.
+Do not use placeholders as evidence that the final asset set is complete. A repository-wide distribution license has not been selected; do not attach a third-party license to these assets without the team's decision.

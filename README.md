@@ -6,7 +6,28 @@ Inova is a SCOPE club final project for the theme **Evolve**. You build habits a
 
 ## Current status
 
-Planning and documentation only. There is no application, selected technology stack, generated artwork, audio pack, or working integration in this repository yet. The name **Inova** is confirmed by the team's repository choice.
+Shared starter: **Tauri 2 + Rust + React + TypeScript + Vite**, targeting Windows and Mac. Three builders are working toward **December 1, 2026**. The starter connects adoption, a floating-mode control, sample quests, deterministic rewards, wardrobe, and local memory storage. Artwork and sound are placeholders; planning is a visibly labeled deterministic sample, with no live AI or external integrations. See [verified status and limitations](docs/IMPLEMENTATION_STATUS.md).
+
+## Run the starter
+
+Install the [platform prerequisites](docs/SETUP.md), then:
+
+```sh
+npm ci
+npm run desktop
+```
+
+For a browser interface preview without Rust, use `npm run dev`. This preview cannot demonstrate desktop overlay behavior.
+
+## Pick your track
+
+| Track | Feature | Handoff |
+| --- | --- | --- |
+| A | Adoption and desktop companion | [Start Track A](docs/tasks/A_COMPANION.md) |
+| B | Commitments and AI quests | [Start Track B](docs/tasks/B_QUESTS.md) |
+| C | Wardrobe and memory world | [Start Track C](docs/tasks/C_WORLD.md) |
+
+Read the [team plan](docs/TEAM_PLAN.md) and [shared agreements](docs/SHARED_CONTRACTS.md) before editing shared files. Choose which person takes each track; names are not assigned yet.
 
 ## Start here
 
@@ -29,7 +50,7 @@ Game feel is central: clicks click, woofs bark, doors sound like doors, and rewa
 
 ## What is settled and what is open
 
-Pixel art, the desktop companion direction, layered cosmetics, and strong audiovisual feedback are established preferences. The minimum feature list is a proposal. Desktop operating system, stack, schedule, team assignments, reward thresholds, account integrations, and spooky-mode triggers remain open.
+Pixel art, desktop companionship, layered cosmetics, and strong audiovisual feedback are established preferences. Tauri, both desktop platforms, three builders, and the deadline are confirmed. Individual track owners, the live AI provider and budget, final reward balancing, account integrations, and spooky-mode triggers remain open. The starter uses one equipment slot and demonstration reward rules; the full minimum feature list is still a proposed target.
 
 The full vision includes adulting help, exploration suggestions, optional perspective exercises, an expanding world, and possible calendar or academic integrations. See the backlog before treating an idea as required.
 
@@ -39,4 +60,4 @@ Clone this repository and ask your assistant:
 
 > Read AGENTS.md, docs/AI_CONTEXT.md, docs/IMPLEMENTATION_STATUS.md, and the documents relevant to my task. Explain the current state, distinguish established requirements from proposals, and identify dependencies before making changes. My task is: [describe your task].
 
-All essential context is in the repository. ChatGPT Page links are optional references and may require separate access. No app install or run instructions apply until an implementation is added.
+All essential context is in the repository. ChatGPT Page links are optional discussion references and may require separate access. Use [setup](docs/SETUP.md), [architecture](docs/ARCHITECTURE.md), and [team plan](docs/TEAM_PLAN.md) as the current implementation guide.

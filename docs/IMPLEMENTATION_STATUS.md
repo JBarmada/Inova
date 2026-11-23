@@ -1,39 +1,46 @@
 # Implementation Status and Handoff
 
-Baseline: November 22, 2026. Inspect the current checkout before relying on this record after implementation begins.
+Shared starter checkpoint: November 22, 2026. Three builders; Windows and Mac; deadline December 1. Inspect current code before relying on this checkpoint after later changes.
 
-## Present in the repository
+## Implemented starter
 
-- Inova product description and team onboarding.
-- Eight product planning records, including behavior, vision, game feel, assets, memory, minimum scope, stretch scope, and decisions.
-- Agent/data requirements, curriculum summary, representative demo checks, and an asset checklist.
-- AI contributor instructions, a suggested collaboration workflow, and ignore rules.
+- Tauri 2/Rust desktop shell with React/TypeScript/Vite interface and locked npm/Cargo dependencies.
+- One window with normal home and compact transparent always-on-top mode controls; native drag-region markup.
+- Adoption/name, simple selectable moods, original placeholder dog art, and separate equipment shapes.
+- Manual commitment entry and a labeled deterministic sample Planner interface.
+- Quest proposal, acceptance, deferral, dismissal, and completion.
+- Duplicate-safe completion rewards: notebook at one quest and bandana at three; one equipment slot.
+- Reflection entry, dated memory buttons, readable entry view, per-entry personalization permission, and deletion.
+- Shared validated state with queued mutations and local persistence adapters for desktop and browser preview.
+- Click/reward synthesized tones, shared mute setting, error messages, and reduced-motion CSS.
+- Feature folders and three task handoffs, with shared agreements and Windows/Mac CI configuration.
 
-## Not implemented
+## Verified in this setup
 
-No application code, selected stack, package manifest, install/run commands, automated app tests, artwork, audio, desktop overlay, persistence, model calls, integrations, or deployment exists at this baseline. No team member is assigned a component in these records. No runtime quality results have been generated.
+- `npm run check`: size checker, TypeScript, five domain tests, and frontend production build passed.
+- `npm run tauri build -- --no-bundle`: Windows release compilation passed and produced src-tauri/target/release/inova.exe.
+- Browser preview UI: adoption, adding a commitment, proposing/accepting/completing a sample quest, unlocking/equipping the notebook, saving/opening a dated reflection, and retaining the adopted/equipped dog after reload were observed.
+- Domain tests check duplicate rewards, ineligible completion states, locked items, fabricated evidence, and private/revoked/deleted memory handling.
 
-## Next milestones
+## Still unverified or incomplete
 
-1. Confirm desktop operating system, team capacity, deadline, budget, and any judging requirements.
-2. Agree on the smallest delivery scope and choose a stack that can support the overlay.
-3. Prove a transparent movable dog above ordinary desktop windows on the target platform.
-4. Agree on shared data concepts, asset scale and anchors, and task ownership.
-5. Build adoption, expressions, one layered cosmetic, and coherent action feedback.
-6. Connect one manual commitment to an AI quest, check-in, and duplicate-safe reward.
-7. Persist state, add a dated readable memory, and demonstrate useful adaptation.
-8. Run representative checks, document actual outcomes, then select stretch features.
+- Windows native overlay appearance, dragging, and native save/restart need hands-on runtime testing. Compilation alone does not establish them.
+- No Mac runtime test was performed here. GitHub's matrix is configured for both platforms; inspect Actions for actual run results.
+- The GitHub CLI token on the initial workstation is invalid, so authenticated Actions inspection is unavailable; SSH Git access works.
+- No live AI, credentials, scheduling engine, assignment/calendar/grade integration, cloud sync, or sign-in.
+- No recorded bark, final sprite set, multiple adoptable variants, mature animation, dedicated book/door audio, or full item reveal sequence.
+- No quest editing, memory editing, multiple equipment slots, click-through, exact window-position restore, or spooky-mode mechanics yet.
+- Desktop stores are plaintext. Browser preview and desktop data are separate; concurrent preview tabs/processes are outside the starter's state model.
 
-## Agreements still needed
+## Next actions
 
-See [open decisions](08-decisions-and-open-questions.md). In particular, a browser-only demo cannot establish the real desktop overlay, and a model-generated reward narrative cannot replace application-level reward rules.
+1. Choose who owns Track A/B/C in TEAM_PLAN.md.
+2. Everyone follows SETUP.md and runs the starter; get hands-on Windows and Mac overlay reports first.
+3. Follow each track's first milestone. Decide AI provider/spending limit and agree on pixel asset dimensions.
+4. Merge working increments daily; target a complete integrated flow by November 27 and freeze new features November 30.
 
-## Updating this handoff
+## Commands
 
-After meaningful implementation, record what works, exact setup/run/check commands, platform coverage, mock versus real integrations, known failures, and the next small milestone. Keep completed work separate from plans. Add task owners only when the team assigns them.
+`npm ci`; `npm run dev` for browser preview; `npm run desktop` for native development; `npm run check` for source checks; `npm run tauri build -- --no-bundle` for native compilation. See SETUP.md for platform tools and paths.
 
-## Repository and discussion records
-
-GitHub: https://github.com/JBarmada/Inova
-
-Use repository documents as the shared implementation reference. The linked online Pages contain the earlier discussion drafts and do not automatically sync with these files.
+Update this record with actual results as work lands. Repository documents are the shared implementation reference; companion Pages do not automatically sync. GitHub: https://github.com/JBarmada/Inova.

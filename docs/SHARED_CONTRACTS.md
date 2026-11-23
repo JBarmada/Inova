@@ -1,0 +1,54 @@
+# Shared Feature Agreements
+
+The executable source of truth is `src/shared/schema.ts` and `src/shared/actions.ts`. This document explains the agreements. Coordinate contract changes and include migrations before changing persisted schemaVersion 1.
+
+## Common rules
+
+- IDs are stable strings; create new IDs with `newId()` and timestamps with `now()`.
+- Store timestamps as ISO UTC strings and display dates in the user's locale. Deadline/timezone fields are not implemented yet.
+- All persistent changes go through `dispatch`. Feature components never write storage directly.
+- One local profile and app window; no multi-user or multi-device sync.
+- Read persisted state through the validated storage adapter. Invalid saves must not be silently overwritten.
+- Await mutations before announcing success. A failed save must remain visible to the user.
+
+## State and actions
+
+| Domain | Shared record | Main actions |
+| --- | --- | --- |
+| Pet | name, adopted, mood | adopt, mood |
+| Settings | muted | mute |
+| Commitment | id, title, createdAt | add-commitment |
+| Quest | id, commitmentId, title, reason, sourceIds, minutes, status, planner | propose-quest, quest-status, complete-quest |
+| Memory | id, text, createdAt, aiAllowed, optional questId | add-memory, memory-permission, delete-memory |
+| Inventory | ownedItems, equippedItem | equip; rewards grant ownership through quest completion |
+| Reward record | rewardedQuestIds | controlled by completion rules, never directly edited by UI |
+
+Mood is currently idle, happy, or tired. Item IDs are notebook and bandana. New moods, items, slots, or a live planner label require coordinated schema and rendering updates.
+
+## Quest lifecycle and reward agreement
+
+New quests are proposed. Proposed, deferred, or accepted quests can be accepted, deferred, or dismissed. Only accepted quests can complete. Completed and dismissed quests are terminal in the starter.
+
+Completing a quest rewards its ID once. The first completed quest unlocks a notebook; the third unlocks a bandana. These are starter demonstration rules, not finalized product balancing. Current equipment has one slot; multiple simultaneous slots remain a feature extension.
+
+The UI cannot equip an unowned item. Changing rewards must keep the quest ID guard intact. Duplicate reward prevention applies to the same quest ID; preventing repeatedly created equivalent quests is a separate unresolved product rule.
+
+## Planning boundary
+
+`Planner.propose(commitment, state)` returns a Promise of a proposed Quest. The current `samplePlanner` has planner label sample and never calls an AI service. Keep this fallback runnable during live-provider development.
+
+A proposed quest must refer to an existing commitment. Additional evidence IDs must belong to memories currently allowed for personalization. The sample interface does not schedule, evaluate grades, or infer sleep. Acceptance does not imply the user completed anything.
+
+To add live AI, extend the planner label deliberately, define validated response fields, and route credentials/network access through the desktop core. Do not move model secrets into frontend environment variables or claim a successful provider connection before checking it.
+
+## Memory boundary
+
+Entries default to excluded from personalization. Include only entries with aiAllowed true when constructing model context. The current starter stores no generated summaries or retrieval index.
+
+Deleting or revoking a memory removes its reference and copied rationale from existing quest records. Future planners must not keep separate untracked copies. If a developer later adds summaries or embeddings, that developer must extend deletion/revocation to those copies.
+
+## Asset and feedback boundary
+
+Dog rendering takes shared state; it does not own inventory. Wardrobe writes equipment, and the same DogSprite reflects it in both home and floating mode. Use stable catalog IDs and agreed anchors.
+
+Shared dispatch produces a click or reward tone after successful persistence. Local navigation interactions call the audio service. Recorded barks, door sounds, book sounds, richer fanfare, and polished effects remain track work. Do not invent a separate sound setting.
