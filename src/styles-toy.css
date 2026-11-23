@@ -7,7 +7,9 @@
 .bone-toy:hover:not(:disabled) { background: transparent; transform: translateY(-2px) rotate(-4deg); }
 .bone-toy:active:not(:disabled) { box-shadow: none; transform: translateY(1px); }
 .bone-toy:focus:not(:focus-visible) { outline: none; }
-.bone-toy:focus-visible { outline: 2px dashed #087d7b; outline-offset: 3px; }
+.bone-toy:focus-visible { outline: none; }
+.bone-toy:not(.is-dev):focus-visible img { filter: drop-shadow(0 0 2px #087d7b) drop-shadow(0 0 1px #fff4cf); }
+.bone-toy.is-dev:focus-visible { outline: 2px dashed #087d7b; outline-offset: 3px; }
 .toy-quest-count { position: absolute; right: 0; top: -4px; min-width: 17px; height: 17px; padding: 1px 3px; background: #087d7b; color: #fff4cf; font: bold 11px/15px monospace; box-shadow: 0 2px #075b5c, 2px 0 #075b5c; }
 .toy-quest-panel { position: relative; clip-path: inset(0); width: 100%; min-width: 0; margin: 6px 0 0; border: 46px solid transparent; border-width: 52px 36px 48px; border-image: url('/art/quest-toy-frame-v1.png') 25% fill / 52px 36px 48px / 0 stretch; padding: 0 4px; color: #30303d; text-align: left; }
 .toy-board-heading { position: relative; text-align: center; padding: 0 10px 12px; border-bottom: 2px solid #d9b06d; }

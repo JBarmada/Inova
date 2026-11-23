@@ -18,7 +18,7 @@ export function BoneQuestToy({ state, onExpandedChange }: { state: AppState; onE
   return <div className={`bone-quest-wrap ${open ? "is-open" : ""}`} onKeyDown={(event) => {
     if (event.key === "Escape") { setExpanded(false); button.current?.focus(); }
   }}>
-    <button ref={button} className="bone-toy" type="button" aria-label={open ? "Close quest toy" : "Open quest toy"}
+    <button ref={button} className={`bone-toy${state.settings.devMode ? " is-dev" : ""}`} type="button" aria-label={open ? "Close quest toy" : "Open quest toy"}
       aria-expanded={open} aria-controls="toy-quest-board" title="Your next little adventures" onClick={() => setExpanded(!open)}>
       <img src="/art/quest-toy-icon-v1.png" width="82" height="42" alt="Golden bone toy with teal rope" draggable={false} />
       {active > 0 && <span className="toy-quest-count">{active}</span>}
