@@ -7,7 +7,9 @@ function apply(state: AppState, action: Action): AppState {
     case "adopt":
       return { ...state, pet: { ...state.pet, name: action.name.trim(), adopted: true } };
     case "mood": return { ...state, pet: { ...state.pet, mood: action.mood } };
-    case "mute": return { ...state, settings: { muted: action.muted } };
+    case "mute": return { ...state, settings: { ...state.settings, muted: action.muted } };
+    case "dev-mode": return { ...state, settings: { ...state.settings, devMode: action.enabled } };
+    case "status-bar": return { ...state, settings: { ...state.settings, showStatus: action.enabled } };
     case "add-commitment":
       if (state.commitments.some((entry) => entry.id === action.commitment.id)) return state;
       return { ...state, commitments: [...state.commitments, action.commitment] };

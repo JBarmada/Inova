@@ -19,7 +19,7 @@ export const memorySchema = z.object({
 export const stateSchema = z.object({
   schemaVersion: z.literal(1),
   pet: z.object({ name: z.string().max(40), adopted: z.boolean(), mood: moodSchema }),
-  settings: z.object({ muted: z.boolean() }),
+  settings: z.object({ muted: z.boolean(), devMode: z.boolean().default(false), showStatus: z.boolean().default(false) }),
   commitments: z.array(commitmentSchema),
   quests: z.array(questSchema),
   memories: z.array(memorySchema),

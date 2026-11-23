@@ -1,4 +1,5 @@
 @import url("./styles-dog.css");
+@import url("./styles-companion.css");
 
 :root { font-family: ui-monospace, "Cascadia Code", monospace; color: #302e28; background: transparent; font-synthesis: none; }
 * { box-sizing: border-box; }
@@ -44,9 +45,7 @@ textarea { min-height: 100px; resize: vertical; }
 .empty, footer { color: #736d5c; font-size: 13px; }
 footer { margin-top: 48px; padding-top: 20px; border-top: 2px solid #d4c6a7; }
 .floating { padding: 8px; background: transparent; min-height: 0; }
-.floating .utilities button, .floating .reactions button { font-size: 10px; padding: 4px 6px; }
 .floating .dog-stage { min-height: 160px; cursor: grab; }
 .floating .dog-stage > * { pointer-events: none; }
-.floating p { font-size: 10px; background: #fff9e9; }
 .startup-error { padding: 32px; background: #fff9e9; min-height: 100vh; }
 @media (max-width: 600px) { .masthead { flex-wrap: wrap; } .app:not(.floating) { padding: 24px; } .commitment { flex-wrap: wrap; } }

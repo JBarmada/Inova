@@ -15,6 +15,7 @@ Inova is a SCOPE club final project for the theme Evolve. It is an evolving pixe
 - A readable memory bookshelf with dates on book spines and an open-book reading view.
 - The dog's world can expand through the user's experiences.
 - The name is Inova; the remote is `git@github.com:JBarmada/Inova.git`.
+- Compact companion controls use Home and Settings pixel icons; sound and developer controls live in Settings. Manual mood/test buttons require dev mode, which defaults off. Keep status small and pixel-styled; future expression markers such as excitement exclamations remain for later design work.
 
 ## Proposed complete loop
 

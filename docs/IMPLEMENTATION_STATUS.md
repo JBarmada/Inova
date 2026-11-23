@@ -13,13 +13,19 @@ Shared starter checkpoint: November 22, 2026. Three builders; Windows and Mac; d
 - Reflection entry, dated memory buttons, readable entry view, per-entry personalization permission, and deletion.
 - Shared validated state with queued mutations and local persistence adapters for desktop and browser preview.
 - Click/reward synthesized tones, shared mute setting, error messages, and reduced-motion CSS.
+- Entering floating mode does not leave a persistent mode-change success banner; switching errors remain visible.
+- Home/Settings pixel icons replace floating text controls. Settings contains sound and persistent dev-mode toggles; manual mood controls are hidden by default. Existing saves default devMode to false. Companion status uses a small stepped pixel chip.
+- The Home icon appears only in floating mode; the home interface shows Settings alone.
+- Floating controls and enabled mood status reveal on dog hover or keyboard focus, remaining available during control/menu interaction. Settings adds a persistent Status bar toggle, off by default and compatible with older saves.
+- Floating mode includes a small clickable pixel-art bone toy beside the dog; clicking it opens a readable quest popup using the current accepted, proposed, or deferred quest.
 - Feature folders and three task handoffs, with shared agreements and Windows/Mac CI configuration.
 
 ## Verified in this setup
 
-- `npm run check`: size checker, TypeScript, five domain tests, and frontend production build passed.
+- `npm run check`: size checker, TypeScript, eight domain/settings tests, and frontend production build passed.
 - `npm run tauri build -- --no-bundle`: Windows release compilation passed and produced src-tauri/target/release/inova.exe.
 - Browser preview UI: adoption, adding a commitment, proposing/accepting/completing a sample quest, unlocking/equipping the notebook, saving/opening a dated reflection, and retaining the adopted/equipped dog after reload were observed.
+- Browser controls check: Home/Settings icons and compact status render; enabling dev mode reveals mood controls, disabling it hides them, and the sound setting changes independently. Native layout still needs platform runtime confirmation.
 - Domain tests check duplicate rewards, ineligible completion states, locked items, fabricated evidence, and private/revoked/deleted memory handling.
 
 ## Still unverified or incomplete
@@ -30,6 +36,7 @@ Shared starter checkpoint: November 22, 2026. Three builders; Windows and Mac; d
 - No live AI, credentials, scheduling engine, assignment/calendar/grade integration, cloud sync, or sign-in.
 - No recorded bark, final sprite set, multiple adoptable variants, mature animation, dedicated book/door audio, or full item reveal sequence.
 - No quest editing, memory editing, multiple equipment slots, click-through, exact window-position restore, or spooky-mode mechanics yet.
+- The bone toy is CSS placeholder art and the quest popup is read-only; quest actions still happen on the full quests screen.
 - Desktop stores are plaintext. Browser preview and desktop data are separate; concurrent preview tabs/processes are outside the starter's state model.
 
 ## Next actions

@@ -1,0 +1,39 @@
+.companion-controls { position: relative; display: flex; justify-content: flex-end; gap: 6px; z-index: 2; }
+.pixel-icon-button { display: grid; place-items: center; width: 32px; height: 32px; padding: 6px; border: 0; background: transparent; box-shadow: none; color: #65563f; }
+.pixel-icon-button:hover:not(:disabled), .pixel-icon-button[aria-expanded="true"] { background: #f2e6c9; }
+.pixel-icon-button:active:not(:disabled) { transform: translateY(1px); box-shadow: none; }
+.companion-settings { position: absolute; top: 40px; right: 0; width: 228px; padding: 14px 16px; background: #fff8e8; box-shadow: 0 -2px #9a8867, 0 2px #9a8867, -2px 0 #9a8867, 2px 0 #9a8867, 4px 4px #302e2826; }
+.companion-settings h2 { margin: 0 0 12px; font-size: 13px; letter-spacing: 1px; }
+.setting-row { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 8px 0; font-size: 12px; }
+.setting-row input { appearance: none; width: 28px; height: 16px; margin: 0; padding: 2px; border: 0; border-radius: 0; background: #ded3b9; cursor: pointer; }
+.setting-row input::after { content: ""; display: block; width: 12px; height: 12px; background: #8a7b5c; }
+.setting-row input:checked { background: #d3e2bc; }
+.setting-row input:checked::after { background: #59773f; transform: translateX(12px); }
+.status-wrap { display: flex; justify-content: center; margin: 10px 0 0; }
+.pixel-status { display: inline-flex; align-items: center; gap: 7px; width: max-content; max-width: 100%; padding: 5px 9px; background: #fcf4df; color: #675c43; font: 11px/1.5 "Courier New", monospace; letter-spacing: .2px; text-align: left; overflow-wrap: anywhere; clip-path: polygon(4px 0, calc(100% - 4px) 0, calc(100% - 4px) 2px, 100% 2px, 100% calc(100% - 2px), calc(100% - 4px) calc(100% - 2px), calc(100% - 4px) 100%, 4px 100%, 4px calc(100% - 2px), 0 calc(100% - 2px), 0 2px, 4px 2px); }
+.status-pip { flex: 0 0 4px; width: 4px; height: 4px; background: #7f9663; box-shadow: 1px 0 #7f9663; }
+.floating .companion-controls { height: 32px; }
+.floating .reactions { margin: 4px 0; gap: 6px; }
+.floating .reactions button { border-width: 1px; box-shadow: 1px 1px #d4c6a7; font-size: 10px; padding: 3px 7px; }
+.floating .hover-reveal { opacity: 0; visibility: hidden; pointer-events: none; transition: opacity .12s ease, visibility 0s linear .18s; }
+.floating:has(.dog-stage:hover, .companion-controls:hover, .reactions:hover, .status-wrap:hover, :focus-visible, .companion-settings) .hover-reveal { opacity: 1; visibility: visible; pointer-events: auto; transition-delay: 0s; }
+.floating .dog-stage:focus-visible { outline: 1px dashed #9a8867; outline-offset: -3px; }
+.floating .pet-panel { position: relative; }
+.bone-quest-wrap { position: relative; display: flex; justify-content: center; margin: -2px 0 4px; z-index: 3; }
+.floating .bone-quest-wrap { position: absolute; left: calc(50% + 48px); top: 88px; margin: 0; }
+.bone-toy { position: relative; display: flex; align-items: center; justify-content: center; width: 84px; height: 48px; padding: 0; border: 0; background: transparent; box-shadow: none; image-rendering: pixelated; }
+.bone-toy:hover:not(:disabled) { background: transparent; transform: translateY(-2px); }
+.bone-toy:active:not(:disabled) { transform: translateY(1px); box-shadow: none; }
+.bone-end { position: absolute; width: 24px; height: 24px; background: #f1b83e; border: 3px solid #9a5428; box-shadow: 3px 3px #70452c; }
+.bone-end::before, .bone-end::after { content: ""; position: absolute; width: 12px; height: 12px; background: #f1b83e; border: 3px solid #9a5428; }
+.bone-end::before { left: -8px; top: -8px; }
+.bone-end::after { right: -8px; bottom: -8px; }
+.bone-end-left { left: 3px; transform: rotate(-18deg); }
+.bone-end-right { right: 3px; transform: rotate(18deg); }
+.bone-middle { width: 50px; height: 14px; background: repeating-linear-gradient(125deg, #e8802d 0 9px, #25a4a2 9px 18px); border: 3px solid #9a5428; box-shadow: 3px 3px #70452c; }
+.bone-quest-box { position: absolute; top: 48px; width: min(280px, 92vw); padding: 18px 20px; color: #302e28; text-align: left; background: #fff5d9; border: 8px solid #f0b83e; border-radius: 24px; box-shadow: inset 0 0 0 3px #d9782d, 4px 4px #70452c66; }
+.bone-quest-box::before { content: ""; position: absolute; top: -15px; left: calc(50% - 10px); width: 18px; height: 13px; background: #f0b83e; border: 3px solid #9a5428; clip-path: polygon(0 100%, 50% 0, 100% 100%); }
+.bone-quest-box p { margin: 7px 0 0; font-size: 11px; line-height: 1.45; }
+.bone-quest-box .eyebrow { margin: 0; color: #63705a; font-size: 9px; }
+.bone-quest-box h3 { margin: 8px 0 0; color: #302e28; font-size: 16px; }
+@media (prefers-reduced-motion: reduce) { .floating .hover-reveal { transition: none; } }

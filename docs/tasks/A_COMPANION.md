@@ -21,7 +21,7 @@ Run npm run desktop on Windows and a Mac. Adopt, enter floating mode, drag by th
 
 ## Next increments
 
-1. Make compact controls consistently fit; preserve/restablish useful window position and dimensions.
+1. Keep compact controls to Home and Settings pixel icons. Settings contains sound and dev-mode toggles; manual mood/test buttons appear only in dev mode. Preserve/restablish useful window position and dimensions.
 2. Replace the placeholder dog with a small consistent sprite set and real expressive frames.
 3. Add dog interaction with a real bark plus an appropriate visual reaction.
 4. Improve adoption with the desired small variant picker once the art set is ready.
@@ -32,6 +32,8 @@ Run npm run desktop on Windows and a Mac. Adopt, enter floating mode, drag by th
 Use shared pet and inventory state. Do not independently persist outfits or rewards. Give Track C supported poses, canvas size, attachment anchors, and layer order before they create items. Call the shared audio service and respect muted/reduced motion.
 
 Click-through is not yet implemented. If adding it, ensure the dog remains clickable/draggable and the user can always return to controls. Do not create a second window without coordinating state synchronization.
+
+The user wants a compact pixel-style status chip rather than a full-width rectangular message banner. The mode-change success message is removed. A Settings toggle controls the optional status summary and defaults off. In floating mode, controls and enabled status reveal on dog hover or keyboard focus, and stay reachable while interacting with controls or Settings. Future emotional cues should increasingly come from the dog itself, such as an exclamation mark for excitement; designing those cues is deferred to the companion discussion.
 
 ## Acceptance demonstration
 

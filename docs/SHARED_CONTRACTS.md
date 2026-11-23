@@ -16,7 +16,7 @@ The executable source of truth is `src/shared/schema.ts` and `src/shared/actions
 | Domain | Shared record | Main actions |
 | --- | --- | --- |
 | Pet | name, adopted, mood | adopt, mood |
-| Settings | muted | mute |
+| Settings | muted, devMode, showStatus | mute, dev-mode, status-bar |
 | Commitment | id, title, createdAt | add-commitment |
 | Quest | id, commitmentId, title, reason, sourceIds, minutes, status, planner | propose-quest, quest-status, complete-quest |
 | Memory | id, text, createdAt, aiAllowed, optional questId | add-memory, memory-permission, delete-memory |
@@ -24,6 +24,10 @@ The executable source of truth is `src/shared/schema.ts` and `src/shared/actions
 | Reward record | rewardedQuestIds | controlled by completion rules, never directly edited by UI |
 
 Mood is currently idle, happy, or tired. Item IDs are notebook and bandana. New moods, items, slots, or a live planner label require coordinated schema and rendering updates.
+
+Developer mode defaults off. Version-one saves without settings.devMode load it as false through the schema default, preserving existing data and sound preference. Dev mode exposes manual mood/test controls; ordinary quest and wardrobe interactions remain available normally. New debug-only controls must respect this setting. Settings and Home are pixel icon buttons; Home appears only in floating mode. Sound and developer toggles belong inside the settings popover.
+
+The dog status summary is optional through the Settings Status bar toggle and defaults off, including for older saves. In floating mode, icons, developer controls, and enabled dog status reveal on dog hover or keyboard focus. Keep them reachable while moving into the controls and while Settings is open. Home mode keeps normal controls visible. Error feedback is separate from the optional dog status summary.
 
 ## Quest lifecycle and reward agreement
 
