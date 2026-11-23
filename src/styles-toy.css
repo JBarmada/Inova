@@ -23,6 +23,11 @@ html.pet-mode .floating { --companion-width: calc(100vw - 16px); overflow: visib
 .toy-composer .toy-add:active:not(:disabled) { transform: none; box-shadow: none; }
 .toy-composer-feedback, .toy-row-feedback { color: #476b49; font: 10px/1.5 monospace; margin: 6px 0; }
 .toy-quest-list { list-style: none; padding: 0 25px 0 3px; margin: 0 -22px 0 0; max-height: max(120px, calc(var(--float-work-height, 1000px) - 520px)); overflow-y: auto; overflow-x: hidden; scrollbar-width: thin; scrollbar-color: #d7ae65 transparent; }
+.toy-quest-items { list-style: none; padding: 0; margin: 0; }
+.toy-completed-toggle { display: block; width: 100%; margin: 4px 0 0; padding: 10px 0; border: 0; border-top: 1px dashed #cba567; background: transparent; box-shadow: none; color: #137d7f; text-align: left; font: bold 11px/1.5 monospace; }
+.toy-completed-toggle:hover:not(:disabled) { background: #e8dfb7; }
+.toy-completed-toggle:active:not(:disabled) { transform: none; box-shadow: none; }
+.toy-completed-toggle:focus-visible { outline-offset: -3px; }
 .toy-quest-row { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 4px 8px; padding: 12px 0; border-top: 1px dashed #cba567; }
 .toy-quest-row:first-child { border-top: 0; }
 .toy-quest-copy { flex: 1 1 170px; min-width: 0; }

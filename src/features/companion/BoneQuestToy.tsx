@@ -2,7 +2,7 @@ import { useCallback, useRef, useState } from "react";
 import type { AppState } from "../../shared/schema";
 import { playCue } from "../../services/audio";
 import { toyQuests } from "./toyQuests";
-import { ToyQuestRow } from "./ToyQuestRow";
+import { ToyQuestList } from "./ToyQuestList";
 import { ToyComposer } from "./ToyComposer";
 import { QuestToyIcon } from "./QuestToyIcon";
 import { useOutsideDismiss } from "./useOutsideDismiss";
@@ -32,7 +32,7 @@ export function BoneQuestToy({ state, onExpandedChange }: { state: AppState; onE
       <header className="toy-board-heading">
         <h3><span aria-hidden="true">✦</span><span>Fetch a Lil' Side Quest</span><span aria-hidden="true">✦</span></h3></header>
       <ToyComposer state={state} />
-      {quests.length > 0 ? <ul className="toy-quest-list" aria-label="Your quests">{quests.map((quest) => <ToyQuestRow quest={quest} key={quest.id} />)}</ul>
+      {quests.length > 0 ? <ToyQuestList quests={quests} muted={state.settings.muted} />
         : <p className="toy-empty">Every adventure starts with a little plan. Add yours above.</p>}
     </section>}
   </div>;

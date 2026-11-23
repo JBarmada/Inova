@@ -6,11 +6,20 @@ function quest(id: string, status: Quest["status"]): Quest {
   return { id, status, commitmentId: "c", title: id, reason: "Test", sourceIds: ["c"], minutes: 10, planner: "sample" };
 }
 
-it("lists every active quest and keeps the original state order untouched", () => {
+it("lists newest quests first across statuses without mutating saved order", () => {
   const source = [quest("one", "accepted"), quest("two", "proposed"), quest("three", "deferred"), quest("hidden", "dismissed")];
+  const before = structuredClone(source);
   const rows = toyQuests(source);
-  expect(rows.map((entry) => entry.id)).toEqual(["two", "one", "three"]);
-  expect(source[0].id).toBe("one");
+  expect(rows.map((entry) => entry.id)).toEqual(["three", "two", "one"]);
+  expect(source).toEqual(before);
+});
+
+it("keeps newly added quests above older ones after accepting or completing them", () => {
+  const source = [quest("older", "proposed"), quest("newer", "proposed")];
+  for (const status of ["proposed", "accepted", "completed"] as const) {
+    source[1] = { ...source[1], status };
+    expect(toyQuests(source).map((entry) => entry.id)).toEqual(["newer", "older"]);
+  }
 });
 
 it("keeps completed adventures and removes mechanical wording from legacy titles", () => {

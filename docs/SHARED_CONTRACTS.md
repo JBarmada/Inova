@@ -33,6 +33,8 @@ The dog status summary is optional through the Settings Status bar toggle and de
 
 New quests are proposed. Proposed, deferred, or accepted quests can be accepted, deferred, or dismissed. Only accepted quests can complete. Completed and dismissed quests are terminal in the starter.
 
+The floating quest board shows unfinished quests newest first, regardless of status. Completed quests appear in their own newest-first group beneath a Completed (count) disclosure, initially collapsed each time the board opens. Quest creation currently appends to the saved array; display ordering reverses a filtered copy without mutating that array or adding timestamps. The disclosure is temporary presentation state, not a persisted setting. Quest states and reward rules remain distinct from this grouping.
+
 Completing a quest rewards its ID once. The first completed quest unlocks a notebook; the third unlocks a bandana. These are starter demonstration rules, not finalized product balancing. Current equipment has one slot; multiple simultaneous slots remain a feature extension.
 
 The UI cannot equip an unowned item. Changing rewards must keep the quest ID guard intact. Duplicate reward prevention applies to the same quest ID; preventing repeatedly created equivalent quests is a separate unresolved product rule.

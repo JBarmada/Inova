@@ -1,9 +1,9 @@
 import type { Quest } from "../../shared/schema";
 
 export function toyQuests(quests: Quest[]): Quest[] {
-  const order = { proposed: 0, accepted: 1, deferred: 2, completed: 3, dismissed: 4 };
+  // New proposals append to saved state; reverse a filtered copy for newest first.
   return quests.filter((quest) => quest.status !== "dismissed")
-    .sort((a, b) => order[a.status] - order[b.status]);
+    .reverse();
 }
 
 export function adventureTitle(title: string): string {
