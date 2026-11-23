@@ -1,25 +1,31 @@
 import { useRef, useState } from "react";
 import type { Quest } from "../../shared/schema";
-import { dispatch } from "../../state/store";
+import { dispatch, dispatchWithReceipt } from "../../state/store";
 import { useAction } from "../../shared/useAction";
 import { playCue } from "../../services/audio";
+import { RewardReveal, type CompletionReveal } from "../quests/RewardReveal";
 import { ToyQuestRow } from "./ToyQuestRow";
 
 export function ToyQuestList({ quests, muted }: { quests: Quest[]; muted: boolean }) {
+  const [reveal, setReveal] = useState<CompletionReveal | null>(null);
   const [showCompleted, setShowCompleted] = useState(false);
   const completedToggle = useRef<HTMLButtonElement>(null);
+  const list = useRef<HTMLDivElement>(null);
   const { run, busy, message } = useAction();
   const active = quests.filter((quest) => quest.status !== "completed");
   const completed = quests.filter((quest) => quest.status === "completed");
   function act(quest: Quest) {
     const finishing = quest.status === "accepted";
     void run(async () => {
-      await dispatch(finishing ? { type: "complete-quest", id: quest.id }
-        : { type: "quest-status", id: quest.id, status: "accepted" });
-      if (finishing) requestAnimationFrame(() => completedToggle.current?.focus());
-    }, finishing ? "Adventure complete! Saved under Completed." : "Quest fetched. Let's go!");
+      if (finishing) {
+        const receipt = await dispatchWithReceipt({ type: "complete-quest", id: quest.id });
+        setReveal({ ...receipt, title: quest.title });
+        requestAnimationFrame(() => { if (list.current) list.current.scrollTop = 0; completedToggle.current?.focus({ preventScroll: true }); });
+      } else { setReveal(null); await dispatch({ type: "quest-status", id: quest.id, status: "accepted" }); }
+    }, finishing ? "" : "Quest fetched. Let's go!");
   }
-  return <div className="toy-quest-list">
+  return <div ref={list} className="toy-quest-list">
+    {reveal && <RewardReveal result={reveal} />}
     {message && <p className="toy-row-feedback" role="status">{message}</p>}
     {active.length > 0 && <ul className="toy-quest-items" aria-label="Active quests">
       {active.map((quest) => <ToyQuestRow key={quest.id} quest={quest} busy={busy} onAction={act} />)}
@@ -35,3 +41,4 @@ export function ToyQuestList({ quests, muted }: { quests: Quest[]; muted: boolea
     </>}
   </div>;
 }
+

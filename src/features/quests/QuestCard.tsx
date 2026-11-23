@@ -1,10 +1,12 @@
 import { useState } from "react";
 import type { Quest } from "../../shared/schema";
-import { dispatch } from "../../state/store";
+import { dispatch, dispatchWithReceipt } from "../../state/store";
+import { RewardReveal, type CompletionReveal } from "./RewardReveal";
 import { useAction } from "../../shared/useAction";
 
 export function QuestCard({ quest }: { quest: Quest }) {
   const { run, busy, message } = useAction();
+  const [reveal, setReveal] = useState<CompletionReveal | null>(null);
   const [editing, setEditing] = useState(false);
   const [title, setTitle] = useState(quest.title);
   const terminal = quest.status === "completed" || quest.status === "dismissed";
@@ -18,10 +20,11 @@ export function QuestCard({ quest }: { quest: Quest }) {
     {!terminal && !editing && <div className="actions">
       <button disabled={busy} onClick={() => { setTitle(quest.title); setEditing(true); }}>Edit</button>
       {quest.status !== "accepted" && <button disabled={busy} onClick={() => void run(() => dispatch({ type: "quest-status", id: quest.id, status: "accepted" }))}>Accept</button>}
-      {quest.status === "accepted" && <button className="primary" disabled={busy} onClick={() => void run(() => dispatch({ type: "complete-quest", id: quest.id }), "Completed! Check your wardrobe for earned items.")}>Complete</button>}
+      {quest.status === "accepted" && <button className="primary" disabled={busy} onClick={() => void run(async () => { const receipt = await dispatchWithReceipt({ type: "complete-quest", id: quest.id }); setReveal({ ...receipt, title: quest.title }); }, "")}>Complete</button>}
       <button disabled={busy} onClick={() => void run(() => dispatch({ type: "quest-status", id: quest.id, status: "deferred" }))}>Later</button>
       <button disabled={busy} onClick={() => void run(() => dispatch({ type: "quest-status", id: quest.id, status: "dismissed" }))}>Dismiss</button>
     </div>}
+    {reveal && <RewardReveal result={reveal} />}
     {message && <p role="status">{message}</p>}
   </article>;
 }

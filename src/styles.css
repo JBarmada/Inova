@@ -3,6 +3,7 @@
 @import url("./styles-window.css");
 @import url("./styles-toy.css");
 @import url("./styles-toy-motion.css");
+@import url("./styles-reward.css");
 
 :root { font-family: ui-monospace, "Cascadia Code", monospace; color: #302e28; background: transparent; font-synthesis: none; }
 * { box-sizing: border-box; }

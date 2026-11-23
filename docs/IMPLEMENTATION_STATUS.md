@@ -1,5 +1,11 @@
 # Implementation Status and Handoff
 
+## Quest reward reveal — November 23, 2026
+
+The main quest page and floating toy show an animated, readable completion card naming each item actually unlocked by the saved completion. The card also identifies the completed quest and gives a saved-progress message if no new item was unlocked. It does not announce an item again for duplicate, ineligible, or failed saves. The existing synthesized reward cue and mute setting remain in use; reduced motion disables the reveal animation. Floating completion retains focus on Completed and returns the list to the reveal instead of scrolling the feedback out of view.
+
+`npm run check` passed 82 tests, type/size checks, and production build; Windows release compilation passed. In the isolated browser preview with fictional quests, completions showed the notebook and bandana unlocks and a no-new-item completion; the third reveal and Completed focus were visually checked. This is browser evidence, not native overlay, audible playback, muted playback, or Mac runtime verification. Item graphics are existing provisional wardrobe glyphs and reward thresholds remain demonstration rules.
+
 ## Local planner integration — November 23, 2026
 
 The build-out worktree offers an explicit Local AI quest action in the Quests page. It calls the local Ollama `gemma3:12b` model through a bounded Rust command, sends the commitment and up to three permitted reflections, validates JSON and quest fields, and records the supplied source IDs. The existing sample planner remains separately selectable. Errors tell the user to start/install the local service and preserve manual/sample use. Before saving a local proposal, the reducer checks that each supplied memory is still allowed and unchanged. Revocation/edit/delete removes copied local-model title and rationale as well as the source ID. Existing v2 saves remain readable; older builds cannot read new `planner: local` quests.

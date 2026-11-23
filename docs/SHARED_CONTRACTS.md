@@ -80,3 +80,7 @@ Quest titles can be edited until completion or dismissal; editing retains IDs, s
 ## Local planner extension (build-out worktree)
 
 Quest planner labels include `sample` and `local`. Local requests use the Rust loopback Ollama boundary and up to three allowed memories. Proposals carry the sent memory text as transient dispatch-only verification; saving rejects changed/revoked evidence. The snapshot is not persisted. Editing, revoking or deleting supporting memories removes local-model title and rationale and their source reference. Manual acceptance, completion and rewards remain deterministic. Older app builds cannot parse quests labeled local.
+
+## Completion feedback (build-out worktree)
+
+The mutation queue provides a transient receipt only after a successful save: whether a completion was awarded and which item IDs were newly owned. Both quest views use it for visible reward feedback; duplicate or ineligible completion produces no new unlock. Receipts are not stored, and reward eligibility remains in the reducer.
