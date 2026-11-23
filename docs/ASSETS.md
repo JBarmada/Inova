@@ -1,5 +1,7 @@
 # Artwork and Audio Plan
 
+Review-only v36 on `codex/loaf-transition-review`: original grid-authored lower/tuck/loaf poses derived from the approved v35 tired head and existing project tail/palette. No new external assets. [Preview and provenance](../art/pocket-pup/v36/README.md). No runtime export or automatic loaf entry enabled.
+
 Approved v35: seated blink/drowsy/tiredness derives from approved v26 with original edits confined to two eye regions. No new external artwork. Exact non-eye/alpha pixels checked. Runtime copies live under `public/dog/sitting-*.png`; breathing variants combine these eye edits with approved v34 seated breathing. Exporter records source paths and hashes and checks fixed alpha/paw rows. Historical v35 review-only notes describe its pre-approval state.
 
 ## Integrated Pocket Pup assets — November 23
