@@ -24,12 +24,11 @@ export function BoneQuestToy({ state, onExpandedChange }: { state: AppState; onE
       {active > 0 && <span className="toy-quest-count">{active}</span>}
     </button>
     {open && <section id="toy-quest-board" className="toy-quest-panel" aria-label="Pawprint adventures">
-      <header className="toy-board-heading"><p>✦ SMALL STEPS, BIG ADVENTURES ✦</p>
-        <h3>Fetch a little adventure</h3><button aria-label="Close quest board" title="Close" onClick={() => { setExpanded(false); button.current?.focus(); }}>×</button></header>
+      <header className="toy-board-heading">
+        <h3><span aria-hidden="true">✦</span><span>Fetch a Lil' Side Quest</span><span aria-hidden="true">✦</span></h3><button aria-label="Close quest board" title="Close" onClick={() => { setExpanded(false); button.current?.focus(); }}>×</button></header>
       <ToyComposer state={state} />
       {quests.length > 0 ? <ul className="toy-quest-list" aria-label="Your quests">{quests.map((quest) => <ToyQuestRow quest={quest} key={quest.id} />)}</ul>
         : <p className="toy-empty">Every adventure starts with a little plan. Add yours above.</p>}
-      <p className="toy-board-footnote">Practice quests · sample planner</p>
     </section>}
   </div>;
 }

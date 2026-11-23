@@ -27,7 +27,7 @@ export function ToyComposer({ state }: { state: AppState }) {
     <input aria-label="Next commitment" placeholder="Your next little adventure…" value={text} maxLength={240}
       disabled={busy} onChange={(event) => setText(event.target.value)} required />
     <button type="submit" disabled={busy || !text.trim()} className="toy-add" aria-label="Add commitment and propose quest" title="Add commitment">{busy ? "…" : "✓"}</button>
-  </form><p className="toy-composer-hint">✓ Plant a plan. <span>Then fetch its quest.</span></p>
+  </form>
     {message && <p className="toy-composer-feedback" role="status">{message}</p>}
   </div>;
 }
