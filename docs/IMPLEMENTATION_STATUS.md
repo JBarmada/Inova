@@ -1,5 +1,9 @@
 # Implementation Status and Handoff
 
+## Animation asset spot check — November 23, 2026
+
+The source frame sheets and runtime atlases for post-nap stretch and unlock celebration were inspected side by side; their static pose sequences correspond. This is a two-clip asset spot check, not verification of timing, other clips, wearable alignment, or rendering in the app. Those checks remain pending.
+
 ## Quest entry before adoption — November 23, 2026
 
 The shared quest composer explains why creation is unavailable until a dog is adopted; the message is visible without opening More options. `npm run check` passed 143 tests, all 20 atlas checks, and the frontend build. Native visual review and Mac remain pending.
