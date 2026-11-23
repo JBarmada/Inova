@@ -1,5 +1,10 @@
 # Implementation Status and Handoff
 
+## Local memory search — November 23, 2026
+
+The bookshelf filters locally by case-insensitive reflection text and shows an empty-results message. The search does not send records anywhere or change permissions. Book buttons include date/time and their position in the current result list for accessibility. The existing open-book style preserves line breaks. `npm run check` passed 97 tests, size/type checks and production build; Windows release compilation passed. Native visual review and Mac remain pending.
+
+
 ## Adoption welcome — November 23, 2026
 
 After a successful adoption save, the home companion shows a named welcome and briefly uses the existing happy artwork and sparkle. The visual reaction is temporary presentation state; the saved mood is unchanged. A synthesized welcome cue observes mute and plays only after a successful save. `npm run check` passed 96 tests, size/type checks and production build; the isolated Windows release compiled. A fresh fictional Windows test profile showed the named welcome after adoption; the brief reaction and audible playback were not separately observed. Mac and multiple adoptable dogs remain pending.

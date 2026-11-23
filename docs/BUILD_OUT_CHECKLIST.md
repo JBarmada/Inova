@@ -47,3 +47,5 @@ November 23: native Windows fictional-profile spot check verified recap legacy l
 November 23: added persistent 12B/4B model choice with legacy-save default and a native allowlist. `npm run check` passed 95 tests; isolated Windows build passed and a real fictional 4B proposal and selection survived restart. Model reliability and Mac remain open.
 
 November 23: added a named adoption welcome, temporary happy artwork, and mute-aware cue after save. `npm run check` passed 96 tests, isolated Windows build passed, and a fresh fictional native profile showed the welcome. Audible playback, reaction timing and Mac remain pending.
+
+November 23: added local case-insensitive reflection search and distinguishable accessible book names. Existing open-book styling already preserves line breaks. `npm run check` passed 97 tests and Windows release compilation passed; native visual review and Mac remain pending.

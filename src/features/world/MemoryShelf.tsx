@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useInova, dispatch } from "../../state/store";
 import { useAction } from "../../shared/useAction";
 import { RecentRecap } from "./RecentRecap";
+import { findMemories } from "./findMemories";
 import { newId, now } from "../../shared/actions";
 
 export function MemoryShelf() {
@@ -12,6 +13,8 @@ export function MemoryShelf() {
   const [allowed, setAllowed] = useState(false);
   const [questId, setQuestId] = useState("");
   const [selectedId, setSelectedId] = useState<string | null>(null);
+  const [query, setQuery] = useState("");
+  const matches = findMemories(state.memories, query);
   const selected = state.memories.find((entry) => entry.id === selectedId);
   const { run, busy, message } = useAction();
   async function save() {
@@ -31,9 +34,13 @@ export function MemoryShelf() {
       <label className="checkbox"><input type="checkbox" checked={allowed} onChange={(event) => setAllowed(event.target.checked)} />Allow this entry to inform suggestions</label>
       <button disabled={busy}>Save memory</button>
     </form>
-    <div className="books">{state.memories.map((memory) => <button className="book" key={memory.id}
+    {state.memories.length > 0 && <label>Search memories<input type="search" value={query} maxLength={4000}
+      onChange={(event) => setQuery(event.target.value)} placeholder="Find words in your reflections" /></label>}
+    <div className="books">{matches.map((memory, index) => <button className="book" key={memory.id}
+      aria-label={`Open memory ${index + 1} from ${new Date(memory.createdAt).toLocaleString()}`}
       onClick={() => void run(async () => { setSelectedId(memory.id); setEditing(false); }, "Book opened.")}>{new Date(memory.createdAt).toLocaleDateString()}</button>)}</div>
     {!state.memories.length && <p className="empty">Your first book is waiting to be written.</p>}
+    {state.memories.length > 0 && matches.length === 0 && <p className="empty" role="status">No memories match that search.</p>}
     {selected && <article className="open-book"><h4>{new Date(selected.createdAt).toLocaleString()}</h4>
       {selected.questId && <p>Adventure: {state.quests.find((quest) => quest.id === selected.questId)?.title ?? "Unavailable adventure"}</p>}
       {editing ? <form onSubmit={(event) => { event.preventDefault(); void run(async () => {
