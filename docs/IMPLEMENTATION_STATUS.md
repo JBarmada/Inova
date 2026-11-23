@@ -6,6 +6,8 @@ Main integration checkpoint: November 23, 2026. The user approved the reviewed c
 
 ## Implemented starter
 
+- Home navigation uses a monochrome pixel bone toy for Quests, matching the other dark navigation icons. Floating mode retains the detailed gold/teal toy artwork. This supersedes the earlier shared colored navigation-art choice below; only the home icon rendering changed.
+
 - Tauri 2/Rust desktop shell with React/TypeScript/Vite interface and locked npm/Cargo dependencies.
 - One window with normal home and compact transparent always-on-top mode controls; native drag-region markup.
 - Isolated layout fix: separate persistent home/floating geometry, home size/maximized restoration, monitor work-area clamping, and content-fitted floating height. Floating page scrollbars are suppressed and the quest popup is kept within the window's width.

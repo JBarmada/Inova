@@ -11,7 +11,6 @@ import { CompanionControls } from "./features/companion/CompanionControls";
 import { PixelStatus } from "./features/companion/PixelStatus";
 import { useFloatingLayout } from "./features/companion/useFloatingLayout";
 import { PixelIcon } from "./features/companion/PixelIcon";
-import { QuestToyIcon } from "./features/companion/QuestToyIcon";
 
 const tabs = ["companion", "quests", "wardrobe", "memories"] as const;
 type Tab = typeof tabs[number];
@@ -43,7 +42,7 @@ export function App() {
       : <header className="masthead"><h1>Inova</h1>
         <nav className="home-navigation" aria-label="Main navigation">{tabs.map((entry) => <button key={entry} className="nav-icon-button"
           aria-label={tabLabels[entry]} title={tabLabels[entry]} aria-current={tab === entry ? "page" : undefined}
-          onClick={() => selectTab(entry)}>{entry === "quests" ? <QuestToyIcon className="nav-quest-toy" /> : <PixelIcon kind={entry} />}</button>)}</nav>
+          onClick={() => selectTab(entry)}><PixelIcon kind={entry} /></button>)}</nav>
         <CompanionControls onHome={openHome} onFloat={() => void run(toggleFloating, "")} disabled={busy} floating={false} />
       </header>}
     {(floating || tab === "companion") && <PetPanel floating={floating} onToyExpanded={setToyExpanded} />}
