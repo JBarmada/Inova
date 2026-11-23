@@ -2,7 +2,7 @@
 
 Updated November 23, 2026. This is a behavior/review ledger, not a claim that every row runs in the app. Main `b187094` contains approved v32 sit motion and v34 breathing. Follow-up work is isolated on `codex/pose-hierarchy-review`.
 
-**Approved/integrated: M05, sitting to tired face (v35).** Mood changes preserve posture and the approved eye-only sequence runs with grounded breathing. Next review is tired sit to loaf after a seven-second hold; the runtime deadline and loaf clip remain disabled until that review. Animated stand-up follows separately.
+**Approved/integrated: M05, sitting to tired face (v35), main `93696f3`.** Mood changes preserve posture and the approved eye-only sequence runs with grounded breathing. **Active review: tired sit to loaf, v36** ([GIF](../art/pocket-pup/v36/loaf-preview.gif), [slower](../art/pocket-pup/v36/loaf-slow.gif), [frames](../art/pocket-pup/v36/loaf-frames.png)) on `codex/loaf-transition-review`. The runtime deadline and loaf clip remain disabled until approval. Animated stand-up follows separately.
 
 ## Hierarchy
 
@@ -83,7 +83,7 @@ Review pose → motion → timing → integrate → validate, then advance. One 
 | Done | 1 | Neutral → sit, v32 | Approved, main |
 | Done / partial | 9 | Standing/happy/sitting grounded breathing, v34 | Approved, main; optional blink/ear variations not delivered |
 | Done | 2 / M05 | Seated blink → drowsy → tired, face only | v35 approved and integrated |
-| **1** | 3, latest request | Tired sit → loaf endpoint/entry; trigger after 7s | Queued; endpoint first |
+| **1** | 3, latest request | Tired sit → loaf endpoint/entry; trigger after 7s | v36 GIF/endpoint awaiting review; not integrated |
 | 2 | 7b, explicit request | Sit → stand, weight shift/back-leg extension | Queued; reversing sit-down is not automatic approval |
 | 4 | M06 | Seated happy and tired → neutral/happy recovery | Queued |
 | Later | 4 | Loaf/lying awake → sleeping, chin toward paws | Queued |
