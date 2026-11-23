@@ -67,3 +67,5 @@ November 23: floating accepted quests show saved planned start/time zone. `npm r
 November 23: added an in-app Reduce motion setting, combined with OS preference across dog playback, toy, and reward animations. `npm run check` passed 112 tests and isolated Windows build passed; floating toggle and direct open/dismiss were spot-checked. Startup still follows OS preference before save load; Mac remains pending.
 
 November 23: local AI response reads now stop accumulating above 65,536 bytes. `npm run check` passed 112 tests; Windows release and 2 Rust HTTP-boundary tests passed. A fresh real Ollama request after the change and Mac remain pending.
+
+November 23: quest completion now triggers a temporary four-second happy presentation instead of permanently changing saved mood. `npm run check` passed 114 tests and isolated Windows release passed; a fictional native floating completion showed the reaction and retained idle mood. Existing saved happy moods are preserved; audio and Mac remain pending.

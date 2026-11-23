@@ -1,5 +1,12 @@
 # Implementation Status and Handoff
 
+## Temporary completion reaction — November 23, 2026
+
+Completing an accepted quest no longer persists a permanent happy mood. After a successful save, the companion shows its existing happy presentation for four seconds and then returns to the previously saved mood; repeated completions extend the reaction. Failed or duplicate saves do not trigger it. This is automatic presentation, not a new manual dog control. Previously saved happy moods are preserved because their origin cannot be distinguished safely.
+
+`npm run check` passed 114 tests, size/type checks and production build; isolated Windows release compilation passed. In a fictional Windows floating profile with reduced motion enabled, completing a quest produced a seated sparkle and then returned to idle; the saved mood remained idle. Sound playback and Mac remain pending.
+
+
 ## Bounded local AI responses — November 23, 2026
 
 Local quest and model-list responses are now read incrementally with a 65,536-byte accumulated-body limit; an oversized Content-Length is rejected early, and oversized chunked bodies stop accumulation. Existing connection and overall timeouts remain. `npm run check` passed 112 tests, type/size checks and production build; Windows release compilation passed. Two Rust release tests exercised exact-limit, oversized declared and chunked HTTP responses, plus the model allowlist. A fresh real Ollama request after this change and Mac remain pending.

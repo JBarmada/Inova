@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { useInova, dispatch } from "../../state/store";
+import { useRewardReaction } from "../../state/rewardReaction";
 import { useAction } from "../../shared/useAction";
 import { DogSprite } from "./DogSprite";
 import { PixelStatus } from "./PixelStatus";
@@ -10,6 +11,7 @@ import { useDogPose, type PoseRequest } from "./useDogPose";
 
 export function PetPanel({ floating, onToyExpanded }: { floating: boolean; onToyExpanded?: (open: boolean) => void }) {
   const state = useInova();
+  const rewarding = useRewardReaction();
   const [name, setName] = useState("Inu");
   const [welcome, setWelcome] = useState(false);
   useEffect(() => {
@@ -29,7 +31,7 @@ export function PetPanel({ floating, onToyExpanded }: { floating: boolean; onToy
   return <section className="pet-panel" aria-label="Your companion">
     {!floating && <h2>{state.pet.adopted ? state.pet.name : "Adopt a dog"}</h2>}
     <div className="dog-stage" data-tauri-drag-region={floating || undefined} tabIndex={floating ? 0 : undefined}
-      aria-label={floating ? "Your dog. Focus to reveal companion controls." : undefined}><DogSprite state={welcome && state.pet.adopted ? { ...state, pet: { ...state.pet, mood: "happy" } } : state} pose={pose} /></div>
+      aria-label={floating ? "Your dog. Focus to reveal companion controls." : undefined}><DogSprite state={(welcome || rewarding) && state.pet.adopted ? { ...state, pet: { ...state.pet, mood: "happy" } } : state} pose={pose} /></div>
     {floating && state.pet.adopted && <BoneQuestToy state={state} onExpandedChange={onToyExpanded} />}
     <DogDeveloperControls pose={pose} disabled={busy || !ready} onPose={() => void run(changePose, "")} />
     {!state.pet.adopted ? <form onSubmit={(event) => {

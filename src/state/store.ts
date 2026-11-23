@@ -4,6 +4,7 @@ import { loadState, saveState } from "../services/storage";
 import { playCue } from "../services/audio";
 import { initialState } from "./defaults";
 import { reduce } from "./reducer";
+import { triggerRewardReaction } from "./rewardReaction";
 import type { ItemId } from "../shared/schema";
 
 let state = initialState();
@@ -26,6 +27,7 @@ export function dispatchWithReceipt(action: Action): Promise<MutationReceipt> {
     const adopted = !state.pet.adopted && next.pet.adopted;
     const unlocked = next.ownedItems.filter((item) => !state.ownedItems.includes(item));
     state = next;
+    if (rewarded) triggerRewardReaction();
     listeners.forEach((listener) => listener());
     playCue(rewarded || adopted ? "reward" : "click", state.settings.muted);
     return { completed: rewarded, unlocked };

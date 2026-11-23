@@ -124,3 +124,7 @@ An accepted quest may store a plan with UTC start/end, the user-entered availabi
 ## Reduced motion (build-out worktree)
 
 `settings.reduceMotion` defaults false for older saves. Effective reduced motion is the logical OR of this setting and the OS preference. Dog playback, toy transition timings and relevant CSS animations use the effective choice; the startup loader has not loaded saved settings and follows only the OS. The setting does not enable developer controls.
+
+## Completion reaction (build-out worktree)
+
+A newly saved completion triggers a transient four-second happy presentation. It does not mutate saved pet mood, and failed or duplicate completions do not trigger it. Automatic reactions do not add manual dog controls. Existing saved moods are not automatically migrated because their origin is unknown.

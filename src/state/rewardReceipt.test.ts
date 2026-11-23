@@ -41,3 +41,19 @@ it("plays the welcome cue only after adoption saves and respects mute", async ()
   expect(fake.cue).toHaveBeenCalledWith("reward", true);
   expect(fake.save).toHaveBeenLastCalledWith(expect.objectContaining({ pet: expect.objectContaining({ name: "Mochi", adopted: true, mood: "idle" }) }));
 });
+
+it("does not persist a happy mood or trigger a reaction before a failed completion save", async () => {
+  vi.useFakeTimers();
+  const store = await import("./store");
+  const reaction = await import("./rewardReaction");
+  await store.initialize();
+  fake.save.mockRejectedValueOnce(Error("Disk full"));
+  await expect(store.dispatchWithReceipt({ type: "complete-quest", id: "one" })).rejects.toThrow("Disk full");
+  expect(reaction.rewardReactionActive()).toBe(false);
+  await store.dispatchWithReceipt({ type: "complete-quest", id: "one" });
+  expect(reaction.rewardReactionActive()).toBe(true);
+  expect(fake.save).toHaveBeenLastCalledWith(expect.objectContaining({ pet: expect.objectContaining({ mood: "idle" }) }));
+  vi.advanceTimersByTime(4000);
+  expect(reaction.rewardReactionActive()).toBe(false);
+  vi.useRealTimers();
+});
