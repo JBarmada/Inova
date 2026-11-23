@@ -24,6 +24,8 @@ Updated November 22, 2026. The repository now includes a shared starter as well 
 
 ## Implementation references
 
+- [Continuation prompt: native UI regression tests and push gates](NATIVE_UI_TEST_CONTINUATION.md).
+
 - [Dog transition coverage table and review queue](TRANSITION_TABLE.md).
 
 - [Pocket Pup art and breathing integration](POCKET_PUP_INTEGRATION.md).
