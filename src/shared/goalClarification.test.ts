@@ -9,8 +9,15 @@ it("asks about missing details without extracting or inventing a deadline", () =
   expect(goalClarification("I've already drafted my presentation")).toContain("When is it due");
   expect(goalClarification("I've already drafted my presentation by Friday")).toContain("helpful next step");
   expect(goalClarification("Prepare my presentation")).toBe(chatPhrases().clarify);
-  expect(goalClarification("I haven't started my presentation")).toBe(chatPhrases().clarify);
+  expect(goalClarification("I haven't started my presentation")).toContain("When is it due");
   expect(goalClarification("Prepare my presentation by Friday", "sad")).toContain("take this slowly");
+});
+
+it("does not ask again when a user has explicitly described no deadline or no progress", () => {
+  expect(goalClarification("There is no deadline for my presentation")).toContain("What have you already done?");
+  expect(goalClarification("I don't have a deadline and I haven't started painting")).toContain("helpful next step");
+  expect(goalClarification("I already have an outline for my presentation")).toContain("When is it due");
+  expect(goalClarification("I might have an outline somewhere")).toBe(chatPhrases().clarify);
 });
 
 it("uses the same clarification for a new goal or an existing chat message without creating a quest", () => {

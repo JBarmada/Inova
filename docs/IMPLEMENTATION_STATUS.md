@@ -1,5 +1,9 @@
 # Implementation Status and Handoff
 
+## Clarifying explicit starting points — November 23, 2026
+
+The scripted quest clarification recognizes a few explicit ways to say there is no deadline, that work has not started, or that an outline, draft or plan already exists. It asks for another detail rather than repeating those questions; it does not create a deadline or interpret uncertain wording as fact. `npm run check` passed 236 tests. This remains a narrow English heuristic, not model-driven multi-turn clarification, and needs native/live conversation evaluation.
+
 ## Floating plan review bounds — November 23, 2026
 
 The floating composer now places the plan explanation, proposed steps and review controls inside one keyboard-focusable, height-bounded scrolling region. Previously only the detail form was bounded, so a long explanation could increase the floating panel beyond the usable area. `npm run check` passed 235 tests, including the existing toy dismissal checks; scrolling and placement still require native visual and keyboard verification.
