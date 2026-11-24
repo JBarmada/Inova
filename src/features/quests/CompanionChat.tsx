@@ -15,8 +15,10 @@ import { useChatAutoScroll } from "./useChatAutoScroll";
 import { useChatReply } from "./useChatReply";
 import { retainedPlanSteps } from "./retainedPlanSteps";
 import { FollowUpOptions } from "./FollowUpOptions";
+import { PlanPreview } from "./PlanPreview";
+import { skipFirstPlanStep, type ChatDraft } from "./planReview";
 
-type Draft = Awaited<ReturnType<typeof prepareChatPlan>> & { usesSavedPlan?: boolean };
+type Draft = ChatDraft;
 
 export function CompanionChat({ state }: { state: AppState }) {
   const [text, setText] = useState("");
@@ -66,10 +68,8 @@ export function CompanionChat({ state }: { state: AppState }) {
     {!reflectionQuest && !draft && state.chat.phase === "goal" && <FollowUpOptions state={state} busy={busy}
       onChoose={(questId) => void run(() => dispatch({ type: "chat-follow-up", questId }))} />}
     {draft ? <>
-      {draft.explanation && <p>{draft.explanation}</p>}
-      {draft.steps.length > 1 && <><p>Plan preview (only the first quest is accepted; later steps remain suggestions):</p>
-        <ol>{draft.steps.map((step, index) => <li key={index}>{step.title} · {step.minutes} min</li>)}</ol></>}
-      <QuestDetailsReview draft={draft} onSave={(reviewed) => accept({ ...draft, ...reviewed })} onCancel={() => setDraft(undefined)} saveLabel="Accept first quest" hasFutureSteps={draft.steps.length > 1} />
+      <PlanPreview draft={draft} onSkip={() => setDraft(skipFirstPlanStep(draft))} />
+      <QuestDetailsReview key={`${draft.quest.id}:${draft.steps.length}:${draft.quest.title}`} draft={draft} onSave={(reviewed) => accept({ ...draft, ...reviewed })} onCancel={() => setDraft(undefined)} saveLabel="Accept first quest" hasFutureSteps={draft.steps.length > 1} />
     </> : <>
       {state.chat.phase !== "ready" ? <form onSubmit={(event) => { event.preventDefault(); void run(send); }}>
         <label>{state.chat.phase === "goal" ? "Your goal" : "Anything else?"}

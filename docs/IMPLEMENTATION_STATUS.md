@@ -1,5 +1,11 @@
 # Implementation Status and Handoff
 
+## Review potentially repeated follow-ups — November 23, 2026
+
+The chat plan preview now flags obvious shared wording between a permitted completed quest title and the proposed first step. For a newly generated multi-step plan, the user may skip the first suggestion and review the next before accepting; the skipped suggestion is not saved, and the old explanation is removed. Later suggestions and supporting-memory checks remain intact. Saved follow-up steps can still be edited or declined, but cannot be skipped by this control. The wording check is a limited heuristic and can miss repetition or flag unrelated work.
+
+`npm run check` passed 227 tests, including skipped-step acceptance, retained suggestions, revoked permissions and the preview. Native visual review and a new live-model run remain pending.
+
 ## Fictional grounded follow-up trial — November 23, 2026
 
 One 4B service-only run of the new completed-title grounding path used the actual TypeScript selector and state reducer with the native planning prompt. It sent the completed title, its permitted supporting memory and a permitted linked reflection. The proposed transition practice reflected the user's stated interest, but another step revisited the completed draft and could be redundant. Fictional acceptance preserved both sources and did not duplicate the completed quest reward. The planning call took 4.8 seconds excluding service startup and evaluator initialization. See [the trial record](evidence/follow-up-grounding-2026-11-23.md); this is not native runtime verification or general evidence of model quality.
