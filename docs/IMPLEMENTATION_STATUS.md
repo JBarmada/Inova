@@ -1,5 +1,9 @@
 # Implementation Status and Handoff
 
+## Stop waiting for a plan — November 23, 2026
+
+Home chat and the shared desktop/floating quest composer now let the user stop waiting for a plan, keeping the goal available and ignoring a late result. The user can revise or start again, or choose the sample while the request is pending. This does not cancel the native HTTP/model request; it may continue until completion or timeout. `npm run check` passed 243 tests, including stopping and starting a new plan before the first request finishes. Native UI verification remains pending.
+
 ## Pronoun follow-ups — November 23, 2026
 
 With recent conversation explicitly enabled, short follow-ups such as “What about her?” and “Does she?” can prioritize the preceding dog reply's permitted memory sources. This only happens when that reply is eligible for recent context; excluding a supporting conversation message prevents that special carryover. Separately permitted memories can still be selected independently, consistent with the existing exclusion controls. `npm run check` passed 242 tests, including the chat request path and exclusions. This is an English pattern heuristic, not general pronoun resolution; live-model and native tests remain pending.

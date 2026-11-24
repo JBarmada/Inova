@@ -27,6 +27,9 @@ export function QuestComposer({ state, compact = false }: { state: AppState; com
     await request.current.run(() => prepareDirectPlan(text, state, sample), (result) => { setMessage(""); setDraft(result); },
       (error) => setMessage(error instanceof Error ? error.message : "Could not plan. Please try again."), () => setBusy(false));
   }
+  function stopWaiting() {
+    request.current.invalidate(); setBusy(false); setMessage("Stopped waiting. Your goal is still here.");
+  }
   return <div className={compact ? "toy-composer-wrap" : "quest-composer-wrap"}>
     {draft ? <div className={compact ? "toy-plan-review" : "quest-plan-review"} role="region" aria-label="Review quest plan" tabIndex={0}>
       <PlanPreview draft={draft} onSkip={() => setDraft(skipFirstPlanStep(draft))} />
@@ -38,6 +41,7 @@ export function QuestComposer({ state, compact = false }: { state: AppState; com
           aria-label="Make a quest" title="Make a quest">{busy ? "…" : compact ? "✓" : "Make a quest"}</button>
       </form>}
     {busy && <button type="button" onClick={() => void submit(true)}>Use sample instead</button>}
+    {busy && <button type="button" onClick={stopWaiting}>Stop waiting</button>}
     {!state.pet.adopted && <p>Adopt your dog to start a quest.</p>}
     {message && <p className={compact ? "toy-composer-feedback" : "quest-composer-feedback"} role="status">{message}</p>}
   </div>;

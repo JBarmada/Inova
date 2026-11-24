@@ -52,6 +52,7 @@ export function CompanionChat({ state }: { state: AppState }) {
       setDraft, (error) => setMessage(error instanceof Error ? error.message : "Please try again."),
       () => { setBusy(false); setPlanning(false); });
   }
+  function stopPlanning() { request.current.invalidate(); setBusy(false); setPlanning(false); setMessage("Stopped waiting. Your goal is still here."); }
   return <details className="companion-chat"><summary>Chat with {state.pet.name}</summary>
     <ChatHistory ref={history} state={state} busy={busy} onRemember={(index, text, suggested) => setRemember({ index, text, suggested })}
       onPlan={(messageIndex, originalText, suggestionReplyIndex) => void run(() => dispatch({ type: "chat-plan-message", messageIndex, originalText, suggestionReplyIndex }))}
@@ -88,6 +89,7 @@ export function CompanionChat({ state }: { state: AppState }) {
     {busy && <p role="status">Thinking…</p>}
     {chatReply.replying && <button type="button" onClick={chatReply.stop}>Stop waiting</button>}
     {planning && <button type="button" onClick={() => void plan(true)}>Use sample instead</button>}
+    {planning && <button type="button" onClick={stopPlanning}>Stop waiting for plan</button>}
     {message && <p role="status">{message}</p>}
   </details>;
 }
