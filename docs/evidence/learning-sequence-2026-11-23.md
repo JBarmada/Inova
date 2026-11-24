@@ -14,3 +14,5 @@ One service-only run on November 23, 2026 used `gemma3:4b` through Ollama and th
 | Permission | Revoke personalization for Sam's preference and ask | Said it did not know; the preference memory was not sent. |
 
 Run `node scripts/evaluate-learning.mjs gemma3:4b` from the worktree with Ollama and that model available. The script prints each response and the exact fictional memories sent. It labels responses for human review rather than scoring them. Model outputs vary, personal facts can be invented, and matching cases in one run do not demonstrate reliable general behavior. Optional conversation context is separate from saved memories and can supply old text unless the user excludes it.
+
+The script has since been expanded with competing people's birthdays, an opted-in follow-up and a revoked birthday. Those added cases have only been rehearsed using `node scripts/evaluate-learning.mjs gemma3:4b --dry-run`, which uses placeholder replies and provides no evidence of model quality. Review the printed conversation as well as memories when the live test is run.

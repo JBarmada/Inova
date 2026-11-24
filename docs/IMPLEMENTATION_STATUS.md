@@ -1,5 +1,9 @@
 # Implementation Status and Handoff
 
+## Named birthday recall and learning evaluation — November 23, 2026
+
+For a capitalized possessive question such as “When is Sam's birthday?”, memory selection now only considers permitted memories containing that name. A fictional test verifies that another person's birthday is not substituted after Sam's is private or absent. This narrow English pattern is not general entity resolution; pronouns, other phrasing and conversation text remain possible sources of confusion. The learning evaluation now includes an opted-in follow-up with competing birthdays and a permission change. Its `--dry-run` completed with placeholder replies and showed the intended selection; it does not evaluate model output. `npm run check` passed 255 tests. Live-model and native verification remain pending.
+
 ## Use the preceding message for follow-up recall — November 23, 2026
 
 For eligible short follow-ups with recent conversation enabled, the previous user message can now break ties between relevant memories even when the preceding dog reply had no memory sources. Excluding that message or turning recent conversation off prevents its use. A fictional multiple-person birthday test covers selection and exclusion. This is word matching, not reliable pronoun or entity resolution; unrelated memories may still be sent. `npm run check` passed 254 tests. Live-model and native verification remain pending.

@@ -34,3 +34,11 @@ it("recognizes common ways to express a name, enrollment and abbreviated dates",
   expect(chatMemories("When is my exam?", entries)[0].id).toBe("event");
   expect(chatMemories("What is my name?", [memory("n", "My name's Alex"), memory("other", "I enjoy painting")]).map((entry) => entry.id)).toEqual(["n"]);
 });
+
+it("does not substitute another person's birthday when a named birthday is private or absent", () => {
+  const entries = [memory("friend", "My friend Sam likes tea"), memory("sam-date", "Sam's birthday is December 8", false),
+    memory("pat-date", "Pat's birthday is July 1"), memory("lee-date", "Lee's birthday is May 2")];
+  expect(chatMemories("When is Sam's birthday?", entries).map((entry) => entry.id)).toEqual(["friend"]);
+  expect(chatMemories("When is Sam's birthday?", entries.slice(1)).map((entry) => entry.id)).toEqual([]);
+  expect(chatMemories("When is Pat’s birthday?", entries).map((entry) => entry.id)).toEqual(["pat-date"]);
+});
