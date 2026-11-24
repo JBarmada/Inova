@@ -23,6 +23,26 @@ Update this table after each meaningful increment with its actual status, remain
 
 Latest automated evidence: `npm run check` passed 158 tests, all 20 clip-atlas checks, type/size checks and the frontend build. The current Windows Rust library compiled in release mode; an earlier full Windows build passed for the animation integration. The combined native visual review remains pending because automatic review blocked a screen inspection containing unrelated sensitive content. See [implementation status](IMPLEMENTATION_STATUS.md) and [handoff](HANDOFF_BUILD_OUT.md) for details.
 
+## Pocket Pop chat-led direction — proposed backlog
+
+These design notes describe future work, not current behavior. They build on the quest, reflection, wardrobe and model work in the table above; they do not establish a product rename. The present one-field composer and proposed-quest workflow remain implemented until the chat-led flow replaces them. Keep the native companion, direct-dog-control Dev-mode rule, outside-click toy dismissal, and application-controlled rewards and state validation.
+
+### First pass: one end-to-end companion flow
+
+- [ ] **Home and conversation:** Keep the dog prominent and add a compact message bar or preview that opens chat. Persist conversation history so a user can resume, revisit messages and shared files, and receive relevant follow-ups. Define supported file types, storage, permissions and deletion before implementing file access; avoid assuming external files stay available forever.
+- [ ] **Clarify and plan:** Let the user describe a goal in chat; the dog asks for missing context such as a deadline or existing progress, then explains its breakdown and previews a small, adaptable number of quests. Three is a starting point, not a fixed count. Reuse validated planning and preserve sources and uncertainty.
+- [ ] **Accept and revisit:** Offer the first quest explicitly. Save it to the Quest tab only after the user accepts; keep proposed, declined and deferred plans distinct from accepted or completed quests. Rework the tab as an active/past quest record with details, moving creation and reflection into chat. Reconcile this change with the existing proposed-quest state, floating toy, migrations and rewards; do not silently discard existing quests.
+- [ ] **Complete and follow up:** After completion, the dog asks for a short reflection in chat, saves the response linked to the quest, and uses permitted conversation context to suggest a next step. Preserve duplicate-reward prevention and allow the user to decline a reflection or suggestion.
+- [ ] **Verify the full sequence:** With fictional data, exercise chat → clarify → preview → accept → Quest tab → complete → reflection → next step. Also test changed plans, declined quests, interrupted sessions and returning after restart, unavailable AI/sample fallback, stale permissions, and both desktop and floating entry points. Record native and Mac results separately.
+
+### Supporting work and open decisions
+
+- [ ] **Quest companion actions:** Define narrowly scoped actions to read relevant quest details, propose a plan, save only after acceptance, and record a reflection. Keep authorization, validation, persistence and rewards in application code; model outputs and conversation/file contents are untrusted data. Test refusal, edits, retries and duplicate actions.
+- [ ] **Conversation-derived memory:** Explore deriving useful goals, preferences and ongoing plans from ordinary chat and using them later. Decide what can be saved automatically versus confirmed, how users inspect, correct, revoke and delete it, and how deletion propagates to retrieval and summaries. Until decided, do not assume automatic retention or consent.
+- [ ] **Home UI experiments:** Prototype a small tappable speech bubble that opens a menu and an alternative menu already open on arrival. Compare chat/action discoverability and crowding around the pet, including keyboard access and compact floating layout; choose based on testing.
+- [ ] **Art and wardrobe, separately:** Improve and review the pet art and make the existing wardrobe work reliably before expanding outfits. Continue the existing wardrobe acceptance above independently of the first chat-to-quest pass, including fitting, equip/persistence, visual review and asset provenance.
+- [ ] **Model experiment:** Verify the actual available names, capabilities and supported authentication for the models tentatively called “ChatGPT Luna” and “Terra” before any integration. Explore whether personal OAuth is supported for a private test; do not embed personal credentials in the app or repository. If access is supported, compare the same fictional conversations for clarification quality, manageable plans, acceptance/follow-up reliability and failures. Record model versions, settings, access assumptions and results; retain local/sample paths and avoid claiming these labels are available models.
+
 ## Historical checkpoint and log
 
 - [x] Establish isolated worktree and install locked dependencies.
