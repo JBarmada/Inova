@@ -18,3 +18,10 @@ it("uses recency for equally relevant memories and retains the bounded limit", (
   const entries = [memory("old", "I like drawing"), memory("new", "I like music"), memory("latest", "I like walking")];
   expect(chatMemories("Hello", entries, 2).map((entry) => entry.id)).toEqual(["latest", "new"]);
 });
+
+it("does not fill relevant context with unrelated newer memories", () => {
+  const entries = [memory("class", "I take astronomy"), memory("one", "My dog sleeps"),
+    memory("two", "I enjoy painting"), memory("private", "I take physics", false)];
+  expect(chatMemories("What class am I taking?", entries).map((entry) => entry.id)).toEqual(["class"]);
+  expect(chatMemories("What class am I taking?", entries.slice(1)).map((entry) => entry.id)).toEqual(["two", "one"]);
+});

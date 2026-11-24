@@ -1,5 +1,11 @@
 # Implementation Status and Handoff
 
+## More focused conversation memories — November 23, 2026
+
+When at least one allowed memory matches the existing wording/theme heuristic, local chat no longer fills the remaining context slots with zero-score memories. This can reduce unrelated context and avoid making a reply depend on unrelated memories. When no memory matches, the previous recent-memory fallback remains; the scoring still uses simple wording and may miss or select irrelevant records. Short opted-in conversational follow-ups can still prioritize the preceding reply's allowed sources.
+
+`npm run check` passed 230 tests, including specific class recall, private records, the no-match fallback and revocation of an unrelated memory. This change has not been evaluated with a live model or visually in native mode.
+
 ## Skip a saved follow-up suggestion — November 23, 2026
 
 The plan review now also lets a user skip a saved next step when a later suggestion exists. Skipping changes only the review; accepting checks the complete original saved-plan snapshot, the selected position and supporting memory permissions before consuming the saved plan. Users can edit the selected step, and cancellation leaves the saved plan intact. Automated tests cover acceptance, edits, stale snapshots, invalid positions, repeated acceptance and revoked memory.

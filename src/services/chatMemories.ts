@@ -15,11 +15,12 @@ function terms(text: string) {
 
 export function chatMemories(message: string, memories: AppState["memories"], limit = 3) {
   const query = terms(message);
-  return memories.map((memory, index) => {
+  const ranked = memories.map((memory, index) => {
     const overlap = [...terms(memory.text)].filter((word) => query.has(word)).length;
     const themesMatched = themes.filter((theme) => theme.question.test(message) && theme.memory.test(memory.text)).length;
     return { memory, index, score: overlap * 3 + themesMatched * 2 };
   }).filter(({ memory }) => memory.aiAllowed)
-    .sort((a, b) => b.score - a.score || b.index - a.index)
-    .slice(0, limit).map(({ memory }) => memory);
+    .sort((a, b) => b.score - a.score || b.index - a.index);
+  const hasMatch = ranked.some(({ score }) => score > 0);
+  return ranked.filter(({ score }) => !hasMatch || score > 0).slice(0, limit).map(({ memory }) => memory);
 }

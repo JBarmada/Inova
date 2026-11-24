@@ -131,7 +131,9 @@ it("sends an older relevant class memory and stops sending it after permission i
   ]) state = reduce(state, { type: "add-memory", memory: entry });
   const call = vi.fn().mockResolvedValue(JSON.stringify({ reply: "You take astronomy." }));
   const result = await localChat("What class am I taking?", state, call as unknown as typeof invoke);
-  expect(result.memorySnapshot.map((entry) => entry.id)).toContain("class");
+  expect(result.memorySnapshot.map((entry) => entry.id)).toEqual(["class"]);
+  const saved = reduce(state, { type: "chat-reply", messageIndex: 0, originalText: "What class am I taking?", ...result });
+  expect(reduce(saved, { type: "memory-permission", id: "a", allowed: false }).chat.messages.at(-1)?.text).toBe("You take astronomy.");
   state = reduce(state, { type: "memory-permission", id: "class", allowed: false });
   expect(() => reduce(state, { type: "chat-reply", messageIndex: 0, originalText: "What class am I taking?", ...result })).toThrow("memory changed");
   await localChat("What class am I taking?", state, call as unknown as typeof invoke);
