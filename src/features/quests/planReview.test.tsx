@@ -43,7 +43,6 @@ it("lets a user skip a newly proposed step without accepting it or losing eviden
     quest: { ...next.quest, futureSteps: retainedPlanSteps(next.steps, next.quest.title) } });
   expect(accepted.quests[1]).toMatchObject({ title: "Practice transitions", status: "accepted",
     futureSteps: [{ title: "Rehearse delivery", reason: "Put it together.", minutes: 5 }] });
-  expect(() => skipFirstPlanStep({ ...draft, usesSavedPlan: true })).toThrow();
   expect(() => skipFirstPlanStep({ ...next, steps: next.steps.slice(0, 1) })).toThrow();
-  expect(renderToStaticMarkup(<PlanPreview draft={{ ...draft, usesSavedPlan: true }} onSkip={() => {}} />)).not.toContain("Skip this step");
+  expect(renderToStaticMarkup(<PlanPreview draft={{ ...draft, usesSavedPlan: true }} onSkip={() => {}} />)).toContain("Skip this step");
 });

@@ -5,6 +5,7 @@ import { stateSchema } from "../shared/schema";
 import { prepareSavedPlan } from "./savedPlan";
 import { reviewQuestDetails } from "../features/quests/reviewQuestDetails";
 import { retainedPlanSteps } from "../features/quests/retainedPlanSteps";
+import { skipFirstPlanStep } from "../features/quests/planReview";
 
 const steps = [{ title: "Outline", reason: "Start", minutes: 5 }, { title: "Draft", reason: "Build", minutes: 10 }, { title: "Review", reason: "Finish", minutes: 5 }];
 const commitment = { id: "c", title: "Prepare a project", createdAt: "2026-11-23T00:00:00.000Z", effortMinutes: 20 };
@@ -83,4 +84,28 @@ it("retains later steps when only the saved step duration changes", () => {
     consumesSavedPlan: true, savedPlanSnapshot: draft.steps,
     quest: { ...reviewed.quest, futureSteps: retainedPlanSteps(draft.steps, reviewed.quest.title) } });
   expect(accepted.quests[1]).toMatchObject({ title: "Draft", minutes: 8, futureSteps: [steps[2]] });
+});
+
+it("skips a saved suggestion only on acceptance against the original snapshot", () => {
+  const state = followUp(), original = prepareSavedPlan(state), draft = skipFirstPlanStep(original);
+  expect(state.quests[0].futureSteps).toEqual(steps.slice(1));
+  const action = { type: "accept-planned-quest" as const, ...draft, consumesSavedPlan: true,
+    quest: { ...draft.quest, futureSteps: retainedPlanSteps(draft.steps, draft.quest.title) } };
+  const accepted = reduce(state, action);
+  expect(accepted.quests[1]).toMatchObject({ title: "Review", reason: "Finish", status: "accepted", futureSteps: [] });
+  expect(accepted.quests[0].futureSteps).toBeUndefined();
+  expect(() => reduce(accepted, action)).toThrow();
+  expect(() => reduce(reduce(state, { type: "memory-permission", id: "m", allowed: false }), action)).toThrow();
+  expect(() => reduce(state, { ...action, savedPlanSkipped: 2 })).toThrow("saved plan changed");
+  expect(() => reduce(state, { ...action, savedPlanSkipped: -1 })).toThrow("saved plan changed");
+  expect(() => reduce(state, { ...action, savedPlanSnapshot: undefined })).toThrow("saved plan changed");
+  expect(() => reduce(state, { ...action, savedPlanSnapshot: [steps[2]] })).toThrow("saved plan changed");
+});
+
+it("allows editing a selected saved suggestion without restoring skipped steps", () => {
+  const state = followUp(), draft = skipFirstPlanStep(prepareSavedPlan(state));
+  const reviewed = reviewQuestDetails(draft, "", "15", { title: "Practice aloud", minutes: "6" });
+  const accepted = reduce(state, { type: "accept-planned-quest", ...draft, ...reviewed, consumesSavedPlan: true,
+    quest: { ...reviewed.quest, futureSteps: retainedPlanSteps(draft.steps, reviewed.quest.title) } });
+  expect(accepted.quests[1]).toMatchObject({ title: "Practice aloud", reason: "You edited this quest before accepting it.", futureSteps: [] });
 });

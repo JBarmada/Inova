@@ -41,7 +41,7 @@ export function CompanionChat({ state }: { state: AppState }) {
   async function send() { await dispatch({ type: state.chat.phase === "goal" ? "chat-goal" : "chat-context", text }); setText(""); }
   async function accept(result: Draft) {
     const futureSteps = retainedPlanSteps(result.steps, result.quest.title);
-    await dispatch({ type: "accept-planned-quest", commitment: result.commitment, quest: { ...result.quest, futureSteps }, memorySnapshot: result.memorySnapshot, previousQuest: result.previousQuest, consumesSavedPlan: result.usesSavedPlan, savedPlanSnapshot: result.usesSavedPlan ? result.steps : undefined });
+    await dispatch({ type: "accept-planned-quest", commitment: result.commitment, quest: { ...result.quest, futureSteps }, memorySnapshot: result.memorySnapshot, previousQuest: result.previousQuest, consumesSavedPlan: result.usesSavedPlan, savedPlanSnapshot: result.usesSavedPlan ? result.savedPlanSnapshot ?? result.steps : undefined, savedPlanSkipped: result.savedPlanSkipped });
     setDraft(undefined); setMessage("Quest accepted! Find it in Quests.");
   }
   async function plan(sample = false) {

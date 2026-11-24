@@ -164,13 +164,15 @@ function validateSavedPlan(state: AppState, action: Extract<Action, { type: "acc
   const steps = previous?.futureSteps;
   const actual = [{ title: action.quest.title, reason: action.quest.reason, minutes: action.quest.minutes }, ...(action.quest.futureSteps ?? [])];
   if (!steps?.length) throw Error("The saved plan changed. Please review it again.");
+  const skipped = action.savedPlanSkipped ?? 0;
+  if (!Number.isInteger(skipped) || skipped < 0 || skipped >= steps.length || (skipped && !action.savedPlanSnapshot)) throw Error("The saved plan changed. Please review it again.");
   if (!action.savedPlanSnapshot) {
     if (JSON.stringify(steps) !== JSON.stringify(actual)) throw Error("The saved plan changed. Please review it again.");
     return;
   }
-  const edited = action.quest.title !== steps[0].title;
-  const expectedReason = edited ? "You edited this quest before accepting it." : steps[0].reason;
-  const expectedFuture = edited ? [] : steps.slice(1);
+  const edited = action.quest.title !== steps[skipped].title;
+  const expectedReason = edited ? "You edited this quest before accepting it." : steps[skipped].reason;
+  const expectedFuture = edited ? [] : steps.slice(skipped + 1);
   if (JSON.stringify(steps) !== JSON.stringify(action.savedPlanSnapshot) || action.quest.reason !== expectedReason ||
     JSON.stringify(action.quest.futureSteps ?? []) !== JSON.stringify(expectedFuture)) throw Error("The saved plan changed. Please review it again.");
 }

@@ -1,6 +1,6 @@
 import type { prepareChatPlan } from "../../services/prepareChatPlan";
 
-export type ChatDraft = Awaited<ReturnType<typeof prepareChatPlan>> & { usesSavedPlan?: boolean };
+export type ChatDraft = Awaited<ReturnType<typeof prepareChatPlan>> & { usesSavedPlan?: boolean; savedPlanSnapshot?: Awaited<ReturnType<typeof prepareChatPlan>>["steps"]; savedPlanSkipped?: number };
 const common = new Set(["the", "and", "for", "your", "this", "with", "from", "step", "minutes", "minute", "review"]);
 
 function words(text: string) {
@@ -17,7 +17,8 @@ export function possibleRepeat(previous: string | undefined, proposed: string): 
 }
 
 export function skipFirstPlanStep(draft: ChatDraft): ChatDraft {
-  if (draft.usesSavedPlan || draft.steps.length < 2) throw Error("No other suggested step is available.");
+  if (draft.steps.length < 2) throw Error("No other suggested step is available.");
   const steps = draft.steps.slice(1), first = steps[0];
-  return { ...draft, steps, quest: { ...draft.quest, title: first.title, reason: first.reason, minutes: first.minutes }, explanation: undefined };
+  return { ...draft, steps, quest: { ...draft.quest, title: first.title, reason: first.reason, minutes: first.minutes }, explanation: undefined,
+    ...(draft.usesSavedPlan ? { savedPlanSnapshot: draft.savedPlanSnapshot ?? draft.steps, savedPlanSkipped: (draft.savedPlanSkipped ?? 0) + 1 } : {}) };
 }

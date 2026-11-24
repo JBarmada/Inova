@@ -1,8 +1,14 @@
 # Implementation Status and Handoff
 
+## Skip a saved follow-up suggestion — November 23, 2026
+
+The plan review now also lets a user skip a saved next step when a later suggestion exists. Skipping changes only the review; accepting checks the complete original saved-plan snapshot, the selected position and supporting memory permissions before consuming the saved plan. Users can edit the selected step, and cancellation leaves the saved plan intact. Automated tests cover acceptance, edits, stale snapshots, invalid positions, repeated acceptance and revoked memory.
+
+`npm run check` passed 229 tests. Native visual review remains pending.
+
 ## Review potentially repeated follow-ups — November 23, 2026
 
-The chat plan preview now flags obvious shared wording between a permitted completed quest title and the proposed first step. For a newly generated multi-step plan, the user may skip the first suggestion and review the next before accepting; the skipped suggestion is not saved, and the old explanation is removed. Later suggestions and supporting-memory checks remain intact. Saved follow-up steps can still be edited or declined, but cannot be skipped by this control. The wording check is a limited heuristic and can miss repetition or flag unrelated work.
+The chat plan preview flags obvious shared wording between a permitted completed quest title and the proposed first step. For a newly generated multi-step plan, the user may skip the first suggestion and review the next before accepting; the skipped suggestion is not saved, and the old explanation is removed. Later suggestions and supporting-memory checks remain intact. See the newer saved-follow-up section above for the extension to saved plans. The wording check is a limited heuristic and can miss repetition or flag unrelated work.
 
 `npm run check` passed 227 tests, including skipped-step acceptance, retained suggestions, revoked permissions and the preview. Native visual review and a new live-model run remain pending.
 
