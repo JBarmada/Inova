@@ -1,5 +1,9 @@
 # Implementation Status and Handoff
 
+## Direct quest follow-up verification — November 23, 2026
+
+An automated fictional scenario now exercises the shared direct planner with a mocked multi-step model response, explicit acceptance, completion, a private reflection, state serialization/reload and acceptance of the next saved suggestion. It verifies that the private reflection is not included in the saved-plan memory snapshot and the completed quest is rewarded only once. `npm run check` passed 235 tests. This does not exercise the local model service or native interface.
+
 ## Shared desktop and floating planning — November 23, 2026
 
 The single-entry quest composer used by the desktop quest page and floating toy now uses the same validated multi-step local planner and labeled sample fallback as home chat. It previews the plan, allows skipping and editing the first suggestion, and explicitly accepts the reviewed first quest while retaining later suggestions. A user can choose the sample while waiting; late local results are ignored, although the underlying request continues. Direct planning does not borrow an unrelated home-chat follow-up context or reset that chat. Acceptance is one state action with source, effort, duration, adoption and duplicate checks.
