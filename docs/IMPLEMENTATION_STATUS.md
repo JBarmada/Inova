@@ -1,5 +1,11 @@
 # Implementation Status and Handoff
 
+## Memory categories — November 23, 2026
+
+The bookshelf has five colored icon filters: All, People, Events, You and Misc. Users choose a category when adding a bookshelf entry and can change it on an open memory. Older entries, including uncategorized reflections, appear in Misc without changing stored data; category and text search work together. Category changes do not change personalization permission or remove supporting quest evidence. This is user-directed organization, not automatic memory extraction, conversational recall, or inferred preferences. Older versions can discard the optional category field if they save this profile.
+
+`npm run check` passed 180 tests, including named/selected filter markup, category persistence, legacy entries, search and unchanged permissions. Visual, keyboard and native Windows/Mac checks remain pending.
+
 ## Retained plan steps — November 23, 2026
 
 When a user accepts a multi-step chat plan, the first quest becomes active and up to two later steps are retained as suggestions. After the quest is completed and its reflection is saved or skipped, the user may review the saved next step or request a new plan; accepting a saved step transfers the remaining suggestions to it. Suggested durations must fit the reviewed remaining effort and current per-quest limit. Deadline and remaining estimated effort are offered for review. A supporting memory's edit, deletion or permission revocation clears dependent saved steps, and stale drafts cannot be accepted.

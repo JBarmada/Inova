@@ -6,6 +6,7 @@ import { RecentRecap } from "./RecentRecap";
 import { PerspectiveExercise } from "./PerspectiveExercise";
 import { findMemories } from "./findMemories";
 import { newId, now } from "../../shared/actions";
+import { MemoryCategorySelect, MemoryFilters, type Category, type MemoryFilter } from "./MemoryCategories";
 
 export function MemoryShelf() {
   const state = useInova();
@@ -16,11 +17,13 @@ export function MemoryShelf() {
   const [questId, setQuestId] = useState("");
   const [selectedId, setSelectedId] = useState<string | null>(null);
   const [query, setQuery] = useState("");
-  const matches = findMemories(state.memories, query);
+  const [filter, setFilter] = useState<MemoryFilter>("all");
+  const [category, setCategory] = useState<Category>("misc");
+  const matches = findMemories(state.memories, query, filter);
   const selected = state.memories.find((entry) => entry.id === selectedId);
   const { run, busy, message } = useAction();
   async function save() {
-    await dispatch({ type: "add-memory", memory: { id: newId(), text, createdAt: now(), aiAllowed: allowed, ...(questId ? { questId } : {}) } });
+    await dispatch({ type: "add-memory", memory: { id: newId(), text, createdAt: now(), aiAllowed: allowed, category, ...(questId ? { questId } : {}) } });
     setText("");
     setQuestId("");
     setAllowed(false);
@@ -30,6 +33,7 @@ export function MemoryShelf() {
     <PerspectiveExercise />
     <form onSubmit={(event) => { event.preventDefault(); void run(save, "A memory was added to your shelf."); }}>
       <label>A reflection<textarea required value={text} maxLength={4000} onChange={(event) => setText(event.target.value)} placeholder="What helped today?" /></label>
+      <MemoryCategorySelect value={category} onChange={setCategory} disabled={busy} />
       <label>Related completed adventure (optional)<select value={questId} disabled={busy} onChange={(event) => setQuestId(event.target.value)}>
         <option value="">No related adventure</option>
         {state.quests.filter((quest) => quest.status === "completed").map((quest) => <option key={quest.id} value={quest.id}>{quest.title}</option>)}
@@ -39,13 +43,15 @@ export function MemoryShelf() {
     </form>
     {state.memories.length > 0 && <label>Search memories<input type="search" value={query} maxLength={4000}
       onChange={(event) => setQuery(event.target.value)} placeholder="Find words in your reflections" /></label>}
+    {state.memories.length > 0 && <MemoryFilters value={filter} onChange={setFilter} />}
     <div className="books">{matches.map((memory, index) => <button className="book" key={memory.id}
       aria-label={`Open memory ${index + 1} from ${new Date(memory.createdAt).toLocaleString()}`}
       onClick={() => void run(async () => { setSelectedId(memory.id); setEditing(false); playCue("book", state.settings.muted); }, "Book opened.")}>{new Date(memory.createdAt).toLocaleDateString()}</button>)}</div>
     {!state.memories.length && <p className="empty">Your first book is waiting to be written.</p>}
-    {state.memories.length > 0 && matches.length === 0 && <p className="empty" role="status">No memories match that search.</p>}
+    {state.memories.length > 0 && matches.length === 0 && <p className="empty" role="status">No memories match this filter and search.</p>}
     {selected && <article className="open-book"><h4>{new Date(selected.createdAt).toLocaleString()}</h4>
       {selected.questId && <p>Adventure: {state.quests.find((quest) => quest.id === selected.questId)?.title ?? "Unavailable adventure"}</p>}
+      <MemoryCategorySelect value={selected.category ?? "misc"} disabled={busy} onChange={(value) => void run(() => dispatch({ type: "memory-category", id: selected.id, category: value }))} />
       {editing ? <form onSubmit={(event) => { event.preventDefault(); void run(async () => {
         await dispatch({ type: "edit-memory", id: selected.id, text: draft }); setEditing(false);
       }, "Memory updated."); }}><label>Edit reflection<textarea required maxLength={4000} value={draft}

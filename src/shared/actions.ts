@@ -34,6 +34,7 @@ export type Action =
   | { type: "wardrobe-scenario"; id: WardrobeScenarioId }
   | { type: "add-memory"; memory: Memory }
   | { type: "edit-memory"; id: string; text: string }
+  | { type: "memory-category"; id: string; category: NonNullable<Memory["category"]> }
   | { type: "memory-permission"; id: string; allowed: boolean }
   | { type: "delete-memory"; id: string };
 

@@ -13,6 +13,8 @@ The executable source of truth is `src/shared/schema.ts` and `src/shared/actions
 
 ## State and actions
 
+Memory entries may have a user-selected `people`, `events`, `you`, or `misc` category; absent categories display as Misc for older saves. `memory-category` updates only this classification, leaving text and AI permission intact. Older app versions may drop this optional field when saving.
+
 | Domain | Shared record | Main actions |
 | --- | --- | --- |
 | Pet | name, adopted, mood | adopt, mood |

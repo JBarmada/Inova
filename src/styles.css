@@ -46,6 +46,12 @@ textarea { min-height: 100px; resize: vertical; }
 .wardrobe { display: flex; flex-wrap: wrap; gap: 24px; align-items: center; margin: 24px 0 40px; }
 .wardrobe article { flex: 1 1 220px; }
 .books { display: flex; flex-wrap: wrap; gap: 10px; border-bottom: 8px solid #94714b; min-height: 80px; align-items: end; padding: 20px 10px 0; }
+.memory-filters { display: flex; flex-wrap: wrap; gap: 8px; margin: 12px 0; }
+.memory-filter { display: inline-grid; place-items: center; width: 44px; height: 44px; padding: 8px; }
+.memory-filter-all { color: #574a3e; } .memory-filter-people { color: #884b62; }
+.memory-filter-events { color: #926016; } .memory-filter-you { color: #306c70; } .memory-filter-misc { color: #675b85; }
+.memory-filter[aria-pressed="true"] { background: #d6e6bd; box-shadow: inset 0 0 0 2px currentColor; }
+.memory-filter:focus-visible { outline: 3px solid currentColor; outline-offset: 3px; }
 .book { min-height: 100px; max-width: 130px; background: #d5b582; overflow-wrap: anywhere; }
 .open-book { margin-top: 24px; padding: 24px; border: 3px solid #b6aa8d; background: #fffcf2; }
 .open-book p { white-space: pre-wrap; }

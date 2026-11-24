@@ -66,19 +66,24 @@ function apply(state: AppState, action: Action): AppState {
         throw Error("A related adventure must be completed first.");
       }
       return clearReflectionPrompt({ ...state, memories: [...state.memories, action.memory] }, action.memory.questId);
-    case "edit-memory": {
-      const text = action.text.trim();
-      if (!text || text.length > 4000) throw Error("Memory must contain 1–4000 characters.");
-      const memory = state.memories.find((entry) => entry.id === action.id);
-      if (!memory) throw Error("Memory no longer exists.");
-      if (memory.text === text) return state;
-      const cleared = forgetReference(state, action.id);
-      return { ...cleared, memories: cleared.memories.map((entry) => entry.id === action.id ? { ...entry, text } : entry) };
-    }
+    case "edit-memory": return editMemory(state, action);
+    case "memory-category":
+      if (!state.memories.some((entry) => entry.id === action.id)) throw Error("Memory no longer exists.");
+      return { ...state, memories: state.memories.map((entry) => entry.id === action.id ? { ...entry, category: action.category } : entry) };
     case "memory-permission":
       return { ...forgetReference(state, action.allowed ? "" : action.id), memories: state.memories.map((entry) => entry.id === action.id ? { ...entry, aiAllowed: action.allowed } : entry) };
     case "delete-memory": return { ...forgetReference(state, action.id), memories: state.memories.filter((entry) => entry.id !== action.id) };
   }
+}
+
+function editMemory(state: AppState, action: Extract<Action, { type: "edit-memory" }>): AppState {
+  const text = action.text.trim();
+  if (!text || text.length > 4000) throw Error("Memory must contain 1–4000 characters.");
+  const memory = state.memories.find((entry) => entry.id === action.id);
+  if (!memory) throw Error("Memory no longer exists.");
+  if (memory.text === text) return state;
+  const cleared = forgetReference(state, action.id);
+  return { ...cleared, memories: cleared.memories.map((entry) => entry.id === action.id ? { ...entry, text } : entry) };
 }
 
 function clearReflectionPrompt(state: AppState, questId?: string): AppState {

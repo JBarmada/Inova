@@ -32,8 +32,10 @@ export const questSchema = z.object({
   if (quest.plan && Date.parse(quest.plan.end) - Date.parse(quest.plan.start) !== quest.minutes * 60_000)
     context.addIssue({ code: "custom", path: ["plan"], message: "Plan duration does not match quest." });
 });
+export const memoryCategorySchema = z.enum(["people", "events", "you", "misc"]);
 export const memorySchema = z.object({
   id, text, createdAt: z.iso.datetime(), aiAllowed: z.boolean(),
+  category: memoryCategorySchema.optional(),
   questId: id.optional(),
 });
 const commonSchema = z.object({
