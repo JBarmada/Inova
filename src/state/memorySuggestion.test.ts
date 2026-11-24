@@ -29,3 +29,19 @@ it("dismisses only the selected suggestion and rejects stale review", () => {
   expect(() => reduce(dismissed, { type: "save-chat-memory", messageIndex: 0, originalText: text, memory,
     suggestion: { replyIndex: 1, quote: text } })).toThrow("no longer available");
 });
+
+it("suppresses minor formatting duplicates without merging changed facts", () => {
+  const old = { ...memory, text: "My friend Sam’s  favorite tea is green." };
+  const message = "my friend Sam's favorite tea is green!";
+  let state = reduce(initialState(), { type: "add-memory", memory: old });
+  state = reduce(state, { type: "chat-share", text: message });
+  state = reduce(state, { type: "chat-reply", messageIndex: 0, originalText: message, reply: "Nice!", memorySnapshot: [],
+    memorySuggestion: { quote: message, category: "people" } });
+  expect(state.chat.messages.at(-1)?.memorySuggestion).toBeUndefined();
+  const corrected = "My friend Sam's favorite tea is black.";
+  state = reduce(state, { type: "chat-share", text: corrected });
+  state = reduce(state, { type: "chat-reply", messageIndex: 2, originalText: corrected, reply: "Got it!", memorySnapshot: [],
+    memorySuggestion: { quote: corrected, category: "people" } });
+  expect(state.chat.messages.at(-1)?.memorySuggestion?.quote).toBe(corrected);
+  expect(state.memories).toEqual([old]);
+});

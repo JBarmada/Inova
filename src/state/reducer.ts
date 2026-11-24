@@ -1,4 +1,5 @@
 import type { Action } from "../shared/actions";
+import { comparableMemoryText } from "./memoryText";
 import { stateSchema, type AppState } from "../shared/schema";
 import { changeQuestStatus, completeQuest } from "./quests";
 import { changeEquipment } from "./equipment";
@@ -118,7 +119,7 @@ function saveChatReply(state: AppState, action: Extract<Action, { type: "chat-re
   if (action.memorySuggestion && (!action.memorySuggestion.quote.trim() || action.memorySuggestion.quote.includes("?") || !action.originalText.includes(action.memorySuggestion.quote))) throw Error("The suggested memory is not a statement in your message.");
   const reply = action.reply.trim();
   if (!reply || reply.length > 600 || state.chat.messages.length >= 200) throw Error("The reply could not be saved.");
-  const duplicate = action.memorySuggestion && state.memories.some((memory) => memory.text.trim().toLocaleLowerCase() === action.memorySuggestion!.quote.trim().toLocaleLowerCase());
+  const duplicate = action.memorySuggestion && state.memories.some((memory) => comparableMemoryText(memory.text) === comparableMemoryText(action.memorySuggestion!.quote));
   return { ...state, chat: { ...state.chat, messages: [...state.chat.messages,
     { role: "dog", text: reply, sourceIds: action.memorySnapshot.map((memory) => memory.id),
       contextUserIndices: [...new Set([action.messageIndex, ...(action.contextSnapshot ?? []).flatMap((entry) => entry.role === "user" ? [entry.index] : entry.contextUserIndices ?? [])])],

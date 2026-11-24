@@ -1,5 +1,9 @@
 # Implementation Status and Handoff
 
+## Reduce repeated memory suggestions — November 23, 2026
+
+New model-suggested memory quotes are suppressed when an existing memory differs only by case, Unicode normalization, apostrophe style, whitespace or final periods/exclamation marks. A changed fact remains available for review; no memories are automatically merged or edited. `npm run check` passed 262 tests. This is formatting comparison, not semantic duplicate detection, and native and live-model review remain pending.
+
 ## Exercise the learning sequence — November 23, 2026
 
 The chat memory selector recognizes some capitalized introductions such as “I'm Alex” when asked for the user's name. A fictional automated scenario checks initial unknown state, explicitly saved name/class/study effort/friend/date, reload, correction, deletion and permission revocation using the real selector and reducer. It verifies that study effort is not automatically stored as a preference. Replies are placeholders, so this does not demonstrate model reasoning or reliable name recognition. `npm run check` passed 261 tests; live-model and native verification remain pending.
