@@ -25,7 +25,7 @@ Local companion replies use `chat-reply` with a user-message snapshot and up to 
 
 For a shared message, the UI first persists `chat-share`, then requests a reply and persists `chat-reply`. A reply failure does not roll back the original message; users can retry. A message-save failure must not send the message to the model. Stopping the wait invalidates a pending reply before it starts saving; the original message remains and the underlying native request may continue running. Once saving starts it is allowed to finish.
 
-`chat-plan-message` uses a matching user-authored chat message as the new goal only when no other goal is in progress. It appends a clarification prompt without duplicating the original message or creating a quest. The existing preview and explicit acceptance remain required.
+`chat-plan-message` uses a matching user-authored chat message as the new goal only when no other goal is in progress. It appends a scripted clarification prompt without duplicating the original message or creating a quest. A limited English phrase check varies the question when deadline or progress wording is present; it does not store a parsed deadline. The existing preview and explicit acceptance remain required.
 
 Local chat may suggest `offerQuest`; the client applies a conservative phrase check before displaying a plan offer. The user must explicitly start or dismiss the offer, and starting validates the originating message and consumes that offer. Model output cannot create a quest; manually choosing a message remains available when the check misses a goal.
 

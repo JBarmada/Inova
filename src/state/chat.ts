@@ -1,6 +1,7 @@
 import type { Action } from "../shared/actions";
 import type { AppState } from "../shared/schema";
 import { chatPhrases } from "../shared/personality";
+import { goalClarification } from "../shared/goalClarification";
 
 type ChatAction = Extract<Action, { type: "chat-goal" | "chat-share" | "chat-context-exclusion" | "chat-plan-message" | "dismiss-quest-suggestion" | "chat-context" | "chat-skip" | "chat-reset" | "chat-clear" | "chat-follow-up" }>;
 
@@ -38,7 +39,7 @@ export function changeChat(state: AppState, action: ChatAction): AppState {
   const goal = action.type === "chat-goal" ? input : `${chat.goal}. ${input}`;
   if (goal.length > 240) throw Error("Together, your goal and details must fit within 240 characters.");
   const reply = action.type === "chat-goal"
-    ? chatPhrases(state.pet.personality).clarify
+    ? goalClarification(input, state.pet.personality)
     : chatPhrases(state.pet.personality).ready;
   return { ...state, chat: { ...chat, phase: action.type === "chat-goal" ? "context" : "ready", goal,
     messages: [...chat.messages, { role: "user" as const, text: input }, { role: "dog" as const, text: reply }] } };
@@ -52,7 +53,7 @@ function planMessage(state: AppState, action: Extract<Action, { type: "chat-plan
   if (state.chat.messages.length >= 200) throw Error("Conversation is full. Clear it to start a new one.");
   const cleared = action.suggestionReplyIndex === undefined ? state : clearQuestSuggestion(state, action.suggestionReplyIndex, action.messageIndex);
   return { ...cleared, chat: { ...cleared.chat, goal: message.text, phase: "context", contextQuestId: undefined,
-    messages: [...cleared.chat.messages, { role: "dog", text: chatPhrases(state.pet.personality).clarify }] } };
+    messages: [...cleared.chat.messages, { role: "dog", text: goalClarification(message.text, state.pet.personality) }] } };
 }
 
 function clearQuestSuggestion(state: AppState, replyIndex: number, sourceIndex: number): AppState {

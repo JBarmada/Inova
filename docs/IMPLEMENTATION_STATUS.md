@@ -1,5 +1,11 @@
 # Implementation Status and Handoff
 
+## Goal clarification — November 23, 2026
+
+Starting a plan from a new or existing chat message now varies the optional scripted question when the goal contains a recognizable deadline phrase, prior-progress phrase, or both. It asks about the other detail or a helpful next step; the existing personality tone and skip action remain. The phrase check does not parse or establish an actual deadline, understand arbitrary wording or change quest acceptance. The local planner's extracted details still require review.
+
+`npm run check` passed 216 tests, including both entry points, personality, incomplete wording and absence of a prematurely created quest. Native visual and live-model planning verification remain pending.
+
 ## Fictional learning sequence — November 23, 2026
 
 One local 4B service run used the application selector and reducer across unknown name, explicitly saved name/class/friend/date, effort versus preference, a corrected preference after serialized reload, and revoked permission. The responses matched those particular fictional facts and expressed uncertainty in the two unknown cases. This was a single non-native run with recent conversation disabled, not proof of general accuracy or autonomous learning. The script, observed cases and limits are in [learning sequence evidence](evidence/learning-sequence-2026-11-23.md).
