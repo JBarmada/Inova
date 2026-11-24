@@ -87,6 +87,24 @@ it("keeps an older source and dog question together in a short follow-up despite
   expect(reduce(saved, { type: "delete-memory", id: "m" }).chat.messages.at(-1)?.text).toContain("removed");
 });
 
+it("carries an eligible prior source into a pronoun question, but not after its conversation is excluded", async () => {
+  let state = reduce(initialState(), { type: "chat-share", text: "Tell me about Sam" });
+  state = reduce(state, { type: "add-memory", memory });
+  state = reduce(state, { type: "chat-reply", messageIndex: 0, originalText: "Tell me about Sam", reply: "Sam likes tea.", memorySnapshot: [memory] });
+  for (const id of ["a", "b", "c"]) state = reduce(state, { type: "add-memory", memory: { ...memory, id, text: `Unrelated ${id}` } });
+  state = reduce(state, { type: "chat-share", text: "What about her?" });
+  const call = vi.fn().mockResolvedValue(JSON.stringify({ reply: "What would you like to know?" }));
+  await localChat("What about her?", state, call as unknown as typeof invoke, { includeRecent: true, beforeIndex: 2 });
+  const input = JSON.parse(call.mock.calls[0][1].input);
+  expect(input.memories.map((entry: { id: string }) => entry.id)).toContain("m");
+  expect(input.recentConversation).toContainEqual({ role: "dog", text: "Sam likes tea." });
+  const excluded = reduce(state, { type: "chat-context-exclusion", messageIndex: 0, originalText: "Tell me about Sam", excluded: true });
+  await localChat("What about her?", excluded, call as unknown as typeof invoke, { includeRecent: true, beforeIndex: 2 });
+  const excludedInput = JSON.parse(call.mock.calls[1][1].input);
+  expect(excludedInput.memories.map((entry: { id: string }) => entry.id)).not.toContain("m");
+  expect(JSON.stringify(excludedInput.recentConversation ?? [])).not.toContain("Sam likes tea");
+});
+
 it("passes an adopted dog's personality to the local model as tone only", async () => {
   const state = reduce(initialState(), { type: "adopt", name: "Pip", personality: "mean" });
   const call = vi.fn().mockResolvedValue(JSON.stringify({ reply: "Let's get started." }));

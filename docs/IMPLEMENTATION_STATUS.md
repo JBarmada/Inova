@@ -1,5 +1,9 @@
 # Implementation Status and Handoff
 
+## Pronoun follow-ups — November 23, 2026
+
+With recent conversation explicitly enabled, short follow-ups such as “What about her?” and “Does she?” can prioritize the preceding dog reply's permitted memory sources. This only happens when that reply is eligible for recent context; excluding a supporting conversation message prevents that special carryover. Separately permitted memories can still be selected independently, consistent with the existing exclusion controls. `npm run check` passed 242 tests, including the chat request path and exclusions. This is an English pattern heuristic, not general pronoun resolution; live-model and native tests remain pending.
+
 ## Inspect chat reply context — November 23, 2026
 
 Dog replies and accepted-plan history with recorded memory sources now have a collapsed list of currently permitted memories supplied as context. The list does not claim the model relied on every memory. Revoked or unavailable records are not displayed; existing invalidation removes dependent reply text when its supporting memory changes. Earlier user-message context is not listed here. `npm run check` passed 240 tests; native visual and live-model review remain pending.
