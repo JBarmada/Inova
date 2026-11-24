@@ -28,8 +28,9 @@ export function QuestComposer({ state, compact = false }: { state: AppState; com
       (error) => setMessage(error instanceof Error ? error.message : "Could not plan. Please try again."), () => setBusy(false));
   }
   return <div className={compact ? "toy-composer-wrap" : "quest-composer-wrap"}>
-    {draft ? <><PlanPreview draft={draft} onSkip={() => setDraft(skipFirstPlanStep(draft))} />
-      <QuestDetailsReview key={`${draft.quest.id}:${draft.steps.length}:${draft.quest.title}`} draft={draft} onSave={(reviewed) => save({ ...draft, ...reviewed })} onCancel={() => { setDraft(undefined); setMessage(""); }} saveLabel="Accept first quest" hasFutureSteps={draft.steps.length > 1} /></> :
+    {draft ? <div className={compact ? "toy-plan-review" : "quest-plan-review"} role="region" aria-label="Review quest plan" tabIndex={0}>
+      <PlanPreview draft={draft} onSkip={() => setDraft(skipFirstPlanStep(draft))} />
+      <QuestDetailsReview key={`${draft.quest.id}:${draft.steps.length}:${draft.quest.title}`} draft={draft} onSave={(reviewed) => save({ ...draft, ...reviewed })} onCancel={() => { setDraft(undefined); setMessage(""); }} saveLabel="Accept first quest" hasFutureSteps={draft.steps.length > 1} /></div> :
       <form className={compact ? "toy-composer" : "quest-composer"} onSubmit={(event) => { event.preventDefault(); void submit(); }}>
         <input aria-label="Your next adventure" placeholder="What would you like to do?" value={text} maxLength={240}
           disabled={busy} onChange={(event) => setText(event.target.value)} required />

@@ -1,5 +1,9 @@
 # Implementation Status and Handoff
 
+## Floating plan review bounds — November 23, 2026
+
+The floating composer now places the plan explanation, proposed steps and review controls inside one keyboard-focusable, height-bounded scrolling region. Previously only the detail form was bounded, so a long explanation could increase the floating panel beyond the usable area. `npm run check` passed 235 tests, including the existing toy dismissal checks; scrolling and placement still require native visual and keyboard verification.
+
 ## Direct quest follow-up verification — November 23, 2026
 
 An automated fictional scenario now exercises the shared direct planner with a mocked multi-step model response, explicit acceptance, completion, a private reflection, state serialization/reload and acceptance of the next saved suggestion. It verifies that the private reflection is not included in the saved-plan memory snapshot and the completed quest is rewarded only once. `npm run check` passed 235 tests. This does not exercise the local model service or native interface.
