@@ -3,6 +3,7 @@ import type { AppState } from "../shared/schema";
 import { chatPhrases } from "../shared/personality";
 import { clarificationForClues, goalClarification, goalClues } from "../shared/goalClarification";
 import { followUpIds } from "./followUps";
+import { MAX_CHAT_GOAL_LENGTH } from "../shared/limits";
 
 type ChatAction = Extract<Action, { type: "chat-goal" | "chat-share" | "chat-context-exclusion" | "chat-plan-message" | "dismiss-quest-suggestion" | "chat-context" | "chat-skip" | "chat-reset" | "chat-clear" | "chat-follow-up" }>;
 
@@ -21,7 +22,7 @@ export function changeChat(state: AppState, action: ChatAction): AppState {
     const quest = state.quests.find((entry) => entry.id === action.questId && entry.status === "completed");
     const commitment = state.commitments.find((entry) => entry.id === quest?.commitmentId);
     if (chat.phase !== "goal" || !quest || !commitment || !followUpIds(chat).includes(quest.id)) throw Error("That follow-up is no longer available.");
-    if (commitment.title.length > 240) throw Error("This goal is too long. Please start a new one.");
+    if (commitment.title.length > MAX_CHAT_GOAL_LENGTH) throw Error("This goal is too long. Please start a new one.");
     return { ...state, chat: { ...chat, phase: "ready", goal: commitment.title, contextQuestId: quest.id } };
   }
   if (action.type === "chat-skip") {
@@ -38,7 +39,7 @@ export function changeChat(state: AppState, action: ChatAction): AppState {
   if (action.type === "chat-share") return { ...state, chat: { ...chat, messages: [...chat.messages,
     { role: "user", text: input }] } };
   const goal = action.type === "chat-goal" ? input : `${chat.goal}. ${input}`;
-  if (goal.length > 240) throw Error("Together, your goal and details must fit within 240 characters.");
+  if (goal.length > MAX_CHAT_GOAL_LENGTH) throw Error(`Together, your goal and details must fit within ${MAX_CHAT_GOAL_LENGTH} characters.`);
   const before = goalClues(chat.goal), after = goalClues(goal, input);
   const askAgain = action.type === "chat-context" && !chat.clarificationTurns &&
     (after.deadline !== before.deadline || after.progress !== before.progress) && after.deadline !== after.progress;

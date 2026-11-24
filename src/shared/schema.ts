@@ -1,5 +1,6 @@
 import { z } from "zod";
 import { emptyEquipment, equipmentSchema, itemIdSchema, wearableSlots } from "./equipment";
+import { MAX_CHAT_GOAL_LENGTH } from "./limits";
 
 const id = z.string().min(1).max(100);
 const text = z.string().trim().min(1).max(4000);
@@ -47,7 +48,7 @@ const commonSchema = z.object({
   quests: z.array(questSchema),
   memories: z.array(memorySchema),
   rewardedQuestIds: z.array(id),
-  chat: z.object({ phase: z.enum(["goal", "context", "ready"]), goal: z.string().max(240),
+  chat: z.object({ phase: z.enum(["goal", "context", "ready"]), goal: z.string().max(MAX_CHAT_GOAL_LENGTH),
     messages: z.array(z.object({ role: z.enum(["user", "dog"]), text: z.string().min(1).max(4000), sourceIds: z.array(id).max(3).optional(),
       contextExcluded: z.boolean().optional(), contextUserIndices: z.array(z.number().int().min(0).max(199)).max(200).optional(), contextUnknown: z.boolean().optional(),
       memorySuggestion: z.object({ sourceIndex: z.number().int().min(0).max(199), quote: z.string().min(1).max(240), category: memoryCategorySchema }).optional(),

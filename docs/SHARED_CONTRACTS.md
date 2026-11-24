@@ -41,6 +41,8 @@ Home-chat acceptance also records a historical summary of the accepted title and
 
 Home-chat goal clarification may ask one extra question when the first answer supplies only one recognized detail. An optional persisted `clarificationTurns` field bounds this to one extra turn and is cleared on restart; older saves remain valid. Clues control questions only and do not establish a deadline, progress fact or completed action. The user can skip either question.
 
+Each goal or clarification message remains limited to 240 characters; their combined stored goal is limited to 724, including separators. Existing saves remain valid. Older builds validate the active chat goal at 240 characters and may reject a newer save while a longer goal is in progress; do not open such a profile with an older build. Planning and follow-ups preserve the complete combined goal.
+
 When a model suggests a deadline, explicit ISO dates, US numeric month/day dates and full month-name dates in its quoted evidence must agree with the suggested calendar date; years are checked when written. Existing weekday and explicit-time checks still apply. These checks are not a complete natural-language or relative-date interpreter; the user reviews all suggestions.
 
 For “today,” “tonight,” “tomorrow” and “day after tomorrow,” the suggestion must also match the captured local calendar date sent in the same model request. Some ambiguous or negated phrasing is rejected conservatively and requires user review. Other relative expressions are not fully validated.
