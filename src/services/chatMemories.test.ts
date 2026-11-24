@@ -42,3 +42,12 @@ it("does not substitute another person's birthday when a named birthday is priva
   expect(chatMemories("When is Sam's birthday?", entries.slice(1)).map((entry) => entry.id)).toEqual([]);
   expect(chatMemories("When is Pat’s birthday?", entries).map((entry) => entry.id)).toEqual(["pat-date"]);
 });
+
+it("matches short, accented and hyphenated names as whole names", () => {
+  const entries = [memory("li", "Li's birthday is May 3"), memory("liam", "Liam's birthday is June 4"),
+    memory("elodie", "E\u0301lodie's birthday is July 5"), memory("anne", "Anne-Marie's birthday is August 6")];
+  expect(chatMemories("When is Li's birthday?", entries).map((entry) => entry.id)).toEqual(["li"]);
+  expect(chatMemories("When is Élodie's birthday?", entries).map((entry) => entry.id)).toEqual(["elodie"]);
+  expect(chatMemories("When is Anne-Marie's birthday?", entries).map((entry) => entry.id)).toEqual(["anne"]);
+  expect(chatMemories("When is Li's birthday?", entries.slice(1))).toEqual([]);
+});

@@ -13,17 +13,26 @@ function terms(text: string) {
   return new Set((text.toLocaleLowerCase().match(/[\p{L}\p{N}]+/gu) ?? []).filter((word) => word.length >= 3 && !common.has(word)));
 }
 
+function namedBirthday(message: string) {
+  return message.normalize("NFC").match(/(?:^|[^\p{L}\p{M}\p{N}])([\p{Lu}][\p{L}\p{M}'’-]*)['’]s\s+birthday\b/u)?.[1].toLocaleLowerCase();
+}
+
+function containsPerson(text: string, person: string) {
+  const names = text.normalize("NFC").toLocaleLowerCase().match(/[\p{L}\p{M}]+(?:[-'’][\p{L}\p{M}]+)*/gu) ?? [];
+  return names.some((name) => name.replace(/['’]s$/, "") === person);
+}
+
 export function chatMemories(message: string, memories: AppState["memories"], limit = 3, context = "") {
   const query = terms(message);
   const contextTerms = terms(context);
-  const birthdaySubject = message.match(/\b([\p{Lu}][\p{L}\p{M}-]+)['’]s\s+birthday\b/u)?.[1].toLocaleLowerCase();
+  const birthdaySubject = namedBirthday(message);
   const ranked = memories.map((memory, index) => {
     const memoryTerms = [...terms(memory.text)];
     const overlap = memoryTerms.filter((word) => query.has(word)).length;
     const themesMatched = themes.filter((theme) => theme.question.test(message) && theme.memory.test(memory.text)).length;
     const contextOverlap = memoryTerms.filter((word) => contextTerms.has(word)).length;
     return { memory, index, score: overlap * 3 + themesMatched * 2, contextOverlap };
-  }).filter(({ memory }) => memory.aiAllowed && (!birthdaySubject || terms(memory.text).has(birthdaySubject)))
+  }).filter(({ memory }) => memory.aiAllowed && (!birthdaySubject || containsPerson(memory.text, birthdaySubject)))
     .sort((a, b) => b.score - a.score || (a.score > 0 ? b.contextOverlap - a.contextOverlap : 0) || b.index - a.index);
   const hasMatch = ranked.some(({ score }) => score > 0);
   return ranked.filter(({ score }) => !hasMatch || score > 0).slice(0, limit).map(({ memory }) => memory);

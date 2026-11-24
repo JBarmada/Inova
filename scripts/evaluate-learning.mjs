@@ -40,7 +40,7 @@ try {
       memory: { id, text, category, source: "chat", aiAllowed: true, createdAt: "2026-11-23T00:00:00.000Z" } });
   }
 
-  async function ask(label, text, includeRecent = false) {
+  async function ask(label, text, includeRecent = false, expected = {}) {
     state = reduce(state, { type: "chat-share", text });
     const messageIndex = state.chat.messages.length - 1;
     const started = performance.now();
@@ -50,6 +50,11 @@ try {
       process.stdout.write(`${label}: REVIEW (${((performance.now() - started) / 1000).toFixed(1)}s) ${JSON.stringify(result.reply)}\n`);
       process.stdout.write(`  Sent memories: ${JSON.stringify(lastInput.memories)}\n`);
       if (includeRecent) process.stdout.write(`  Sent conversation: ${JSON.stringify(lastInput.recentConversation ?? [])}\n`);
+      const ids = lastInput.memories.map((entry) => entry.id);
+      const safe = ids.every((id) => state.memories.some((entry) => entry.id === id && entry.aiAllowed));
+      const selected = (expected.include ?? []).every((id) => ids.includes(id)) && (expected.exclude ?? []).every((id) => !ids.includes(id));
+      if (!safe || !selected) errors += 1;
+      process.stdout.write(`  Memory selection: ${safe && selected ? "PASS" : "FAIL"} (does not evaluate the reply)\n`);
     } catch (error) { errors += 1; process.stdout.write(`${label}: ERROR ${error.message}\n`); }
   }
 
@@ -78,9 +83,9 @@ try {
   remember("Pat's birthday is July 1", "pat-date", "events");
   remember("My friend Sam likes tea", "sam-friend", "people");
   await ask("introduce Sam", "Tell me about Sam");
-  await ask("follow-up among competing dates", "When is her birthday?", true);
+  await ask("follow-up among competing dates", "When is her birthday?", true, { include: ["sam-date"] });
   state = reduce(state, { type: "memory-permission", id: "sam-date", allowed: false });
-  await ask("revoked birthday", "When is Sam's birthday?");
+  await ask("revoked birthday", "When is Sam's birthday?", false, { exclude: ["sam-date", "alex-date", "lee-date", "pat-date"] });
   process.stdout.write("All records are fictional. Review replies, sent memories and conversation for wrong people, dates and unsupported claims. This does not test the native app.\n");
   if (errors) process.exitCode = 1;
 } finally { await vite.close(); }

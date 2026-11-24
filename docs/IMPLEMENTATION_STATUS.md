@@ -1,5 +1,9 @@
 # Implementation Status and Handoff
 
+## Broaden named-birthday checks — November 23, 2026
+
+The existing capitalized possessive birthday filter now supports short, accented and hyphenated names and compares whole names with Unicode normalization. Fictional tests cover Li versus Liam, Élodie and Anne-Marie. The learning script now fails on prohibited memory selection or its explicit multi-person selection expectations; a dry run passed those checks with placeholder replies. These checks do not assess the model's response or general person matching. `npm run check` passed 256 tests; live-model and native verification remain pending.
+
 ## Named birthday recall and learning evaluation — November 23, 2026
 
 For a capitalized possessive question such as “When is Sam's birthday?”, memory selection now only considers permitted memories containing that name. A fictional test verifies that another person's birthday is not substituted after Sam's is private or absent. This narrow English pattern is not general entity resolution; pronouns, other phrasing and conversation text remain possible sources of confusion. The learning evaluation now includes an opted-in follow-up with competing birthdays and a permission change. Its `--dry-run` completed with placeholder replies and showed the intended selection; it does not evaluate model output. `npm run check` passed 255 tests. Live-model and native verification remain pending.
