@@ -25,3 +25,12 @@ it("does not fill relevant context with unrelated newer memories", () => {
   expect(chatMemories("What class am I taking?", entries).map((entry) => entry.id)).toEqual(["class"]);
   expect(chatMemories("What class am I taking?", entries.slice(1)).map((entry) => entry.id)).toEqual(["two", "one"]);
 });
+
+it("recognizes common ways to express a name, enrollment and abbreviated dates", () => {
+  const entries = [memory("name", "I go by Alex"), memory("class", "I take astronomy"),
+    memory("event", "Astronomy exam: Dec. 8"), memory("unrelated", "I enjoy painting")];
+  expect(chatMemories("What is my name?", entries)[0].id).toBe("name");
+  expect(chatMemories("What am I enrolled in?", entries)[0].id).toBe("class");
+  expect(chatMemories("When is my exam?", entries)[0].id).toBe("event");
+  expect(chatMemories("What is my name?", [memory("n", "My name's Alex"), memory("other", "I enjoy painting")]).map((entry) => entry.id)).toEqual(["n"]);
+});

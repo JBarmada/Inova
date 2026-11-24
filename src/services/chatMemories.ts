@@ -2,11 +2,11 @@ import type { AppState } from "../shared/schema";
 
 const common = new Set(["the", "and", "for", "with", "that", "this", "from", "have", "will", "your", "about", "when", "what", "does", "where", "which", "like", "likes"]);
 const themes = [
-  { question: /\b(?:my name|name am i|call me)\b/i, memory: /\b(?:my name is|i am called|call me)\b/i },
-  { question: /\b(?:class|classes|course|courses|subject|studying|study|taking)\b/i, memory: /\b(?:class|classes|course|courses|subject|studying|study|taking|take|enrolled)\b/i },
+  { question: /\b(?:my name|name am i|call me|i go by)\b/i, memory: /\b(?:my name(?: is|'s)|i am called|call me|i go by)\b/i },
+  { question: /\b(?:class|classes|course|courses|subject|studying|study|taking|enrolled)\b/i, memory: /\b(?:class|classes|course|courses|subject|studying|study|taking|take|enrolled)\b/i },
   { question: /\b(?:friend|friends|people)\b/i, memory: /\b(?:friend|friends)\b/i },
   { question: /\b(?:like|likes|love|loves|prefer|prefers)\b/i, memory: /\b(?:like|likes|love|loves|prefer|prefers)\b/i },
-  { question: /\b(?:when|date|birthday|anniversary|deadline)\b/i, memory: /\b(?:date|birthday|anniversary|deadline|january|february|march|april|may|june|july|august|september|october|november|december)\b/i },
+  { question: /\b(?:when|date|birthday|anniversary|deadline)\b/i, memory: /\b(?:date|birthday|anniversary|deadline|jan(?:uary)?|feb(?:ruary)?|mar(?:ch)?|apr(?:il)?|may|jun(?:e)?|jul(?:y)?|aug(?:ust)?|sep(?:t(?:ember)?)?|oct(?:ober)?|nov(?:ember)?|dec(?:ember)?)\b/i },
 ];
 
 function terms(text: string) {

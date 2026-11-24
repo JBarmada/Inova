@@ -1,5 +1,9 @@
 # Implementation Status and Handoff
 
+## Additional memory wording — November 23, 2026
+
+The existing chat-memory matcher recognizes “I go by” and “my name's,” enrollment wording, and abbreviated month names. `npm run check` passed 231 tests, including those examples. This is still limited English pattern matching, not semantic understanding. A new live evaluation was attempted, but no Ollama service was listening and the executable was absent from the standard installation location in this environment; the new cases have not been tested with a model.
+
 ## More focused conversation memories — November 23, 2026
 
 When at least one allowed memory matches the existing wording/theme heuristic, local chat no longer fills the remaining context slots with zero-score memories. This can reduce unrelated context and avoid making a reply depend on unrelated memories. When no memory matches, the previous recent-memory fallback remains; the scoring still uses simple wording and may miss or select irrelevant records. Short opted-in conversational follow-ups can still prioritize the preceding reply's allowed sources.
