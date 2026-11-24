@@ -32,6 +32,7 @@ function apply(state: AppState, action: Action): AppState {
       if (action.quest.commitmentId !== action.commitment.id || state.commitments.some((entry) => entry.id === action.commitment.id) || state.quests.some((entry) => entry.id === action.quest.id)) throw Error("This quest already exists or is invalid.");
       return apply(apply(state, { type: "add-commitment", commitment: action.commitment }), { type: "propose-quest", quest: action.quest, memorySnapshot: action.type === "add-planned-quest" ? action.memorySnapshot : undefined });
     case "accept-planned-quest": return acceptPlannedQuest(state, action);
+    case "accept-direct-plan": return acceptDirectPlan(state, action);
     case "propose-quest":
       if (state.quests.some((entry) => entry.id === action.quest.id)) return state;
       if ((action.quest.planner === "local" && !action.memorySnapshot) ||
@@ -148,15 +149,26 @@ function acceptPlannedQuest(state: AppState, action: Extract<Action, { type: "ac
     const prior = state.quests.find((quest) => quest.id === action.previousQuest!.id);
     if (prior?.sourceIds.some((id) => id !== prior.commitmentId && !action.memorySnapshot.some((memory) => memory.id === id))) throw Error("The completed quest evidence changed. Please plan again.");
   }
-  const future = action.quest.futureSteps ?? [];
-  if (action.commitment.effortMinutes && action.quest.minutes + future.reduce((total, step) => total + step.minutes, 0) > action.commitment.effortMinutes) throw Error("The plan exceeds your total effort. Change it or plan again.");
-  if (state.settings.questMinuteLimit && future.some((step) => step.minutes > state.settings.questMinuteLimit)) throw Error("A future step exceeds your current length limit. Please plan again.");
+  validatePlanLimits(state, action);
   if (action.consumesSavedPlan) validateSavedPlan(state, action);
   const planned = apply(state, { ...action, type: "add-planned-quest", quest: { ...action.quest, priorQuestId: action.previousQuest?.id } });
   const accepted = apply(planned, { type: "quest-status", id: action.quest.id, status: "accepted" });
   const consumed = action.consumesSavedPlan ? { ...accepted, quests: accepted.quests.map((quest) => quest.id === action.previousQuest?.id ? { ...quest, futureSteps: undefined } : quest) } : accepted;
   const remaining = action.previousQuest ? followUpIds(consumed.chat).filter((id) => id !== action.previousQuest!.id) : followUpIds(consumed.chat);
   return changeChat({ ...consumed, chat: withFollowUps(consumed.chat, remaining) }, { type: "chat-reset" });
+}
+
+function acceptDirectPlan(state: AppState, action: Extract<Action, { type: "accept-direct-plan" }>) {
+  if (!state.pet.adopted || action.quest.priorQuestId) throw Error("This quest cannot be accepted.");
+  validatePlanLimits(state, action);
+  const planned = apply(state, { ...action, type: "add-planned-quest" });
+  return apply(planned, { type: "quest-status", id: action.quest.id, status: "accepted" });
+}
+
+function validatePlanLimits(state: AppState, action: Extract<Action, { type: "accept-planned-quest" | "accept-direct-plan" }>) {
+  const future = action.quest.futureSteps ?? [];
+  if (action.commitment.effortMinutes && action.quest.minutes + future.reduce((total, step) => total + step.minutes, 0) > action.commitment.effortMinutes) throw Error("The plan exceeds your total effort. Change it or plan again.");
+  if (state.settings.questMinuteLimit && future.some((step) => step.minutes > state.settings.questMinuteLimit)) throw Error("A future step exceeds your current length limit. Please plan again.");
 }
 
 function validateSavedPlan(state: AppState, action: Extract<Action, { type: "accept-planned-quest" }>) {

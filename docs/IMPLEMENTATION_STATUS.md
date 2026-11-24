@@ -1,8 +1,14 @@
 # Implementation Status and Handoff
 
+## Shared desktop and floating planning — November 23, 2026
+
+The single-entry quest composer used by the desktop quest page and floating toy now uses the same validated multi-step local planner and labeled sample fallback as home chat. It previews the plan, allows skipping and editing the first suggestion, and explicitly accepts the reviewed first quest while retaining later suggestions. A user can choose the sample while waiting; late local results are ignored, although the underlying request continues. Direct planning does not borrow an unrelated home-chat follow-up context or reset that chat. Acceptance is one state action with source, effort, duration, adoption and duplicate checks.
+
+`npm run check` passed 234 tests, including direct acceptance, chat preservation, source revocation and plan limits. Native Windows and Mac layout, toy dismissal during planning, and live-model behavior require visual/runtime verification.
+
 ## One home-chat message entry — November 23, 2026
 
-The adopted dog's home chat now shows one message entry during ordinary conversation. A user message has a visible “Make a quest” action that starts clarification from that message; a failed or unavailable AI reply leaves the message available for that action. During clarification or a reflection, the ordinary chat entry is hidden so there is one active writing flow. Messages, memory review, optional recent context and the labeled sample planner remain available. This changes home chat; the floating quest composer has not yet been unified with it.
+The adopted dog's home chat now shows one message entry during ordinary conversation. A user message has a visible “Make a quest” action that starts clarification from that message; a failed or unavailable AI reply leaves the message available for that action. During clarification or a reflection, the ordinary chat entry is hidden so there is one active writing flow. Messages, memory review, optional recent context and the labeled sample planner remain available. See the shared-planning section above for the later desktop and floating planner update.
 
 `npm run check` passed 232 tests, including the home-chat entry and message-to-quest transition. Native visual review and live AI testing remain pending.
 
