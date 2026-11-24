@@ -42,6 +42,10 @@ Sending a message through Share something now stores the message and requests a 
 
 `npm run check` passed 187 tests including message persistence, offline failure, stale memory and save-failure paths. These tests mock the model and do not establish live reply quality; see the local chat evaluation below.
 
+## Stop waiting for a local chat reply — November 23, 2026
+
+While a local reply is pending, Stop waiting retains the saved user message, releases the chat interface and ignores any late reply or error. The user can retry from the saved message. Once reply persistence begins, it finishes rather than being interrupted. The native model request itself is not cancelled and may continue consuming resources until it finishes or times out. Leaving chat also invalidates pending reply callbacks. `npm run check` passed 201 tests, including stopped and superseded replies, persistence failures and leaving the screen. Native visual testing remains pending.
+
 ## Local chat evaluation — November 23, 2026
 
 The companion prompt now identifies the dog's name separately from user memories, interprets first-person memories as user statements, and gives examples for unknown names, preferences and untrusted memory instructions. A reusable fictional service-only harness uses the same prompt file and settings: `node scripts/evaluate-local-chat.mjs gemma3:4b` (or `gemma3:12b`). Its keyword checks require human review and are not a correctness or security guarantee.

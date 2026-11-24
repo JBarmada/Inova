@@ -8,12 +8,11 @@ import { ChatReflection } from "./ChatReflection";
 import { prepareSavedPlan } from "../../services/savedPlan";
 import { ChatMemory } from "./ChatMemory";
 import { ChatShare } from "./ChatShare";
-import { localChat } from "../../services/localChat";
 import { ChatHistory } from "./ChatHistory";
-import { shareAndReply } from "../../services/shareAndReply";
 import type { Category } from "../world/MemoryCategories";
 import { ChatContextToggle } from "./ChatContextToggle";
 import { useChatAutoScroll } from "./useChatAutoScroll";
+import { useChatReply } from "./useChatReply";
 
 type Draft = Awaited<ReturnType<typeof prepareChatPlan>> & { usesSavedPlan?: boolean };
 
@@ -25,6 +24,7 @@ export function CompanionChat({ state }: { state: AppState }) {
   const [message, setMessage] = useState("");
   const [remember, setRemember] = useState<{ index: number; text: string; suggested?: { quote: string; category: Category; replyIndex: number } }>();
   const [includeRecent, setIncludeRecent] = useState(false);
+  const chatReply = useChatReply(state, includeRecent, setBusy, setMessage);
   const history = useChatAutoScroll(state.chat.messages.length);
   const reflectionQuest = state.quests.find((quest) => quest.id === state.chat.pendingReflections[0] && quest.status === "completed");
   const request = useRef(latestPlanRequest<Draft>());
@@ -55,13 +55,11 @@ export function CompanionChat({ state }: { state: AppState }) {
       onPlan={(messageIndex, originalText, suggestionReplyIndex) => void run(() => dispatch({ type: "chat-plan-message", messageIndex, originalText, suggestionReplyIndex }))}
       onDismissQuest={(replyIndex, sourceIndex) => void run(() => dispatch({ type: "dismiss-quest-suggestion", replyIndex, sourceIndex }))}
       onDismiss={(replyIndex, sourceIndex, quote) => void run(() => dispatch({ type: "dismiss-memory-suggestion", replyIndex, sourceIndex, quote }))}
-      onAsk={(index, text) => void run(async () => { const result = await localChat(text, state, undefined, { includeRecent, beforeIndex: index });
-        await dispatch({ type: "chat-reply", messageIndex: index, originalText: text, ...result }); })} />
+      onAsk={chatReply.start} />
     {remember && <ChatMemory key={`${remember.index}:${remember.text}:${remember.suggested?.quote ?? ""}`} index={remember.index} original={remember.text} suggested={remember.suggested}
       onCancel={() => setRemember(undefined)} onDone={() => { setRemember(undefined); setMessage("Saved to Memories."); }} />}
     <ChatContextToggle enabled={includeRecent} busy={busy} onChange={setIncludeRecent} />
-    <ChatShare busy={busy} onSend={async (value) => { setBusy(true); setMessage("");
-      try { return await shareAndReply(value, state, dispatch, undefined, includeRecent); } finally { setBusy(false); } }} />
+    <ChatShare busy={busy} onSend={chatReply.share} />
     {reflectionQuest && <ChatReflection key={reflectionQuest.id} quest={reflectionQuest} onDone={setMessage} />}
     {state.chat.contextQuestId && <p>Continuing: {state.chat.goal}</p>}
     {!reflectionQuest && !draft && state.chat.phase === "goal" && state.chat.followUpQuestId && <button type="button" disabled={busy}
@@ -87,6 +85,7 @@ export function CompanionChat({ state }: { state: AppState }) {
       await dispatch({ type: "chat-clear" }); setDraft(undefined); setText("");
     })}>Clear conversation</button>}
     {busy && <p role="status">Thinking…</p>}
+    {chatReply.replying && <button type="button" onClick={chatReply.stop}>Stop waiting</button>}
     {planning && <button type="button" onClick={() => void plan(true)}>Use sample instead</button>}
     {message && <p role="status">{message}</p>}
   </details>;

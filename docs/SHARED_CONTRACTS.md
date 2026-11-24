@@ -21,7 +21,7 @@ Memory entries may have a user-selected `people`, `events`, `you`, or `misc` cat
 
 Local companion replies use `chat-reply` with a user-message snapshot and up to three permitted memory snapshots. The reducer rejects stale snapshots and stores source IDs with the reply; changes or permission revocation remove the dependent generated text. Earlier builds can drop these IDs, so must not save a newer profile containing generated replies. The model cannot mutate memories, quests or rewards.
 
-For a shared message, the UI first persists `chat-share`, then requests a reply and persists `chat-reply`. A reply failure does not roll back the original message; users can retry. A message-save failure must not send the message to the model.
+For a shared message, the UI first persists `chat-share`, then requests a reply and persists `chat-reply`. A reply failure does not roll back the original message; users can retry. A message-save failure must not send the message to the model. Stopping the wait invalidates a pending reply before it starts saving; the original message remains and the underlying native request may continue running. Once saving starts it is allowed to finish.
 
 `chat-plan-message` uses a matching user-authored chat message as the new goal only when no other goal is in progress. It appends a clarification prompt without duplicating the original message or creating a quest. The existing preview and explicit acceptance remain required.
 
