@@ -14,6 +14,7 @@ import { ChatContextToggle } from "./ChatContextToggle";
 import { useChatAutoScroll } from "./useChatAutoScroll";
 import { useChatReply } from "./useChatReply";
 import { retainedPlanSteps } from "./retainedPlanSteps";
+import { FollowUpOptions } from "./FollowUpOptions";
 
 type Draft = Awaited<ReturnType<typeof prepareChatPlan>> & { usesSavedPlan?: boolean };
 
@@ -62,8 +63,8 @@ export function CompanionChat({ state }: { state: AppState }) {
     <ChatShare busy={busy} onSend={chatReply.share} />
     {reflectionQuest && <ChatReflection key={reflectionQuest.id} quest={reflectionQuest} onDone={setMessage} />}
     {state.chat.contextQuestId && <p>Continuing: {state.chat.goal}</p>}
-    {!reflectionQuest && !draft && state.chat.phase === "goal" && state.chat.followUpQuestId && <button type="button" disabled={busy}
-      onClick={() => void run(() => dispatch({ type: "chat-follow-up", questId: state.chat.followUpQuestId! }))}>Plan the next step</button>}
+    {!reflectionQuest && !draft && state.chat.phase === "goal" && <FollowUpOptions state={state} busy={busy}
+      onChoose={(questId) => void run(() => dispatch({ type: "chat-follow-up", questId }))} />}
     {draft ? <>
       {draft.explanation && <p>{draft.explanation}</p>}
       {draft.steps.length > 1 && <><p>Plan preview (only the first quest is accepted; later steps remain suggestions):</p>

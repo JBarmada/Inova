@@ -2,6 +2,7 @@ import type { Action } from "../shared/actions";
 import type { AppState } from "../shared/schema";
 import { chatPhrases } from "../shared/personality";
 import { goalClarification } from "../shared/goalClarification";
+import { followUpIds } from "./followUps";
 
 type ChatAction = Extract<Action, { type: "chat-goal" | "chat-share" | "chat-context-exclusion" | "chat-plan-message" | "dismiss-quest-suggestion" | "chat-context" | "chat-skip" | "chat-reset" | "chat-clear" | "chat-follow-up" }>;
 
@@ -14,14 +15,14 @@ export function changeChat(state: AppState, action: ChatAction): AppState {
   }
   if (action.type === "chat-plan-message") return planMessage(state, action);
   if (action.type === "dismiss-quest-suggestion") return clearQuestSuggestion(state, action.replyIndex, action.sourceIndex);
-  if (action.type === "chat-clear") return { ...state, chat: { ...chat, phase: "goal", goal: "", messages: [], contextQuestId: undefined, followUpQuestId: undefined } };
+  if (action.type === "chat-clear") return { ...state, chat: { ...chat, phase: "goal", goal: "", messages: [], contextQuestId: undefined } };
   if (action.type === "chat-reset") return { ...state, chat: { ...chat, phase: "goal", goal: "", contextQuestId: undefined } };
   if (action.type === "chat-follow-up") {
     const quest = state.quests.find((entry) => entry.id === action.questId && entry.status === "completed");
     const commitment = state.commitments.find((entry) => entry.id === quest?.commitmentId);
-    if (chat.phase !== "goal" || !quest || !commitment || chat.followUpQuestId !== quest.id) throw Error("That follow-up is no longer available.");
+    if (chat.phase !== "goal" || !quest || !commitment || !followUpIds(chat).includes(quest.id)) throw Error("That follow-up is no longer available.");
     if (commitment.title.length > 240) throw Error("This goal is too long. Please start a new one.");
-    return { ...state, chat: { ...chat, phase: "ready", goal: commitment.title, contextQuestId: quest.id, followUpQuestId: undefined } };
+    return { ...state, chat: { ...chat, phase: "ready", goal: commitment.title, contextQuestId: quest.id } };
   }
   if (action.type === "chat-skip") {
     if (chat.phase !== "context") throw Error("Start with a goal first.");

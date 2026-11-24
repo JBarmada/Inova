@@ -1,5 +1,11 @@
 # Implementation Status and Handoff
 
+## Multiple completed-quest follow-ups — November 23, 2026
+
+After each queued reflection is saved or skipped, its completed quest remains available as a named follow-up choice. Multiple choices survive serialized reload, starting over and clearing the conversation. Selecting a choice starts the existing review flow; only accepting a next quest consumes that choice, leaving the others available. No additional rewards are granted by planning. Legacy saves with a single follow-up remain readable. Older app versions can discard the new list and retain at most its legacy single entry; do not use them to save a profile relying on multiple choices.
+
+`npm run check` passed 221 tests, including multiple completions, repeated reflection actions, legacy state, restart, abandoning a plan and accepting one of two choices. Native layout, Mac runtime and live-model follow-up quality remain pending.
+
 ## Edit a proposed quest before saving — November 23, 2026
 
 The shared desktop/floating quest review and home-chat plan review now let the user edit a newly proposed first quest's title and duration before saving or accepting it. A changed title replaces the original generated reason with a user-edit label; in a multi-step home-chat plan, changing that title discards later suggested steps after showing a warning. Deadline, total-effort and application acceptance checks still apply. Previously saved follow-up steps keep their existing integrity check and can be edited after acceptance, rather than during this review.

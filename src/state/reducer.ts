@@ -6,6 +6,7 @@ import { planQuest, clearQuestPlan } from "./scheduling";
 import { changeChat } from "./chat";
 import { previousQuestContext } from "../services/previousQuest";
 import { validRecentChat } from "../services/recentChat";
+import { followUpIds, withFollowUps } from "./followUps";
 
 function apply(state: AppState, action: Action): AppState {
   switch (action.type) {
@@ -136,8 +137,8 @@ function editMemory(state: AppState, action: Extract<Action, { type: "edit-memor
 
 function clearReflectionPrompt(state: AppState, questId?: string): AppState {
   const wasPending = questId && state.chat.pendingReflections.includes(questId);
-  return { ...state, chat: { ...state.chat, pendingReflections: state.chat.pendingReflections.filter((id) => id !== questId),
-    ...(wasPending ? { followUpQuestId: questId } : {}) } };
+  const chat = { ...state.chat, pendingReflections: state.chat.pendingReflections.filter((id) => id !== questId) };
+  return { ...state, chat: wasPending ? withFollowUps(chat, [...new Set([...followUpIds(chat), questId])]) : chat };
 }
 
 function acceptPlannedQuest(state: AppState, action: Extract<Action, { type: "accept-planned-quest" }>): AppState {
@@ -150,7 +151,8 @@ function acceptPlannedQuest(state: AppState, action: Extract<Action, { type: "ac
   const planned = apply(state, { ...action, type: "add-planned-quest", quest: { ...action.quest, priorQuestId: action.previousQuest?.id } });
   const accepted = apply(planned, { type: "quest-status", id: action.quest.id, status: "accepted" });
   const consumed = action.consumesSavedPlan ? { ...accepted, quests: accepted.quests.map((quest) => quest.id === action.previousQuest?.id ? { ...quest, futureSteps: undefined } : quest) } : accepted;
-  return changeChat(consumed, { type: "chat-reset" });
+  const remaining = action.previousQuest ? followUpIds(consumed.chat).filter((id) => id !== action.previousQuest!.id) : followUpIds(consumed.chat);
+  return changeChat({ ...consumed, chat: withFollowUps(consumed.chat, remaining) }, { type: "chat-reset" });
 }
 
 function validateSavedPlan(state: AppState, action: Extract<Action, { type: "accept-planned-quest" }>) {
