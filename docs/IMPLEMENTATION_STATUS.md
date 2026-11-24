@@ -1,5 +1,9 @@
 # Implementation Status and Handoff
 
+## Inspect chat reply context — November 23, 2026
+
+Dog replies and accepted-plan history with recorded memory sources now have a collapsed list of currently permitted memories supplied as context. The list does not claim the model relied on every memory. Revoked or unavailable records are not displayed; existing invalidation removes dependent reply text when its supporting memory changes. Earlier user-message context is not listed here. `npm run check` passed 240 tests; native visual and live-model review remain pending.
+
 ## Review included memories — November 23, 2026
 
 The shared quest review offers a collapsed list of the exact memory snapshots included in a suggestion when any were included. This shows the information supplied to the planner; it does not claim the model used every item. Acceptance still rechecks permission and content against current state. `npm run check` passed 239 tests, including a permitted memory and an excluded private entry. Native visual review remains pending.

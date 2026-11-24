@@ -1,6 +1,7 @@
 import { forwardRef } from "react";
 import type { AppState } from "../../shared/schema";
 import type { Category } from "../world/MemoryCategories";
+import { ChatSources } from "./ChatSources";
 
 export const ChatHistory = forwardRef<HTMLDivElement, {
   state: AppState; busy: boolean; onRemember: (index: number, text: string, suggested?: { quote: string; category: Category; replyIndex: number }) => void; onAsk: (index: number, text: string) => void;
@@ -18,6 +19,7 @@ export const ChatHistory = forwardRef<HTMLDivElement, {
         <button type="button" disabled={busy} onClick={() => onAsk(index, entry.text)}>Ask dog</button>
         <button type="button" disabled={busy} onClick={() => onExclude(index, entry.text, !entry.contextExcluded)}>{entry.contextExcluded ? "Allow in recent context" : "Exclude from recent context"}</button>
       </details></>}
+      {entry.role === "dog" && <ChatSources ids={entry.sourceIds} memories={state.memories} />}
       {entry.role === "dog" && entry.memorySuggestion && state.chat.messages[entry.memorySuggestion.sourceIndex]?.role === "user" && <>
         <span> Remember: {entry.memorySuggestion.quote}</span><button type="button" disabled={busy} onClick={() => {
           const suggestion = entry.memorySuggestion!;
