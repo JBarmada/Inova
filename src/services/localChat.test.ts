@@ -14,7 +14,7 @@ it("uses only the chosen message and permitted memories, and clears dependent re
   const call = vi.fn().mockResolvedValue(JSON.stringify({ reply: "Sam likes tea!" }));
   const result = await localChat("What does Sam like?", state, call as unknown as typeof invoke);
   const input = JSON.parse(call.mock.calls[0][1].input);
-  expect(input).toEqual({ message: "What does Sam like?", memories: [{ id: "m", text: memory.text }] });
+  expect(input).toEqual({ message: "What does Sam like?", dogName: state.pet.name, memories: [{ id: "m", text: memory.text }] });
   const action = { type: "chat-reply" as const, messageIndex: 0, originalText: "What does Sam like?", ...result };
   const saved = reduce(state, action);
   expect(saved.chat.messages.at(-1)).toMatchObject({ text: "Sam likes tea!", sourceIds: ["m"] });

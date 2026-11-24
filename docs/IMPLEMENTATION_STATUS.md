@@ -1,5 +1,11 @@
 # Implementation Status and Handoff
 
+## Local chat evaluation — November 23, 2026
+
+The companion prompt now identifies the dog's name separately from user memories, interprets first-person memories as user statements, and gives examples for unknown names, preferences and untrusted memory instructions. A reusable fictional service-only harness uses the same prompt file and settings: `node scripts/evaluate-local-chat.mjs gemma3:4b` (or `gemma3:12b`). Its keyword checks require human review and are not a correctness or security guarantee.
+
+One 4B run produced appropriate replies on eight cases in 0.8–1.9 seconds each: known/unknown user name, friend preference, class, exam date, unknown friend, effort versus preference, and a memory instruction. A previous prompt revision incorrectly inferred preference from effort and repeated an injected instruction; an earlier trial invented the dog's name. These are small fictional service-only trials and show prompt sensitivity, not reliable grounding or injection resistance. Native UI and broader testing remain open. `npm run check` passed 184 tests, and Windows offline Rust library tests compiled the updated prompt and passed two existing tests.
+
 ## Local companion replies — November 23, 2026
 
 For a selected user message, Ask dog requests a bounded structured reply from the local 4B/12B provider through Rust. It sends only that message and up to three permitted memories; conversation history is not sent, so this is not yet natural multi-turn chat. The model cannot save memories or act on quests. Responses retain memory source IDs; editing, revoking or deleting a referenced memory removes the dependent response. Stale memory snapshots and malformed replies are rejected. User messages and the separate transcript are retained until cleared. Older versions may strip source IDs on save, so do not use older builds with a profile containing these replies.

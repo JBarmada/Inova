@@ -8,7 +8,7 @@ const response = z.object({ reply: z.string().trim().min(1).max(600) }).strict()
 export async function localChat(text: string, state: AppState, call = invoke) {
   if (call === invoke && !isTauri()) throw Error("Local AI chat requires the desktop app.");
   const memorySnapshot = planningMemories(text, state.memories).map(({ id, text }) => ({ id, text }));
-  const input = JSON.stringify({ message: text, memories: memorySnapshot });
+  const input = JSON.stringify({ message: text, dogName: state.pet.name || undefined, memories: memorySnapshot });
   let raw: string;
   try { raw = await call<string>("local_companion_reply", { input, model: state.settings.localModel }); }
   catch { throw Error("Local AI could not respond. Try again when it is available."); }

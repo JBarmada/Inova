@@ -19,6 +19,8 @@ Memory entries may have a user-selected `people`, `events`, `you`, or `misc` cat
 
 Local companion replies use `chat-reply` with a user-message snapshot and up to three permitted memory snapshots. The reducer rejects stale snapshots and stores source IDs with the reply; changes or permission revocation remove the dependent generated text. Earlier builds can drop these IDs, so must not save a newer profile containing generated replies. The model cannot mutate memories, quests or rewards.
 
+The local companion request also supplies the adopted dog's name as `dogName`; it is distinct from user facts and treated as data. The shared prompt lives in `src-tauri/src/local_chat_prompt.txt` and the fictional manual evaluation harness reads that same file. Prompt examples and keyword checks do not enforce truth or prevent prompt injection.
+
 | Domain | Shared record | Main actions |
 | --- | --- | --- |
 | Pet | name, adopted, mood | adopt, mood |
