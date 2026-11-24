@@ -5,10 +5,14 @@ import { planningMemories } from "./planningMemories";
 
 const response = z.object({ reply: z.string().trim().min(1).max(600) }).strict();
 
-export async function localChat(text: string, state: AppState, call = invoke) {
+export async function localChat(text: string, state: AppState, call = invoke, options?: { includeRecent: boolean; beforeIndex: number }) {
   if (call === invoke && !isTauri()) throw Error("Local AI chat requires the desktop app.");
   const memorySnapshot = planningMemories(text, state.memories).map(({ id, text }) => ({ id, text }));
-  const input = JSON.stringify({ message: text, dogName: state.pet.name || undefined, memories: memorySnapshot });
+  const contextSnapshot = options?.includeRecent ? state.chat.messages.slice(0, options.beforeIndex)
+    .map((entry, index) => ({ ...entry, index })).filter((entry) => entry.role === "user" && entry.text.length <= 240)
+    .slice(-4).map(({ index, text }) => ({ index, text })) : [];
+  const input = JSON.stringify({ message: text, dogName: state.pet.name || undefined, memories: memorySnapshot,
+    ...(contextSnapshot.length ? { recentUserMessages: contextSnapshot.map(({ text }) => text) } : {}) });
   let raw: string;
   try { raw = await call<string>("local_companion_reply", { input, model: state.settings.localModel }); }
   catch { throw Error("Local AI could not respond. Try again when it is available."); }
@@ -16,5 +20,5 @@ export async function localChat(text: string, state: AppState, call = invoke) {
   try { parsed = JSON.parse(raw); } catch { throw Error("Local AI returned an invalid reply."); }
   const result = response.safeParse(parsed);
   if (!result.success) throw Error("Local AI returned an invalid reply.");
-  return { reply: result.data.reply, memorySnapshot };
+  return { reply: result.data.reply, memorySnapshot, contextSnapshot };
 }

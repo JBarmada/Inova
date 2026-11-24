@@ -88,6 +88,7 @@ function saveChatMemory(state: AppState, action: Extract<Action, { type: "save-c
 function saveChatReply(state: AppState, action: Extract<Action, { type: "chat-reply" }>): AppState {
   const message = state.chat.messages[action.messageIndex];
   if (!message || message.role !== "user" || message.text !== action.originalText) throw Error("This conversation changed. Please try again.");
+  if (action.contextSnapshot && (action.contextSnapshot.length > 4 || action.contextSnapshot.some(({ index, text }) => index >= action.messageIndex || state.chat.messages[index]?.role !== "user" || state.chat.messages[index]?.text !== text))) throw Error("This conversation changed. Please try again.");
   if (action.memorySnapshot.length > 3 || action.memorySnapshot.some((snapshot) => !state.memories.some((memory) => memory.id === snapshot.id && memory.aiAllowed && memory.text === snapshot.text))) throw Error("A memory changed while the dog was replying. Please try again.");
   const reply = action.reply.trim();
   if (!reply || reply.length > 600 || state.chat.messages.length >= 200) throw Error("The reply could not be saved.");

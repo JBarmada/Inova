@@ -21,6 +21,7 @@ export function CompanionChat({ state }: { state: AppState }) {
   const [planning, setPlanning] = useState(false);
   const [message, setMessage] = useState("");
   const [remember, setRemember] = useState<{ index: number; text: string }>();
+  const [includeRecent, setIncludeRecent] = useState(false);
   const history = useRef<HTMLDivElement>(null);
   const reflectionQuest = state.quests.find((quest) => quest.id === state.chat.pendingReflections[0] && quest.status === "completed");
   const request = useRef(latestPlanRequest<Draft>());
@@ -49,12 +50,14 @@ export function CompanionChat({ state }: { state: AppState }) {
   }
   return <details className="companion-chat"><summary>Chat with {state.pet.name}</summary>
     <ChatHistory ref={history} state={state} busy={busy} onRemember={(index, text) => setRemember({ index, text })}
-      onAsk={(index, text) => void run(async () => { const result = await localChat(text, state);
+      onAsk={(index, text) => void run(async () => { const result = await localChat(text, state, undefined, { includeRecent, beforeIndex: index });
         await dispatch({ type: "chat-reply", messageIndex: index, originalText: text, ...result }); })} />
     {remember && <ChatMemory key={`${remember.index}:${remember.text}`} index={remember.index} original={remember.text}
       onCancel={() => setRemember(undefined)} onDone={() => { setRemember(undefined); setMessage("Saved to Memories."); }} />}
+    <label className="checkbox"><input type="checkbox" checked={includeRecent} disabled={busy} onChange={(event) => setIncludeRecent(event.target.checked)} />Include my last four messages in replies</label>
+    {includeRecent && <p>Messages remain in chat until cleared, even if a saved memory is deleted.</p>}
     <ChatShare busy={busy} onSend={async (value) => { setBusy(true); setMessage("");
-      try { return await shareAndReply(value, state, dispatch); } finally { setBusy(false); } }} />
+      try { return await shareAndReply(value, state, dispatch, undefined, includeRecent); } finally { setBusy(false); } }} />
     {reflectionQuest && <ChatReflection key={reflectionQuest.id} quest={reflectionQuest} onDone={setMessage} />}
     {state.chat.contextQuestId && <p>Continuing: {state.chat.goal}</p>}
     {!reflectionQuest && !draft && state.chat.phase === "goal" && state.chat.followUpQuestId && <button type="button" disabled={busy}

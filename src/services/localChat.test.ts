@@ -32,3 +32,20 @@ it("rejects malformed local replies and stale conversation requests", async () =
   expect(() => reduce(reduce(state, { type: "chat-clear" }), { type: "chat-reply", messageIndex: 0,
     originalText: "Hello", reply: "Hi!", memorySnapshot: [] })).toThrow("conversation changed");
 });
+
+it("includes only opted-in earlier user messages and rejects changed context", async () => {
+  let state = initialState();
+  for (const text of ["I am Alex", "I take astronomy", "Sam likes tea", "The exam is December 8", "I studied today", "What class is it?"])
+    state = reduce(state, { type: "chat-share", text });
+  const call = vi.fn().mockResolvedValue(JSON.stringify({ reply: "Astronomy!" }));
+  const result = await localChat("What class is it?", state, call as unknown as typeof invoke, { includeRecent: true, beforeIndex: 5 });
+  const input = JSON.parse(call.mock.calls[0][1].input);
+  expect(input.recentUserMessages).toEqual(["I take astronomy", "Sam likes tea", "The exam is December 8", "I studied today"]);
+  expect(input.recentUserMessages).not.toContain("What class is it?");
+  const action = { type: "chat-reply" as const, messageIndex: 5, originalText: "What class is it?", ...result };
+  expect(reduce(state, action).chat.messages.at(-1)?.text).toBe("Astronomy!");
+  const changed = { ...state, chat: { ...state.chat, messages: state.chat.messages.map((entry, index) => index === 1 ? { ...entry, text: "Changed" } : entry) } };
+  expect(() => reduce(changed, action)).toThrow("conversation changed");
+  await localChat("What class is it?", state, call as unknown as typeof invoke, { includeRecent: false, beforeIndex: 5 });
+  expect(JSON.parse(call.mock.calls[1][1].input).recentUserMessages).toBeUndefined();
+});

@@ -2,12 +2,12 @@ import type { AppState } from "../shared/schema";
 import type { Action } from "../shared/actions";
 import { localChat } from "./localChat";
 
-export async function shareAndReply(text: string, state: AppState, dispatch: (action: Action) => Promise<void>, reply = localChat) {
+export async function shareAndReply(text: string, state: AppState, dispatch: (action: Action) => Promise<void>, reply = localChat, includeRecent = false) {
   const originalText = text.trim();
   const messageIndex = state.chat.messages.length;
   await dispatch({ type: "chat-share", text: originalText });
   try {
-    const result = await reply(originalText, state);
+    const result = await reply(originalText, state, undefined, { includeRecent, beforeIndex: messageIndex });
     await dispatch({ type: "chat-reply", messageIndex, originalText, ...result });
     return "";
   } catch {

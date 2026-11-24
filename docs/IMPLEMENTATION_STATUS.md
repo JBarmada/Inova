@@ -1,5 +1,11 @@
 # Implementation Status and Handoff
 
+## Optional recent conversation context — November 23, 2026
+
+The chat interface offers an off-by-default control to include up to four earlier user-authored messages when requesting a local reply. It excludes the current message, later messages, dog replies and user messages over 240 characters. The selected messages are rechecked before saving the reply; permitted-memory checks remain separate. The control resets when the chat component is unmounted or the app restarts. Messages remain in the separate transcript until cleared, even when a saved memory is deleted; the interface states this when the control is enabled. Clear conversation removes the transcript and its replies. This is limited recent user context, not full multi-turn dialogue or a durable memory extraction policy.
+
+`npm run check` passed 188 tests, and Windows offline Rust library tests passed two existing tests after compiling the updated prompt. In one fictional direct 4B service trial, the model correctly identified astronomy from a supplied earlier user message; eight other keyword checks also passed, though one unrelated follow-up was awkward. These are service-only checks, not the native app or broad model validation. Native UI, Mac runtime and wider live-model evaluation remain pending.
+
 ## Direct replies to shared messages — November 23, 2026
 
 Sending a message through Share something now stores the message and requests a local AI reply automatically, rather than adding a scripted acknowledgment and requiring a separate Ask dog click. If the reply fails, the saved message can be retried with Ask dog; a failed message save never calls the model. A change to a supporting memory during generation prevents the reply from being saved. The local request still receives only the chosen message and permitted memories, not previous conversational turns, and the UI waits for the request to finish (up to the native timeout). Quest clarification is still a separate scripted flow. Native interface verification remains pending.
