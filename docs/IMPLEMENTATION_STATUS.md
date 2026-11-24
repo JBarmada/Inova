@@ -1,5 +1,11 @@
 # Implementation Status and Handoff
 
+## Short follow-up memory selection — November 23, 2026
+
+When recent conversation is enabled, a short reply beginning with a limited set of English follow-up words (such as “Yes” or “he”) can retain the immediately preceding dog reply's permitted memory sources before filling the three-memory limit with normally ranked memories. This allows the prior dog reply to stay in context even after newer memories have been added. The source and permission checks still apply; this is a narrow heuristic and can miss follow-ups or prioritize less relevant memories. Turning recent conversation off retains the normal selection behavior.
+
+`npm run check` passed 208 tests, including fictional multi-memory follow-up, opt-out, deletion and revocation cases. The new selection path uses a mocked model and has not been verified in the native interface.
+
 ## Recent conversation context — November 23, 2026
 
 The existing off-by-default context option can now include up to four earlier user and eligible generated dog messages, each limited to 240 characters. Dog replies are included only when their tracked memory sources are in the current permitted snapshot; earlier replies with untracked sources and replies relying on other memories are omitted. New replies retain those memory dependencies, and a change to the transcript or memory permissions before saving rejects the result. The prompt labels dog replies as fallible rather than evidence of facts. This is bounded context, not a complete conversation model or a guarantee against invented facts. Clearing the transcript remains separate from deleting saved memories.

@@ -72,6 +72,21 @@ it("includes a previous dog question only when its memory sources remain in scop
   expect(JSON.parse(call.mock.calls[1][1].input).recentConversation.some((entry: { text: string }) => entry.text.includes("tea"))).toBe(false);
 });
 
+it("keeps an older source and dog question together in a short follow-up despite newer memories", async () => {
+  let state = reduce(initialState(), { type: "chat-share", text: "What does Sam like?" });
+  state = reduce(state, { type: "add-memory", memory });
+  state = reduce(state, { type: "chat-reply", messageIndex: 0, originalText: "What does Sam like?", reply: "Does Sam still like tea?", memorySnapshot: [memory] });
+  for (const id of ["a", "b", "c"]) state = reduce(state, { type: "add-memory", memory: { ...memory, id, text: `Unrelated ${id}` } });
+  state = reduce(state, { type: "chat-share", text: "Yes, he does." });
+  const call = vi.fn().mockResolvedValue(JSON.stringify({ reply: "Good to know Sam still likes tea!" }));
+  const result = await localChat("Yes, he does.", state, call as unknown as typeof invoke, { includeRecent: true, beforeIndex: 2 });
+  const input = JSON.parse(call.mock.calls[0][1].input);
+  expect(input.memories.map((entry: { id: string }) => entry.id)).toContain("m");
+  expect(input.recentConversation).toContainEqual({ role: "dog", text: "Does Sam still like tea?" });
+  const saved = reduce(state, { type: "chat-reply", messageIndex: 2, originalText: "Yes, he does.", ...result });
+  expect(reduce(saved, { type: "delete-memory", id: "m" }).chat.messages.at(-1)?.text).toContain("removed");
+});
+
 it("passes an adopted dog's personality to the local model as tone only", async () => {
   const state = reduce(initialState(), { type: "adopt", name: "Pip", personality: "mean" });
   const call = vi.fn().mockResolvedValue(JSON.stringify({ reply: "Let's get started." }));

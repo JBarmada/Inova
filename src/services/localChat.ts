@@ -1,7 +1,7 @@
 import { invoke, isTauri } from "@tauri-apps/api/core";
 import { z } from "zod";
 import type { AppState } from "../shared/schema";
-import { chatMemories } from "./chatMemories";
+import { followUpMemories } from "./followUpMemories";
 import { looksLikeGoal } from "./goalSignal";
 import { recentChat } from "./recentChat";
 
@@ -10,7 +10,7 @@ const response = z.object({ reply: z.string().trim().min(1).max(600), memoryQuot
 
 export async function localChat(text: string, state: AppState, call = invoke, options?: { includeRecent: boolean; beforeIndex: number }) {
   if (call === invoke && !isTauri()) throw Error("Local AI chat requires the desktop app.");
-  const memorySnapshot = chatMemories(text, state.memories).map(({ id, text }) => ({ id, text }));
+  const memorySnapshot = followUpMemories(text, state, options?.beforeIndex ?? 0, options?.includeRecent ?? false).map(({ id, text }) => ({ id, text }));
   const contextSnapshot = options?.includeRecent ? recentChat(state, options.beforeIndex, memorySnapshot.map(({ id }) => id)) : [];
   const input = JSON.stringify({ message: text, dogName: state.pet.name || undefined, dogPersonality: state.pet.personality, memories: memorySnapshot,
     ...(contextSnapshot.length ? { recentConversation: contextSnapshot.map(({ role, text }) => ({ role, text })) } : {}) });
