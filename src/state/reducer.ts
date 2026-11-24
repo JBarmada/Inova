@@ -9,7 +9,7 @@ import { validRecentChat } from "../services/recentChat";
 
 function apply(state: AppState, action: Action): AppState {
   switch (action.type) {
-    case "chat-goal": case "chat-share": case "chat-plan-message": case "dismiss-quest-suggestion": case "chat-context": case "chat-skip": case "chat-reset": case "chat-clear": case "chat-follow-up": return changeChat(state, action);
+    case "chat-goal": case "chat-share": case "chat-context-exclusion": case "chat-plan-message": case "dismiss-quest-suggestion": case "chat-context": case "chat-skip": case "chat-reset": case "chat-clear": case "chat-follow-up": return changeChat(state, action);
     case "save-chat-memory": return saveChatMemory(state, action);
     case "correct-chat-memory": return correctChatMemory(state, action);
     case "dismiss-memory-suggestion": return dismissMemorySuggestion(state, action.replyIndex, action.sourceIndex, action.quote);
@@ -118,6 +118,8 @@ function saveChatReply(state: AppState, action: Extract<Action, { type: "chat-re
   const duplicate = action.memorySuggestion && state.memories.some((memory) => memory.text.trim().toLocaleLowerCase() === action.memorySuggestion!.quote.trim().toLocaleLowerCase());
   return { ...state, chat: { ...state.chat, messages: [...state.chat.messages,
     { role: "dog", text: reply, sourceIds: action.memorySnapshot.map((memory) => memory.id),
+      contextUserIndices: [...new Set([action.messageIndex, ...(action.contextSnapshot ?? []).flatMap((entry) => entry.role === "user" ? [entry.index] : entry.contextUserIndices ?? [])])],
+      contextUnknown: (action.contextSnapshot ?? []).some((entry) => entry.role === "dog" && (!entry.contextUserIndices || entry.contextUnknown)),
       ...(action.memorySuggestion && !duplicate ? { memorySuggestion: { ...action.memorySuggestion, sourceIndex: action.messageIndex } } : {}),
       ...(action.offerQuest ? { questSuggestion: { sourceIndex: action.messageIndex } } : {}) }] } };
 }

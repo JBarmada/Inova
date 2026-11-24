@@ -49,6 +49,7 @@ const commonSchema = z.object({
   rewardedQuestIds: z.array(id),
   chat: z.object({ phase: z.enum(["goal", "context", "ready"]), goal: z.string().max(240),
     messages: z.array(z.object({ role: z.enum(["user", "dog"]), text: z.string().min(1).max(4000), sourceIds: z.array(id).max(3).optional(),
+      contextExcluded: z.boolean().optional(), contextUserIndices: z.array(z.number().int().min(0).max(199)).max(200).optional(), contextUnknown: z.boolean().optional(),
       memorySuggestion: z.object({ sourceIndex: z.number().int().min(0).max(199), quote: z.string().min(1).max(240), category: memoryCategorySchema }).optional(),
       questSuggestion: z.object({ sourceIndex: z.number().int().min(0).max(199) }).optional() })).max(200),
     pendingReflections: z.array(id).default([]),

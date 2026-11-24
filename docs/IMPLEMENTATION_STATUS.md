@@ -1,5 +1,11 @@
 # Implementation Status and Handoff
 
+## Exclude a message from recent context — November 23, 2026
+
+Message actions now let users exclude or re-allow a user message from optional recent conversation context without deleting the transcript. New dog replies track the user messages in their direct and transitive conversation context. A dog reply depending on an excluded message is omitted from future recent context; older replies with unknown context lineage, and their descendants, are conservatively omitted while any message is excluded. A pending result based on newly excluded context cannot be saved. This does not retract an already sent request, erase earlier replies, change saved-memory permissions, prevent explicitly asking the dog about that message, or identify semantically related user statements. Older app versions may discard the new exclusion and lineage fields; do not use them to save a profile relying on these controls.
+
+`npm run check` passed 214 tests, including exclusion, restoration, serialized reload, in-flight rejection and chained/legacy replies. Native visual interaction and Mac runtime remain unverified.
+
 ## Correct a memory from chat — November 23, 2026
 
 While reviewing a user message or suggested memory, the user can explicitly choose an existing memory to update and review the replacement text. Its category, personalization permission, original date and quest link remain unchanged. The mutation validates the original chat message, the chosen memory snapshot and any suggestion, and applies the existing memory-edit invalidation to dependent replies and quest copies. It does not automatically identify conflicting memories or delete the separate chat transcript. Existing conversation text can still be included if the user enables recent conversation context.

@@ -34,10 +34,7 @@ export function CompanionChat({ state }: { state: AppState }) {
     try { await work(); } catch (error) { setMessage(error instanceof Error ? error.message : "Please try again."); }
     finally { setBusy(false); }
   }
-  async function send() {
-    await dispatch({ type: state.chat.phase === "goal" ? "chat-goal" : "chat-context", text });
-    setText("");
-  }
+  async function send() { await dispatch({ type: state.chat.phase === "goal" ? "chat-goal" : "chat-context", text }); setText(""); }
   async function accept(result: Draft) {
     await dispatch({ type: "accept-planned-quest", commitment: result.commitment, quest: { ...result.quest, futureSteps: result.steps.slice(1).map(({ title, reason, minutes }) => ({ title, reason, minutes })) }, memorySnapshot: result.memorySnapshot, previousQuest: result.previousQuest, consumesSavedPlan: result.usesSavedPlan });
     setDraft(undefined); setMessage("Quest accepted! Find it in Quests.");
@@ -55,6 +52,7 @@ export function CompanionChat({ state }: { state: AppState }) {
       onPlan={(messageIndex, originalText, suggestionReplyIndex) => void run(() => dispatch({ type: "chat-plan-message", messageIndex, originalText, suggestionReplyIndex }))}
       onDismissQuest={(replyIndex, sourceIndex) => void run(() => dispatch({ type: "dismiss-quest-suggestion", replyIndex, sourceIndex }))}
       onDismiss={(replyIndex, sourceIndex, quote) => void run(() => dispatch({ type: "dismiss-memory-suggestion", replyIndex, sourceIndex, quote }))}
+      onExclude={(messageIndex, originalText, excluded) => void run(() => dispatch({ type: "chat-context-exclusion", messageIndex, originalText, excluded }))}
       onAsk={chatReply.start} />
     {remember && <ChatMemory key={`${remember.index}:${remember.text}:${remember.suggested?.quote ?? ""}`} index={remember.index} original={remember.text} suggested={remember.suggested} memories={state.memories}
       onCancel={() => setRemember(undefined)} onDone={(updated) => { setRemember(undefined); setMessage(updated ? "Memory updated." : "Saved to Memories."); }} />}

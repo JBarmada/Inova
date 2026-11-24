@@ -2,10 +2,15 @@ import type { Action } from "../shared/actions";
 import type { AppState } from "../shared/schema";
 import { chatPhrases } from "../shared/personality";
 
-type ChatAction = Extract<Action, { type: "chat-goal" | "chat-share" | "chat-plan-message" | "dismiss-quest-suggestion" | "chat-context" | "chat-skip" | "chat-reset" | "chat-clear" | "chat-follow-up" }>;
+type ChatAction = Extract<Action, { type: "chat-goal" | "chat-share" | "chat-context-exclusion" | "chat-plan-message" | "dismiss-quest-suggestion" | "chat-context" | "chat-skip" | "chat-reset" | "chat-clear" | "chat-follow-up" }>;
 
 export function changeChat(state: AppState, action: ChatAction): AppState {
   const chat = state.chat;
+  if (action.type === "chat-context-exclusion") {
+    const message = chat.messages[action.messageIndex];
+    if (message?.role !== "user" || message.text !== action.originalText) throw Error("This conversation changed. Please choose the message again.");
+    return { ...state, chat: { ...chat, messages: chat.messages.map((entry, index) => index === action.messageIndex ? { ...entry, contextExcluded: action.excluded } : entry) } };
+  }
   if (action.type === "chat-plan-message") return planMessage(state, action);
   if (action.type === "dismiss-quest-suggestion") return clearQuestSuggestion(state, action.replyIndex, action.sourceIndex);
   if (action.type === "chat-clear") return { ...state, chat: { ...chat, phase: "goal", goal: "", messages: [], contextQuestId: undefined, followUpQuestId: undefined } };
