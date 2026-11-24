@@ -1,5 +1,11 @@
 # Implementation Status and Handoff
 
+## Local companion replies — November 23, 2026
+
+For a selected user message, Ask dog requests a bounded structured reply from the local 4B/12B provider through Rust. It sends only that message and up to three permitted memories; conversation history is not sent, so this is not yet natural multi-turn chat. The model cannot save memories or act on quests. Responses retain memory source IDs; editing, revoking or deleting a referenced memory removes the dependent response. Stale memory snapshots and malformed replies are rejected. User messages and the separate transcript are retained until cleared. Older versions may strip source IDs on save, so do not use older builds with a profile containing these replies.
+
+`npm run check` passed 184 tests; Windows `cargo test --lib --locked --offline` compiled the provider and passed two existing bounded-response/model-validation tests. A direct fictional 4B service-only trial answered that Sam likes tea from an allowed record in 4 seconds. An empty-memory trial asked for the user's name and instead returned an invented dog name in 1.2 seconds: this is a factual/intent failure and the model should not be trusted to avoid inventing details. Neither trial exercised the native command or UI. Native and Mac behavior and broader model evaluation remain open.
+
 ## User-confirmed conversation memories — November 23, 2026
 
 Home chat can accept a shared message independently of quest creation. The user can select any of their messages, review or edit its wording, select a category and save it to Memories; personalization is off unless checked. The saved entry identifies its conversation origin. Existing memory editing, deletion and permission controls govern retrieval, while the separately stored transcript remains until cleared. The response to sharing is scripted, not an AI conversation or automatic extraction. There is no automatic name recall, date reminder, or inferred preference yet.

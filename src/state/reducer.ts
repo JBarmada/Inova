@@ -10,6 +10,7 @@ function apply(state: AppState, action: Action): AppState {
   switch (action.type) {
     case "chat-goal": case "chat-share": case "chat-context": case "chat-skip": case "chat-reset": case "chat-clear": case "chat-follow-up": return changeChat(state, action);
     case "save-chat-memory": return saveChatMemory(state, action);
+    case "chat-reply": return saveChatReply(state, action);
     case "skip-chat-reflection": return clearReflectionPrompt(state, action.questId);
     case "adopt":
       return { ...state, pet: { ...state.pet, name: action.name.trim(), adopted: true } };
@@ -84,6 +85,16 @@ function saveChatMemory(state: AppState, action: Extract<Action, { type: "save-c
   return apply(state, { type: "add-memory", memory: action.memory });
 }
 
+function saveChatReply(state: AppState, action: Extract<Action, { type: "chat-reply" }>): AppState {
+  const message = state.chat.messages[action.messageIndex];
+  if (!message || message.role !== "user" || message.text !== action.originalText) throw Error("This conversation changed. Please try again.");
+  if (action.memorySnapshot.length > 3 || action.memorySnapshot.some((snapshot) => !state.memories.some((memory) => memory.id === snapshot.id && memory.aiAllowed && memory.text === snapshot.text))) throw Error("A memory changed while the dog was replying. Please try again.");
+  const reply = action.reply.trim();
+  if (!reply || reply.length > 600 || state.chat.messages.length >= 200) throw Error("The reply could not be saved.");
+  return { ...state, chat: { ...state.chat, messages: [...state.chat.messages,
+    { role: "dog", text: reply, sourceIds: action.memorySnapshot.map((memory) => memory.id) }] } };
+}
+
 function editMemory(state: AppState, action: Extract<Action, { type: "edit-memory" }>): AppState {
   const text = action.text.trim();
   if (!text || text.length > 4000) throw Error("Memory must contain 1–4000 characters.");
@@ -121,7 +132,9 @@ function validateSavedPlan(state: AppState, action: Extract<Action, { type: "acc
 }
 
 function forgetReference(state: AppState, id: string): AppState {
-  return { ...state, quests: state.quests.map((quest) => quest.sourceIds.includes(id)
+  return { ...state, chat: { ...state.chat, messages: state.chat.messages.map((message) => message.sourceIds?.includes(id)
+    ? { ...message, text: "This reply was removed because a supporting memory changed.", sourceIds: [] } : message) },
+    quests: state.quests.map((quest) => quest.sourceIds.includes(id)
     ? { ...quest, title: quest.planner === "local" ? "Review this quest" : quest.title, sourceIds: quest.sourceIds.filter((source) => source !== id), reason: "A supporting memory was removed from personalization.", futureSteps: undefined }
     : quest) };
 }

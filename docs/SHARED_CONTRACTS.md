@@ -17,6 +17,8 @@ Memory entries may have a user-selected `people`, `events`, `you`, or `misc` cat
 
 `save-chat-memory` requires a matching user-authored conversation message and creates an explicitly reviewed entry marked `source: chat`; personalization is selected separately by the user. The saved text may be edited during review and is not asserted to be a verbatim transcript. Deleting the memory removes it from maintained planning retrieval and dependent quest copies, but does not delete the independently persisted conversation transcript.
 
+Local companion replies use `chat-reply` with a user-message snapshot and up to three permitted memory snapshots. The reducer rejects stale snapshots and stores source IDs with the reply; changes or permission revocation remove the dependent generated text. Earlier builds can drop these IDs, so must not save a newer profile containing generated replies. The model cannot mutate memories, quests or rewards.
+
 | Domain | Shared record | Main actions |
 | --- | --- | --- |
 | Pet | name, adopted, mood | adopt, mood |

@@ -8,6 +8,8 @@ import { ChatReflection } from "./ChatReflection";
 import { prepareSavedPlan } from "../../services/savedPlan";
 import { ChatMemory } from "./ChatMemory";
 import { ChatShare } from "./ChatShare";
+import { localChat } from "../../services/localChat";
+import { ChatHistory } from "./ChatHistory";
 
 type Draft = Awaited<ReturnType<typeof prepareChatPlan>> & { usesSavedPlan?: boolean };
 
@@ -45,11 +47,9 @@ export function CompanionChat({ state }: { state: AppState }) {
       () => { setBusy(false); setPlanning(false); });
   }
   return <details className="companion-chat"><summary>Chat with {state.pet.name}</summary>
-    <div ref={history} className="chat-history" aria-label="Conversation history" role="log">
-      {state.chat.messages.length === 0 && <p>What would you like to work on together?</p>}
-      {state.chat.messages.map((entry, index) => <p key={index}><strong>{entry.role === "user" ? "You" : state.pet.name}:</strong> {entry.text}
-        {entry.role === "user" && <button type="button" disabled={busy} onClick={() => setRemember({ index, text: entry.text })}>Remember</button>}</p>)}
-    </div>
+    <ChatHistory ref={history} state={state} busy={busy} onRemember={(index, text) => setRemember({ index, text })}
+      onAsk={(index, text) => void run(async () => { const result = await localChat(text, state);
+        await dispatch({ type: "chat-reply", messageIndex: index, originalText: text, ...result }); })} />
     {remember && <ChatMemory key={`${remember.index}:${remember.text}`} index={remember.index} original={remember.text}
       onCancel={() => setRemember(undefined)} onDone={() => { setRemember(undefined); setMessage("Saved to Memories."); }} />}
     <ChatShare busy={busy} onSend={(value) => dispatch({ type: "chat-share", text: value })} />
