@@ -53,3 +53,13 @@ it("checks relative dates against the clock supplied to the model", () => {
   expect(suggestedDetails("Finish the day after tomorrow", { deadlineDate: "2027-01-01", deadlineEvidence: "tomorrow" }, "2026-12-31T10:00:00")).toEqual({});
   expect(suggestedDetails("It is not due tomorrow", { deadlineDate: "2027-01-01", deadlineEvidence: "tomorrow" }, "2026-12-31T10:00:00")).toEqual({});
 });
+
+it("keeps a date while requiring a user to resolve ambiguous or conflicting times", () => {
+  for (const [evidence, time] of [["Friday at noon", "13:00"], ["Friday at midnight", "12:00"],
+    ["Friday at 5:00", "17:00"], ["Friday at 5pm or 6pm", "17:00"], ["Friday at noon or 17:00", "12:00"]]) {
+    expect(suggestedDetails(`Finish ${evidence}`, { deadlineLocal: `2026-11-27T${time}`, deadlineEvidence: evidence })).toEqual({ deadlineDate: "2026-11-27" });
+  }
+  for (const [evidence, time] of [["Friday at noon", "12:00"], ["Friday at midnight", "00:00"], ["Friday at 17:00", "17:00"]]) {
+    expect(suggestedDetails(`Finish ${evidence}`, { deadlineLocal: `2026-11-27T${time}`, deadlineEvidence: evidence })).toEqual({ deadlineLocal: `2026-11-27T${time}` });
+  }
+});

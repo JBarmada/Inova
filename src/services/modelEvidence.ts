@@ -33,9 +33,13 @@ export function plausibleEffort(minutes: number, evidence: string): boolean {
 }
 export function plausibleTime(local: string, evidence: string): boolean {
   const matches = [...evidence.toLowerCase().matchAll(/\b(1[0-2]|0?[1-9])(?::([0-5]\d))?\s*(a|p)\.?m\.?\b/g)];
-  if (matches.length !== 1) {
-    const clocks = [...evidence.matchAll(/\b(\d{1,2}):([0-5]\d)\b/g)];
-    if (clocks.length !== 1 || (Number(clocks[0][1]) > 0 && Number(clocks[0][1]) < 13)) return true;
+  const named = [...evidence.matchAll(/\b(noon|midnight)\b/gi)];
+  const withoutMeridiem = evidence.replace(/\b(1[0-2]|0?[1-9])(?::[0-5]\d)?\s*(a|p)\.?m\.?\b/gi, "");
+  const clocks = [...withoutMeridiem.matchAll(/\b(\d{1,2}):([0-5]\d)\b/g)];
+  if (matches.length + named.length + clocks.length !== 1) return false;
+  if (named.length) return local.slice(11, 16) === (named[0][1].toLowerCase() === "noon" ? "12:00" : "00:00");
+  if (!matches.length) {
+    if (Number(clocks[0][1]) > 0 && Number(clocks[0][1]) < 13) return false;
     return local.slice(11, 16) === `${clocks[0][1].padStart(2, "0")}:${clocks[0][2]}`;
   }
   const [, hour, minute, meridiem] = matches[0];

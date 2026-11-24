@@ -1,5 +1,9 @@
 # Implementation Status and Handoff
 
+## Check suggested deadline times — November 23, 2026
+
+The planner now checks noon, midnight and unambiguous 24-hour times against the model's suggestion. An unqualified time such as “5:00,” multiple alternatives, or a conflicting time no longer supplies an assumed clock time; when the date is supported, the user is asked to provide the time in review. `npm run check` passed 250 tests. Native date-picker, locale and daylight-saving behavior remain to be verified.
+
 ## Check immediate relative dates — November 23, 2026
 
 Both local planners now validate model-suggested “today,” “tonight,” “tomorrow” and “day after tomorrow” against the same local calendar date sent in the request. The check uses calendar-day arithmetic across month, year and leap-day boundaries and rejects multiple relative-day phrases, some negated statements and a truncated “tomorrow” quote from “day after tomorrow.” A rejected suggestion opens manual detail review. `npm run check` passed 249 tests, including a mocked planner with a wrong date. Other relative expressions, ambiguous wording, time zones and native date-picker behavior still require review; no live-model run was performed.
