@@ -1,5 +1,9 @@
 # Implementation Status and Handoff
 
+## Fictional learning sequence — November 23, 2026
+
+One local 4B service run used the application selector and reducer across unknown name, explicitly saved name/class/friend/date, effort versus preference, a corrected preference after serialized reload, and revoked permission. The responses matched those particular fictional facts and expressed uncertainty in the two unknown cases. This was a single non-native run with recent conversation disabled, not proof of general accuracy or autonomous learning. The script, observed cases and limits are in [learning sequence evidence](evidence/learning-sequence-2026-11-23.md).
+
 ## Exclude a message from recent context — November 23, 2026
 
 Message actions now let users exclude or re-allow a user message from optional recent conversation context without deleting the transcript. New dog replies track the user messages in their direct and transitive conversation context. A dog reply depending on an excluded message is omitted from future recent context; older replies with unknown context lineage, and their descendants, are conservatively omitted while any message is excluded. A pending result based on newly excluded context cannot be saved. This does not retract an already sent request, erase earlier replies, change saved-memory permissions, prevent explicitly asking the dog about that message, or identify semantically related user statements. Older app versions may discard the new exclusion and lineage fields; do not use them to save a profile relying on these controls.
