@@ -1,5 +1,9 @@
 # Implementation Status and Handoff
 
+## Review included memories — November 23, 2026
+
+The shared quest review offers a collapsed list of the exact memory snapshots included in a suggestion when any were included. This shows the information supplied to the planner; it does not claim the model used every item. Acceptance still rechecks permission and content against current state. `npm run check` passed 239 tests, including a permitted memory and an excluded private entry. Native visual review remains pending.
+
 ## Accepted plans in chat history — November 23, 2026
 
 When a home-chat quest is accepted, the conversation records its accepted title and the later suggestions as they were at acceptance; sample plans remain labeled. The copy carries supporting memory IDs and is removed if a supporting memory is edited, deleted or excluded from personalization. It is conservatively excluded from optional recent context when any user message is excluded, because exact source-message links are not yet tracked. A full conversation does not prevent accepting a quest; in that case no history copy is added. Direct desktop/floating acceptance does not yet add a chat record. Unaccepted previews and explanations are not persisted.

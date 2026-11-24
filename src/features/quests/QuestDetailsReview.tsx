@@ -29,6 +29,8 @@ export function QuestDetailsReview({ draft, onSave, onCancel, saveLabel = "Add q
     <p>{draft.fallback ? "Sample quest" : "Suggested quest"}</p>
     <label>Quest <input value={title} maxLength={4000} onChange={(event) => setTitle(event.target.value)} /></label>
     {title.trim() === draft.quest.title ? <p>{draft.quest.reason}</p> : <p>You edited this quest.</p>}
+    {draft.memorySnapshot.length > 0 && <details><summary>Memories included ({draft.memorySnapshot.length})</summary>
+      <ul>{draft.memorySnapshot.map((memory) => <li key={memory.id}>{memory.text}</li>)}</ul></details>}
     <label>Quest length (minutes) <input type="number" min="1" max="120" value={questMinutes} onChange={(event) => setQuestMinutes(event.target.value)} /></label>
     {hasFutureSteps && title.trim() !== draft.quest.title && <p>Changing the first quest removes the later suggested steps.</p>}
     {draft.detailsWarning && <p>Some details need your help.</p>}

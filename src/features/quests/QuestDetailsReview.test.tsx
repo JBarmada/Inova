@@ -23,4 +23,16 @@ it("shows proposed text for review before saving, with optional details collapse
   expect(markup).toContain("Sample quest");
   expect(markup).toContain("<details><summary>Deadline and effort</summary>");
   expect(markup).toContain("Add quest");
+  expect(markup).not.toContain("Memories included");
+});
+
+it("lets a user inspect the exact permitted memories included in a suggestion", async () => {
+  const state = initialState();
+  state.memories = [{ id: "allowed", text: "Painting helps me relax", aiAllowed: true, createdAt: "2026-11-23T00:00:00.000Z" },
+    { id: "private", text: "A private thought", aiAllowed: false, createdAt: "2026-11-23T00:00:00.000Z" }];
+  const draft = await prepareQuest("Start painting", state, async () => { throw Error("offline"); });
+  const markup = renderToStaticMarkup(<QuestDetailsReview draft={draft} onSave={async () => {}} onCancel={() => {}} />);
+  expect(markup).toContain("Memories included (1)");
+  expect(markup).toContain("Painting helps me relax");
+  expect(markup).not.toContain("A private thought");
 });
