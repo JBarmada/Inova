@@ -1,5 +1,11 @@
 # Implementation Status and Handoff
 
+## Recent conversation context — November 23, 2026
+
+The existing off-by-default context option can now include up to four earlier user and eligible generated dog messages, each limited to 240 characters. Dog replies are included only when their tracked memory sources are in the current permitted snapshot; earlier replies with untracked sources and replies relying on other memories are omitted. New replies retain those memory dependencies, and a change to the transcript or memory permissions before saving rejects the result. The prompt labels dog replies as fallible rather than evidence of facts. This is bounded context, not a complete conversation model or a guarantee against invented facts. Clearing the transcript remains separate from deleting saved memories.
+
+One fictional service-only 4B test interpreted “Yes, he does” after a dog question about a friend liking tea. The model also proposed its own earlier question as a memory; the existing exact-current-user-quote check rejected it. This single trial is not proof of general quality or a native UI test. Run it with `node scripts/evaluate-local-chat.mjs gemma3:4b "follow-up answer"` while Ollama is running.
+
 ## Finding older memories in chat — November 23, 2026
 
 Local chat now ranks permitted memories using word overlap and small English wording groups for names, classes, friends, preferences and dates. This helps surface older records when a question uses related wording, such as asking what class the user is taking when they saved “I take astronomy.” It still sends at most three memories, uses recency for ties and preserves the existing snapshot and revocation checks. The ranking is heuristic, not semantic understanding: it can miss paraphrases, select an unrelated record, or leave out a relevant fact. Model answers can still be wrong.
@@ -38,7 +44,7 @@ New adoptions randomly receive and persist one of four text styles: cute, mean, 
 
 ## Optional recent conversation context — November 23, 2026
 
-The chat interface offers an off-by-default control to include up to four earlier user-authored messages when requesting a local reply. It excludes the current message, later messages, dog replies and user messages over 240 characters. The selected messages are rechecked before saving the reply; permitted-memory checks remain separate. The control resets when the chat component is unmounted or the app restarts. Messages remain in the separate transcript until cleared, even when a saved memory is deleted; the interface states this when the control is enabled. Clear conversation removes the transcript and its replies. This is limited recent user context, not full multi-turn dialogue or a durable memory extraction policy.
+Initially, the chat context option included only earlier user-authored messages. See the newer Recent conversation context section above for the expanded behavior. The control resets when the chat component is unmounted or the app restarts. Messages remain in the separate transcript until cleared, even when a saved memory is deleted; the interface states this when the control is enabled. Clear conversation removes the transcript and its replies. This is not a durable memory extraction policy.
 
 `npm run check` passed 188 tests, and Windows offline Rust library tests passed two existing tests after compiling the updated prompt. In one fictional direct 4B service trial, the model correctly identified astronomy from a supplied earlier user message; eight other keyword checks also passed, though one unrelated follow-up was awkward. These are service-only checks, not the native app or broad model validation. Native UI, Mac runtime and wider live-model evaluation remain pending.
 

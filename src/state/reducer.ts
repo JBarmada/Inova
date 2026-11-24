@@ -5,6 +5,7 @@ import { changeEquipment } from "./equipment";
 import { planQuest, clearQuestPlan } from "./scheduling";
 import { changeChat } from "./chat";
 import { previousQuestContext } from "../services/previousQuest";
+import { validRecentChat } from "../services/recentChat";
 
 function apply(state: AppState, action: Action): AppState {
   switch (action.type) {
@@ -97,7 +98,7 @@ function dismissMemorySuggestion(state: AppState, replyIndex: number, sourceInde
 function saveChatReply(state: AppState, action: Extract<Action, { type: "chat-reply" }>): AppState {
   const message = state.chat.messages[action.messageIndex];
   if (!message || message.role !== "user" || message.text !== action.originalText) throw Error("This conversation changed. Please try again.");
-  if (action.contextSnapshot && (action.contextSnapshot.length > 4 || action.contextSnapshot.some(({ index, text }) => index >= action.messageIndex || state.chat.messages[index]?.role !== "user" || state.chat.messages[index]?.text !== text))) throw Error("This conversation changed. Please try again.");
+  if (action.contextSnapshot && !validRecentChat(state, action.messageIndex, action.contextSnapshot, action.memorySnapshot.map(({ id }) => id))) throw Error("This conversation changed. Please try again.");
   if (action.memorySnapshot.length > 3 || action.memorySnapshot.some((snapshot) => !state.memories.some((memory) => memory.id === snapshot.id && memory.aiAllowed && memory.text === snapshot.text))) throw Error("A memory changed while the dog was replying. Please try again.");
   if (action.memorySuggestion && (!action.memorySuggestion.quote.trim() || action.memorySuggestion.quote.includes("?") || !action.originalText.includes(action.memorySuggestion.quote))) throw Error("The suggested memory is not a statement in your message.");
   const reply = action.reply.trim();

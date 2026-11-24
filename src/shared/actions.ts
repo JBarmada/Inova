@@ -19,7 +19,7 @@ export type Action =
   | { type: "chat-share"; text: string }
   | { type: "chat-plan-message"; messageIndex: number; originalText: string; suggestionReplyIndex?: number }
   | { type: "dismiss-quest-suggestion"; replyIndex: number; sourceIndex: number }
-  | { type: "chat-reply"; messageIndex: number; originalText: string; reply: string; memorySnapshot: { id: string; text: string }[]; contextSnapshot?: { index: number; text: string }[]; memorySuggestion?: { quote: string; category: NonNullable<Memory["category"]> }; offerQuest?: boolean }
+  | { type: "chat-reply"; messageIndex: number; originalText: string; reply: string; memorySnapshot: { id: string; text: string }[]; contextSnapshot?: import("../services/recentChat").ChatContextEntry[]; memorySuggestion?: { quote: string; category: NonNullable<Memory["category"]> }; offerQuest?: boolean }
   | { type: "save-chat-memory"; messageIndex: number; originalText: string; memory: Memory; suggestion?: { replyIndex: number; quote: string } }
   | { type: "dismiss-memory-suggestion"; replyIndex: number; sourceIndex: number; quote: string }
   | { type: "chat-context"; text: string }

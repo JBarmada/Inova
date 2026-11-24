@@ -40,14 +40,36 @@ it("includes only opted-in earlier user messages and rejects changed context", a
   const call = vi.fn().mockResolvedValue(JSON.stringify({ reply: "Astronomy!" }));
   const result = await localChat("What class is it?", state, call as unknown as typeof invoke, { includeRecent: true, beforeIndex: 5 });
   const input = JSON.parse(call.mock.calls[0][1].input);
-  expect(input.recentUserMessages).toEqual(["I take astronomy", "Sam likes tea", "The exam is December 8", "I studied today"]);
-  expect(input.recentUserMessages).not.toContain("What class is it?");
+  expect(input.recentConversation).toEqual(["I take astronomy", "Sam likes tea", "The exam is December 8", "I studied today"].map((text) => ({ role: "user", text })));
+  expect(input.recentConversation.map((entry: { text: string }) => entry.text)).not.toContain("What class is it?");
   const action = { type: "chat-reply" as const, messageIndex: 5, originalText: "What class is it?", ...result };
   expect(reduce(state, action).chat.messages.at(-1)?.text).toBe("Astronomy!");
   const changed = { ...state, chat: { ...state.chat, messages: state.chat.messages.map((entry, index) => index === 1 ? { ...entry, text: "Changed" } : entry) } };
   expect(() => reduce(changed, action)).toThrow("conversation changed");
   await localChat("What class is it?", state, call as unknown as typeof invoke, { includeRecent: false, beforeIndex: 5 });
-  expect(JSON.parse(call.mock.calls[1][1].input).recentUserMessages).toBeUndefined();
+  expect(JSON.parse(call.mock.calls[1][1].input).recentConversation).toBeUndefined();
+});
+
+it("includes a previous dog question only when its memory sources remain in scope", async () => {
+  let state = reduce(initialState(), { type: "chat-share", text: "Tell me about Sam" });
+  state = reduce(state, { type: "add-memory", memory });
+  state = reduce(state, { type: "chat-reply", messageIndex: 0, originalText: "Tell me about Sam", reply: "Does Sam still like tea?", memorySnapshot: [memory] });
+  state = reduce(state, { type: "chat-share", text: "Yes, Sam does" });
+  const call = vi.fn().mockResolvedValue(JSON.stringify({ reply: "Good to know!" }));
+  const result = await localChat("Yes, Sam does", state, call as unknown as typeof invoke, { includeRecent: true, beforeIndex: 2 });
+  expect(JSON.parse(call.mock.calls[0][1].input).recentConversation).toEqual([
+    { role: "user", text: "Tell me about Sam" }, { role: "dog", text: "Does Sam still like tea?" },
+  ]);
+  const action = { type: "chat-reply" as const, messageIndex: 2, originalText: "Yes, Sam does", ...result };
+  const saved = reduce(state, action);
+  expect(saved.chat.messages.at(-1)?.sourceIds).toContain("m");
+  const revoked = reduce(saved, { type: "memory-permission", id: "m", allowed: false });
+  expect(revoked.chat.messages.at(-1)?.text).toContain("removed");
+  expect(() => reduce(reduce(state, { type: "memory-permission", id: "m", allowed: false }), action)).toThrow();
+  const changed = { ...state, chat: { ...state.chat, messages: state.chat.messages.map((entry, index) => index === 1 ? { ...entry, text: "changed" } : entry) } };
+  expect(() => reduce(changed, action)).toThrow("conversation changed");
+  await localChat("Yes, Sam does", reduce(state, { type: "memory-permission", id: "m", allowed: false }), call as unknown as typeof invoke, { includeRecent: true, beforeIndex: 2 });
+  expect(JSON.parse(call.mock.calls[1][1].input).recentConversation.some((entry: { text: string }) => entry.text.includes("tea"))).toBe(false);
 });
 
 it("passes an adopted dog's personality to the local model as tone only", async () => {
