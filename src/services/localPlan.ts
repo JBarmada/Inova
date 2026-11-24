@@ -16,8 +16,11 @@ const resultSchema = z.object({ explanation: z.string().trim().min(1).max(1000),
 export async function proposeLocalPlan(commitment: Commitment, state: AppState, call = invoke) {
   if (call === invoke && !isTauri()) throw Error("Local AI requires the desktop app.");
   const previousQuest = previousQuestContext(state);
+  const prior = state.quests.find((quest) => quest.id === previousQuest?.id);
+  const required = previousQuest?.title ? state.memories.filter((entry) => entry.aiAllowed && entry.id !== prior?.commitmentId && prior?.sourceIds.includes(entry.id)) : [];
   const related = state.memories.filter((entry) => entry.aiAllowed && entry.questId === previousQuest?.id).slice(-1);
-  const selected = [...related, ...planningMemories(commitment.title, state.memories).filter((entry) => !related.some((item) => item.id === entry.id))].slice(0, 3);
+  const selected = [...required, ...related, ...planningMemories(commitment.title, state.memories)]
+    .filter((entry, index, all) => all.findIndex((item) => item.id === entry.id) === index).slice(0, 3);
   const memorySnapshot = selected.map(({ id, text }) => ({ id, text }));
   const input = JSON.stringify({ localNow: new Date().toLocaleString("sv-SE").replace(" ", "T"),
     commitment: { id: commitment.id, title: commitment.title, deadline: commitment.deadline, effortMinutes: commitment.effortMinutes },

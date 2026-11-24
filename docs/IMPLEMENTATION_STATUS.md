@@ -1,5 +1,11 @@
 # Implementation Status and Handoff
 
+## Grounding a follow-up in completed work — November 23, 2026
+
+A local follow-up can now receive the completed quest's title when every memory supporting that title is currently permitted and all fit within the three-memory context limit. Those memories are reserved in the request and tracked on the new proposal; its acceptance rechecks them. If any are unavailable or too many are needed, the title remains omitted. A linked permitted reflection is included only when capacity remains. This provides the model more evidence of work already done, but does not guarantee it will avoid repeating a step.
+
+`npm run check` passed 225 tests, including supported titles, private or excessive dependencies, missing evidence and revocation during planning. The new path has not been tested with a live model or in the native interface.
+
 ## Edit saved follow-up steps before acceptance — November 23, 2026
 
 The saved next step can now be edited in the same review as a new proposal. The original saved plan snapshot is checked at acceptance; a stale plan or revoked supporting memory rejects the action. Changing the title labels the reason as user-edited and discards the remaining suggested steps with an on-screen warning. Changing only the duration retains later steps when the reviewed total effort and length limits allow it. Acceptance consumes the prior saved plan only after the new quest is saved.

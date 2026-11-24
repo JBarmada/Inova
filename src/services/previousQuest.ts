@@ -5,6 +5,7 @@ export function previousQuestContext(state: AppState): { id: string; title?: str
   if (!id) return undefined;
   const quest = state.quests.find((entry) => entry.id === id && entry.status === "completed");
   if (!quest) throw Error("The completed quest is no longer available. Please start again.");
-  // Do not copy a title generated from memories into a new prompt without tracking those sources.
-  return quest.sourceIds.some((source) => source !== quest.commitmentId) ? { id } : { id, title: quest.title };
+  const sources = quest.sourceIds.filter((source) => source !== quest.commitmentId);
+  const allowed = sources.length <= 3 && sources.every((source) => state.memories.some((memory) => memory.id === source && memory.aiAllowed));
+  return allowed ? { id, title: quest.title } : { id };
 }

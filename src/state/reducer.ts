@@ -144,6 +144,10 @@ function clearReflectionPrompt(state: AppState, questId?: string): AppState {
 function acceptPlannedQuest(state: AppState, action: Extract<Action, { type: "accept-planned-quest" }>): AppState {
   if (state.chat.phase !== "ready" || state.chat.goal !== action.commitment.title) throw Error("This conversation changed. Please plan again.");
   if (JSON.stringify(previousQuestContext(state)) !== JSON.stringify(action.previousQuest)) throw Error("The completed quest changed. Please plan again.");
+  if (action.quest.planner === "local" && action.previousQuest?.title) {
+    const prior = state.quests.find((quest) => quest.id === action.previousQuest!.id);
+    if (prior?.sourceIds.some((id) => id !== prior.commitmentId && !action.memorySnapshot.some((memory) => memory.id === id))) throw Error("The completed quest evidence changed. Please plan again.");
+  }
   const future = action.quest.futureSteps ?? [];
   if (action.commitment.effortMinutes && action.quest.minutes + future.reduce((total, step) => total + step.minutes, 0) > action.commitment.effortMinutes) throw Error("The plan exceeds your total effort. Change it or plan again.");
   if (state.settings.questMinuteLimit && future.some((step) => step.minutes > state.settings.questMinuteLimit)) throw Error("A future step exceeds your current length limit. Please plan again.");
