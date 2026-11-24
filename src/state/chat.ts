@@ -2,11 +2,12 @@ import type { Action } from "../shared/actions";
 import type { AppState } from "../shared/schema";
 import { chatPhrases } from "../shared/personality";
 
-type ChatAction = Extract<Action, { type: "chat-goal" | "chat-share" | "chat-plan-message" | "chat-context" | "chat-skip" | "chat-reset" | "chat-clear" | "chat-follow-up" }>;
+type ChatAction = Extract<Action, { type: "chat-goal" | "chat-share" | "chat-plan-message" | "dismiss-quest-suggestion" | "chat-context" | "chat-skip" | "chat-reset" | "chat-clear" | "chat-follow-up" }>;
 
 export function changeChat(state: AppState, action: ChatAction): AppState {
   const chat = state.chat;
   if (action.type === "chat-plan-message") return planMessage(state, action);
+  if (action.type === "dismiss-quest-suggestion") return clearQuestSuggestion(state, action.replyIndex, action.sourceIndex);
   if (action.type === "chat-clear") return { ...state, chat: { ...chat, phase: "goal", goal: "", messages: [], contextQuestId: undefined, followUpQuestId: undefined } };
   if (action.type === "chat-reset") return { ...state, chat: { ...chat, phase: "goal", goal: "", contextQuestId: undefined } };
   if (action.type === "chat-follow-up") {
@@ -44,6 +45,13 @@ function planMessage(state: AppState, action: Extract<Action, { type: "chat-plan
   if (!message || message.role !== "user" || message.text !== action.originalText) throw Error("This conversation changed. Please choose the message again.");
   if (!message.text.trim() || message.text.length > 240) throw Error("Choose a message of up to 240 characters.");
   if (state.chat.messages.length >= 200) throw Error("Conversation is full. Clear it to start a new one.");
-  return { ...state, chat: { ...state.chat, goal: message.text, phase: "context", contextQuestId: undefined,
-    messages: [...state.chat.messages, { role: "dog", text: chatPhrases(state.pet.personality).clarify }] } };
+  const cleared = action.suggestionReplyIndex === undefined ? state : clearQuestSuggestion(state, action.suggestionReplyIndex, action.messageIndex);
+  return { ...cleared, chat: { ...cleared.chat, goal: message.text, phase: "context", contextQuestId: undefined,
+    messages: [...cleared.chat.messages, { role: "dog", text: chatPhrases(state.pet.personality).clarify }] } };
+}
+
+function clearQuestSuggestion(state: AppState, replyIndex: number, sourceIndex: number): AppState {
+  const reply = state.chat.messages[replyIndex];
+  if (reply?.role !== "dog" || reply.questSuggestion?.sourceIndex !== sourceIndex) throw Error("This quest suggestion is no longer available.");
+  return { ...state, chat: { ...state.chat, messages: state.chat.messages.map((entry, index) => index === replyIndex ? { ...entry, questSuggestion: undefined } : entry) } };
 }

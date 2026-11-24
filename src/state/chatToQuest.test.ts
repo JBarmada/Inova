@@ -36,3 +36,20 @@ it("rejects stale, dog-authored, and interrupted requests without changing the c
   expect(() => reduce(reset, { ...action, messageIndex: 1, originalText: reset.chat.messages[1].text })).toThrow("conversation changed");
   expect(planning.quests).toEqual([]);
 });
+
+it("offers planning without making a quest and honors explicit decline or acceptance", () => {
+  const text = "I need to prepare for my astronomy presentation";
+  const shared = reduce(initialState(), { type: "chat-share", text });
+  const offered = reduce(shared, { type: "chat-reply", messageIndex: 0, originalText: text,
+    reply: "We can work on that together.", memorySnapshot: [], offerQuest: true });
+  expect(offered.quests).toEqual([]);
+  expect(offered.chat.messages[1].questSuggestion).toEqual({ sourceIndex: 0 });
+  const dismissed = reduce(offered, { type: "dismiss-quest-suggestion", replyIndex: 1, sourceIndex: 0 });
+  expect(dismissed.chat.messages[1].questSuggestion).toBeUndefined();
+  expect(dismissed.quests).toEqual([]);
+  expect(() => reduce(dismissed, { type: "chat-plan-message", messageIndex: 0, originalText: text, suggestionReplyIndex: 1 })).toThrow("no longer available");
+  const planned = reduce(offered, { type: "chat-plan-message", messageIndex: 0, originalText: text, suggestionReplyIndex: 1 });
+  expect(planned.chat).toMatchObject({ phase: "context", goal: text });
+  expect(planned.chat.messages[1].questSuggestion).toBeUndefined();
+  expect(planned.quests).toEqual([]);
+});

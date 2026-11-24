@@ -73,3 +73,13 @@ it("offers only an exact quote from the current message and never saves it autom
   call.mockResolvedValueOnce(JSON.stringify({ reply: "I don't know.", memoryQuote: "What is my name?", memoryCategory: "you" }));
   expect((await localChat("What is my name?", state, call as unknown as typeof invoke)).memorySuggestion).toBeUndefined();
 });
+
+it("returns a model goal signal without creating or accepting a quest", async () => {
+  const state = reduce(initialState(), { type: "chat-share", text: "I need to study for my exam" });
+  const call = vi.fn().mockResolvedValue(JSON.stringify({ reply: "Let's work on that.", offerQuest: true }));
+  const result = await localChat("I need to study for my exam", state, call as unknown as typeof invoke);
+  expect(result.offerQuest).toBe(true);
+  expect(state.quests).toEqual([]);
+  expect((await localChat("What is my name?", state, call as unknown as typeof invoke)).offerQuest).toBeUndefined();
+  expect((await localChat("I don't want to study", state, call as unknown as typeof invoke)).offerQuest).toBeUndefined();
+});

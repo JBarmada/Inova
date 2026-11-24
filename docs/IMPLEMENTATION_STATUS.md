@@ -1,5 +1,11 @@
 # Implementation Status and Handoff
 
+## Offered quest handoff — November 23, 2026
+
+Local chat may offer to plan when its structured response identifies a goal and the original user message passes a conservative phrase check. The user can choose Plan together or Not now; neither the model output nor declining creates or accepts a quest. Starting a plan validates the source and consumes the offer, then uses the existing clarification and explicit acceptance flow. Manual Message actions remain available for goals missed by the check.
+
+`npm run check` passed 198 tests, including decline, acceptance, stale offers and suppression of two false-positive patterns. Windows offline Rust library tests compiled the updated provider and passed two existing tests. In one fictional 4B service-only run, the raw model correctly offered a plan for a presentation goal but also offered plans for several ordinary questions and statements of nervousness. The phrase check filters those particular examples but is not general intent understanding and can miss valid goals or allow false positives. Native UI, live in-app behavior and Mac runtime remain pending; older builds may drop offer metadata.
+
 ## Start a quest from chat — November 23, 2026
 
 The Message actions menu lets a user turn an existing user-authored chat message into a quest goal without retyping or duplicating it. The dog asks the existing optional clarification question, then the user previews and explicitly accepts a quest. Planning cannot replace a goal already in progress, and stale or dog-authored messages are rejected. Message actions are grouped in a disclosure to reduce clutter.

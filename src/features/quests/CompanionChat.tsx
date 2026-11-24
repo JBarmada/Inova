@@ -13,6 +13,7 @@ import { ChatHistory } from "./ChatHistory";
 import { shareAndReply } from "../../services/shareAndReply";
 import type { Category } from "../world/MemoryCategories";
 import { ChatContextToggle } from "./ChatContextToggle";
+import { useChatAutoScroll } from "./useChatAutoScroll";
 
 type Draft = Awaited<ReturnType<typeof prepareChatPlan>> & { usesSavedPlan?: boolean };
 
@@ -24,10 +25,9 @@ export function CompanionChat({ state }: { state: AppState }) {
   const [message, setMessage] = useState("");
   const [remember, setRemember] = useState<{ index: number; text: string; suggested?: { quote: string; category: Category; replyIndex: number } }>();
   const [includeRecent, setIncludeRecent] = useState(false);
-  const history = useRef<HTMLDivElement>(null);
+  const history = useChatAutoScroll(state.chat.messages.length);
   const reflectionQuest = state.quests.find((quest) => quest.id === state.chat.pendingReflections[0] && quest.status === "completed");
   const request = useRef(latestPlanRequest<Draft>());
-  useEffect(() => { if (history.current) history.current.scrollTop = history.current.scrollHeight; }, [state.chat.messages.length]);
   useEffect(() => () => { request.current.invalidate(); }, []);
   async function run(work: () => Promise<void>) {
     setBusy(true); setMessage("");
@@ -52,7 +52,8 @@ export function CompanionChat({ state }: { state: AppState }) {
   }
   return <details className="companion-chat"><summary>Chat with {state.pet.name}</summary>
     <ChatHistory ref={history} state={state} busy={busy} onRemember={(index, text, suggested) => setRemember({ index, text, suggested })}
-      onPlan={(messageIndex, originalText) => void run(() => dispatch({ type: "chat-plan-message", messageIndex, originalText }))}
+      onPlan={(messageIndex, originalText, suggestionReplyIndex) => void run(() => dispatch({ type: "chat-plan-message", messageIndex, originalText, suggestionReplyIndex }))}
+      onDismissQuest={(replyIndex, sourceIndex) => void run(() => dispatch({ type: "dismiss-quest-suggestion", replyIndex, sourceIndex }))}
       onDismiss={(replyIndex, sourceIndex, quote) => void run(() => dispatch({ type: "dismiss-memory-suggestion", replyIndex, sourceIndex, quote }))}
       onAsk={(index, text) => void run(async () => { const result = await localChat(text, state, undefined, { includeRecent, beforeIndex: index });
         await dispatch({ type: "chat-reply", messageIndex: index, originalText: text, ...result }); })} />

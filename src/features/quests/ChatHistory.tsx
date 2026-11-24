@@ -5,8 +5,9 @@ import type { Category } from "../world/MemoryCategories";
 export const ChatHistory = forwardRef<HTMLDivElement, {
   state: AppState; busy: boolean; onRemember: (index: number, text: string, suggested?: { quote: string; category: Category; replyIndex: number }) => void; onAsk: (index: number, text: string) => void;
   onDismiss: (replyIndex: number, sourceIndex: number, quote: string) => void;
-  onPlan: (index: number, text: string) => void;
-}>(function ChatHistory({ state, busy, onRemember, onAsk, onDismiss, onPlan }, ref) {
+  onPlan: (index: number, text: string, suggestionReplyIndex?: number) => void;
+  onDismissQuest: (replyIndex: number, sourceIndex: number) => void;
+}>(function ChatHistory({ state, busy, onRemember, onAsk, onDismiss, onPlan, onDismissQuest }, ref) {
   return <div ref={ref} className="chat-history" aria-label="Conversation history" role="log">
     {state.chat.messages.length === 0 && <p>What would you like to work on together?</p>}
     {state.chat.messages.map((entry, index) => <div key={index}><strong>{entry.role === "user" ? "You" : state.pet.name}:</strong> {entry.text}
@@ -19,6 +20,10 @@ export const ChatHistory = forwardRef<HTMLDivElement, {
         <span> Remember: {entry.memorySuggestion.quote}</span><button type="button" disabled={busy} onClick={() => {
           const suggestion = entry.memorySuggestion!;
           onRemember(suggestion.sourceIndex, state.chat.messages[suggestion.sourceIndex].text, { ...suggestion, replyIndex: index });
-        }}>Review memory</button><button type="button" disabled={busy} onClick={() => onDismiss(index, entry.memorySuggestion!.sourceIndex, entry.memorySuggestion!.quote)}>Dismiss suggestion</button></>}</div>)}
+        }}>Review memory</button><button type="button" disabled={busy} onClick={() => onDismiss(index, entry.memorySuggestion!.sourceIndex, entry.memorySuggestion!.quote)}>Dismiss suggestion</button></>}
+      {entry.role === "dog" && entry.questSuggestion && state.chat.messages[entry.questSuggestion.sourceIndex]?.role === "user" && <>
+        <span> Want to make a plan?</span><button type="button" disabled={busy || state.chat.phase !== "goal"} onClick={() => {
+          const source = entry.questSuggestion!.sourceIndex; onPlan(source, state.chat.messages[source].text, index);
+        }}>Plan together</button><button type="button" disabled={busy} onClick={() => onDismissQuest(index, entry.questSuggestion!.sourceIndex)}>Not now</button></>}</div>)}
   </div>;
 });

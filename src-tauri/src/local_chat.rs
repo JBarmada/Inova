@@ -12,8 +12,8 @@ pub async fn local_companion_reply(input: String, model: String) -> Result<Strin
     let payload = json!({
         "model": model, "stream": false,
         "format": {"type":"object", "properties":{"reply":{"type":"string"}, "memoryQuote":{"type":"string"},
-            "memoryCategory":{"type":"string", "enum":["people", "events", "you", "misc"]}},
-            "required":["reply", "memoryQuote", "memoryCategory"]},
+            "memoryCategory":{"type":"string", "enum":["people", "events", "you", "misc"]}, "offerQuest":{"type":"boolean"}},
+            "required":["reply", "memoryQuote", "memoryCategory", "offerQuest"]},
         "messages": [
             {"role":"system", "content":include_str!("local_chat_prompt.txt")},
             {"role":"user", "content":input}
