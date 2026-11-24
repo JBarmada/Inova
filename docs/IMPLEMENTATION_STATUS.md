@@ -1,5 +1,11 @@
 # Implementation Status and Handoff
 
+## Direct replies to shared messages — November 23, 2026
+
+Sending a message through Share something now stores the message and requests a local AI reply automatically, rather than adding a scripted acknowledgment and requiring a separate Ask dog click. If the reply fails, the saved message can be retried with Ask dog; a failed message save never calls the model. A change to a supporting memory during generation prevents the reply from being saved. The local request still receives only the chosen message and permitted memories, not previous conversational turns, and the UI waits for the request to finish (up to the native timeout). Quest clarification is still a separate scripted flow. Native interface verification remains pending.
+
+`npm run check` passed 187 tests including message persistence, offline failure, stale memory and save-failure paths. These tests mock the model and do not establish live reply quality; see the local chat evaluation below.
+
 ## Local chat evaluation — November 23, 2026
 
 The companion prompt now identifies the dog's name separately from user memories, interprets first-person memories as user statements, and gives examples for unknown names, preferences and untrusted memory instructions. A reusable fictional service-only harness uses the same prompt file and settings: `node scripts/evaluate-local-chat.mjs gemma3:4b` (or `gemma3:12b`). Its keyword checks require human review and are not a correctness or security guarantee.

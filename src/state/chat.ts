@@ -26,7 +26,7 @@ export function changeChat(state: AppState, action: ChatAction): AppState {
   if (action.type === "chat-context" && chat.phase !== "context") throw Error("Start with a goal first.");
   if (chat.messages.length > 198) throw Error("Conversation is full. Clear it to start a new one.");
   if (action.type === "chat-share") return { ...state, chat: { ...chat, messages: [...chat.messages,
-    { role: "user", text: input }, { role: "dog", text: "Thanks for sharing. You can save this as a memory." }] } };
+    { role: "user", text: input }] } };
   const goal = action.type === "chat-goal" ? input : `${chat.goal}. ${input}`;
   if (goal.length > 240) throw Error("Together, your goal and details must fit within 240 characters.");
   const reply = action.type === "chat-goal"

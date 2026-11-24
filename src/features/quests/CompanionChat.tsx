@@ -10,6 +10,7 @@ import { ChatMemory } from "./ChatMemory";
 import { ChatShare } from "./ChatShare";
 import { localChat } from "../../services/localChat";
 import { ChatHistory } from "./ChatHistory";
+import { shareAndReply } from "../../services/shareAndReply";
 
 type Draft = Awaited<ReturnType<typeof prepareChatPlan>> & { usesSavedPlan?: boolean };
 
@@ -52,7 +53,8 @@ export function CompanionChat({ state }: { state: AppState }) {
         await dispatch({ type: "chat-reply", messageIndex: index, originalText: text, ...result }); })} />
     {remember && <ChatMemory key={`${remember.index}:${remember.text}`} index={remember.index} original={remember.text}
       onCancel={() => setRemember(undefined)} onDone={() => { setRemember(undefined); setMessage("Saved to Memories."); }} />}
-    <ChatShare busy={busy} onSend={(value) => dispatch({ type: "chat-share", text: value })} />
+    <ChatShare busy={busy} onSend={async (value) => { setBusy(true); setMessage("");
+      try { return await shareAndReply(value, state, dispatch); } finally { setBusy(false); } }} />
     {reflectionQuest && <ChatReflection key={reflectionQuest.id} quest={reflectionQuest} onDone={setMessage} />}
     {state.chat.contextQuestId && <p>Continuing: {state.chat.goal}</p>}
     {!reflectionQuest && !draft && state.chat.phase === "goal" && state.chat.followUpQuestId && <button type="button" disabled={busy}

@@ -8,7 +8,7 @@ import { proposeLocalPlan } from "../services/localPlan";
 const at = "2026-11-23T00:00:00.000Z";
 function share(state: AppState, text: string, id: string, category: Memory["category"], allowed = true) {
   const next = reduce(state, { type: "chat-share", text });
-  const index = next.chat.messages.length - 2;
+  const index = next.chat.messages.length - 1;
   return reduce(next, { type: "save-chat-memory", messageIndex: index, originalText: text,
     memory: { id, text, category, source: "chat", aiAllowed: allowed, createdAt: at } });
 }
@@ -49,5 +49,6 @@ it("does not save unconfirmed messages or allow stale or dog messages to become 
   const action = { type: "save-chat-memory" as const, messageIndex: 0, originalText: "My name is Alex", memory };
   expect(reduce(state, action).memories[0].aiAllowed).toBe(false);
   expect(() => reduce(reduce(state, { type: "chat-clear" }), action)).toThrow("conversation changed");
-  expect(() => reduce(state, { ...action, messageIndex: 1 })).toThrow("conversation changed");
+  const withDog = reduce(state, { type: "chat-reply", messageIndex: 0, originalText: "My name is Alex", reply: "Hi!", memorySnapshot: [] });
+  expect(() => reduce(withDog, { ...action, messageIndex: 1 })).toThrow("conversation changed");
 });
