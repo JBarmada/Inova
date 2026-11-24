@@ -5,8 +5,9 @@ import { prepareChatPlan } from "../../services/prepareChatPlan";
 import { QuestDetailsReview } from "./QuestDetailsReview";
 import { latestPlanRequest } from "./latestPlan";
 import { ChatReflection } from "./ChatReflection";
+import { prepareSavedPlan } from "../../services/savedPlan";
 
-type Draft = Awaited<ReturnType<typeof prepareChatPlan>>;
+type Draft = Awaited<ReturnType<typeof prepareChatPlan>> & { usesSavedPlan?: boolean };
 
 export function CompanionChat({ state }: { state: AppState }) {
   const [text, setText] = useState("");
@@ -29,7 +30,7 @@ export function CompanionChat({ state }: { state: AppState }) {
     setText("");
   }
   async function accept(result: Draft) {
-    await dispatch({ type: "accept-planned-quest", commitment: result.commitment, quest: result.quest, memorySnapshot: result.memorySnapshot, previousQuest: result.previousQuest });
+    await dispatch({ type: "accept-planned-quest", commitment: result.commitment, quest: { ...result.quest, futureSteps: result.steps.slice(1).map(({ title, reason, minutes }) => ({ title, reason, minutes })) }, memorySnapshot: result.memorySnapshot, previousQuest: result.previousQuest, consumesSavedPlan: result.usesSavedPlan });
     setDraft(undefined); setMessage("Quest accepted! Find it in Quests.");
   }
   async function plan(sample = false) {
@@ -51,7 +52,7 @@ export function CompanionChat({ state }: { state: AppState }) {
       onClick={() => void run(() => dispatch({ type: "chat-follow-up", questId: state.chat.followUpQuestId! }))}>Plan the next step</button>}
     {draft ? <>
       {draft.explanation && <p>{draft.explanation}</p>}
-      {draft.steps.length > 1 && <><p>Possible next steps (only the first is saved if you accept):</p>
+      {draft.steps.length > 1 && <><p>Plan preview (only the first quest is accepted; later steps remain suggestions):</p>
         <ol>{draft.steps.map((step, index) => <li key={index}>{step.title} · {step.minutes} min</li>)}</ol></>}
       <QuestDetailsReview draft={draft} onSave={(reviewed) => accept({ ...draft, ...reviewed })} onCancel={() => setDraft(undefined)} saveLabel="Accept first quest" />
     </> : <>
@@ -60,7 +61,10 @@ export function CompanionChat({ state }: { state: AppState }) {
           <input value={text} maxLength={240} onChange={(event) => setText(event.target.value)} disabled={busy} required /></label>
         <button disabled={busy || !text.trim()}>Send</button>
         {state.chat.phase === "context" && <button type="button" disabled={busy} onClick={() => void run(() => dispatch({ type: "chat-skip" }))}>Skip</button>}
-      </form> : <button disabled={busy} onClick={() => void plan()}>Make a plan</button>}
+      </form> : <>
+        {state.quests.find((quest) => quest.id === state.chat.contextQuestId)?.futureSteps?.length ? <button type="button" disabled={busy} onClick={() => void run(async () => setDraft(prepareSavedPlan(state)))}>Review saved next step</button> : null}
+        <button disabled={busy} onClick={() => void plan()}>Make a new plan</button>
+      </>}
       {state.chat.phase !== "goal" && <button type="button" disabled={busy} onClick={() => void run(() => dispatch({ type: "chat-reset" }))}>Start over</button>}
     </>}
     {state.chat.messages.length > 0 && <button type="button" disabled={busy} onClick={() => void run(async () => {

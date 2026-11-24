@@ -26,6 +26,7 @@ export const questSchema = z.object({
   sourceIds: z.array(id), minutes: z.number().int().min(1).max(120),
   status: questStatusSchema, planner: z.enum(["sample", "local"]), completedAt: z.iso.datetime().optional(),
   priorQuestId: id.optional(),
+  futureSteps: z.array(z.object({ title: z.string().trim().min(1).max(240), reason: z.string().trim().min(1).max(1000), minutes: z.number().int().min(1).max(120) })).max(2).optional(),
   plan: questPlanSchema.optional(),
 }).superRefine((quest, context) => {
   if (quest.plan && Date.parse(quest.plan.end) - Date.parse(quest.plan.start) !== quest.minutes * 60_000)

@@ -1,5 +1,11 @@
 # Implementation Status and Handoff
 
+## Retained plan steps — November 23, 2026
+
+When a user accepts a multi-step chat plan, the first quest becomes active and up to two later steps are retained as suggestions. After the quest is completed and its reflection is saved or skipped, the user may review the saved next step or request a new plan; accepting a saved step transfers the remaining suggestions to it. Suggested durations must fit the reviewed remaining effort and current per-quest limit. Deadline and remaining estimated effort are offered for review. A supporting memory's edit, deletion or permission revocation clears dependent saved steps, and stale drafts cannot be accepted.
+
+`npm run check` passed 177 tests including simulated reload, explicit acceptance, reward preservation and memory changes. These tests use fictional state; the saved-plan UI, live-model end-to-end behavior, native Windows and Mac have not been verified. Older versions may discard these optional saved fields if they save the same profile. Earlier dated entries below describe historical behavior.
+
 ## Quest follow-up planning — November 23, 2026
 
 After saving or skipping a completion reflection, the user can request another plan for the original goal. The local planner receives a previous-quest identifier and, when its title has no memory dependencies, that completed title. It prioritizes a linked reflection only if the user allowed personalization. Previous quest context and allowed reflection snapshots are rechecked before acceptance, and a saved follow-up links to its prior quest in suggestion context. The sample fallback is a labeled generic continuation, not an AI-generated step. Only the most recently resolved reflection offers a follow-up; multiple reflection prompts remain queued.

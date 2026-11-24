@@ -90,14 +90,26 @@ function clearReflectionPrompt(state: AppState, questId?: string): AppState {
 function acceptPlannedQuest(state: AppState, action: Extract<Action, { type: "accept-planned-quest" }>): AppState {
   if (state.chat.phase !== "ready" || state.chat.goal !== action.commitment.title) throw Error("This conversation changed. Please plan again.");
   if (JSON.stringify(previousQuestContext(state)) !== JSON.stringify(action.previousQuest)) throw Error("The completed quest changed. Please plan again.");
+  const future = action.quest.futureSteps ?? [];
+  if (action.commitment.effortMinutes && action.quest.minutes + future.reduce((total, step) => total + step.minutes, 0) > action.commitment.effortMinutes) throw Error("The plan exceeds your total effort. Change it or plan again.");
+  if (state.settings.questMinuteLimit && future.some((step) => step.minutes > state.settings.questMinuteLimit)) throw Error("A future step exceeds your current length limit. Please plan again.");
+  if (action.consumesSavedPlan) validateSavedPlan(state, action);
   const planned = apply(state, { ...action, type: "add-planned-quest", quest: { ...action.quest, priorQuestId: action.previousQuest?.id } });
   const accepted = apply(planned, { type: "quest-status", id: action.quest.id, status: "accepted" });
-  return changeChat(accepted, { type: "chat-reset" });
+  const consumed = action.consumesSavedPlan ? { ...accepted, quests: accepted.quests.map((quest) => quest.id === action.previousQuest?.id ? { ...quest, futureSteps: undefined } : quest) } : accepted;
+  return changeChat(consumed, { type: "chat-reset" });
+}
+
+function validateSavedPlan(state: AppState, action: Extract<Action, { type: "accept-planned-quest" }>) {
+  const previous = state.quests.find((quest) => quest.id === action.previousQuest?.id);
+  const steps = previous?.futureSteps;
+  const actual = [{ title: action.quest.title, reason: action.quest.reason, minutes: action.quest.minutes }, ...(action.quest.futureSteps ?? [])];
+  if (!steps?.length || JSON.stringify(steps) !== JSON.stringify(actual)) throw Error("The saved plan changed. Please review it again.");
 }
 
 function forgetReference(state: AppState, id: string): AppState {
   return { ...state, quests: state.quests.map((quest) => quest.sourceIds.includes(id)
-    ? { ...quest, title: quest.planner === "local" ? "Review this quest" : quest.title, sourceIds: quest.sourceIds.filter((source) => source !== id), reason: "A supporting memory was removed from personalization." }
+    ? { ...quest, title: quest.planner === "local" ? "Review this quest" : quest.title, sourceIds: quest.sourceIds.filter((source) => source !== id), reason: "A supporting memory was removed from personalization.", futureSteps: undefined }
     : quest) };
 }
 
