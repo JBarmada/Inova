@@ -10,6 +10,8 @@ it("restores a conversation and atomically accepts its reviewed quest only once"
   expect(state.chat.phase).toBe("context");
   state = reduce(state, { type: "chat-context", text: "I have an outline" });
   expect(state.chat.goal).toContain("I have an outline");
+  expect(state.chat.messages.at(-1)?.text).toContain("When is it due");
+  state = reduce(state, { type: "chat-skip" });
   const draft = await prepareQuest(state.chat.goal, state, async () => { throw Error("offline"); });
   expect(state.quests).toHaveLength(0);
   const action = { type: "accept-planned-quest" as const, ...draft };

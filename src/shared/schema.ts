@@ -53,7 +53,7 @@ const commonSchema = z.object({
       memorySuggestion: z.object({ sourceIndex: z.number().int().min(0).max(199), quote: z.string().min(1).max(240), category: memoryCategorySchema }).optional(),
       questSuggestion: z.object({ sourceIndex: z.number().int().min(0).max(199) }).optional() })).max(200),
     pendingReflections: z.array(id).default([]),
-    followUpQuestId: id.optional(), followUpQuestIds: z.array(id).optional(), contextQuestId: id.optional(),
+    followUpQuestId: id.optional(), followUpQuestIds: z.array(id).optional(), contextQuestId: id.optional(), clarificationTurns: z.number().int().min(0).max(1).optional(),
   }).default({ phase: "goal", goal: "", messages: [], pendingReflections: [] }),
 });
 

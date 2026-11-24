@@ -1,7 +1,7 @@
 import type { Action } from "../shared/actions";
 import type { AppState } from "../shared/schema";
 import { chatPhrases } from "../shared/personality";
-import { goalClarification } from "../shared/goalClarification";
+import { clarificationForClues, goalClarification, goalClues } from "../shared/goalClarification";
 import { followUpIds } from "./followUps";
 
 type ChatAction = Extract<Action, { type: "chat-goal" | "chat-share" | "chat-context-exclusion" | "chat-plan-message" | "dismiss-quest-suggestion" | "chat-context" | "chat-skip" | "chat-reset" | "chat-clear" | "chat-follow-up" }>;
@@ -15,8 +15,8 @@ export function changeChat(state: AppState, action: ChatAction): AppState {
   }
   if (action.type === "chat-plan-message") return planMessage(state, action);
   if (action.type === "dismiss-quest-suggestion") return clearQuestSuggestion(state, action.replyIndex, action.sourceIndex);
-  if (action.type === "chat-clear") return { ...state, chat: { ...chat, phase: "goal", goal: "", messages: [], contextQuestId: undefined } };
-  if (action.type === "chat-reset") return { ...state, chat: { ...chat, phase: "goal", goal: "", contextQuestId: undefined } };
+  if (action.type === "chat-clear") return { ...state, chat: { ...chat, phase: "goal", goal: "", messages: [], contextQuestId: undefined, clarificationTurns: undefined } };
+  if (action.type === "chat-reset") return { ...state, chat: { ...chat, phase: "goal", goal: "", contextQuestId: undefined, clarificationTurns: undefined } };
   if (action.type === "chat-follow-up") {
     const quest = state.quests.find((entry) => entry.id === action.questId && entry.status === "completed");
     const commitment = state.commitments.find((entry) => entry.id === quest?.commitmentId);
@@ -39,10 +39,14 @@ export function changeChat(state: AppState, action: ChatAction): AppState {
     { role: "user", text: input }] } };
   const goal = action.type === "chat-goal" ? input : `${chat.goal}. ${input}`;
   if (goal.length > 240) throw Error("Together, your goal and details must fit within 240 characters.");
+  const before = goalClues(chat.goal), after = goalClues(goal, input);
+  const askAgain = action.type === "chat-context" && !chat.clarificationTurns &&
+    (after.deadline !== before.deadline || after.progress !== before.progress) && after.deadline !== after.progress;
   const reply = action.type === "chat-goal"
     ? goalClarification(input, state.pet.personality)
-    : chatPhrases(state.pet.personality).ready;
-  return { ...state, chat: { ...chat, phase: action.type === "chat-goal" ? "context" : "ready", goal,
+    : askAgain ? clarificationForClues(after, state.pet.personality) : chatPhrases(state.pet.personality).ready;
+  return { ...state, chat: { ...chat, phase: action.type === "chat-goal" || askAgain ? "context" : "ready", goal,
+    clarificationTurns: askAgain ? 1 : undefined,
     messages: [...chat.messages, { role: "user" as const, text: input }, { role: "dog" as const, text: reply }] } };
 }
 
@@ -53,7 +57,7 @@ function planMessage(state: AppState, action: Extract<Action, { type: "chat-plan
   if (!message.text.trim() || message.text.length > 240) throw Error("Choose a message of up to 240 characters.");
   if (state.chat.messages.length >= 200) throw Error("Conversation is full. Clear it to start a new one.");
   const cleared = action.suggestionReplyIndex === undefined ? state : clearQuestSuggestion(state, action.suggestionReplyIndex, action.messageIndex);
-  return { ...cleared, chat: { ...cleared.chat, goal: message.text, phase: "context", contextQuestId: undefined,
+  return { ...cleared, chat: { ...cleared.chat, goal: message.text, phase: "context", contextQuestId: undefined, clarificationTurns: undefined,
     messages: [...cleared.chat.messages, { role: "dog", text: goalClarification(message.text, state.pet.personality) }] } };
 }
 

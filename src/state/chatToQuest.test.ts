@@ -13,6 +13,7 @@ it("turns a shared goal into an explicitly accepted quest and follow-up after re
   expect(state.chat.messages.filter((entry) => entry.role === "user")).toHaveLength(1);
   expect(state.quests).toEqual([]);
   state = reduce(state, { type: "chat-context", text: "I already have an outline" });
+  state = reduce(state, { type: "chat-context", text: "Friday" });
   const draft = await prepareChatPlan(state.chat.goal, state, async () => { throw Error("offline"); });
   expect(draft.fallback).toBe(true);
   expect(state.quests).toEqual([]);

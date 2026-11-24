@@ -1,5 +1,9 @@
 # Implementation Status and Handoff
 
+## A second clarification turn — November 23, 2026
+
+During home-chat quest planning, if the first answer clearly supplies only a deadline or only prior progress, the dog asks one focused question about the other. It recognizes a small set of short deadline answers such as “Friday”; this is only a conversational clue, not a verified date. The extra turn survives reload, can be skipped, and is bounded to avoid a loop. If the answer is unclear, planning can proceed. Older saves omit the optional turn count and continue to load. `npm run check` passed 245 tests, including reload, skip and uncertain answers. Native and live-model verification remain pending; clarification remains scripted.
+
 ## Stop waiting for a plan — November 23, 2026
 
 Home chat and the shared desktop/floating quest composer now let the user stop waiting for a plan, keeping the goal available and ignoring a late result. The user can revise or start again, or choose the sample while the request is pending. This does not cancel the native HTTP/model request; it may continue until completion or timeout. `npm run check` passed 243 tests, including stopping and starting a new plan before the first request finishes. Native UI verification remains pending.
