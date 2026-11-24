@@ -13,6 +13,7 @@ import type { Category } from "../world/MemoryCategories";
 import { ChatContextToggle } from "./ChatContextToggle";
 import { useChatAutoScroll } from "./useChatAutoScroll";
 import { useChatReply } from "./useChatReply";
+import { retainedPlanSteps } from "./retainedPlanSteps";
 
 type Draft = Awaited<ReturnType<typeof prepareChatPlan>> & { usesSavedPlan?: boolean };
 
@@ -36,7 +37,8 @@ export function CompanionChat({ state }: { state: AppState }) {
   }
   async function send() { await dispatch({ type: state.chat.phase === "goal" ? "chat-goal" : "chat-context", text }); setText(""); }
   async function accept(result: Draft) {
-    await dispatch({ type: "accept-planned-quest", commitment: result.commitment, quest: { ...result.quest, futureSteps: result.steps.slice(1).map(({ title, reason, minutes }) => ({ title, reason, minutes })) }, memorySnapshot: result.memorySnapshot, previousQuest: result.previousQuest, consumesSavedPlan: result.usesSavedPlan });
+    const futureSteps = retainedPlanSteps(result.steps, result.quest.title);
+    await dispatch({ type: "accept-planned-quest", commitment: result.commitment, quest: { ...result.quest, futureSteps }, memorySnapshot: result.memorySnapshot, previousQuest: result.previousQuest, consumesSavedPlan: result.usesSavedPlan });
     setDraft(undefined); setMessage("Quest accepted! Find it in Quests.");
   }
   async function plan(sample = false) {
@@ -66,7 +68,7 @@ export function CompanionChat({ state }: { state: AppState }) {
       {draft.explanation && <p>{draft.explanation}</p>}
       {draft.steps.length > 1 && <><p>Plan preview (only the first quest is accepted; later steps remain suggestions):</p>
         <ol>{draft.steps.map((step, index) => <li key={index}>{step.title} · {step.minutes} min</li>)}</ol></>}
-      <QuestDetailsReview draft={draft} onSave={(reviewed) => accept({ ...draft, ...reviewed })} onCancel={() => setDraft(undefined)} saveLabel="Accept first quest" />
+      <QuestDetailsReview draft={draft} onSave={(reviewed) => accept({ ...draft, ...reviewed })} onCancel={() => setDraft(undefined)} saveLabel="Accept first quest" hasFutureSteps={draft.steps.length > 1} allowEdit={!draft.usesSavedPlan} />
     </> : <>
       {state.chat.phase !== "ready" ? <form onSubmit={(event) => { event.preventDefault(); void run(send); }}>
         <label>{state.chat.phase === "goal" ? "Your goal" : "Anything else?"}

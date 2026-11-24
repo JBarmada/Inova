@@ -1,5 +1,11 @@
 # Implementation Status and Handoff
 
+## Edit a proposed quest before saving — November 23, 2026
+
+The shared desktop/floating quest review and home-chat plan review now let the user edit a newly proposed first quest's title and duration before saving or accepting it. A changed title replaces the original generated reason with a user-edit label; in a multi-step home-chat plan, changing that title discards later suggested steps after showing a warning. Deadline, total-effort and application acceptance checks still apply. Previously saved follow-up steps keep their existing integrity check and can be edited after acceptance, rather than during this review.
+
+`npm run check` passed 219 tests, including invalid lengths, total-effort limits, a long sample title, discarded future steps and explicit acceptance of an edited draft. Native and floating visual review remain pending.
+
 ## Goal clarification — November 23, 2026
 
 Starting a plan from a new or existing chat message now varies the optional scripted question when the goal contains a recognizable deadline phrase, prior-progress phrase, or both. It asks about the other detail or a helpful next step; the existing personality tone and skip action remain. The phrase check does not parse or establish an actual deadline, understand arbitrary wording or change quest acceptance. The local planner's extracted details still require review.

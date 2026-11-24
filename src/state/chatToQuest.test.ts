@@ -3,6 +3,7 @@ import { initialState } from "./defaults";
 import { reduce } from "./reducer";
 import { stateSchema } from "../shared/schema";
 import { prepareChatPlan } from "../services/prepareChatPlan";
+import { reviewQuestDetails } from "../features/quests/reviewQuestDetails";
 
 it("turns a shared goal into an explicitly accepted quest and follow-up after restart", async () => {
   const text = "Prepare my astronomy presentation";
@@ -24,6 +25,16 @@ it("turns a shared goal into an explicitly accepted quest and follow-up after re
   state = reduce(state, { type: "chat-follow-up", questId: id });
   expect(state.chat.contextQuestId).toBe(id);
   expect(state.rewardedQuestIds).toEqual([id]);
+});
+
+it("keeps an edited draft unsaved until the user accepts it", async () => {
+  let state = reduce(initialState(), { type: "chat-goal", text: "Prepare my presentation" });
+  state = reduce(state, { type: "chat-skip" });
+  const draft = await prepareChatPlan(state.chat.goal, state, async () => { throw Error("offline"); });
+  const reviewed = reviewQuestDetails(draft, "", "", { title: "Gather my slides", minutes: "5" });
+  expect(state.quests).toEqual([]);
+  const accepted = reduce(state, { type: "accept-planned-quest", ...reviewed, memorySnapshot: draft.memorySnapshot });
+  expect(accepted.quests[0]).toMatchObject({ title: "Gather my slides", minutes: 5, status: "accepted", reason: "You edited this quest before accepting it." });
 });
 
 it("rejects stale, dog-authored, and interrupted requests without changing the current goal", () => {
