@@ -8,6 +8,7 @@ import { changeChat } from "./chat";
 function apply(state: AppState, action: Action): AppState {
   switch (action.type) {
     case "chat-goal": case "chat-context": case "chat-skip": case "chat-reset": case "chat-clear": return changeChat(state, action);
+    case "skip-chat-reflection": return clearReflectionPrompt(state, action.questId);
     case "adopt":
       return { ...state, pet: { ...state.pet, name: action.name.trim(), adopted: true } };
     case "mood": return { ...state, pet: { ...state.pet, mood: action.mood } };
@@ -62,7 +63,7 @@ function apply(state: AppState, action: Action): AppState {
       if (action.memory.questId && !state.quests.some((quest) => quest.id === action.memory.questId && quest.status === "completed")) {
         throw Error("A related adventure must be completed first.");
       }
-      return { ...state, memories: [...state.memories, action.memory] };
+      return clearReflectionPrompt({ ...state, memories: [...state.memories, action.memory] }, action.memory.questId);
     case "edit-memory": {
       const text = action.text.trim();
       if (!text || text.length > 4000) throw Error("Memory must contain 1–4000 characters.");
@@ -76,6 +77,10 @@ function apply(state: AppState, action: Action): AppState {
       return { ...forgetReference(state, action.allowed ? "" : action.id), memories: state.memories.map((entry) => entry.id === action.id ? { ...entry, aiAllowed: action.allowed } : entry) };
     case "delete-memory": return { ...forgetReference(state, action.id), memories: state.memories.filter((entry) => entry.id !== action.id) };
   }
+}
+
+function clearReflectionPrompt(state: AppState, questId?: string): AppState {
+  return { ...state, chat: { ...state.chat, pendingReflections: state.chat.pendingReflections.filter((id) => id !== questId) } };
 }
 
 function acceptPlannedQuest(state: AppState, action: Extract<Action, { type: "accept-planned-quest" }>): AppState {

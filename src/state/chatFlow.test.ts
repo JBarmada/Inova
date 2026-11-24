@@ -45,5 +45,5 @@ it("rejects changed permitted memory before acceptance and leaves the draft unsa
 
 it("loads older saves without conversation data", () => {
   const { chat: _, ...older } = initialState();
-  expect(stateSchema.parse(older).chat).toEqual({ phase: "goal", goal: "", messages: [] });
+  expect(stateSchema.parse(older).chat).toEqual({ phase: "goal", goal: "", messages: [], pendingReflections: [] });
 });

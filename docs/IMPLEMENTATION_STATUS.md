@@ -1,5 +1,11 @@
 # Implementation Status and Handoff
 
+## Quest reflections in companion chat — November 23, 2026
+
+A successful quest completion queues an optional reflection prompt in home chat. The user can skip it or save a quest-linked memory, excluded from personalization unless explicitly permitted. Completing more than one quest preserves separate prompts. Saving through the existing completion reflection form clears that quest's matching prompt. The reflection text is kept in the memory record, not copied to the chat transcript, so existing edit/revoke/delete controls remain authoritative. A generic prompt invites another goal; contextual AI follow-up remains unfinished.
+
+`npm run check` passed 171 tests, including duplicate completion, restart-compatible state, skipping and memory linkage. A fictional browser test completed a sample quest and verified its linked reflection with personalization disabled. Native and Mac runtime verification remain pending. Older builds may discard the new pending-reflection field when saving.
+
 ## Multi-step plan preview — November 23, 2026
 
 Home chat now requests a structured explanation and one to three proposed steps through a separate local-model command. Only the first can be accepted and saved; later steps are transient and are not yet available as follow-ups. If local planning fails, the existing labeled single-step sample is shown. Response size, supported models, permitted-memory snapshots, extracted-detail evidence and duration/effort constraints remain validated; generated text is still untrusted. The existing single-quest composers are unchanged.

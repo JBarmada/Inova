@@ -6,7 +6,7 @@ export function initialState(): AppState {
     pet: { name: "Inu", adopted: false, mood: "idle" },
     settings: { muted: false, devMode: false, showStatus: false, localModel: "gemma3:12b", questMinuteLimit: 0, reduceMotion: false },
     commitments: [], quests: [], memories: [],
-    chat: { phase: "goal", goal: "", messages: [] },
+    chat: { phase: "goal", goal: "", messages: [], pendingReflections: [] },
     ownedItems: [], equipment: { hat: null, glasses: null, socks: null, body: null }, rewardedQuestIds: [],
   };
 }

@@ -4,6 +4,7 @@ import { dispatch } from "../../state/store";
 import { prepareChatPlan } from "../../services/prepareChatPlan";
 import { QuestDetailsReview } from "./QuestDetailsReview";
 import { latestPlanRequest } from "./latestPlan";
+import { ChatReflection } from "./ChatReflection";
 
 type Draft = Awaited<ReturnType<typeof prepareChatPlan>>;
 
@@ -14,6 +15,7 @@ export function CompanionChat({ state }: { state: AppState }) {
   const [planning, setPlanning] = useState(false);
   const [message, setMessage] = useState("");
   const history = useRef<HTMLDivElement>(null);
+  const reflectionQuest = state.quests.find((quest) => quest.id === state.chat.pendingReflections[0] && quest.status === "completed");
   const request = useRef(latestPlanRequest<Draft>());
   useEffect(() => { if (history.current) history.current.scrollTop = history.current.scrollHeight; }, [state.chat.messages.length]);
   useEffect(() => () => { request.current.invalidate(); }, []);
@@ -43,6 +45,7 @@ export function CompanionChat({ state }: { state: AppState }) {
       {state.chat.messages.length === 0 && <p>What would you like to work on together?</p>}
       {state.chat.messages.map((entry, index) => <p key={index}><strong>{entry.role === "user" ? "You" : state.pet.name}:</strong> {entry.text}</p>)}
     </div>
+    {reflectionQuest && <ChatReflection key={reflectionQuest.id} quest={reflectionQuest} onDone={setMessage} />}
     {draft ? <>
       {draft.explanation && <p>{draft.explanation}</p>}
       {draft.steps.length > 1 && <><p>Possible next steps (only the first is saved if you accept):</p>

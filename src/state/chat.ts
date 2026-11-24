@@ -5,7 +5,7 @@ type ChatAction = Extract<Action, { type: "chat-goal" | "chat-context" | "chat-s
 
 export function changeChat(state: AppState, action: ChatAction): AppState {
   const chat = state.chat;
-  if (action.type === "chat-clear") return { ...state, chat: { phase: "goal", goal: "", messages: [] } };
+  if (action.type === "chat-clear") return { ...state, chat: { ...chat, phase: "goal", goal: "", messages: [] } };
   if (action.type === "chat-reset") return { ...state, chat: { ...chat, phase: "goal", goal: "" } };
   if (action.type === "chat-skip") {
     if (chat.phase !== "context") throw Error("Start with a goal first.");
@@ -23,6 +23,6 @@ export function changeChat(state: AppState, action: ChatAction): AppState {
   const reply = action.type === "chat-goal"
     ? "When is it due, and what have you already done? You can skip this."
     : "Thanks! Let's make a small quest together.";
-  return { ...state, chat: { phase: action.type === "chat-goal" ? "context" : "ready", goal,
+  return { ...state, chat: { ...chat, phase: action.type === "chat-goal" ? "context" : "ready", goal,
     messages: [...chat.messages, { role: "user" as const, text: input }, { role: "dog" as const, text: reply }] } };
 }

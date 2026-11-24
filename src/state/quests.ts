@@ -10,6 +10,7 @@ export function completeQuest(state: AppState, id: string, completedAt?: string)
   if (rewardedQuestIds.length >= 3) ownedItems.add("bandana");
   return {
     ...state, rewardedQuestIds, ownedItems: [...ownedItems],
+    chat: { ...state.chat, pendingReflections: [...state.chat.pendingReflections, id] },
     quests: state.quests.map((entry) => entry.id === id ? { ...entry, status: "completed", ...(completedAt ? { completedAt } : {}) } : entry),
   };
 }

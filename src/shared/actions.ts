@@ -20,6 +20,7 @@ export type Action =
   | { type: "chat-skip" }
   | { type: "chat-reset" }
   | { type: "chat-clear" }
+  | { type: "skip-chat-reflection"; questId: string }
   | { type: "propose-quest"; quest: Quest; memorySnapshot?: { id: string; text: string }[] }
   | { type: "edit-quest"; id: string; title: string; minutes?: number }
   | { type: "quest-status"; id: string; status: "accepted" | "deferred" | "dismissed" }
