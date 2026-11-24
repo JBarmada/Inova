@@ -11,7 +11,7 @@ export async function localChat(text: string, state: AppState, call = invoke, op
   const contextSnapshot = options?.includeRecent ? state.chat.messages.slice(0, options.beforeIndex)
     .map((entry, index) => ({ ...entry, index })).filter((entry) => entry.role === "user" && entry.text.length <= 240)
     .slice(-4).map(({ index, text }) => ({ index, text })) : [];
-  const input = JSON.stringify({ message: text, dogName: state.pet.name || undefined, memories: memorySnapshot,
+  const input = JSON.stringify({ message: text, dogName: state.pet.name || undefined, dogPersonality: state.pet.personality, memories: memorySnapshot,
     ...(contextSnapshot.length ? { recentUserMessages: contextSnapshot.map(({ text }) => text) } : {}) });
   let raw: string;
   try { raw = await call<string>("local_companion_reply", { input, model: state.settings.localModel }); }

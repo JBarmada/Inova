@@ -5,6 +5,7 @@ const id = z.string().min(1).max(100);
 const text = z.string().trim().min(1).max(4000);
 export const localModelSchema = z.enum(["gemma3:12b", "gemma3:4b"]);
 export const moodSchema = z.enum(["idle", "happy", "tired"]);
+export const personalitySchema = z.enum(["cute", "mean", "sad", "happy"]);
 export const questStatusSchema = z.enum(["proposed", "accepted", "deferred", "dismissed", "completed"]);
 const timeZone = z.string().min(1).max(100).refine((zone) => {
   try { new Intl.DateTimeFormat("en", { timeZone: zone }); return true; } catch { return false; }
@@ -40,7 +41,7 @@ export const memorySchema = z.object({
   questId: id.optional(),
 });
 const commonSchema = z.object({
-  pet: z.object({ name: z.string().max(40), adopted: z.boolean(), mood: moodSchema }),
+  pet: z.object({ name: z.string().max(40), adopted: z.boolean(), mood: moodSchema, personality: personalitySchema.optional() }),
   settings: z.object({ muted: z.boolean(), devMode: z.boolean().default(false), showStatus: z.boolean().default(false), localModel: localModelSchema.default("gemma3:12b"), questMinuteLimit: z.number().int().min(0).max(120).default(0), reduceMotion: z.boolean().default(false) }),
   commitments: z.array(commitmentSchema),
   quests: z.array(questSchema),

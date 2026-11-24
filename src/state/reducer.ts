@@ -13,7 +13,7 @@ function apply(state: AppState, action: Action): AppState {
     case "chat-reply": return saveChatReply(state, action);
     case "skip-chat-reflection": return clearReflectionPrompt(state, action.questId);
     case "adopt":
-      return { ...state, pet: { ...state.pet, name: action.name.trim(), adopted: true } };
+      return { ...state, pet: { ...state.pet, name: action.name.trim(), adopted: true, ...(action.personality ? { personality: action.personality } : {}) } };
     case "mood": return { ...state, pet: { ...state.pet, mood: action.mood } };
     case "mute": return { ...state, settings: { ...state.settings, muted: action.muted } };
     case "dev-mode": return { ...state, settings: { ...state.settings, devMode: action.enabled } };

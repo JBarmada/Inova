@@ -49,3 +49,10 @@ it("includes only opted-in earlier user messages and rejects changed context", a
   await localChat("What class is it?", state, call as unknown as typeof invoke, { includeRecent: false, beforeIndex: 5 });
   expect(JSON.parse(call.mock.calls[1][1].input).recentUserMessages).toBeUndefined();
 });
+
+it("passes an adopted dog's personality to the local model as tone only", async () => {
+  const state = reduce(initialState(), { type: "adopt", name: "Pip", personality: "mean" });
+  const call = vi.fn().mockResolvedValue(JSON.stringify({ reply: "Let's get started." }));
+  await localChat("Hello", state, call as unknown as typeof invoke);
+  expect(JSON.parse(call.mock.calls[0][1].input)).toMatchObject({ dogName: "Pip", dogPersonality: "mean", message: "Hello" });
+});

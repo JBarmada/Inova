@@ -3,7 +3,7 @@ import type { Equipment, WearableSlot } from "./equipment";
 import type { WardrobeScenarioId } from "./wardrobeScenarios";
 
 export type Action =
-  | { type: "adopt"; name: string }
+  | { type: "adopt"; name: string; personality?: AppState["pet"]["personality"] }
   | { type: "mood"; mood: AppState["pet"]["mood"] }
   | { type: "mute"; muted: boolean }
   | { type: "dev-mode"; enabled: boolean }

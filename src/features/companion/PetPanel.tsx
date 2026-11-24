@@ -10,6 +10,7 @@ import { playCue } from "../../services/audio";
 import { useDogPose, type PoseRequest } from "./useDogPose";
 import { useCompanionClips } from "./useCompanionClips";
 import type { DogClip } from "./dogClips";
+import { randomPersonality } from "../../shared/personality";
 
 export function PetPanel({ floating, onToyExpanded, rewardPending = false, onRewardShown }: {
   floating: boolean; onToyExpanded?: (open: boolean) => void; rewardPending?: boolean; onRewardShown?: () => void;
@@ -47,10 +48,11 @@ export function PetPanel({ floating, onToyExpanded, rewardPending = false, onRew
     <DogDeveloperControls pose={pose} disabled={busy || !ready} onPose={() => void run(changePose, "")} onPreview={preview} />
     {!state.pet.adopted ? <form onSubmit={(event) => {
       event.preventDefault();
-      void run(async () => { await dispatch({ type: "adopt", name }); setWelcome(true); }, `Welcome home, ${name.trim()}!`);
+      void run(async () => { await dispatch({ type: "adopt", name, personality: randomPersonality() }); setWelcome(true); }, `Welcome home, ${name.trim()}!`);
     }}><label>Your dog's name<input value={name} maxLength={40} required onChange={(event) => setName(event.target.value)} /></label>
       <button className="primary" disabled={busy}>Adopt this dog</button></form>
       : null}
+    {!floating && state.pet.adopted && state.pet.personality && <p>Personality: {state.pet.personality === "mean" ? "playfully grumpy" : state.pet.personality}</p>}
     {state.pet.adopted && state.settings.showStatus && <PixelStatus text={`${state.pet.name} · ${state.pet.mood}`} hoverOnly={floating} />}
     {message && <PixelStatus text={message} />}
     {error && <p role="alert">{error}</p>}

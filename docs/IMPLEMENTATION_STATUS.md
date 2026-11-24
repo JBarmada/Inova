@@ -1,5 +1,11 @@
 # Implementation Status and Handoff
 
+## Adoption personalities — November 23, 2026
+
+New adoptions randomly receive and persist one of four text styles: cute, mean, sad or happy. Mean is presented as playfully grumpy, and sad as gentle; the style does not alter the dog's mood, rewards or quest rules. Home shows the generated style; scripted goal clarification and the local-chat prompt use it. Older dogs without a personality retain neutral wording. No user control to change the style has been implemented, and older builds may drop the optional field when saving.
+
+`npm run check` passed 191 tests and Windows offline Rust library tests passed two existing tests. One fictional 4B service trial produced responses for all four styles; its grumpy reply called the user a "worrywart," which may feel dismissive, and a separate recent-context reply invented that the user studied all the time. Keyword checks do not assess tone or factual grounding. Style consistency, native visual behavior and Mac runtime remain unverified.
+
 ## Optional recent conversation context — November 23, 2026
 
 The chat interface offers an off-by-default control to include up to four earlier user-authored messages when requesting a local reply. It excludes the current message, later messages, dog replies and user messages over 240 characters. The selected messages are rechecked before saving the reply; permitted-memory checks remain separate. The control resets when the chat component is unmounted or the app restarts. Messages remain in the separate transcript until cleared, even when a saved memory is deleted; the interface states this when the control is enabled. Clear conversation removes the transcript and its replies. This is limited recent user context, not full multi-turn dialogue or a durable memory extraction policy.
