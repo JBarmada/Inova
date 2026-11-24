@@ -1,10 +1,14 @@
 # Implementation Status and Handoff
 
+## Fictional grounded follow-up trial — November 23, 2026
+
+One 4B service-only run of the new completed-title grounding path used the actual TypeScript selector and state reducer with the native planning prompt. It sent the completed title, its permitted supporting memory and a permitted linked reflection. The proposed transition practice reflected the user's stated interest, but another step revisited the completed draft and could be redundant. Fictional acceptance preserved both sources and did not duplicate the completed quest reward. The planning call took 4.8 seconds excluding service startup and evaluator initialization. See [the trial record](evidence/follow-up-grounding-2026-11-23.md); this is not native runtime verification or general evidence of model quality.
+
 ## Grounding a follow-up in completed work — November 23, 2026
 
 A local follow-up can now receive the completed quest's title when every memory supporting that title is currently permitted and all fit within the three-memory context limit. Those memories are reserved in the request and tracked on the new proposal; its acceptance rechecks them. If any are unavailable or too many are needed, the title remains omitted. A linked permitted reflection is included only when capacity remains. This provides the model more evidence of work already done, but does not guarantee it will avoid repeating a step.
 
-`npm run check` passed 225 tests, including supported titles, private or excessive dependencies, missing evidence and revocation during planning. The new path has not been tested with a live model or in the native interface.
+`npm run check` passed 225 tests, including supported titles, private or excessive dependencies, missing evidence and revocation during planning. See the newer fictional grounded follow-up trial above for a service-only model run; native interface verification remains pending.
 
 ## Edit saved follow-up steps before acceptance — November 23, 2026
 
