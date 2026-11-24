@@ -83,3 +83,20 @@ it("returns a model goal signal without creating or accepting a quest", async ()
   expect((await localChat("What is my name?", state, call as unknown as typeof invoke)).offerQuest).toBeUndefined();
   expect((await localChat("I don't want to study", state, call as unknown as typeof invoke)).offerQuest).toBeUndefined();
 });
+
+it("sends an older relevant class memory and stops sending it after permission is revoked", async () => {
+  let state = reduce(initialState(), { type: "chat-share", text: "What class am I taking?" });
+  for (const entry of [
+    { ...memory, id: "class", text: "I take astronomy" },
+    { ...memory, id: "a", text: "I enjoy painting" },
+    { ...memory, id: "b", text: "I enjoy baking" },
+    { ...memory, id: "c", text: "I enjoy reading" },
+  ]) state = reduce(state, { type: "add-memory", memory: entry });
+  const call = vi.fn().mockResolvedValue(JSON.stringify({ reply: "You take astronomy." }));
+  const result = await localChat("What class am I taking?", state, call as unknown as typeof invoke);
+  expect(result.memorySnapshot.map((entry) => entry.id)).toContain("class");
+  state = reduce(state, { type: "memory-permission", id: "class", allowed: false });
+  expect(() => reduce(state, { type: "chat-reply", messageIndex: 0, originalText: "What class am I taking?", ...result })).toThrow("memory changed");
+  await localChat("What class am I taking?", state, call as unknown as typeof invoke);
+  expect(JSON.parse(call.mock.calls[1][1].input).memories.map((entry: { id: string }) => entry.id)).not.toContain("class");
+});

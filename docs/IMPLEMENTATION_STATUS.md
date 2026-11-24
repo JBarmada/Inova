@@ -1,5 +1,11 @@
 # Implementation Status and Handoff
 
+## Finding older memories in chat — November 23, 2026
+
+Local chat now ranks permitted memories using word overlap and small English wording groups for names, classes, friends, preferences and dates. This helps surface older records when a question uses related wording, such as asking what class the user is taking when they saved “I take astronomy.” It still sends at most three memories, uses recency for ties and preserves the existing snapshot and revocation checks. The ranking is heuristic, not semantic understanding: it can miss paraphrases, select an unrelated record, or leave out a relevant fact. Model answers can still be wrong.
+
+`npm run check` passed 204 tests, including fictional selection and permission-revocation cases. These tests use a mocked model; live model accuracy and native presentation of this change have not been evaluated.
+
 ## Offered quest handoff — November 23, 2026
 
 Local chat may offer to plan when its structured response identifies a goal and the original user message passes a conservative phrase check. The user can choose Plan together or Not now; neither the model output nor declining creates or accepts a quest. Starting a plan validates the source and consumes the offer, then uses the existing clarification and explicit acceptance flow. Manual Message actions remain available for goals missed by the check.
