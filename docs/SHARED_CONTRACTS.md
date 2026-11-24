@@ -29,7 +29,7 @@ For a shared message, the UI first persists `chat-share`, then requests a reply 
 
 Resolved reflection prompts add their completed quest IDs to a deduplicated follow-up list; legacy single follow-up IDs are included. Starting or abandoning a follow-up does not consume it. Successful acceptance of a next quest removes only its associated choice. Clearing the conversation preserves these quest follow-up choices and pending reflections. Older builds can drop the new list and must not save a profile relying on multiple choices.
 
-New quest previews allow the user to edit the first quest title and duration before saving. A changed title no longer carries its original generated reason; multi-step chat plans discard later suggested steps when the first title changes. Saved follow-up steps use their existing snapshot validation and can be edited after acceptance. The reducer continues to enforce effort, quest length and acceptance rules.
+Quest previews allow the user to edit the first quest title and duration before saving. A changed title no longer carries its original generated reason; multi-step chat plans discard later suggested steps when the first title changes. For saved follow-ups, acceptance validates the original saved-plan snapshot and the remaining steps before consuming it. The reducer continues to enforce effort, quest length and acceptance rules.
 
 Local chat may suggest `offerQuest`; the client applies a conservative phrase check before displaying a plan offer. The user must explicitly start or dismiss the offer, and starting validates the originating message and consumes that offer. Model output cannot create a quest; manually choosing a message remains available when the check misses a goal.
 

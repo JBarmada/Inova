@@ -1,5 +1,11 @@
 # Implementation Status and Handoff
 
+## Edit saved follow-up steps before acceptance — November 23, 2026
+
+The saved next step can now be edited in the same review as a new proposal. The original saved plan snapshot is checked at acceptance; a stale plan or revoked supporting memory rejects the action. Changing the title labels the reason as user-edited and discards the remaining suggested steps with an on-screen warning. Changing only the duration retains later steps when the reviewed total effort and length limits allow it. Acceptance consumes the prior saved plan only after the new quest is saved.
+
+`npm run check` passed 223 tests, including edited title and duration, stale snapshots, changed permissions, repeated acceptance and altered future steps. Native visual and live-model verification remain pending.
+
 ## Multiple completed-quest follow-ups — November 23, 2026
 
 After each queued reflection is saved or skipped, its completed quest remains available as a named follow-up choice. Multiple choices survive serialized reload, starting over and clearing the conversation. Selecting a choice starts the existing review flow; only accepting a next quest consumes that choice, leaving the others available. No additional rewards are granted by planning. Legacy saves with a single follow-up remain readable. Older app versions can discard the new list and retain at most its legacy single entry; do not use them to save a profile relying on multiple choices.
@@ -8,7 +14,7 @@ After each queued reflection is saved or skipped, its completed quest remains av
 
 ## Edit a proposed quest before saving — November 23, 2026
 
-The shared desktop/floating quest review and home-chat plan review now let the user edit a newly proposed first quest's title and duration before saving or accepting it. A changed title replaces the original generated reason with a user-edit label; in a multi-step home-chat plan, changing that title discards later suggested steps after showing a warning. Deadline, total-effort and application acceptance checks still apply. Previously saved follow-up steps keep their existing integrity check and can be edited after acceptance, rather than during this review.
+The shared desktop/floating quest review and home-chat plan review let the user edit a newly proposed first quest's title and duration before saving or accepting it. A changed title replaces the original generated reason with a user-edit label; in a multi-step home-chat plan, changing that title discards later suggested steps after showing a warning. Deadline, total-effort and application acceptance checks still apply. See the newer saved follow-up section above for the subsequent extension to saved steps.
 
 `npm run check` passed 219 tests, including invalid lengths, total-effort limits, a long sample title, discarded future steps and explicit acceptance of an edited draft. Native and floating visual review remain pending.
 

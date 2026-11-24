@@ -159,7 +159,16 @@ function validateSavedPlan(state: AppState, action: Extract<Action, { type: "acc
   const previous = state.quests.find((quest) => quest.id === action.previousQuest?.id);
   const steps = previous?.futureSteps;
   const actual = [{ title: action.quest.title, reason: action.quest.reason, minutes: action.quest.minutes }, ...(action.quest.futureSteps ?? [])];
-  if (!steps?.length || JSON.stringify(steps) !== JSON.stringify(actual)) throw Error("The saved plan changed. Please review it again.");
+  if (!steps?.length) throw Error("The saved plan changed. Please review it again.");
+  if (!action.savedPlanSnapshot) {
+    if (JSON.stringify(steps) !== JSON.stringify(actual)) throw Error("The saved plan changed. Please review it again.");
+    return;
+  }
+  const edited = action.quest.title !== steps[0].title;
+  const expectedReason = edited ? "You edited this quest before accepting it." : steps[0].reason;
+  const expectedFuture = edited ? [] : steps.slice(1);
+  if (JSON.stringify(steps) !== JSON.stringify(action.savedPlanSnapshot) || action.quest.reason !== expectedReason ||
+    JSON.stringify(action.quest.futureSteps ?? []) !== JSON.stringify(expectedFuture)) throw Error("The saved plan changed. Please review it again.");
 }
 
 function forgetReference(state: AppState, id: string): AppState {

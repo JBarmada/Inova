@@ -3,9 +3,9 @@ import type { prepareQuest } from "../../services/prepareQuest";
 import { dateOnlyDeadline, reviewQuestDetails } from "./reviewQuestDetails";
 
 type Draft = Awaited<ReturnType<typeof prepareQuest>>;
-export function QuestDetailsReview({ draft, onSave, onCancel, saveLabel = "Add quest", hasFutureSteps = false, allowEdit = true }: {
+export function QuestDetailsReview({ draft, onSave, onCancel, saveLabel = "Add quest", hasFutureSteps = false }: {
   draft: Draft; onSave: (draft: Draft) => Promise<void>; onCancel: () => void;
-  saveLabel?: string; hasFutureSteps?: boolean; allowEdit?: boolean;
+  saveLabel?: string; hasFutureSteps?: boolean;
 }) {
   const [title, setTitle] = useState(draft.quest.title);
   const [questMinutes, setQuestMinutes] = useState(String(draft.quest.minutes));
@@ -19,7 +19,7 @@ export function QuestDetailsReview({ draft, onSave, onCancel, saveLabel = "Add q
   const showDetails = !!(draft.detailsWarning || deadline || date || effort);
   async function save() {
     try {
-      const reviewed = reviewQuestDetails(draft, dateOnly ? dateOnlyDeadline(date, time) : deadline, effort, allowEdit ? { title, minutes: questMinutes } : undefined);
+      const reviewed = reviewQuestDetails(draft, dateOnly ? dateOnlyDeadline(date, time) : deadline, effort, { title, minutes: questMinutes });
       setBusy(true);
       await onSave(reviewed);
     } catch (cause) { setError(cause instanceof Error ? cause.message : "Could not save. Please try again."); }
@@ -27,10 +27,9 @@ export function QuestDetailsReview({ draft, onSave, onCancel, saveLabel = "Add q
   }
   return <div className="quest-details-review" role="region" tabIndex={0} aria-label="Review suggested quest">
     <p>{draft.fallback ? "Sample quest" : "Suggested quest"}</p>
-    {allowEdit ? <label>Quest <input value={title} maxLength={4000} onChange={(event) => setTitle(event.target.value)} /></label> : <strong>{title}</strong>}
+    <label>Quest <input value={title} maxLength={4000} onChange={(event) => setTitle(event.target.value)} /></label>
     {title.trim() === draft.quest.title ? <p>{draft.quest.reason}</p> : <p>You edited this quest.</p>}
-    {allowEdit ? <label>Quest length (minutes) <input type="number" min="1" max="120" value={questMinutes} onChange={(event) => setQuestMinutes(event.target.value)} /></label> : <p>{questMinutes} min</p>}
-    {!allowEdit && <p>You can edit this saved step after accepting it.</p>}
+    <label>Quest length (minutes) <input type="number" min="1" max="120" value={questMinutes} onChange={(event) => setQuestMinutes(event.target.value)} /></label>
     {hasFutureSteps && title.trim() !== draft.quest.title && <p>Changing the first quest removes the later suggested steps.</p>}
     {draft.detailsWarning && <p>Some details need your help.</p>}
     <details open={showDetails}><summary>Deadline and effort</summary>

@@ -3,6 +3,8 @@ import { initialState } from "../state/defaults";
 import { reduce } from "../state/reducer";
 import { stateSchema } from "../shared/schema";
 import { prepareSavedPlan } from "./savedPlan";
+import { reviewQuestDetails } from "../features/quests/reviewQuestDetails";
+import { retainedPlanSteps } from "../features/quests/retainedPlanSteps";
 
 const steps = [{ title: "Outline", reason: "Start", minutes: 5 }, { title: "Draft", reason: "Build", minutes: 10 }, { title: "Review", reason: "Finish", minutes: 5 }];
 const commitment = { id: "c", title: "Prepare a project", createdAt: "2026-11-23T00:00:00.000Z", effortMinutes: 20 };
@@ -55,4 +57,30 @@ it("rejects a reviewed total effort smaller than the full plan", () => {
   const draft = prepareSavedPlan(state);
   expect(() => reduce(state, { type: "accept-planned-quest", ...draft, consumesSavedPlan: true,
     commitment: { ...draft.commitment, effortMinutes: 11 }, quest: { ...draft.quest, futureSteps: draft.steps.slice(1) } })).toThrow("total effort");
+});
+
+it("accepts an edited saved step only against the unchanged original plan", () => {
+  const state = followUp(), draft = prepareSavedPlan(state);
+  const reviewed = reviewQuestDetails(draft, "", "15", { title: "Collect examples", minutes: "6" });
+  const action = { type: "accept-planned-quest" as const, ...reviewed, previousQuest: draft.previousQuest,
+    consumesSavedPlan: true, savedPlanSnapshot: draft.steps,
+    quest: { ...reviewed.quest, futureSteps: retainedPlanSteps(draft.steps, reviewed.quest.title) } };
+  expect(state.quests).toHaveLength(1);
+  const accepted = reduce(state, action);
+  expect(accepted.quests[1]).toMatchObject({ title: "Collect examples", minutes: 6, status: "accepted", futureSteps: [] });
+  expect(accepted.quests[0].futureSteps).toBeUndefined();
+  expect(() => reduce(accepted, action)).toThrow();
+  const changed = reduce(state, { type: "memory-permission", id: "m", allowed: false });
+  expect(() => reduce(changed, action)).toThrow();
+  expect(() => reduce(state, { ...action, savedPlanSnapshot: [steps[0]] })).toThrow("saved plan changed");
+  expect(() => reduce(state, { ...action, quest: { ...action.quest, futureSteps: [steps[2]] } })).toThrow("saved plan changed");
+});
+
+it("retains later steps when only the saved step duration changes", () => {
+  const state = followUp(), draft = prepareSavedPlan(state);
+  const reviewed = reviewQuestDetails(draft, "", "15", { title: draft.quest.title, minutes: "8" });
+  const accepted = reduce(state, { type: "accept-planned-quest", ...reviewed, previousQuest: draft.previousQuest,
+    consumesSavedPlan: true, savedPlanSnapshot: draft.steps,
+    quest: { ...reviewed.quest, futureSteps: retainedPlanSteps(draft.steps, reviewed.quest.title) } });
+  expect(accepted.quests[1]).toMatchObject({ title: "Draft", minutes: 8, futureSteps: [steps[2]] });
 });
