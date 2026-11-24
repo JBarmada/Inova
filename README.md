@@ -18,10 +18,11 @@ The current app includes:
 - A four-slot wardrobe for hats, glasses, socks, and body clothing, with category filters, standing/sitting previews, compact outfit controls, and developer test outfits. Wearable graphics remain placeholders.
 - A shared one-field quest entry in the desktop page and floating toy, with local model suggestions, a labeled sample fallback, and review of extracted deadlines and effort. Editable quests and manual time plans use distinct states and duplicate-safe demonstration rewards; quest-linked reflections support editing, search, permissions, and deletion.
 - Optional local Ollama planning with selectable Gemma 3 12B/4B, a service/model check, permitted reflection context, validated proposals, and a separate deterministic sample fallback, and an optional user-selected suggestion-length limit. See [local AI setup](docs/SETUP.md#local-ai-build-out-worktree).
+- Home chat can suggest user-reviewed memories and preview a multi-step plan. The first quest requires acceptance; later steps are retained for review after completion. Conversation context is optional, and memory use requires permission. Replies and suggestions can be wrong.
 - A local seven-day activity recap, which explicitly excludes older completions without recorded dates, and an outfit shuffle limited to owned items.
 - Settings for sound, reduced motion, developer mode, and optional status; startup loading/retry feedback; and a shared save-and-quit flow for native X and floating Settings > Quit Inova.
 
-The latest build-out check passed **155 tests**, all 20 clip-atlas checks, source size/type checks and the frontend production build. The current Windows Rust library compiled in release mode; an earlier full Windows release build passed for the animation integration. Integrated native visual review, Mac compilation and runtime, continuous toy-transition timing, and a complete end-to-end walkthrough remain pending. See [implementation status](docs/IMPLEMENTATION_STATUS.md) for evidence and limitations.
+The latest build-out check passed **262 tests**, all 20 clip-atlas checks, source size/type checks and the frontend production build. An earlier Windows Rust library release build and full Windows release build passed. Live-model evaluation of recent AI changes, integrated native visual review, Mac compilation and runtime, continuous toy-transition timing, and a complete end-to-end walkthrough remain pending. See [implementation status](docs/IMPLEMENTATION_STATUS.md) and the [current handoff](docs/HANDOFF_BUILD_OUT.md) for evidence and limitations.
 
 Local AI requires a separately installed and running Ollama service and model; the labeled sample planner works without it. There are no external account integrations or actual schedule optimization. Sound is synthesized; final clothing art and recorded audio remain unfinished. The integrated animations are available for testing and still need visual review in the combined build.
 
@@ -41,6 +42,8 @@ To test an animation, adopt a dog, open Settings, enable **Dev mode**, and retur
 Run checks with `npm run check`. Build the native app without an installer using `npm run tauri build -- --no-bundle`. Build and test the Mac app on a Mac; Windows compilation does not verify Mac behavior.
 
 The wardrobe migrates validated older saves to schema v2 on the next successful action. Older app builds cannot read v2 saves, so avoid launching preserved worktree versions against the same desktop data. Browser preview and desktop saves are separate.
+
+An active home-chat goal can now exceed 240 characters after clarification. Older builds may reject a profile while such a goal is in progress; see [shared agreements](docs/SHARED_CONTRACTS.md).
 
 ## Choose a work area
 

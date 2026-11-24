@@ -1,5 +1,19 @@
 # Build-out handoff — November 23, 2026
 
+## Paused checkpoint — latest
+
+Work is paused on `codex/inova-complete` in `.worktrees/inova-complete`. The latest implementation commit is `4e4f072`; check `git status` and the remote before resuming. This branch has not been merged into `main`. Preserve the primary checkout and other worktrees.
+
+Home chat supports explicitly reviewed conversation memories, optional recent conversation, four adoption personality styles, and local multi-step plan previews. A user accepts the first step; later steps are retained for review after completion. Corrections, deletions and permission changes invalidate dependent records. Recent improvements include longer goal clarification, limited memory relevance and birthday safeguards, negated deadline checks, and suppression of suggestions that differ only in formatting. These are heuristic protections, not guarantees of accurate model reasoning.
+
+The latest `npm run check` passed **262 tests**, 20 atlas checks, type/size checks and the production frontend build. The latest changes have not been verified with a live model or in the native UI. The last local service probe found Ollama unavailable; its state may have changed. Earlier service trials include a prompt-injection success and a 12B timeout. Mac compilation/runtime and complete native visual, overlay, accessibility and end-to-end checks remain outstanding. A prior native screen inspection was blocked because unrelated sensitive content was visible; arrange a safe, authorized test environment before retrying.
+
+To continue, first read [BUILD_OUT_CHECKLIST.md](BUILD_OUT_CHECKLIST.md), [IMPLEMENTATION_STATUS.md](IMPLEMENTATION_STATUS.md) and [SHARED_CONTRACTS.md). Prioritize a fictional live-model learning and quest conversation, including conflicting people/dates, corrections, permissions, changed plans and follow-ups; inspect the generated replies as well as supplied context. `node scripts/evaluate-learning.mjs gemma3:4b` requires a running Ollama model. Add `--dry-run` only to rehearse the test setup with placeholder replies. Work through documented dog interactions, wardrobe and reviewed animation items independently; keep unresolved art and product decisions open.
+
+Start the local worktree with `npm run desktop` after setting up dependencies. Ports 1420 and 1421 were previously occupied; inspect their owners before changing or stopping anything. The local `.tools/desktop-1421.json` is not tracked, so do not assume it exists in another checkout. Avoid running older builds against the same profile while a chat goal over 240 characters is in progress; older versions can reject it.
+
+The historical notes below record earlier checkpoints and may describe capabilities or test counts that have since changed. This latest checkpoint and implementation status take precedence.
+
 ## Current checkpoint — November 23, afternoon
 
 **Later AI refinement:** Home chat now has a scripted clarification and local-model preview of one to three steps, with only the first saved on acceptance. Later steps are transient. Users can select the one-step sample while waiting; the pending native request continues but its result is ignored. Mocked tests and Windows Rust library tests pass. A direct fictional 12B multi-step trial timed out at 120 seconds, while two 4B service-only trials returned in 23.5 and 7.7 seconds. Native AI and visual checks remain open. See the current backlog for personality, memory-evolution testing, filters and post-wardrobe skin planning.
