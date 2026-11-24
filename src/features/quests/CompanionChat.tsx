@@ -38,7 +38,7 @@ export function CompanionChat({ state }: { state: AppState }) {
     try { await work(); } catch (error) { setMessage(error instanceof Error ? error.message : "Please try again."); }
     finally { setBusy(false); }
   }
-  async function send() { await dispatch({ type: state.chat.phase === "goal" ? "chat-goal" : "chat-context", text }); setText(""); }
+  async function send() { await dispatch({ type: "chat-context", text }); setText(""); }
   async function accept(result: Draft) {
     const futureSteps = retainedPlanSteps(result.steps, result.quest.title);
     await dispatch({ type: "accept-planned-quest", commitment: result.commitment, quest: { ...result.quest, futureSteps }, memorySnapshot: result.memorySnapshot, previousQuest: result.previousQuest, consumesSavedPlan: result.usesSavedPlan, savedPlanSnapshot: result.usesSavedPlan ? result.savedPlanSnapshot ?? result.steps : undefined, savedPlanSkipped: result.savedPlanSkipped });
@@ -62,7 +62,7 @@ export function CompanionChat({ state }: { state: AppState }) {
     {remember && <ChatMemory key={`${remember.index}:${remember.text}:${remember.suggested?.quote ?? ""}`} index={remember.index} original={remember.text} suggested={remember.suggested} memories={state.memories}
       onCancel={() => setRemember(undefined)} onDone={(updated) => { setRemember(undefined); setMessage(updated ? "Memory updated." : "Saved to Memories."); }} />}
     <ChatContextToggle enabled={includeRecent} busy={busy} onChange={setIncludeRecent} />
-    <ChatShare busy={busy} onSend={chatReply.share} />
+    {!reflectionQuest && !remember && !draft && state.chat.phase === "goal" && <ChatShare busy={busy} onSend={chatReply.share} />}
     {reflectionQuest && <ChatReflection key={reflectionQuest.id} quest={reflectionQuest} onDone={setMessage} />}
     {state.chat.contextQuestId && <p>Continuing: {state.chat.goal}</p>}
     {!reflectionQuest && !draft && state.chat.phase === "goal" && <FollowUpOptions state={state} busy={busy}
@@ -71,15 +71,15 @@ export function CompanionChat({ state }: { state: AppState }) {
       <PlanPreview draft={draft} onSkip={() => setDraft(skipFirstPlanStep(draft))} />
       <QuestDetailsReview key={`${draft.quest.id}:${draft.steps.length}:${draft.quest.title}`} draft={draft} onSave={(reviewed) => accept({ ...draft, ...reviewed })} onCancel={() => setDraft(undefined)} saveLabel="Accept first quest" hasFutureSteps={draft.steps.length > 1} />
     </> : <>
-      {state.chat.phase !== "ready" ? <form onSubmit={(event) => { event.preventDefault(); void run(send); }}>
-        <label>{state.chat.phase === "goal" ? "Your goal" : "Anything else?"}
+      {state.chat.phase === "context" ? <form onSubmit={(event) => { event.preventDefault(); void run(send); }}>
+        <label>Anything else?
           <input value={text} maxLength={240} onChange={(event) => setText(event.target.value)} disabled={busy} required /></label>
         <button disabled={busy || !text.trim()}>Send</button>
         {state.chat.phase === "context" && <button type="button" disabled={busy} onClick={() => void run(() => dispatch({ type: "chat-skip" }))}>Skip</button>}
-      </form> : <>
+      </form> : state.chat.phase === "ready" ? <>
         {state.quests.find((quest) => quest.id === state.chat.contextQuestId)?.futureSteps?.length ? <button type="button" disabled={busy} onClick={() => void run(async () => setDraft(prepareSavedPlan(state)))}>Review saved next step</button> : null}
         <button disabled={busy} onClick={() => void plan()}>Make a new plan</button>
-      </>}
+      </> : null}
       {state.chat.phase !== "goal" && <button type="button" disabled={busy} onClick={() => void run(() => dispatch({ type: "chat-reset" }))}>Start over</button>}
     </>}
     {state.chat.messages.length > 0 && <button type="button" disabled={busy} onClick={() => void run(async () => {

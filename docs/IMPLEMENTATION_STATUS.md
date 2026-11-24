@@ -1,5 +1,11 @@
 # Implementation Status and Handoff
 
+## One home-chat message entry — November 23, 2026
+
+The adopted dog's home chat now shows one message entry during ordinary conversation. A user message has a visible “Make a quest” action that starts clarification from that message; a failed or unavailable AI reply leaves the message available for that action. During clarification or a reflection, the ordinary chat entry is hidden so there is one active writing flow. Messages, memory review, optional recent context and the labeled sample planner remain available. This changes home chat; the floating quest composer has not yet been unified with it.
+
+`npm run check` passed 232 tests, including the home-chat entry and message-to-quest transition. Native visual review and live AI testing remain pending.
+
 ## Additional memory wording — November 23, 2026
 
 The existing chat-memory matcher recognizes “I go by” and “my name's,” enrollment wording, and abbreviated month names. `npm run check` passed 231 tests, including those examples. This is still limited English pattern matching, not semantic understanding. A new live evaluation was attempted, but no Ollama service was listening and the executable was absent from the standard installation location in this environment; the new cases have not been tested with a model.
