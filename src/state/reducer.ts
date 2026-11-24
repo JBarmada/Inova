@@ -11,6 +11,7 @@ function apply(state: AppState, action: Action): AppState {
   switch (action.type) {
     case "chat-goal": case "chat-share": case "chat-plan-message": case "dismiss-quest-suggestion": case "chat-context": case "chat-skip": case "chat-reset": case "chat-clear": case "chat-follow-up": return changeChat(state, action);
     case "save-chat-memory": return saveChatMemory(state, action);
+    case "correct-chat-memory": return correctChatMemory(state, action);
     case "dismiss-memory-suggestion": return dismissMemorySuggestion(state, action.replyIndex, action.sourceIndex, action.quote);
     case "chat-reply": return saveChatReply(state, action);
     case "skip-chat-reflection": return clearReflectionPrompt(state, action.questId);
@@ -87,6 +88,17 @@ function saveChatMemory(state: AppState, action: Extract<Action, { type: "save-c
   if (action.suggestion && state.memories.some((memory) => memory.id === action.memory.id)) throw Error("Memory already exists.");
   const cleared = action.suggestion ? dismissMemorySuggestion(state, action.suggestion.replyIndex, action.messageIndex, action.suggestion.quote) : state;
   return apply(cleared, { type: "add-memory", memory: action.memory });
+}
+
+function correctChatMemory(state: AppState, action: Extract<Action, { type: "correct-chat-memory" }>): AppState {
+  const message = state.chat.messages[action.messageIndex];
+  if (!message || message.role !== "user" || message.text !== action.originalText) throw Error("This conversation changed. Please choose the message again.");
+  const existing = state.memories.find((memory) => memory.id === action.target.id);
+  if (!existing || existing.text !== action.target.text || existing.createdAt !== action.target.createdAt ||
+    existing.aiAllowed !== action.target.aiAllowed || existing.category !== action.target.category ||
+    existing.source !== action.target.source || existing.questId !== action.target.questId) throw Error("This memory changed. Please choose it again.");
+  const cleared = action.suggestion ? dismissMemorySuggestion(state, action.suggestion.replyIndex, action.messageIndex, action.suggestion.quote) : state;
+  return editMemory(cleared, { type: "edit-memory", id: existing.id, text: action.text });
 }
 
 function dismissMemorySuggestion(state: AppState, replyIndex: number, sourceIndex: number, quote: string): AppState {

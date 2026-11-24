@@ -21,6 +21,7 @@ export type Action =
   | { type: "dismiss-quest-suggestion"; replyIndex: number; sourceIndex: number }
   | { type: "chat-reply"; messageIndex: number; originalText: string; reply: string; memorySnapshot: { id: string; text: string }[]; contextSnapshot?: import("../services/recentChat").ChatContextEntry[]; memorySuggestion?: { quote: string; category: NonNullable<Memory["category"]> }; offerQuest?: boolean }
   | { type: "save-chat-memory"; messageIndex: number; originalText: string; memory: Memory; suggestion?: { replyIndex: number; quote: string } }
+  | { type: "correct-chat-memory"; messageIndex: number; originalText: string; target: Memory; text: string; suggestion?: { replyIndex: number; quote: string } }
   | { type: "dismiss-memory-suggestion"; replyIndex: number; sourceIndex: number; quote: string }
   | { type: "chat-context"; text: string }
   | { type: "chat-skip" }

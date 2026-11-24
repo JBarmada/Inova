@@ -56,8 +56,8 @@ export function CompanionChat({ state }: { state: AppState }) {
       onDismissQuest={(replyIndex, sourceIndex) => void run(() => dispatch({ type: "dismiss-quest-suggestion", replyIndex, sourceIndex }))}
       onDismiss={(replyIndex, sourceIndex, quote) => void run(() => dispatch({ type: "dismiss-memory-suggestion", replyIndex, sourceIndex, quote }))}
       onAsk={chatReply.start} />
-    {remember && <ChatMemory key={`${remember.index}:${remember.text}:${remember.suggested?.quote ?? ""}`} index={remember.index} original={remember.text} suggested={remember.suggested}
-      onCancel={() => setRemember(undefined)} onDone={() => { setRemember(undefined); setMessage("Saved to Memories."); }} />}
+    {remember && <ChatMemory key={`${remember.index}:${remember.text}:${remember.suggested?.quote ?? ""}`} index={remember.index} original={remember.text} suggested={remember.suggested} memories={state.memories}
+      onCancel={() => setRemember(undefined)} onDone={(updated) => { setRemember(undefined); setMessage(updated ? "Memory updated." : "Saved to Memories."); }} />}
     <ChatContextToggle enabled={includeRecent} busy={busy} onChange={setIncludeRecent} />
     <ChatShare busy={busy} onSend={chatReply.share} />
     {reflectionQuest && <ChatReflection key={reflectionQuest.id} quest={reflectionQuest} onDone={setMessage} />}

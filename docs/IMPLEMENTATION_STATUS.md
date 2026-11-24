@@ -1,5 +1,11 @@
 # Implementation Status and Handoff
 
+## Correct a memory from chat — November 23, 2026
+
+While reviewing a user message or suggested memory, the user can explicitly choose an existing memory to update and review the replacement text. Its category, personalization permission, original date and quest link remain unchanged. The mutation validates the original chat message, the chosen memory snapshot and any suggestion, and applies the existing memory-edit invalidation to dependent replies and quest copies. It does not automatically identify conflicting memories or delete the separate chat transcript. Existing conversation text can still be included if the user enables recent conversation context.
+
+`npm run check` passed 211 tests, including stale selection, permission changes, suggestion validation, dependent reply invalidation and serialized reload. The new interface has not been visually verified in native Windows or Mac.
+
 ## Short follow-up memory selection — November 23, 2026
 
 When recent conversation is enabled, a short reply beginning with a limited set of English follow-up words (such as “Yes” or “he”) can retain the immediately preceding dog reply's permitted memory sources before filling the three-memory limit with normally ranked memories. This allows the prior dog reply to stay in context even after newer memories have been added. The source and permission checks still apply; this is a narrow heuristic and can miss follow-ups or prioritize less relevant memories. Turning recent conversation off retains the normal selection behavior.
