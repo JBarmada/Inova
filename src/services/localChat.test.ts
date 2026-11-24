@@ -105,6 +105,23 @@ it("carries an eligible prior source into a pronoun question, but not after its 
   expect(JSON.stringify(excludedInput.recentConversation ?? [])).not.toContain("Sam likes tea");
 });
 
+it("connects a follow-up birthday question to the person already discussed", async () => {
+  let state = reduce(initialState(), { type: "chat-share", text: "Tell me about Sam" });
+  state = reduce(state, { type: "add-memory", memory });
+  state = reduce(state, { type: "chat-reply", messageIndex: 0, originalText: "Tell me about Sam", reply: "Sam likes tea.", memorySnapshot: [memory] });
+  state = reduce(state, { type: "add-memory", memory: { ...memory, id: "birthday", text: "Sam's birthday is December 8" } });
+  state = reduce(state, { type: "chat-share", text: "When is her birthday?" });
+  const call = vi.fn().mockResolvedValue(JSON.stringify({ reply: "Sam's birthday is December 8." }));
+  const result = await localChat("When is her birthday?", state, call as unknown as typeof invoke, { includeRecent: true, beforeIndex: 2 });
+  const input = JSON.parse(call.mock.calls[0][1].input);
+  expect(input.memories.map((entry: { id: string }) => entry.id)).toEqual(["m", "birthday"]);
+  expect(input.recentConversation).toContainEqual({ role: "dog", text: "Sam likes tea." });
+  expect(reduce(state, { type: "chat-reply", messageIndex: 2, originalText: "When is her birthday?", ...result }).chat.messages.at(-1)?.sourceIds).toEqual(["m", "birthday"]);
+  await localChat("When is her birthday?", state, call as unknown as typeof invoke, { includeRecent: false, beforeIndex: 2 });
+  expect(JSON.parse(call.mock.calls[1][1].input).memories.map((entry: { id: string }) => entry.id)).toEqual(["birthday"]);
+  expect(JSON.parse(call.mock.calls[1][1].input).recentConversation).toBeUndefined();
+});
+
 it("passes an adopted dog's personality to the local model as tone only", async () => {
   const state = reduce(initialState(), { type: "adopt", name: "Pip", personality: "mean" });
   const call = vi.fn().mockResolvedValue(JSON.stringify({ reply: "Let's get started." }));

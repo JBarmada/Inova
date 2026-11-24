@@ -2,7 +2,7 @@ import type { AppState } from "../shared/schema";
 import { chatMemories } from "./chatMemories";
 import { recentChat } from "./recentChat";
 
-const shortReply = /^(?:yes|yeah|yep|no|nope|he|she|they|it|that|i do|i don't|i did|i didn't|what about (?:him|her|them|it|that)|and (?:him|her|them|it|that)|(?:does|did|is|was|can|will) (?:he|she|they|it))\b/i;
+const shortReply = /^(?:yes|yeah|yep|no|nope|he|she|they|it|that|i do|i don't|i did|i didn't|what about (?:him|her|them|it|that)|and (?:him|her|them|it|that)|(?:does|did|is|was|can|will) (?:he|she|they|it)|(?:what|when|where|why|how) (?:does|did|is|was|are|were|can|will) (?:he|she|they|it|his|her|their|its))\b/i;
 
 export function followUpMemories(text: string, state: AppState, beforeIndex: number, includeRecent: boolean) {
   const ranked = chatMemories(text, state.memories);

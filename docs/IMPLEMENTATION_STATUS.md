@@ -1,5 +1,9 @@
 # Implementation Status and Handoff
 
+## Recall people in follow-up questions — November 23, 2026
+
+When optional recent conversation is enabled, short questions such as “When is her birthday?” can now retain the permitted memory sources of the immediately preceding eligible dog reply alongside other matching memories. The same source and conversation-exclusion checks still apply. A fictional automated scenario covers a friend and birthday, saved source IDs, and recent context disabled. This is an English wording heuristic, not reliable pronoun resolution or proof the model associates the right date with the right person. `npm run check` passed 252 tests. The local Ollama service refused the connection, so this change has not been evaluated with a live model; native UI verification remains pending.
+
 ## Improve planning memory selection — November 23, 2026
 
 Planning no longer mistakes an unlinked memory for a reflection when there is no previous quest. When a permitted memory matches the goal, unrelated zero-score memories are excluded; if none match, the existing recent-memory fallback remains. Follow-ups still prioritize a permitted reflection explicitly linked to the previous quest. Matching uses simple wording rather than semantic understanding and may miss relevant memories. `npm run check` passed 251 tests. Live-model and native verification remain pending.
