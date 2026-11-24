@@ -13,5 +13,6 @@ export function followUpMemories(text: string, state: AppState, beforeIndex: num
   if (sources.some((memory) => !memory)) return ranked;
   if (!recentChat(state, beforeIndex, previous.sourceIds).some((entry) => entry.index === beforeIndex - 1)) return ranked;
   const permitted = sources.filter((memory) => memory !== undefined);
-  return [...permitted, ...ranked.filter((memory) => !previous.sourceIds!.includes(memory.id))].slice(0, 3);
+  const related = chatMemories(text, state.memories, state.memories.length, permitted.map((memory) => memory.text).join(" "));
+  return [...permitted, ...related.filter((memory) => !previous.sourceIds!.includes(memory.id))].slice(0, 3);
 }

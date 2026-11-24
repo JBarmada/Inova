@@ -1,5 +1,9 @@
 # Implementation Status and Handoff
 
+## Rank related memories in follow-ups — November 23, 2026
+
+For eligible short follow-ups with recent conversation enabled, equally relevant memory matches now use word overlap with the previous reply's permitted sources to break ties before recency. A fictional test covers an older friend's birthday among newer birthdays, and verifies the off setting. This is not entity resolution: unrelated memories may still be included, and a model may mix up people or dates. `npm run check` passed 253 tests. Live-model and native verification remain pending.
+
 ## Recall people in follow-up questions — November 23, 2026
 
 When optional recent conversation is enabled, short questions such as “When is her birthday?” can now retain the permitted memory sources of the immediately preceding eligible dog reply alongside other matching memories. The same source and conversation-exclusion checks still apply. A fictional automated scenario covers a friend and birthday, saved source IDs, and recent context disabled. This is an English wording heuristic, not reliable pronoun resolution or proof the model associates the right date with the right person. `npm run check` passed 252 tests. The local Ollama service refused the connection, so this change has not been evaluated with a live model; native UI verification remains pending.

@@ -13,14 +13,17 @@ function terms(text: string) {
   return new Set((text.toLocaleLowerCase().match(/[\p{L}\p{N}]+/gu) ?? []).filter((word) => word.length >= 3 && !common.has(word)));
 }
 
-export function chatMemories(message: string, memories: AppState["memories"], limit = 3) {
+export function chatMemories(message: string, memories: AppState["memories"], limit = 3, context = "") {
   const query = terms(message);
+  const contextTerms = terms(context);
   const ranked = memories.map((memory, index) => {
-    const overlap = [...terms(memory.text)].filter((word) => query.has(word)).length;
+    const memoryTerms = [...terms(memory.text)];
+    const overlap = memoryTerms.filter((word) => query.has(word)).length;
     const themesMatched = themes.filter((theme) => theme.question.test(message) && theme.memory.test(memory.text)).length;
-    return { memory, index, score: overlap * 3 + themesMatched * 2 };
+    const contextOverlap = memoryTerms.filter((word) => contextTerms.has(word)).length;
+    return { memory, index, score: overlap * 3 + themesMatched * 2, contextOverlap };
   }).filter(({ memory }) => memory.aiAllowed)
-    .sort((a, b) => b.score - a.score || b.index - a.index);
+    .sort((a, b) => b.score - a.score || (a.score > 0 ? b.contextOverlap - a.contextOverlap : 0) || b.index - a.index);
   const hasMatch = ranked.some(({ score }) => score > 0);
   return ranked.filter(({ score }) => !hasMatch || score > 0).slice(0, limit).map(({ memory }) => memory);
 }
