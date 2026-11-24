@@ -56,3 +56,20 @@ it("passes an adopted dog's personality to the local model as tone only", async 
   await localChat("Hello", state, call as unknown as typeof invoke);
   expect(JSON.parse(call.mock.calls[0][1].input)).toMatchObject({ dogName: "Pip", dogPersonality: "mean", message: "Hello" });
 });
+
+it("offers only an exact quote from the current message and never saves it automatically", async () => {
+  const text = "My friend Sam likes tea";
+  const state = reduce(initialState(), { type: "chat-share", text });
+  const call = vi.fn().mockResolvedValue(JSON.stringify({ reply: "Nice!", memoryQuote: text, memoryCategory: "people" }));
+  const result = await localChat(text, state, call as unknown as typeof invoke);
+  expect(result.memorySuggestion).toEqual({ quote: text, category: "people" });
+  const saved = reduce(state, { type: "chat-reply", messageIndex: 0, originalText: text, ...result });
+  expect(saved.memories).toEqual([]);
+  expect(saved.chat.messages[1].memorySuggestion).toEqual({ sourceIndex: 0, quote: text, category: "people" });
+  call.mockResolvedValueOnce(JSON.stringify({ reply: "Nice!", memoryQuote: "Sam loves tea", memoryCategory: "people" }));
+  expect((await localChat(text, state, call as unknown as typeof invoke)).memorySuggestion).toBeUndefined();
+  expect(() => reduce(state, { type: "chat-reply", messageIndex: 0, originalText: text, reply: "Nice!", memorySnapshot: [],
+    memorySuggestion: { quote: "Sam loves tea", category: "people" } })).toThrow("not a statement");
+  call.mockResolvedValueOnce(JSON.stringify({ reply: "I don't know.", memoryQuote: "What is my name?", memoryCategory: "you" }));
+  expect((await localChat("What is my name?", state, call as unknown as typeof invoke)).memorySuggestion).toBeUndefined();
+});

@@ -17,7 +17,7 @@ export type Action =
   | { type: "accept-planned-quest"; commitment: Commitment; quest: Quest; memorySnapshot: { id: string; text: string }[]; previousQuest?: { id: string; title?: string }; consumesSavedPlan?: boolean }
   | { type: "chat-goal"; text: string }
   | { type: "chat-share"; text: string }
-  | { type: "chat-reply"; messageIndex: number; originalText: string; reply: string; memorySnapshot: { id: string; text: string }[]; contextSnapshot?: { index: number; text: string }[] }
+  | { type: "chat-reply"; messageIndex: number; originalText: string; reply: string; memorySnapshot: { id: string; text: string }[]; contextSnapshot?: { index: number; text: string }[]; memorySuggestion?: { quote: string; category: NonNullable<Memory["category"]> } }
   | { type: "save-chat-memory"; messageIndex: number; originalText: string; memory: Memory }
   | { type: "chat-context"; text: string }
   | { type: "chat-skip" }

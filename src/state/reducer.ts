@@ -90,10 +90,12 @@ function saveChatReply(state: AppState, action: Extract<Action, { type: "chat-re
   if (!message || message.role !== "user" || message.text !== action.originalText) throw Error("This conversation changed. Please try again.");
   if (action.contextSnapshot && (action.contextSnapshot.length > 4 || action.contextSnapshot.some(({ index, text }) => index >= action.messageIndex || state.chat.messages[index]?.role !== "user" || state.chat.messages[index]?.text !== text))) throw Error("This conversation changed. Please try again.");
   if (action.memorySnapshot.length > 3 || action.memorySnapshot.some((snapshot) => !state.memories.some((memory) => memory.id === snapshot.id && memory.aiAllowed && memory.text === snapshot.text))) throw Error("A memory changed while the dog was replying. Please try again.");
+  if (action.memorySuggestion && (!action.memorySuggestion.quote.trim() || action.memorySuggestion.quote.includes("?") || !action.originalText.includes(action.memorySuggestion.quote))) throw Error("The suggested memory is not a statement in your message.");
   const reply = action.reply.trim();
   if (!reply || reply.length > 600 || state.chat.messages.length >= 200) throw Error("The reply could not be saved.");
   return { ...state, chat: { ...state.chat, messages: [...state.chat.messages,
-    { role: "dog", text: reply, sourceIds: action.memorySnapshot.map((memory) => memory.id) }] } };
+    { role: "dog", text: reply, sourceIds: action.memorySnapshot.map((memory) => memory.id),
+      ...(action.memorySuggestion ? { memorySuggestion: { ...action.memorySuggestion, sourceIndex: action.messageIndex } } : {}) }] } };
 }
 
 function editMemory(state: AppState, action: Extract<Action, { type: "edit-memory" }>): AppState {
@@ -134,7 +136,7 @@ function validateSavedPlan(state: AppState, action: Extract<Action, { type: "acc
 
 function forgetReference(state: AppState, id: string): AppState {
   return { ...state, chat: { ...state.chat, messages: state.chat.messages.map((message) => message.sourceIds?.includes(id)
-    ? { ...message, text: "This reply was removed because a supporting memory changed.", sourceIds: [] } : message) },
+    ? { ...message, text: "This reply was removed because a supporting memory changed.", sourceIds: [], memorySuggestion: undefined } : message) },
     quests: state.quests.map((quest) => quest.sourceIds.includes(id)
     ? { ...quest, title: quest.planner === "local" ? "Review this quest" : quest.title, sourceIds: quest.sourceIds.filter((source) => source !== id), reason: "A supporting memory was removed from personalization.", futureSteps: undefined }
     : quest) };

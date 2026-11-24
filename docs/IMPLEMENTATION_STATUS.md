@@ -1,5 +1,11 @@
 # Implementation Status and Handoff
 
+## Reviewed memory suggestions — November 23, 2026
+
+Local chat may suggest a memory quote and category from the current user message. The app only offers an exact nonempty quote from that message that does not contain a question mark; the user can review the original message, edit the quote and category, and explicitly save it, with personalization off by default. Suggestions are stored in the conversation, not as memory records, until accepted. Model output is not a validated personal fact, and a quote check does not establish that a statement is enduring or important. Clearing the conversation removes suggestions. Dependent suggestions are removed with a generated reply if a referenced memory changes.
+
+One fictional direct 4B service trial correctly suggested an exact friend-preference quote, but also proposed questions, transient feelings and text copied from other memories. The app rejects quoted questions and non-quotes; remaining relevance requires user review. `npm run check` passed 192 tests and Windows offline Rust library tests compiled the structured response change and passed two existing tests. Native UI, live in-app behavior and Mac runtime remain pending. Earlier builds may drop saved suggestion fields.
+
 ## Adoption personalities — November 23, 2026
 
 New adoptions randomly receive and persist one of four text styles: cute, mean, sad or happy. Mean is presented as playfully grumpy, and sad as gentle; the style does not alter the dog's mood, rewards or quest rules. Home shows the generated style; scripted goal clarification and the local-chat prompt use it. Older dogs without a personality retain neutral wording. No user control to change the style has been implemented, and older builds may drop the optional field when saving.

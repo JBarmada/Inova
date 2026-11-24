@@ -3,11 +3,11 @@ import { MemoryCategorySelect, type Category } from "../world/MemoryCategories";
 import { dispatch } from "../../state/store";
 import { newId, now } from "../../shared/actions";
 
-export function ChatMemory({ index, original, onDone, onCancel }: {
-  index: number; original: string; onDone: () => void; onCancel: () => void;
+export function ChatMemory({ index, original, suggested, onDone, onCancel }: {
+  index: number; original: string; suggested?: { quote: string; category: Category }; onDone: () => void; onCancel: () => void;
 }) {
-  const [text, setText] = useState(original);
-  const [category, setCategory] = useState<Category>("misc");
+  const [text, setText] = useState(suggested?.quote ?? original);
+  const [category, setCategory] = useState<Category>(suggested?.category ?? "misc");
   const [allowed, setAllowed] = useState(false);
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState("");
@@ -21,6 +21,7 @@ export function ChatMemory({ index, original, onDone, onCancel }: {
     finally { setBusy(false); }
   }
   return <form aria-label="Save conversation memory" onSubmit={(event) => { event.preventDefault(); void save(); }}>
+    {suggested && <p>From your message: {original}</p>}
     <label>What should I remember?<textarea required value={text} maxLength={4000} onChange={(event) => setText(event.target.value)} /></label>
     <MemoryCategorySelect value={category} onChange={setCategory} disabled={busy} />
     <label className="checkbox"><input type="checkbox" checked={allowed} onChange={(event) => setAllowed(event.target.checked)} />Allow this memory to inform suggestions</label>

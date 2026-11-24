@@ -3,7 +3,8 @@ import { z } from "zod";
 import type { AppState } from "../shared/schema";
 import { planningMemories } from "./planningMemories";
 
-const response = z.object({ reply: z.string().trim().min(1).max(600) }).strict();
+const response = z.object({ reply: z.string().trim().min(1).max(600), memoryQuote: z.string().max(240).optional(),
+  memoryCategory: z.enum(["people", "events", "you", "misc"]).optional() }).strict();
 
 export async function localChat(text: string, state: AppState, call = invoke, options?: { includeRecent: boolean; beforeIndex: number }) {
   if (call === invoke && !isTauri()) throw Error("Local AI chat requires the desktop app.");
@@ -20,5 +21,8 @@ export async function localChat(text: string, state: AppState, call = invoke, op
   try { parsed = JSON.parse(raw); } catch { throw Error("Local AI returned an invalid reply."); }
   const result = response.safeParse(parsed);
   if (!result.success) throw Error("Local AI returned an invalid reply.");
-  return { reply: result.data.reply, memorySnapshot, contextSnapshot };
+  const quote = result.data.memoryQuote?.trim();
+  const memorySuggestion = quote && !quote.includes("?") && text.includes(quote) && result.data.memoryCategory
+    ? { quote, category: result.data.memoryCategory } : undefined;
+  return { reply: result.data.reply, memorySnapshot, contextSnapshot, ...(memorySuggestion ? { memorySuggestion } : {}) };
 }

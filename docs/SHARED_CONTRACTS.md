@@ -25,6 +25,8 @@ For a shared message, the UI first persists `chat-share`, then requests a reply 
 
 When the user explicitly enables recent conversation context, the request may also send at most four earlier user-authored messages of at most 240 characters each. The reducer validates their indexes and text before accepting the response. Conversation context and approved memory records are separate: deleting a memory does not erase the transcript or facts supplied through it; clear the conversation to remove the transcript and replies. This switch is not persisted.
 
+Local chat may return a proposed `memoryQuote` and `memoryCategory`. Only a nonempty exact quote from the current message without a question mark is offered, and the reducer rechecks the quote and source. The suggestion remains conversation data; it is never a saved memory or permission grant until the user reviews and explicitly saves it. Text matching cannot establish importance, truth or whether a preference is inferred.
+
 The local companion request also supplies the adopted dog's name as `dogName`; it is distinct from user facts and treated as data. The shared prompt lives in `src-tauri/src/local_chat_prompt.txt` and the fictional manual evaluation harness reads that same file. Prompt examples and keyword checks do not enforce truth or prevent prompt injection.
 
 | Domain | Shared record | Main actions |

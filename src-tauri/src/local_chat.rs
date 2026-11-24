@@ -11,7 +11,9 @@ pub async fn local_companion_reply(input: String, model: String) -> Result<Strin
         .build().map_err(|_| "Could not initialize local AI.")?;
     let payload = json!({
         "model": model, "stream": false,
-        "format": {"type":"object", "properties":{"reply":{"type":"string"}}, "required":["reply"]},
+        "format": {"type":"object", "properties":{"reply":{"type":"string"}, "memoryQuote":{"type":"string"},
+            "memoryCategory":{"type":"string", "enum":["people", "events", "you", "misc"]}},
+            "required":["reply", "memoryQuote", "memoryCategory"]},
         "messages": [
             {"role":"system", "content":include_str!("local_chat_prompt.txt")},
             {"role":"user", "content":input}
