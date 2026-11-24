@@ -1,10 +1,20 @@
 const weekdays = ["sunday", "monday", "tuesday", "wednesday", "thursday", "friday", "saturday"];
+const months = ["january", "february", "march", "april", "may", "june", "july", "august", "september", "october", "november", "december"];
 const numbers: Record<string, number> = { one: 1, two: 2, three: 3, four: 4, five: 5, six: 6,
   seven: 7, eight: 8, nine: 9, ten: 10, half: 0.5 };
 
 export function plausibleDate(date: string, evidence: string): boolean {
   const weekday = /\b(sunday|monday|tuesday|wednesday|thursday|friday|saturday)\b/i.exec(evidence)?.[1].toLowerCase();
-  return !weekday || new Date(`${date}T12:00:00Z`).getUTCDay() === weekdays.indexOf(weekday);
+  if (weekday && new Date(`${date}T12:00:00Z`).getUTCDay() !== weekdays.indexOf(weekday)) return false;
+  const iso = /\b(\d{4})-(\d{2})-(\d{2})\b/.exec(evidence);
+  if (iso && date !== iso[0]) return false;
+  const numeric = /\b(\d{1,2})\/(\d{1,2})(?:\/(\d{4}|\d{2}))?\b/.exec(evidence);
+  const named = /\b(january|february|march|april|may|june|july|august|september|october|november|december)\s+(\d{1,2})(?:st|nd|rd|th)?(?:,?\s+(\d{4}))?\b/i.exec(evidence);
+  const [year, month, day] = date.split("-").map(Number);
+  if (numeric && (month !== Number(numeric[1]) || day !== Number(numeric[2]) ||
+    (numeric[3] && (numeric[3].length === 2 ? year % 100 : year) !== Number(numeric[3])))) return false;
+  if (named && (month !== months.indexOf(named[1].toLowerCase()) + 1 || day !== Number(named[2]) || (named[3] && year !== Number(named[3])))) return false;
+  return true;
 }
 
 export function plausibleEffort(minutes: number, evidence: string): boolean {

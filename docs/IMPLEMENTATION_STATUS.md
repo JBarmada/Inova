@@ -1,5 +1,9 @@
 # Implementation Status and Handoff
 
+## Verify explicit dates in model suggestions — November 23, 2026
+
+Planner-suggested dates are now rejected if they conflict with an explicit ISO date, US numeric month/day/year, or written month and day in the cited evidence. Two-digit years are compared by their last two digits; a missing year remains for the user to review. Weekday and time checks remain. This does not prove relative-date interpretation or validate every natural-language date format. A mocked planning test carries two clarification answers through deadline review and acceptance. `npm run check` passed 247 tests; live-model and native date-picker review remain pending.
+
 ## A second clarification turn — November 23, 2026
 
 During home-chat quest planning, if the first answer clearly supplies only a deadline or only prior progress, the dog asks one focused question about the other. It recognizes a small set of short deadline answers such as “Friday”; this is only a conversational clue, not a verified date. The extra turn survives reload, can be skipped, and is bounded to avoid a loop. If the answer is unclear, planning can proceed. Older saves omit the optional turn count and continue to load. `npm run check` passed 245 tests, including reload, skip and uncertain answers. Native and live-model verification remain pending; clarification remains scripted.

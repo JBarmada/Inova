@@ -26,3 +26,13 @@ it("drops recognizable model errors rather than showing conflicting details", ()
   expect(suggestedDetails("Write by Friday at 5pm, about two hours", { deadlineLocal: "2026-11-29T17:00",
     deadlineDate: "2026-11-29", deadlineEvidence: "Friday at 5pm", effortMinutes: 2, effortEvidence: "two hours" })).toEqual({});
 });
+
+it("rejects dates that conflict with explicit numeric or named calendar dates", () => {
+  for (const evidence of ["2026-11-27", "11/27/2026", "11/27/26", "November 27, 2026", "11/27", "November 27th"]) {
+    expect(suggestedDetails(`Finish by ${evidence}`, { deadlineDate: "2026-11-27", deadlineEvidence: evidence })).toEqual({ deadlineDate: "2026-11-27" });
+    expect(suggestedDetails(`Finish by ${evidence}`, { deadlineDate: "2026-11-28", deadlineEvidence: evidence })).toEqual({});
+  }
+  expect(suggestedDetails("Finish by November 27, 2026", { deadlineDate: "2027-11-27", deadlineEvidence: "November 27, 2026" })).toEqual({});
+  expect(suggestedDetails("Finish by 11/27/2026", { deadlineDate: "2027-11-27", deadlineEvidence: "11/27/2026" })).toEqual({});
+  expect(suggestedDetails("Finish by 11/27/26", { deadlineDate: "2027-11-27", deadlineEvidence: "11/27/26" })).toEqual({});
+});
