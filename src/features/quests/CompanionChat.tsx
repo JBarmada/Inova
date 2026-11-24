@@ -21,7 +21,7 @@ export function CompanionChat({ state }: { state: AppState }) {
   const [busy, setBusy] = useState(false);
   const [planning, setPlanning] = useState(false);
   const [message, setMessage] = useState("");
-  const [remember, setRemember] = useState<{ index: number; text: string; suggested?: { quote: string; category: Category } }>();
+  const [remember, setRemember] = useState<{ index: number; text: string; suggested?: { quote: string; category: Category; replyIndex: number } }>();
   const [includeRecent, setIncludeRecent] = useState(false);
   const history = useRef<HTMLDivElement>(null);
   const reflectionQuest = state.quests.find((quest) => quest.id === state.chat.pendingReflections[0] && quest.status === "completed");
@@ -51,6 +51,7 @@ export function CompanionChat({ state }: { state: AppState }) {
   }
   return <details className="companion-chat"><summary>Chat with {state.pet.name}</summary>
     <ChatHistory ref={history} state={state} busy={busy} onRemember={(index, text, suggested) => setRemember({ index, text, suggested })}
+      onDismiss={(replyIndex, sourceIndex, quote) => void run(() => dispatch({ type: "dismiss-memory-suggestion", replyIndex, sourceIndex, quote }))}
       onAsk={(index, text) => void run(async () => { const result = await localChat(text, state, undefined, { includeRecent, beforeIndex: index });
         await dispatch({ type: "chat-reply", messageIndex: index, originalText: text, ...result }); })} />
     {remember && <ChatMemory key={`${remember.index}:${remember.text}:${remember.suggested?.quote ?? ""}`} index={remember.index} original={remember.text} suggested={remember.suggested}

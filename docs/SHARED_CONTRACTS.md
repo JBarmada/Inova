@@ -27,6 +27,8 @@ When the user explicitly enables recent conversation context, the request may al
 
 Local chat may return a proposed `memoryQuote` and `memoryCategory`. Only a nonempty exact quote from the current message without a question mark is offered, and the reducer rechecks the quote and source. The suggestion remains conversation data; it is never a saved memory or permission grant until the user reviews and explicitly saves it. Text matching cannot establish importance, truth or whether a preference is inferred.
 
+Saving a specific suggestion validates its source and reply index and resolves that suggestion in the same mutation as adding the reviewed memory; dismissal resolves it without adding a record. Exact-text existing memories suppress newly generated matching suggestions. Neither behavior merges semantically similar memories.
+
 The local companion request also supplies the adopted dog's name as `dogName`; it is distinct from user facts and treated as data. The shared prompt lives in `src-tauri/src/local_chat_prompt.txt` and the fictional manual evaluation harness reads that same file. Prompt examples and keyword checks do not enforce truth or prevent prompt injection.
 
 | Domain | Shared record | Main actions |

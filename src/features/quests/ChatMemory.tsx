@@ -4,7 +4,7 @@ import { dispatch } from "../../state/store";
 import { newId, now } from "../../shared/actions";
 
 export function ChatMemory({ index, original, suggested, onDone, onCancel }: {
-  index: number; original: string; suggested?: { quote: string; category: Category }; onDone: () => void; onCancel: () => void;
+  index: number; original: string; suggested?: { quote: string; category: Category; replyIndex: number }; onDone: () => void; onCancel: () => void;
 }) {
   const [text, setText] = useState(suggested?.quote ?? original);
   const [category, setCategory] = useState<Category>(suggested?.category ?? "misc");
@@ -15,7 +15,8 @@ export function ChatMemory({ index, original, suggested, onDone, onCancel }: {
     setBusy(true); setError("");
     try {
       await dispatch({ type: "save-chat-memory", messageIndex: index, originalText: original,
-        memory: { id: newId(), text, category, source: "chat", createdAt: now(), aiAllowed: allowed } });
+        memory: { id: newId(), text, category, source: "chat", createdAt: now(), aiAllowed: allowed },
+        ...(suggested ? { suggestion: { replyIndex: suggested.replyIndex, quote: suggested.quote } } : {}) });
       onDone();
     } catch (cause) { setError(cause instanceof Error ? cause.message : "Could not save memory."); }
     finally { setBusy(false); }

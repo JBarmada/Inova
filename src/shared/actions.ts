@@ -18,7 +18,8 @@ export type Action =
   | { type: "chat-goal"; text: string }
   | { type: "chat-share"; text: string }
   | { type: "chat-reply"; messageIndex: number; originalText: string; reply: string; memorySnapshot: { id: string; text: string }[]; contextSnapshot?: { index: number; text: string }[]; memorySuggestion?: { quote: string; category: NonNullable<Memory["category"]> } }
-  | { type: "save-chat-memory"; messageIndex: number; originalText: string; memory: Memory }
+  | { type: "save-chat-memory"; messageIndex: number; originalText: string; memory: Memory; suggestion?: { replyIndex: number; quote: string } }
+  | { type: "dismiss-memory-suggestion"; replyIndex: number; sourceIndex: number; quote: string }
   | { type: "chat-context"; text: string }
   | { type: "chat-skip" }
   | { type: "chat-reset" }

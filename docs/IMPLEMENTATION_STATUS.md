@@ -1,5 +1,11 @@
 # Implementation Status and Handoff
 
+## Memory suggestion lifecycle — November 23, 2026
+
+Users can dismiss a proposed chat memory without saving it. Saving from a suggestion atomically records the reviewed memory and resolves that suggestion; stale or repeated acceptance is rejected. Newly generated suggestions matching an existing memory after trimming and case-folding are suppressed, even if the existing memory is excluded from personalization. This is exact-text matching, not semantic deduplication. A dismissed suggestion may be proposed again if the user asks for a new reply.
+
+`npm run check` passed 194 tests, including reload, duplicate acceptance, dismissal and stale review. The new controls have not been visually checked in native Windows or on Mac. Earlier builds may discard suggestion metadata.
+
 ## Reviewed memory suggestions — November 23, 2026
 
 Local chat may suggest a memory quote and category from the current user message. The app only offers an exact nonempty quote from that message that does not contain a question mark; the user can review the original message, edit the quote and category, and explicitly save it, with personalization off by default. Suggestions are stored in the conversation, not as memory records, until accepted. Model output is not a validated personal fact, and a quote check does not establish that a statement is enduring or important. Clearing the conversation removes suggestions. Dependent suggestions are removed with a generated reply if a referenced memory changes.

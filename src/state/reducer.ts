@@ -10,6 +10,7 @@ function apply(state: AppState, action: Action): AppState {
   switch (action.type) {
     case "chat-goal": case "chat-share": case "chat-context": case "chat-skip": case "chat-reset": case "chat-clear": case "chat-follow-up": return changeChat(state, action);
     case "save-chat-memory": return saveChatMemory(state, action);
+    case "dismiss-memory-suggestion": return dismissMemorySuggestion(state, action.replyIndex, action.sourceIndex, action.quote);
     case "chat-reply": return saveChatReply(state, action);
     case "skip-chat-reflection": return clearReflectionPrompt(state, action.questId);
     case "adopt":
@@ -82,7 +83,15 @@ function saveChatMemory(state: AppState, action: Extract<Action, { type: "save-c
   const message = state.chat.messages[action.messageIndex];
   if (!message || message.role !== "user" || message.text !== action.originalText) throw Error("This conversation changed. Please choose the message again.");
   if (action.memory.source !== "chat" || action.memory.questId) throw Error("Invalid conversation memory.");
-  return apply(state, { type: "add-memory", memory: action.memory });
+  if (action.suggestion && state.memories.some((memory) => memory.id === action.memory.id)) throw Error("Memory already exists.");
+  const cleared = action.suggestion ? dismissMemorySuggestion(state, action.suggestion.replyIndex, action.messageIndex, action.suggestion.quote) : state;
+  return apply(cleared, { type: "add-memory", memory: action.memory });
+}
+
+function dismissMemorySuggestion(state: AppState, replyIndex: number, sourceIndex: number, quote: string): AppState {
+  const reply = state.chat.messages[replyIndex];
+  if (reply?.role !== "dog" || reply.memorySuggestion?.sourceIndex !== sourceIndex || reply.memorySuggestion.quote !== quote) throw Error("This suggestion is no longer available.");
+  return { ...state, chat: { ...state.chat, messages: state.chat.messages.map((entry, index) => index === replyIndex ? { ...entry, memorySuggestion: undefined } : entry) } };
 }
 
 function saveChatReply(state: AppState, action: Extract<Action, { type: "chat-reply" }>): AppState {
@@ -93,9 +102,10 @@ function saveChatReply(state: AppState, action: Extract<Action, { type: "chat-re
   if (action.memorySuggestion && (!action.memorySuggestion.quote.trim() || action.memorySuggestion.quote.includes("?") || !action.originalText.includes(action.memorySuggestion.quote))) throw Error("The suggested memory is not a statement in your message.");
   const reply = action.reply.trim();
   if (!reply || reply.length > 600 || state.chat.messages.length >= 200) throw Error("The reply could not be saved.");
+  const duplicate = action.memorySuggestion && state.memories.some((memory) => memory.text.trim().toLocaleLowerCase() === action.memorySuggestion!.quote.trim().toLocaleLowerCase());
   return { ...state, chat: { ...state.chat, messages: [...state.chat.messages,
     { role: "dog", text: reply, sourceIds: action.memorySnapshot.map((memory) => memory.id),
-      ...(action.memorySuggestion ? { memorySuggestion: { ...action.memorySuggestion, sourceIndex: action.messageIndex } } : {}) }] } };
+      ...(action.memorySuggestion && !duplicate ? { memorySuggestion: { ...action.memorySuggestion, sourceIndex: action.messageIndex } } : {}) }] } };
 }
 
 function editMemory(state: AppState, action: Extract<Action, { type: "edit-memory" }>): AppState {
