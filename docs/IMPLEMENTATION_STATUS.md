@@ -1,5 +1,11 @@
 # Implementation Status and Handoff
 
+## Multi-step plan preview — November 23, 2026
+
+Home chat now requests a structured explanation and one to three proposed steps through a separate local-model command. Only the first can be accepted and saved; later steps are transient and are not yet available as follow-ups. If local planning fails, the existing labeled single-step sample is shown. Response size, supported models, permitted-memory snapshots, extracted-detail evidence and duration/effort constraints remain validated; generated text is still untrusted. The existing single-quest composers are unchanged.
+
+Mocked model and reducer tests passed, and the browser sample fallback was inspected. `npm run check` passed 166 tests, and Windows `cargo test --lib --locked --offline` passed two tests. A direct fictional 12B multi-step request timed out after 120 seconds; no live response quality or latency claim is supported. Native and Mac runtime verification remain pending.
+
 ## Initial home chat — November 23, 2026
 
 The Companion page includes an expandable home chat that stores user messages and scripted dog prompts locally. It asks one optional fixed question, then uses the existing local planner or labeled sample fallback to preview one quest. Explicit acceptance atomically validates the current memory snapshot and saves an accepted quest; abandoning the transient preview saves no quest. The conversation and unfinished goal/context step survive saved-state reload, and clearing the conversation does not delete separately saved quests or memories. Generated proposal text is not stored in the transcript. Older saves default to an empty conversation; older versions may discard it if used to save the same profile.

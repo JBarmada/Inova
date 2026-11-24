@@ -2,6 +2,8 @@
 
 ## Current checkpoint — November 23, afternoon
 
+**Later AI refinement:** Home chat now has a scripted clarification and local-model preview of one to three steps, with only the first saved on acceptance. Later steps are transient. The sample fallback remains one step. Mocked tests and Windows Rust library tests pass, but a direct fictional 12B multi-step trial timed out at 120 seconds; native AI and visual checks remain open. See the current backlog for personality, memory-evolution testing, filters and post-wardrobe skin planning.
+
 This section supersedes conflicting statements in the earlier handoff below. Work remains on `codex/inova-complete` in an isolated worktree. The branch has been pushed to the existing public repository and has not been merged into main. The primary checkout and its uncommitted work remain intact. An animation snapshot was reconciled in a staging worktree and integrated into the buildout for testing.
 
 Desktop Quests and the floating toy use the same one-field composer. A local model proposes the quest and optional date/time and effort; extracted values require matching evidence and review. Date-only suggestions ask for a time or can be cleared. Recognizable missing or conflicting details open review; simple weekday, time and unit checks catch some mistakes but do not guarantee accuracy. The sample fallback is labeled and prompts for details when recognizable hints are missing. A small direct fictional 12B trial extracted a date-only example and a separate date/time/effort example; a 4B trial produced incorrect details. See implementation status for timings and limits. Permitted reflections are ranked by simple keyword overlap and recency, with source IDs and stale-permission checks retained.

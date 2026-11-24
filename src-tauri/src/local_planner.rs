@@ -30,7 +30,7 @@ pub async fn local_quest(input: String, model: String) -> Result<String, String>
         .ok_or_else(|| "Local AI response was missing its content.".into())
 }
 
-fn validate_model(model: &str) -> Result<(), String> {
+pub(crate) fn validate_model(model: &str) -> Result<(), String> {
     if model == "gemma3:12b" || model == "gemma3:4b" { Ok(()) }
     else { Err("Unsupported local model.".into()) }
 }
@@ -50,7 +50,7 @@ pub async fn local_model_available(model: String) -> Result<bool, String> {
     Ok(models.iter().any(|entry| entry.get("name").and_then(Value::as_str) == Some(model.as_str())))
 }
 
-async fn read_bounded(mut response: reqwest::Response, limit: usize) -> Result<Vec<u8>, String> {
+pub(crate) async fn read_bounded(mut response: reqwest::Response, limit: usize) -> Result<Vec<u8>, String> {
     if response.content_length().is_some_and(|length| length > limit as u64) {
         return Err("Local AI response is too large.".into());
     }
