@@ -1,5 +1,9 @@
 # Implementation Status and Handoff
 
+## Reject negated deadline suggestions — November 23, 2026
+
+The planner now rejects recognizable negated date evidence even if the model quotes only the date, such as “Friday” from “not due Friday.” A mocked planner test confirms the user is asked to review instead, and tests cover an alternative valid date and a numeric date. This is a conservative English pattern, not complete natural-language interpretation; complex or ambiguous deadlines still need user review and live-model testing. `npm run check` passed 258 tests. Native date-picker and timezone verification remain pending.
+
 ## Broaden named-birthday checks — November 23, 2026
 
 The existing capitalized possessive birthday filter now supports short, accented and hyphenated names and compares whole names with Unicode normalization. Fictional tests cover Li versus Liam, Élodie and Anne-Marie. The learning script now fails on prohibited memory selection or its explicit multi-person selection expectations; a dry run passed those checks with placeholder replies. These checks do not assess the model's response or general person matching. `npm run check` passed 256 tests; live-model and native verification remain pending.

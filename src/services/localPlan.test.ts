@@ -74,3 +74,10 @@ it("checks a relative date against the exact local clock sent to the model", asy
   expect(plan.details.deadlineDate).toBeUndefined();
   expect(plan.detailsWarning).toBe(true);
 });
+
+it("asks for review when a model selects a negated deadline", async () => {
+  const call = vi.fn().mockResolvedValue(JSON.stringify({ ...response, deadlineDate: "2026-11-27", deadlineEvidence: "Friday" }));
+  const plan = await proposeLocalPlan({ ...commitment, title: "It is not due Friday, but due Monday" }, initialState(), call as unknown as typeof invoke);
+  expect(plan.details.deadlineDate).toBeUndefined();
+  expect(plan.detailsWarning).toBe(true);
+});

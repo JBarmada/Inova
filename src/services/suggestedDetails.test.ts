@@ -63,3 +63,13 @@ it("keeps a date while requiring a user to resolve ambiguous or conflicting time
     expect(suggestedDetails(`Finish ${evidence}`, { deadlineLocal: `2026-11-27T${time}`, deadlineEvidence: evidence })).toEqual({ deadlineLocal: `2026-11-27T${time}` });
   }
 });
+
+it("does not accept an excluded deadline when the model quotes only the date", () => {
+  const text = "It is not due on Friday, but due Monday";
+  for (const deadlineEvidence of ["Friday", "not due on Friday"]) {
+    expect(suggestedDetails(text, { deadlineDate: "2026-11-27", deadlineEvidence })).toEqual({});
+  }
+  expect(suggestedDetails(text, { deadlineDate: "2026-11-30", deadlineEvidence: "Monday" })).toEqual({ deadlineDate: "2026-11-30" });
+  expect(suggestedDetails("Not urgent, due Friday", { deadlineDate: "2026-11-27", deadlineEvidence: "Friday" })).toEqual({ deadlineDate: "2026-11-27" });
+  expect(suggestedDetails("It isn't due on 11/27/2026", { deadlineDate: "2026-11-27", deadlineEvidence: "11/27/2026" })).toEqual({});
+});
