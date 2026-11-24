@@ -51,3 +51,9 @@ it("matches short, accented and hyphenated names as whole names", () => {
   expect(chatMemories("When is Anne-Marie's birthday?", entries).map((entry) => entry.id)).toEqual(["anne"]);
   expect(chatMemories("When is Li's birthday?", entries.slice(1))).toEqual([]);
 });
+
+it("recognizes a capitalized name introduction without confusing it with a class statement", () => {
+  const entries = [memory("name", "I'm Alex"), memory("class", "I am taking astronomy"), memory("recent", "I enjoy painting")];
+  expect(chatMemories("What is my name?", entries).map((entry) => entry.id)).toEqual(["name"]);
+  expect(chatMemories("What is my name?", [memory("name", "I am Élodie"), entries[1]]).map((entry) => entry.id)).toEqual(["name"]);
+});

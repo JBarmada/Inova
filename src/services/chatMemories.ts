@@ -2,7 +2,8 @@ import type { AppState } from "../shared/schema";
 
 const common = new Set(["the", "and", "for", "with", "that", "this", "from", "have", "will", "your", "about", "when", "what", "does", "where", "which", "like", "likes"]);
 const themes = [
-  { question: /\b(?:my name|name am i|call me|i go by)\b/i, memory: /\b(?:my name(?: is|'s)|i am called|call me|i go by)\b/i },
+  { question: /\b(?:my name|name am i|call me|i go by)\b/i, memory: /\b(?:my name(?: is|'s)|i am called|call me|i go by)\b/i,
+    alternative: /\bI(?:'m|’m| am)\s+\p{Lu}[\p{L}\p{M}'’-]+\b/u },
   { question: /\b(?:class|classes|course|courses|subject|studying|study|taking|enrolled)\b/i, memory: /\b(?:class|classes|course|courses|subject|studying|study|taking|take|enrolled)\b/i },
   { question: /\b(?:friend|friends|people)\b/i, memory: /\b(?:friend|friends)\b/i },
   { question: /\b(?:like|likes|love|loves|prefer|prefers)\b/i, memory: /\b(?:like|likes|love|loves|prefer|prefers)\b/i },
@@ -29,7 +30,7 @@ export function chatMemories(message: string, memories: AppState["memories"], li
   const ranked = memories.map((memory, index) => {
     const memoryTerms = [...terms(memory.text)];
     const overlap = memoryTerms.filter((word) => query.has(word)).length;
-    const themesMatched = themes.filter((theme) => theme.question.test(message) && theme.memory.test(memory.text)).length;
+    const themesMatched = themes.filter((theme) => theme.question.test(message) && (theme.memory.test(memory.text) || theme.alternative?.test(memory.text))).length;
     const contextOverlap = memoryTerms.filter((word) => contextTerms.has(word)).length;
     return { memory, index, score: overlap * 3 + themesMatched * 2, contextOverlap };
   }).filter(({ memory }) => memory.aiAllowed && (!birthdaySubject || containsPerson(memory.text, birthdaySubject)))

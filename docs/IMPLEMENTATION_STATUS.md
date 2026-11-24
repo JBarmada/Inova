@@ -1,5 +1,9 @@
 # Implementation Status and Handoff
 
+## Exercise the learning sequence — November 23, 2026
+
+The chat memory selector recognizes some capitalized introductions such as “I'm Alex” when asked for the user's name. A fictional automated scenario checks initial unknown state, explicitly saved name/class/study effort/friend/date, reload, correction, deletion and permission revocation using the real selector and reducer. It verifies that study effort is not automatically stored as a preference. Replies are placeholders, so this does not demonstrate model reasoning or reliable name recognition. `npm run check` passed 261 tests; live-model and native verification remain pending.
+
 ## Carry longer goal conversations — November 23, 2026
 
 A home-chat goal and up to two clarification answers can now total 724 characters, while each message remains limited to 240. Automated coverage sends the full text to a mocked local planner and follows sample planning, acceptance, reload and a later follow-up. No earlier save migration is required, but older app builds can reject a save while an active chat goal exceeds their 240-character limit; do not open such a profile in an older build. `npm run check` passed 259 tests. Live-model handling of longer input and native layout remain unverified.
