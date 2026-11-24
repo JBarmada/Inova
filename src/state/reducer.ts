@@ -4,10 +4,11 @@ import { changeQuestStatus, completeQuest } from "./quests";
 import { changeEquipment } from "./equipment";
 import { planQuest, clearQuestPlan } from "./scheduling";
 import { changeChat } from "./chat";
+import { previousQuestContext } from "../services/previousQuest";
 
 function apply(state: AppState, action: Action): AppState {
   switch (action.type) {
-    case "chat-goal": case "chat-context": case "chat-skip": case "chat-reset": case "chat-clear": return changeChat(state, action);
+    case "chat-goal": case "chat-context": case "chat-skip": case "chat-reset": case "chat-clear": case "chat-follow-up": return changeChat(state, action);
     case "skip-chat-reflection": return clearReflectionPrompt(state, action.questId);
     case "adopt":
       return { ...state, pet: { ...state.pet, name: action.name.trim(), adopted: true } };
@@ -41,6 +42,7 @@ function apply(state: AppState, action: Action): AppState {
         throw Error("Quest duration exceeds the estimated total effort.");
       if (action.quest.completedAt || action.quest.plan) throw Error("A proposed quest cannot have a completion date or plan.");
       if (action.quest.status !== "proposed") throw Error("New quests must be proposals.");
+      if (action.quest.priorQuestId && !state.quests.some((entry) => entry.id === action.quest.priorQuestId && entry.status === "completed")) throw Error("Prior quest must be completed.");
       if (state.settings.questMinuteLimit && action.quest.minutes > state.settings.questMinuteLimit) throw Error("This quest exceeds your current length limit. Please plan again.");
       if (!action.quest.sourceIds.includes(action.quest.commitmentId)) throw Error("Quest must cite its commitment.");
       if (action.quest.sourceIds.some((id) => id !== action.quest.commitmentId && !state.memories.some((memory) => memory.id === id && memory.aiAllowed))) throw Error("Quest refers to unavailable evidence.");
@@ -80,12 +82,15 @@ function apply(state: AppState, action: Action): AppState {
 }
 
 function clearReflectionPrompt(state: AppState, questId?: string): AppState {
-  return { ...state, chat: { ...state.chat, pendingReflections: state.chat.pendingReflections.filter((id) => id !== questId) } };
+  const wasPending = questId && state.chat.pendingReflections.includes(questId);
+  return { ...state, chat: { ...state.chat, pendingReflections: state.chat.pendingReflections.filter((id) => id !== questId),
+    ...(wasPending ? { followUpQuestId: questId } : {}) } };
 }
 
 function acceptPlannedQuest(state: AppState, action: Extract<Action, { type: "accept-planned-quest" }>): AppState {
   if (state.chat.phase !== "ready" || state.chat.goal !== action.commitment.title) throw Error("This conversation changed. Please plan again.");
-  const planned = apply(state, { ...action, type: "add-planned-quest" });
+  if (JSON.stringify(previousQuestContext(state)) !== JSON.stringify(action.previousQuest)) throw Error("The completed quest changed. Please plan again.");
+  const planned = apply(state, { ...action, type: "add-planned-quest", quest: { ...action.quest, priorQuestId: action.previousQuest?.id } });
   const accepted = apply(planned, { type: "quest-status", id: action.quest.id, status: "accepted" });
   return changeChat(accepted, { type: "chat-reset" });
 }

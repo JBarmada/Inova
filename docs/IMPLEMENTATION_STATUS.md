@@ -1,5 +1,13 @@
 # Implementation Status and Handoff
 
+## Quest follow-up planning — November 23, 2026
+
+After saving or skipping a completion reflection, the user can request another plan for the original goal. The local planner receives a previous-quest identifier and, when its title has no memory dependencies, that completed title. It prioritizes a linked reflection only if the user allowed personalization. Previous quest context and allowed reflection snapshots are rechecked before acceptance, and a saved follow-up links to its prior quest in suggestion context. The sample fallback is a labeled generic continuation, not an AI-generated step. Only the most recently resolved reflection offers a follow-up; multiple reflection prompts remain queued.
+
+`npm run check` passed 174 tests and Windows `cargo test --lib --locked --offline` passed two tests. Mocked model tests cover allowed/private reflection context and revoked permission; a fictional browser sample flow reached and accepted a linked follow-up. Live local-model follow-ups, native UI and Mac runtime remain unverified. Older builds may discard the added chat and quest fields if used to save the same profile.
+
+One direct fictional 4B follow-up request returned a structured plan that mentioned the allowed reflection, but measured 305.9 seconds and suggested outlining after the previous quest had drafted main points. This service-only trial suggests latency and repetition problems; it did not exercise the native app or establish reliable quality.
+
 ## Quest reflections in companion chat — November 23, 2026
 
 A successful quest completion queues an optional reflection prompt in home chat. The user can skip it or save a quest-linked memory, excluded from personalization unless explicitly permitted. Completing more than one quest preserves separate prompts. Saving through the existing completion reflection form clears that quest's matching prompt. The reflection text is kept in the memory record, not copied to the chat transcript, so existing edit/revoke/delete controls remain authoritative. A generic prompt invites another goal; contextual AI follow-up remains unfinished.

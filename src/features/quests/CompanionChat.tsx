@@ -29,7 +29,7 @@ export function CompanionChat({ state }: { state: AppState }) {
     setText("");
   }
   async function accept(result: Draft) {
-    await dispatch({ type: "accept-planned-quest", commitment: result.commitment, quest: result.quest, memorySnapshot: result.memorySnapshot });
+    await dispatch({ type: "accept-planned-quest", commitment: result.commitment, quest: result.quest, memorySnapshot: result.memorySnapshot, previousQuest: result.previousQuest });
     setDraft(undefined); setMessage("Quest accepted! Find it in Quests.");
   }
   async function plan(sample = false) {
@@ -46,6 +46,9 @@ export function CompanionChat({ state }: { state: AppState }) {
       {state.chat.messages.map((entry, index) => <p key={index}><strong>{entry.role === "user" ? "You" : state.pet.name}:</strong> {entry.text}</p>)}
     </div>
     {reflectionQuest && <ChatReflection key={reflectionQuest.id} quest={reflectionQuest} onDone={setMessage} />}
+    {state.chat.contextQuestId && <p>Continuing: {state.chat.goal}</p>}
+    {!reflectionQuest && !draft && state.chat.phase === "goal" && state.chat.followUpQuestId && <button type="button" disabled={busy}
+      onClick={() => void run(() => dispatch({ type: "chat-follow-up", questId: state.chat.followUpQuestId! }))}>Plan the next step</button>}
     {draft ? <>
       {draft.explanation && <p>{draft.explanation}</p>}
       {draft.steps.length > 1 && <><p>Possible next steps (only the first is saved if you accept):</p>

@@ -5,6 +5,7 @@ import { newId } from "../shared/actions";
 import { planningMemories } from "./planningMemories";
 import { detailsMayBeMissing } from "./detailsMayBeMissing";
 import { suggestedDetails } from "./suggestedDetails";
+import { previousQuestContext } from "./previousQuest";
 
 const step = z.object({ title: z.string().trim().min(1).max(240), reason: z.string().trim().min(1).max(1000),
   minutes: z.number().int().min(1).max(120) }).strict();
@@ -14,10 +15,13 @@ const resultSchema = z.object({ explanation: z.string().trim().min(1).max(1000),
 
 export async function proposeLocalPlan(commitment: Commitment, state: AppState, call = invoke) {
   if (call === invoke && !isTauri()) throw Error("Local AI requires the desktop app.");
-  const memorySnapshot = planningMemories(commitment.title, state.memories).map(({ id, text }) => ({ id, text }));
+  const previousQuest = previousQuestContext(state);
+  const related = state.memories.filter((entry) => entry.aiAllowed && entry.questId === previousQuest?.id).slice(-1);
+  const selected = [...related, ...planningMemories(commitment.title, state.memories).filter((entry) => !related.some((item) => item.id === entry.id))].slice(0, 3);
+  const memorySnapshot = selected.map(({ id, text }) => ({ id, text }));
   const input = JSON.stringify({ localNow: new Date().toLocaleString("sv-SE").replace(" ", "T"),
     commitment: { id: commitment.id, title: commitment.title, deadline: commitment.deadline, effortMinutes: commitment.effortMinutes },
-    reflections: memorySnapshot, maxQuestMinutes: state.settings.questMinuteLimit || undefined });
+    reflections: memorySnapshot, previousQuest, maxQuestMinutes: state.settings.questMinuteLimit || undefined });
   let raw: string;
   try { raw = await call<string>("local_quest_plan", { input, model: state.settings.localModel }); }
   catch { throw Error("Local AI could not make a plan."); }

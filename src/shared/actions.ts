@@ -14,13 +14,14 @@ export type Action =
   | { type: "add-commitment"; commitment: Commitment }
   | { type: "add-exploration"; commitment: Commitment; quest: Quest }
   | { type: "add-planned-quest"; commitment: Commitment; quest: Quest; memorySnapshot: { id: string; text: string }[] }
-  | { type: "accept-planned-quest"; commitment: Commitment; quest: Quest; memorySnapshot: { id: string; text: string }[] }
+  | { type: "accept-planned-quest"; commitment: Commitment; quest: Quest; memorySnapshot: { id: string; text: string }[]; previousQuest?: { id: string; title?: string } }
   | { type: "chat-goal"; text: string }
   | { type: "chat-context"; text: string }
   | { type: "chat-skip" }
   | { type: "chat-reset" }
   | { type: "chat-clear" }
   | { type: "skip-chat-reflection"; questId: string }
+  | { type: "chat-follow-up"; questId: string }
   | { type: "propose-quest"; quest: Quest; memorySnapshot?: { id: string; text: string }[] }
   | { type: "edit-quest"; id: string; title: string; minutes?: number }
   | { type: "quest-status"; id: string; status: "accepted" | "deferred" | "dismissed" }

@@ -25,6 +25,7 @@ export const questSchema = z.object({
   id, commitmentId: id, title: text, reason: text,
   sourceIds: z.array(id), minutes: z.number().int().min(1).max(120),
   status: questStatusSchema, planner: z.enum(["sample", "local"]), completedAt: z.iso.datetime().optional(),
+  priorQuestId: id.optional(),
   plan: questPlanSchema.optional(),
 }).superRefine((quest, context) => {
   if (quest.plan && Date.parse(quest.plan.end) - Date.parse(quest.plan.start) !== quest.minutes * 60_000)
@@ -44,6 +45,7 @@ const commonSchema = z.object({
   chat: z.object({ phase: z.enum(["goal", "context", "ready"]), goal: z.string().max(240),
     messages: z.array(z.object({ role: z.enum(["user", "dog"]), text: z.string().min(1).max(4000) })).max(200),
     pendingReflections: z.array(id).default([]),
+    followUpQuestId: id.optional(), contextQuestId: id.optional(),
   }).default({ phase: "goal", goal: "", messages: [], pendingReflections: [] }),
 });
 
