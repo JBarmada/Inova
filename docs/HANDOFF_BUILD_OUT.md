@@ -2,7 +2,7 @@
 
 ## Current checkpoint — November 23, afternoon
 
-**Later AI refinement:** Home chat now has a scripted clarification and local-model preview of one to three steps, with only the first saved on acceptance. Later steps are transient. The sample fallback remains one step. Mocked tests and Windows Rust library tests pass, but a direct fictional 12B multi-step trial timed out at 120 seconds; native AI and visual checks remain open. See the current backlog for personality, memory-evolution testing, filters and post-wardrobe skin planning.
+**Later AI refinement:** Home chat now has a scripted clarification and local-model preview of one to three steps, with only the first saved on acceptance. Later steps are transient. Users can select the one-step sample while waiting; the pending native request continues but its result is ignored. Mocked tests and Windows Rust library tests pass. A direct fictional 12B multi-step trial timed out at 120 seconds, while two 4B service-only trials returned in 23.5 and 7.7 seconds. Native AI and visual checks remain open. See the current backlog for personality, memory-evolution testing, filters and post-wardrobe skin planning.
 
 This section supersedes conflicting statements in the earlier handoff below. Work remains on `codex/inova-complete` in an isolated worktree. The branch has been pushed to the existing public repository and has not been merged into main. The primary checkout and its uncommitted work remain intact. An animation snapshot was reconciled in a staging worktree and integrated into the buildout for testing.
 
