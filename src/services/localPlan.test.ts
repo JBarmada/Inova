@@ -23,6 +23,18 @@ it("validates a multi-step plan while sending only allowed memories", async () =
   expect(call.mock.calls[0][0]).toBe("local_quest_plan");
 });
 
+it("does not treat the newest unlinked memory as a reflection of a nonexistent quest", async () => {
+  const state = initialState();
+  state.memories = [
+    { id: "topic", text: "Presentation practice helps", aiAllowed: true, createdAt: commitment.createdAt },
+    { id: "new", text: "Unrelated personal fact", aiAllowed: true, createdAt: commitment.createdAt },
+  ];
+  const call = vi.fn().mockResolvedValue(JSON.stringify(response));
+  const plan = await proposeLocalPlan(commitment, state, call as unknown as typeof invoke);
+  expect(JSON.parse(call.mock.calls[0][1].input).reflections).toEqual([{ id: "topic", text: "Presentation practice helps" }]);
+  expect(plan.quest.sourceIds).toEqual(["c", "topic"]);
+});
+
 it("rejects invalid or oversized plans and steps that exceed limits", async () => {
   const state = initialState();
   state.settings.questMinuteLimit = 5;

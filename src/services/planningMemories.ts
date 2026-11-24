@@ -7,8 +7,9 @@ function words(text: string): Set<string> {
 
 export function planningMemories(title: string, memories: AppState["memories"], limit = 3) {
   const terms = words(title);
-  return memories.map((memory, index) => ({ memory, index, score: [...words(memory.text)].filter((word) => terms.has(word)).length }))
+  const ranked = memories.map((memory, index) => ({ memory, index, score: [...words(memory.text)].filter((word) => terms.has(word)).length }))
     .filter(({ memory }) => memory.aiAllowed)
-    .sort((a, b) => b.score - a.score || b.index - a.index)
-    .slice(0, limit).map(({ memory }) => memory);
+    .sort((a, b) => b.score - a.score || b.index - a.index);
+  const hasMatch = ranked.some(({ score }) => score > 0);
+  return ranked.filter(({ score }) => !hasMatch || score > 0).slice(0, limit).map(({ memory }) => memory);
 }

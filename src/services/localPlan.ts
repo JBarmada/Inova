@@ -18,7 +18,7 @@ export async function proposeLocalPlan(commitment: Commitment, state: AppState, 
   const previousQuest = previousQuestContext(state);
   const prior = state.quests.find((quest) => quest.id === previousQuest?.id);
   const required = previousQuest?.title ? state.memories.filter((entry) => entry.aiAllowed && entry.id !== prior?.commitmentId && prior?.sourceIds.includes(entry.id)) : [];
-  const related = state.memories.filter((entry) => entry.aiAllowed && entry.questId === previousQuest?.id).slice(-1);
+  const related = previousQuest ? state.memories.filter((entry) => entry.aiAllowed && entry.questId === previousQuest.id).slice(-1) : [];
   const selected = [...required, ...related, ...planningMemories(commitment.title, state.memories)]
     .filter((entry, index, all) => all.findIndex((item) => item.id === entry.id) === index).slice(0, 3);
   const memorySnapshot = selected.map(({ id, text }) => ({ id, text }));

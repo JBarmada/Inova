@@ -1,5 +1,9 @@
 # Implementation Status and Handoff
 
+## Improve planning memory selection — November 23, 2026
+
+Planning no longer mistakes an unlinked memory for a reflection when there is no previous quest. When a permitted memory matches the goal, unrelated zero-score memories are excluded; if none match, the existing recent-memory fallback remains. Follow-ups still prioritize a permitted reflection explicitly linked to the previous quest. Matching uses simple wording rather than semantic understanding and may miss relevant memories. `npm run check` passed 251 tests. Live-model and native verification remain pending.
+
 ## Check suggested deadline times — November 23, 2026
 
 The planner now checks noon, midnight and unambiguous 24-hour times against the model's suggestion. An unqualified time such as “5:00,” multiple alternatives, or a conflicting time no longer supplies an assumed clock time; when the date is supported, the user is asked to provide the time in review. `npm run check` passed 250 tests. Native date-picker, locale and daylight-saving behavior remain to be verified.
