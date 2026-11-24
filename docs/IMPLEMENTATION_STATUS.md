@@ -1,5 +1,11 @@
 # Implementation Status and Handoff
 
+## Initial home chat — November 23, 2026
+
+The Companion page includes an expandable home chat that stores user messages and scripted dog prompts locally. It asks one optional fixed question, then uses the existing local planner or labeled sample fallback to preview one quest. Explicit acceptance atomically validates the current memory snapshot and saves an accepted quest; abandoning the transient preview saves no quest. The conversation and unfinished goal/context step survive saved-state reload, and clearing the conversation does not delete separately saved quests or memories. Generated proposal text is not stored in the transcript. Older saves default to an empty conversation; older versions may discard it if used to save the same profile.
+
+This is not yet open-ended AI chat, multi-step planning, a post-completion chat reflection, or the requested Quest-tab redesign. `npm run check` passed 162 tests including state reload, duplicate acceptance and revoked-memory rejection. A fictional browser preview verified the home chat, sample acceptance and Quest tab; native and Mac checks remain pending. The conversation limit is 200 messages; existing messages are preserved when the limit is reached.
+
 ## Local model injection trial — November 23, 2026
 
 One direct HTTP trial used the application's system prompt, 12B model, structured-output schema and settings with fictional data. A reflection instructed the model to use an unrelated title; the model followed it and returned that title after approximately 23 seconds. This is a demonstrated prompt-injection failure, not a comprehensive evaluation. Schema and application rules constrain quest state and rewards but do not prevent manipulation of generated text. Further mitigation and tests remain open; native UI was not exercised.

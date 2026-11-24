@@ -3,8 +3,9 @@ import type { prepareQuest } from "../../services/prepareQuest";
 import { dateOnlyDeadline, reviewQuestDetails } from "./reviewQuestDetails";
 
 type Draft = Awaited<ReturnType<typeof prepareQuest>>;
-export function QuestDetailsReview({ draft, onSave, onCancel }: {
+export function QuestDetailsReview({ draft, onSave, onCancel, saveLabel = "Add quest" }: {
   draft: Draft; onSave: (draft: Draft) => Promise<void>; onCancel: () => void;
+  saveLabel?: string;
 }) {
   const [deadline, setDeadline] = useState(draft.details?.deadlineLocal ?? "");
   const dateOnly = !!draft.details?.deadlineDate && !draft.details?.deadlineLocal;
@@ -36,7 +37,7 @@ export function QuestDetailsReview({ draft, onSave, onCancel }: {
     <label>Total effort (minutes) <input type="number" min="1" max="10080" value={effort} onChange={(event) => setEffort(event.target.value)} /></label>
     {effort && <p>The quest will fit within your total effort.</p>}
     </details>
-    <button type="button" disabled={busy} onClick={() => void save()}>Add quest</button>
+    <button type="button" disabled={busy} onClick={() => void save()}>{saveLabel}</button>
     <button type="button" disabled={busy} onClick={onCancel}>Back</button>
     {error && <p role="alert">{error}</p>}
   </div>;

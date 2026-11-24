@@ -11,6 +11,7 @@ import { CompanionControls } from "./features/companion/CompanionControls";
 import { PixelStatus } from "./features/companion/PixelStatus";
 import { useFloatingLayout } from "./features/companion/useFloatingLayout";
 import { PixelIcon } from "./features/companion/PixelIcon";
+import { CompanionChat } from "./features/quests/CompanionChat";
 
 const tabs = ["companion", "quests", "wardrobe", "memories"] as const;
 type Tab = typeof tabs[number];
@@ -54,6 +55,7 @@ export function App() {
       </header>}
     {(floating || tab === "companion") && <PetPanel floating={floating} onToyExpanded={setToyExpanded}
       rewardPending={rewardPending} onRewardShown={rewardShown} />}
+    {!floating && tab === "companion" && state.pet.adopted && <CompanionChat state={state} />}
     {!floating && tab === "quests" && <QuestsPanel />}
     {!floating && tab === "wardrobe" && <WardrobePanel />}
     {!floating && tab === "memories" && <MemoryShelf />}

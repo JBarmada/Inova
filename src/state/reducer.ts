@@ -3,9 +3,11 @@ import { stateSchema, type AppState } from "../shared/schema";
 import { changeQuestStatus, completeQuest } from "./quests";
 import { changeEquipment } from "./equipment";
 import { planQuest, clearQuestPlan } from "./scheduling";
+import { changeChat } from "./chat";
 
 function apply(state: AppState, action: Action): AppState {
   switch (action.type) {
+    case "chat-goal": case "chat-context": case "chat-skip": case "chat-reset": case "chat-clear": return changeChat(state, action);
     case "adopt":
       return { ...state, pet: { ...state.pet, name: action.name.trim(), adopted: true } };
     case "mood": return { ...state, pet: { ...state.pet, mood: action.mood } };
@@ -21,6 +23,7 @@ function apply(state: AppState, action: Action): AppState {
     case "add-exploration": case "add-planned-quest":
       if (action.quest.commitmentId !== action.commitment.id || state.commitments.some((entry) => entry.id === action.commitment.id) || state.quests.some((entry) => entry.id === action.quest.id)) throw Error("This quest already exists or is invalid.");
       return apply(apply(state, { type: "add-commitment", commitment: action.commitment }), { type: "propose-quest", quest: action.quest, memorySnapshot: action.type === "add-planned-quest" ? action.memorySnapshot : undefined });
+    case "accept-planned-quest": return acceptPlannedQuest(state, action);
     case "propose-quest":
       if (state.quests.some((entry) => entry.id === action.quest.id)) return state;
       if ((action.quest.planner === "local" && !action.memorySnapshot) ||
@@ -73,6 +76,13 @@ function apply(state: AppState, action: Action): AppState {
       return { ...forgetReference(state, action.allowed ? "" : action.id), memories: state.memories.map((entry) => entry.id === action.id ? { ...entry, aiAllowed: action.allowed } : entry) };
     case "delete-memory": return { ...forgetReference(state, action.id), memories: state.memories.filter((entry) => entry.id !== action.id) };
   }
+}
+
+function acceptPlannedQuest(state: AppState, action: Extract<Action, { type: "accept-planned-quest" }>): AppState {
+  if (state.chat.phase !== "ready" || state.chat.goal !== action.commitment.title) throw Error("This conversation changed. Please plan again.");
+  const planned = apply(state, { ...action, type: "add-planned-quest" });
+  const accepted = apply(planned, { type: "quest-status", id: action.quest.id, status: "accepted" });
+  return changeChat(accepted, { type: "chat-reset" });
 }
 
 function forgetReference(state: AppState, id: string): AppState {

@@ -41,6 +41,9 @@ const commonSchema = z.object({
   quests: z.array(questSchema),
   memories: z.array(memorySchema),
   rewardedQuestIds: z.array(id),
+  chat: z.object({ phase: z.enum(["goal", "context", "ready"]), goal: z.string().max(240),
+    messages: z.array(z.object({ role: z.enum(["user", "dog"]), text: z.string().min(1).max(4000) })).max(200),
+  }).default({ phase: "goal", goal: "", messages: [] }),
 });
 
 const currentSchema = commonSchema.extend({
