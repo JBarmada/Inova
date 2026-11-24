@@ -76,4 +76,5 @@ footer { margin-top: 48px; padding-top: 20px; border-top: 2px solid #d4c6a7; }
 .quest-details-review button { margin: 4px 8px 4px 0; }
 .companion-chat { max-width: 680px; margin: 16px auto; }
 .chat-history { max-height: 240px; overflow-y: auto; padding: 8px; background: #fff9e6; }
+.chat-message-text { white-space: pre-wrap; overflow-wrap: anywhere; }
 .companion-chat button { margin: 4px 8px 4px 0; }

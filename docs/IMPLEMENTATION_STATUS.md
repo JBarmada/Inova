@@ -1,5 +1,11 @@
 # Implementation Status and Handoff
 
+## Accepted plans in chat history — November 23, 2026
+
+When a home-chat quest is accepted, the conversation records its accepted title and the later suggestions as they were at acceptance; sample plans remain labeled. The copy carries supporting memory IDs and is removed if a supporting memory is edited, deleted or excluded from personalization. It is conservatively excluded from optional recent context when any user message is excluded, because exact source-message links are not yet tracked. A full conversation does not prevent accepting a quest; in that case no history copy is added. Direct desktop/floating acceptance does not yet add a chat record. Unaccepted previews and explanations are not persisted.
+
+`npm run check` passed 238 tests, including reload, memory revocation, excluded conversation context and accepting with a full transcript. Native visual and live-model testing remain pending.
+
 ## Clarifying explicit starting points — November 23, 2026
 
 The scripted quest clarification recognizes a few explicit ways to say there is no deadline, that work has not started, or that an outline, draft or plan already exists. It asks for another detail rather than repeating those questions; it does not create a deadline or interpret uncertain wording as fact. `npm run check` passed 236 tests. This remains a narrow English heuristic, not model-driven multi-turn clarification, and needs native/live conversation evaluation.

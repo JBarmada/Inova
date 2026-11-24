@@ -11,7 +11,7 @@ export const ChatHistory = forwardRef<HTMLDivElement, {
 }>(function ChatHistory({ state, busy, onRemember, onAsk, onDismiss, onPlan, onDismissQuest, onExclude }, ref) {
   return <div ref={ref} className="chat-history" aria-label="Conversation history" role="log">
     {state.chat.messages.length === 0 && <p>What would you like to work on together?</p>}
-    {state.chat.messages.map((entry, index) => <div key={index}><strong>{entry.role === "user" ? "You" : state.pet.name}:</strong> {entry.text}
+    {state.chat.messages.map((entry, index) => <div key={index}><strong>{entry.role === "user" ? "You" : state.pet.name}:</strong> <span className="chat-message-text">{entry.text}</span>
       {entry.role === "user" && <><button type="button" disabled={busy || state.chat.phase !== "goal"} onClick={() => onPlan(index, entry.text)}>Make a quest</button>
       <details><summary>Message actions</summary>
         <button type="button" disabled={busy} onClick={() => onRemember(index, entry.text)}>Remember</button>

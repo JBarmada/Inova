@@ -18,7 +18,8 @@ it("restores a conversation and atomically accepts its reviewed quest only once"
   expect(accepted.chat.phase).toBe("goal");
   expect(() => reduce(accepted, action)).toThrow("conversation changed");
   const restored = stateSchema.parse(JSON.parse(JSON.stringify(accepted)));
-  expect(restored.chat.messages).toEqual(state.chat.messages);
+  expect(restored.chat.messages.slice(0, state.chat.messages.length)).toEqual(state.chat.messages);
+  expect(restored.chat.messages.at(-1)?.text).toContain("Sample quest accepted");
   expect(restored.quests).toHaveLength(1);
   expect(reduce(restored, { type: "chat-clear" }).chat.messages).toEqual([]);
 });

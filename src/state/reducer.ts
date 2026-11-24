@@ -7,6 +7,7 @@ import { changeChat } from "./chat";
 import { previousQuestContext } from "../services/previousQuest";
 import { validRecentChat } from "../services/recentChat";
 import { followUpIds, withFollowUps } from "./followUps";
+import { recordAcceptedPlan } from "./planHistory";
 
 function apply(state: AppState, action: Action): AppState {
   switch (action.type) {
@@ -155,7 +156,8 @@ function acceptPlannedQuest(state: AppState, action: Extract<Action, { type: "ac
   const accepted = apply(planned, { type: "quest-status", id: action.quest.id, status: "accepted" });
   const consumed = action.consumesSavedPlan ? { ...accepted, quests: accepted.quests.map((quest) => quest.id === action.previousQuest?.id ? { ...quest, futureSteps: undefined } : quest) } : accepted;
   const remaining = action.previousQuest ? followUpIds(consumed.chat).filter((id) => id !== action.previousQuest!.id) : followUpIds(consumed.chat);
-  return changeChat({ ...consumed, chat: withFollowUps(consumed.chat, remaining) }, { type: "chat-reset" });
+  const recorded = recordAcceptedPlan(consumed, action.quest);
+  return changeChat({ ...recorded, chat: withFollowUps(recorded.chat, remaining) }, { type: "chat-reset" });
 }
 
 function acceptDirectPlan(state: AppState, action: Extract<Action, { type: "accept-direct-plan" }>) {
