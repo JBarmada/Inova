@@ -22,7 +22,8 @@ export async function proposeLocalPlan(commitment: Commitment, state: AppState, 
   const selected = [...required, ...related, ...planningMemories(commitment.title, state.memories)]
     .filter((entry, index, all) => all.findIndex((item) => item.id === entry.id) === index).slice(0, 3);
   const memorySnapshot = selected.map(({ id, text }) => ({ id, text }));
-  const input = JSON.stringify({ localNow: new Date().toLocaleString("sv-SE").replace(" ", "T"),
+  const localNow = new Date().toLocaleString("sv-SE").replace(" ", "T");
+  const input = JSON.stringify({ localNow,
     commitment: { id: commitment.id, title: commitment.title, deadline: commitment.deadline, effortMinutes: commitment.effortMinutes },
     reflections: memorySnapshot, previousQuest, maxQuestMinutes: state.settings.questMinuteLimit || undefined });
   let raw: string;
@@ -35,7 +36,7 @@ export async function proposeLocalPlan(commitment: Commitment, state: AppState, 
   const { explanation, steps, ...suggestions } = result.data;
   if (steps.some((entry) => (state.settings.questMinuteLimit && entry.minutes > state.settings.questMinuteLimit) ||
     (commitment.effortMinutes && entry.minutes > commitment.effortMinutes))) throw Error("A suggested step exceeds your limit.");
-  const details = suggestedDetails(commitment.title, suggestions);
+  const details = suggestedDetails(commitment.title, suggestions, localNow);
   const totalEffort = commitment.effortMinutes ?? details.effortMinutes;
   if (totalEffort && steps.reduce((total, entry) => total + entry.minutes, 0) > totalEffort)
     throw Error("The suggested plan exceeds the stated total effort.");

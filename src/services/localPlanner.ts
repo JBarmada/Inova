@@ -16,7 +16,8 @@ export async function proposeLocal(commitment: Commitment, state: AppState, call
   const memorySnapshot = planningMemories(commitment.title, state.memories)
     .map(({ id, text }) => ({ id, text }));
   if (call === invoke && !isTauri()) throw Error("Local AI requires the desktop app. The sample planner is available here.");
-  const input = JSON.stringify({ localNow: new Date().toLocaleString("sv-SE").replace(" ", "T"), commitment: { id: commitment.id, title: commitment.title, deadline: commitment.deadline, effortMinutes: commitment.effortMinutes }, reflections: memorySnapshot, maxQuestMinutes: state.settings.questMinuteLimit || undefined });
+  const localNow = new Date().toLocaleString("sv-SE").replace(" ", "T");
+  const input = JSON.stringify({ localNow, commitment: { id: commitment.id, title: commitment.title, deadline: commitment.deadline, effortMinutes: commitment.effortMinutes }, reflections: memorySnapshot, maxQuestMinutes: state.settings.questMinuteLimit || undefined });
   let raw: string;
   try { raw = await call<string>("local_quest", { input, model: state.settings.localModel }); }
   catch (error) { throw Error(typeof error === "string" ? error : "Local AI is unavailable. Try the sample planner."); }
@@ -27,7 +28,7 @@ export async function proposeLocal(commitment: Commitment, state: AppState, call
   if (state.settings.questMinuteLimit && result.data.minutes > state.settings.questMinuteLimit) throw Error("Local AI exceeded your quest length limit. Try again or use the sample planner.");
   if (commitment.effortMinutes && result.data.minutes > commitment.effortMinutes) throw Error("Local AI suggested longer than the estimated total effort. Try again or use the sample planner.");
   const { title, reason, minutes, ...suggestions } = result.data;
-  const details = suggestedDetails(commitment.title, suggestions);
+  const details = suggestedDetails(commitment.title, suggestions, localNow);
   const detailsWarning = !!((suggestions.deadlineLocal || suggestions.deadlineDate) && !details.deadlineLocal && !details.deadlineDate) ||
     !!(suggestions.effortMinutes && !details.effortMinutes) || detailsMayBeMissing(commitment.title, details);
   return { memorySnapshot, details, detailsWarning, quest: { title, reason, minutes, id: newId(), commitmentId: commitment.id,

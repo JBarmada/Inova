@@ -1,5 +1,9 @@
 # Implementation Status and Handoff
 
+## Check immediate relative dates — November 23, 2026
+
+Both local planners now validate model-suggested “today,” “tonight,” “tomorrow” and “day after tomorrow” against the same local calendar date sent in the request. The check uses calendar-day arithmetic across month, year and leap-day boundaries and rejects multiple relative-day phrases, some negated statements and a truncated “tomorrow” quote from “day after tomorrow.” A rejected suggestion opens manual detail review. `npm run check` passed 249 tests, including a mocked planner with a wrong date. Other relative expressions, ambiguous wording, time zones and native date-picker behavior still require review; no live-model run was performed.
+
 ## Verify explicit dates in model suggestions — November 23, 2026
 
 Planner-suggested dates are now rejected if they conflict with an explicit ISO date, US numeric month/day/year, or written month and day in the cited evidence. Two-digit years are compared by their last two digits; a missing year remains for the user to review. Weekday and time checks remain. This does not prove relative-date interpretation or validate every natural-language date format. A mocked planning test carries two clarification answers through deadline review and acceptance. `npm run check` passed 247 tests; live-model and native date-picker review remain pending.

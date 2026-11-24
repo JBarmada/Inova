@@ -36,3 +36,20 @@ it("rejects dates that conflict with explicit numeric or named calendar dates", 
   expect(suggestedDetails("Finish by 11/27/2026", { deadlineDate: "2027-11-27", deadlineEvidence: "11/27/2026" })).toEqual({});
   expect(suggestedDetails("Finish by 11/27/26", { deadlineDate: "2027-11-27", deadlineEvidence: "11/27/26" })).toEqual({});
 });
+
+it("checks relative dates against the clock supplied to the model", () => {
+  const cases = [
+    { evidence: "today", now: "2026-12-31T23:59:00", expected: "2026-12-31", wrong: "2027-01-01" },
+    { evidence: "tomorrow", now: "2026-12-31T23:59:00", expected: "2027-01-01", wrong: "2026-12-31" },
+    { evidence: "day after tomorrow", now: "2028-02-28T09:00:00", expected: "2028-03-01", wrong: "2028-02-29" },
+    { evidence: "tonight at 5pm", now: "2026-03-08T01:30:00", expected: "2026-03-08", wrong: "2026-03-09" },
+  ];
+  for (const { evidence, now, expected, wrong } of cases) {
+    expect(suggestedDetails(`Finish ${evidence}`, { deadlineDate: expected, deadlineEvidence: evidence }, now)).toEqual({ deadlineDate: expected });
+    expect(suggestedDetails(`Finish ${evidence}`, { deadlineDate: wrong, deadlineEvidence: evidence }, now)).toEqual({});
+    expect(suggestedDetails(`Finish ${evidence}`, { deadlineDate: expected, deadlineEvidence: evidence })).toEqual({});
+  }
+  expect(suggestedDetails("Finish today or tomorrow", { deadlineDate: "2026-12-31", deadlineEvidence: "today or tomorrow" }, "2026-12-31T10:00:00")).toEqual({});
+  expect(suggestedDetails("Finish the day after tomorrow", { deadlineDate: "2027-01-01", deadlineEvidence: "tomorrow" }, "2026-12-31T10:00:00")).toEqual({});
+  expect(suggestedDetails("It is not due tomorrow", { deadlineDate: "2027-01-01", deadlineEvidence: "tomorrow" }, "2026-12-31T10:00:00")).toEqual({});
+});

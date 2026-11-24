@@ -50,3 +50,15 @@ it("falls back to a labeled sample and never saves preview steps automatically",
   expect(saved.quests).toHaveLength(1);
   expect(saved.quests[0]).toMatchObject({ status: "accepted", planner: "sample" });
 });
+
+it("checks a relative date against the exact local clock sent to the model", async () => {
+  const call = vi.fn(async (_command, args) => {
+    const localDate = JSON.parse(args.input).localNow.slice(0, 10);
+    const [year, month, day] = localDate.split("-").map(Number);
+    const wrong = new Date(Date.UTC(year, month - 1, day + 2)).toISOString().slice(0, 10);
+    return JSON.stringify({ ...response, deadlineDate: wrong, deadlineEvidence: "tomorrow" });
+  });
+  const plan = await proposeLocalPlan({ ...commitment, title: "Prepare my presentation tomorrow" }, initialState(), call as unknown as typeof invoke);
+  expect(plan.details.deadlineDate).toBeUndefined();
+  expect(plan.detailsWarning).toBe(true);
+});

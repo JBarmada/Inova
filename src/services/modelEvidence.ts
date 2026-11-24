@@ -3,7 +3,15 @@ const months = ["january", "february", "march", "april", "may", "june", "july", 
 const numbers: Record<string, number> = { one: 1, two: 2, three: 3, four: 4, five: 5, six: 6,
   seven: 7, eight: 8, nine: 9, ten: 10, half: 0.5 };
 
-export function plausibleDate(date: string, evidence: string): boolean {
+export function plausibleDate(date: string, evidence: string, localNow?: string): boolean {
+  const relative = [...evidence.matchAll(/\b(day after tomorrow|tomorrow|today|tonight)\b/gi)];
+  if (relative.length) {
+    if (relative.length !== 1 || !/^\d{4}-\d{2}-\d{2}T/.test(localNow ?? "")) return false;
+    const offset = relative[0][1].toLowerCase() === "day after tomorrow" ? 2 : relative[0][1].toLowerCase() === "tomorrow" ? 1 : 0;
+    const [year, month, day] = localNow!.slice(0, 10).split("-").map(Number);
+    const expected = new Date(Date.UTC(year, month - 1, day + offset)).toISOString().slice(0, 10);
+    if (date !== expected) return false;
+  }
   const weekday = /\b(sunday|monday|tuesday|wednesday|thursday|friday|saturday)\b/i.exec(evidence)?.[1].toLowerCase();
   if (weekday && new Date(`${date}T12:00:00Z`).getUTCDay() !== weekdays.indexOf(weekday)) return false;
   const iso = /\b(\d{4})-(\d{2})-(\d{2})\b/.exec(evidence);
