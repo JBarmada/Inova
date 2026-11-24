@@ -137,6 +137,23 @@ it("prefers the discussed person's birthday over newer dates from other people",
   expect(JSON.parse(call.mock.calls[1][1].input).memories.map((entry: { id: string }) => entry.id)).toEqual(["pat", "lee", "alex"]);
 });
 
+it("uses the previous eligible user message to rank a follow-up even when the dog used no memories", async () => {
+  let state = reduce(initialState(), { type: "chat-share", text: "Tell me about Sam" });
+  state = reduce(state, { type: "chat-reply", messageIndex: 0, originalText: "Tell me about Sam", reply: "What would you like to know?", memorySnapshot: [] });
+  for (const [id, text] of [["sam", "Sam's birthday is December 8"], ["alex", "Alex's birthday is June 9"], ["lee", "Lee's birthday is May 2"], ["pat", "Pat's birthday is July 1"]]) {
+    state = reduce(state, { type: "add-memory", memory: { ...memory, id, text } });
+  }
+  state = reduce(state, { type: "chat-share", text: "When is her birthday?" });
+  const call = vi.fn().mockResolvedValue(JSON.stringify({ reply: "Let me check." }));
+  await localChat("When is her birthday?", state, call as unknown as typeof invoke, { includeRecent: true, beforeIndex: 2 });
+  expect(JSON.parse(call.mock.calls[0][1].input).memories.map((entry: { id: string }) => entry.id)).toEqual(["sam", "pat", "lee"]);
+  const excluded = reduce(state, { type: "chat-context-exclusion", messageIndex: 0, originalText: "Tell me about Sam", excluded: true });
+  await localChat("When is her birthday?", excluded, call as unknown as typeof invoke, { includeRecent: true, beforeIndex: 2 });
+  const input = JSON.parse(call.mock.calls[1][1].input);
+  expect(input.memories.map((entry: { id: string }) => entry.id)).toEqual(["pat", "lee", "alex"]);
+  expect(JSON.stringify(input.recentConversation ?? [])).not.toContain("Sam");
+});
+
 it("passes an adopted dog's personality to the local model as tone only", async () => {
   const state = reduce(initialState(), { type: "adopt", name: "Pip", personality: "mean" });
   const call = vi.fn().mockResolvedValue(JSON.stringify({ reply: "Let's get started." }));

@@ -1,5 +1,9 @@
 # Implementation Status and Handoff
 
+## Use the preceding message for follow-up recall — November 23, 2026
+
+For eligible short follow-ups with recent conversation enabled, the previous user message can now break ties between relevant memories even when the preceding dog reply had no memory sources. Excluding that message or turning recent conversation off prevents its use. A fictional multiple-person birthday test covers selection and exclusion. This is word matching, not reliable pronoun or entity resolution; unrelated memories may still be sent. `npm run check` passed 254 tests. Live-model and native verification remain pending.
+
 ## Rank related memories in follow-ups — November 23, 2026
 
 For eligible short follow-ups with recent conversation enabled, equally relevant memory matches now use word overlap with the previous reply's permitted sources to break ties before recency. A fictional test covers an older friend's birthday among newer birthdays, and verifies the off setting. This is not entity resolution: unrelated memories may still be included, and a model may mix up people or dates. `npm run check` passed 253 tests. Live-model and native verification remain pending.
