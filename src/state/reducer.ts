@@ -8,7 +8,7 @@ import { previousQuestContext } from "../services/previousQuest";
 
 function apply(state: AppState, action: Action): AppState {
   switch (action.type) {
-    case "chat-goal": case "chat-share": case "chat-context": case "chat-skip": case "chat-reset": case "chat-clear": case "chat-follow-up": return changeChat(state, action);
+    case "chat-goal": case "chat-share": case "chat-plan-message": case "chat-context": case "chat-skip": case "chat-reset": case "chat-clear": case "chat-follow-up": return changeChat(state, action);
     case "save-chat-memory": return saveChatMemory(state, action);
     case "dismiss-memory-suggestion": return dismissMemorySuggestion(state, action.replyIndex, action.sourceIndex, action.quote);
     case "chat-reply": return saveChatReply(state, action);

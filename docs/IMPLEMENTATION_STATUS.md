@@ -1,5 +1,11 @@
 # Implementation Status and Handoff
 
+## Start a quest from chat — November 23, 2026
+
+The Message actions menu lets a user turn an existing user-authored chat message into a quest goal without retyping or duplicating it. The dog asks the existing optional clarification question, then the user previews and explicitly accepts a quest. Planning cannot replace a goal already in progress, and stale or dog-authored messages are rejected. Message actions are grouped in a disclosure to reduce clutter.
+
+`npm run check` passed 196 tests. A fictional automated flow covers shared goal, clarification, labeled sample preview, acceptance, reload, completion, reflection skip and linked follow-up; the model and native interface were not exercised by this test. Native visual/accessibility and Mac checks remain pending. The conversation-to-planning transition still requires the user to choose the action and clarification is scripted.
+
 ## Memory suggestion lifecycle — November 23, 2026
 
 Users can dismiss a proposed chat memory without saving it. Saving from a suggestion atomically records the reviewed memory and resolves that suggestion; stale or repeated acceptance is rejected. Newly generated suggestions matching an existing memory after trimming and case-folding are suppressed, even if the existing memory is excluded from personalization. This is exact-text matching, not semantic deduplication. A dismissed suggestion may be proposed again if the user asks for a new reply.

@@ -2,10 +2,11 @@ import type { Action } from "../shared/actions";
 import type { AppState } from "../shared/schema";
 import { chatPhrases } from "../shared/personality";
 
-type ChatAction = Extract<Action, { type: "chat-goal" | "chat-share" | "chat-context" | "chat-skip" | "chat-reset" | "chat-clear" | "chat-follow-up" }>;
+type ChatAction = Extract<Action, { type: "chat-goal" | "chat-share" | "chat-plan-message" | "chat-context" | "chat-skip" | "chat-reset" | "chat-clear" | "chat-follow-up" }>;
 
 export function changeChat(state: AppState, action: ChatAction): AppState {
   const chat = state.chat;
+  if (action.type === "chat-plan-message") return planMessage(state, action);
   if (action.type === "chat-clear") return { ...state, chat: { ...chat, phase: "goal", goal: "", messages: [], contextQuestId: undefined, followUpQuestId: undefined } };
   if (action.type === "chat-reset") return { ...state, chat: { ...chat, phase: "goal", goal: "", contextQuestId: undefined } };
   if (action.type === "chat-follow-up") {
@@ -35,4 +36,14 @@ export function changeChat(state: AppState, action: ChatAction): AppState {
     : chatPhrases(state.pet.personality).ready;
   return { ...state, chat: { ...chat, phase: action.type === "chat-goal" ? "context" : "ready", goal,
     messages: [...chat.messages, { role: "user" as const, text: input }, { role: "dog" as const, text: reply }] } };
+}
+
+function planMessage(state: AppState, action: Extract<Action, { type: "chat-plan-message" }>): AppState {
+  const message = state.chat.messages[action.messageIndex];
+  if (state.chat.phase !== "goal") throw Error("Finish or start over first.");
+  if (!message || message.role !== "user" || message.text !== action.originalText) throw Error("This conversation changed. Please choose the message again.");
+  if (!message.text.trim() || message.text.length > 240) throw Error("Choose a message of up to 240 characters.");
+  if (state.chat.messages.length >= 200) throw Error("Conversation is full. Clear it to start a new one.");
+  return { ...state, chat: { ...state.chat, goal: message.text, phase: "context", contextQuestId: undefined,
+    messages: [...state.chat.messages, { role: "dog", text: chatPhrases(state.pet.personality).clarify }] } };
 }
