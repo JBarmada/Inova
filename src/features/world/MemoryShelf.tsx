@@ -50,6 +50,7 @@ export function MemoryShelf() {
     {!state.memories.length && <p className="empty">Your first book is waiting to be written.</p>}
     {state.memories.length > 0 && matches.length === 0 && <p className="empty" role="status">No memories match this filter and search.</p>}
     {selected && <article className="open-book"><h4>{new Date(selected.createdAt).toLocaleString()}</h4>
+      {selected.source === "chat" && <p>Saved from conversation</p>}
       {selected.questId && <p>Adventure: {state.quests.find((quest) => quest.id === selected.questId)?.title ?? "Unavailable adventure"}</p>}
       <MemoryCategorySelect value={selected.category ?? "misc"} disabled={busy} onChange={(value) => void run(() => dispatch({ type: "memory-category", id: selected.id, category: value }))} />
       {editing ? <form onSubmit={(event) => { event.preventDefault(); void run(async () => {

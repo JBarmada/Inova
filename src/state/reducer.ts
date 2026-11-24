@@ -8,7 +8,8 @@ import { previousQuestContext } from "../services/previousQuest";
 
 function apply(state: AppState, action: Action): AppState {
   switch (action.type) {
-    case "chat-goal": case "chat-context": case "chat-skip": case "chat-reset": case "chat-clear": case "chat-follow-up": return changeChat(state, action);
+    case "chat-goal": case "chat-share": case "chat-context": case "chat-skip": case "chat-reset": case "chat-clear": case "chat-follow-up": return changeChat(state, action);
+    case "save-chat-memory": return saveChatMemory(state, action);
     case "skip-chat-reflection": return clearReflectionPrompt(state, action.questId);
     case "adopt":
       return { ...state, pet: { ...state.pet, name: action.name.trim(), adopted: true } };
@@ -74,6 +75,13 @@ function apply(state: AppState, action: Action): AppState {
       return { ...forgetReference(state, action.allowed ? "" : action.id), memories: state.memories.map((entry) => entry.id === action.id ? { ...entry, aiAllowed: action.allowed } : entry) };
     case "delete-memory": return { ...forgetReference(state, action.id), memories: state.memories.filter((entry) => entry.id !== action.id) };
   }
+}
+
+function saveChatMemory(state: AppState, action: Extract<Action, { type: "save-chat-memory" }>): AppState {
+  const message = state.chat.messages[action.messageIndex];
+  if (!message || message.role !== "user" || message.text !== action.originalText) throw Error("This conversation changed. Please choose the message again.");
+  if (action.memory.source !== "chat" || action.memory.questId) throw Error("Invalid conversation memory.");
+  return apply(state, { type: "add-memory", memory: action.memory });
 }
 
 function editMemory(state: AppState, action: Extract<Action, { type: "edit-memory" }>): AppState {

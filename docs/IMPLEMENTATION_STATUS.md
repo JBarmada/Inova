@@ -1,5 +1,11 @@
 # Implementation Status and Handoff
 
+## User-confirmed conversation memories — November 23, 2026
+
+Home chat can accept a shared message independently of quest creation. The user can select any of their messages, review or edit its wording, select a category and save it to Memories; personalization is off unless checked. The saved entry identifies its conversation origin. Existing memory editing, deletion and permission controls govern retrieval, while the separately stored transcript remains until cleared. The response to sharing is scripted, not an AI conversation or automatic extraction. There is no automatic name recall, date reminder, or inferred preference yet.
+
+Fictional tests cover name, class, friend and date entries, reload, consent, planning-context selection, correction, deletion, revocation and rejection of stale or dog-authored messages. `npm run check` passed 182 tests. This verifies application state and mocked planner input, not live AI comprehension, conversational recall, native layout or Mac behavior. Earlier versions may drop the optional memory source and category fields when saving.
+
 ## Memory categories — November 23, 2026
 
 The bookshelf has five colored icon filters: All, People, Events, You and Misc. Users choose a category when adding a bookshelf entry and can change it on an open memory. Older entries, including uncategorized reflections, appear in Misc without changing stored data; category and text search work together. Category changes do not change personalization permission or remove supporting quest evidence. This is user-directed organization, not automatic memory extraction, conversational recall, or inferred preferences. Older versions can discard the optional category field if they save this profile.

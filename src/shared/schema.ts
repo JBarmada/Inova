@@ -36,6 +36,7 @@ export const memoryCategorySchema = z.enum(["people", "events", "you", "misc"]);
 export const memorySchema = z.object({
   id, text, createdAt: z.iso.datetime(), aiAllowed: z.boolean(),
   category: memoryCategorySchema.optional(),
+  source: z.enum(["chat"]).optional(),
   questId: id.optional(),
 });
 const commonSchema = z.object({

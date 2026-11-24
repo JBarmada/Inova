@@ -6,6 +6,8 @@ import { QuestDetailsReview } from "./QuestDetailsReview";
 import { latestPlanRequest } from "./latestPlan";
 import { ChatReflection } from "./ChatReflection";
 import { prepareSavedPlan } from "../../services/savedPlan";
+import { ChatMemory } from "./ChatMemory";
+import { ChatShare } from "./ChatShare";
 
 type Draft = Awaited<ReturnType<typeof prepareChatPlan>> & { usesSavedPlan?: boolean };
 
@@ -15,6 +17,7 @@ export function CompanionChat({ state }: { state: AppState }) {
   const [busy, setBusy] = useState(false);
   const [planning, setPlanning] = useState(false);
   const [message, setMessage] = useState("");
+  const [remember, setRemember] = useState<{ index: number; text: string }>();
   const history = useRef<HTMLDivElement>(null);
   const reflectionQuest = state.quests.find((quest) => quest.id === state.chat.pendingReflections[0] && quest.status === "completed");
   const request = useRef(latestPlanRequest<Draft>());
@@ -44,8 +47,12 @@ export function CompanionChat({ state }: { state: AppState }) {
   return <details className="companion-chat"><summary>Chat with {state.pet.name}</summary>
     <div ref={history} className="chat-history" aria-label="Conversation history" role="log">
       {state.chat.messages.length === 0 && <p>What would you like to work on together?</p>}
-      {state.chat.messages.map((entry, index) => <p key={index}><strong>{entry.role === "user" ? "You" : state.pet.name}:</strong> {entry.text}</p>)}
+      {state.chat.messages.map((entry, index) => <p key={index}><strong>{entry.role === "user" ? "You" : state.pet.name}:</strong> {entry.text}
+        {entry.role === "user" && <button type="button" disabled={busy} onClick={() => setRemember({ index, text: entry.text })}>Remember</button>}</p>)}
     </div>
+    {remember && <ChatMemory key={`${remember.index}:${remember.text}`} index={remember.index} original={remember.text}
+      onCancel={() => setRemember(undefined)} onDone={() => { setRemember(undefined); setMessage("Saved to Memories."); }} />}
+    <ChatShare busy={busy} onSend={(value) => dispatch({ type: "chat-share", text: value })} />
     {reflectionQuest && <ChatReflection key={reflectionQuest.id} quest={reflectionQuest} onDone={setMessage} />}
     {state.chat.contextQuestId && <p>Continuing: {state.chat.goal}</p>}
     {!reflectionQuest && !draft && state.chat.phase === "goal" && state.chat.followUpQuestId && <button type="button" disabled={busy}

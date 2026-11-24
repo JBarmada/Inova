@@ -16,6 +16,8 @@ export type Action =
   | { type: "add-planned-quest"; commitment: Commitment; quest: Quest; memorySnapshot: { id: string; text: string }[] }
   | { type: "accept-planned-quest"; commitment: Commitment; quest: Quest; memorySnapshot: { id: string; text: string }[]; previousQuest?: { id: string; title?: string }; consumesSavedPlan?: boolean }
   | { type: "chat-goal"; text: string }
+  | { type: "chat-share"; text: string }
+  | { type: "save-chat-memory"; messageIndex: number; originalText: string; memory: Memory }
   | { type: "chat-context"; text: string }
   | { type: "chat-skip" }
   | { type: "chat-reset" }
