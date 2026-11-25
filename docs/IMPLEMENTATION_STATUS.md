@@ -1,6 +1,6 @@
 ## Wardrobe try-on — November 24, 2026
 
-The wardrobe can preview any catalog item, including locked items, on the dog without changing the saved outfit or ownership. Owned items can still be equipped through the existing action. The selected preview is labeled and can be dismissed; category filters and stand/sit remain available. Placeholder clothing graphics and progression rules are unchanged. Automated checks passed (264 tests and frontend build); browser and native visual review remain pending.
+The wardrobe can preview any combination of catalog items, including locked items, on the dog without changing the saved outfit or ownership. Owned items can still be equipped through the existing action. The selected preview is labeled and can be dismissed; category filters and stand/sit remain available. Placeholder clothing graphics and progression rules are unchanged. Automated checks passed (264 tests and frontend build); browser and native visual review remain pending.
 
 # Implementation Status and Handoff
 

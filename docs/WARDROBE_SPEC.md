@@ -32,7 +32,7 @@ The five icon filters are All items (four squares), Hats, Glasses, Socks, and Bo
 
 ## Try on items
 
-Every catalog item has a Try on action in normal mode, including items not yet owned. A preview substitutes that item in its slot on the wardrobe dog while leaving the real outfit, ownership, rewards, and saved state unchanged. The preview label and End preview action distinguish it from equipment; wearing an owned item saves it and ends the preview. The worn strip always reflects the actual saved outfit. Stand/Sit and filters continue to work while previewing. Prototype item graphics and earning rules remain provisional.
+Every catalog item has a Try on action in normal mode, including items not yet owned. Previews can be combined across slots and substitute those items on the wardrobe dog while leaving the real outfit, ownership, rewards, and saved state unchanged. The preview label and End preview action distinguish it from equipment; wearing an owned item saves it and ends the preview. The worn strip always reflects the actual saved outfit. Stand/Sit and filters continue to work while previewing. Prototype item graphics and earning rules remain provisional.
 
 ## Persistence and compatibility
 
