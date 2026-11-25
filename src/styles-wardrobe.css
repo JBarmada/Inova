@@ -29,3 +29,7 @@
 .scenario-poses figcaption { font-size: 12px; margin: 6px 0; }
 @media (max-width: 600px) { .wardrobe-preview > .dog { width: 320px; height: 320px; } }
 @media (max-width: 370px) { .wardrobe-preview > .dog { width: 256px; height: 256px; } .outfit-strip { gap: 5px; } .outfit-clear { margin-left: 4px; } }
+
+.wardrobe-preview-notice { display: flex; justify-content: center; align-items: center; flex-wrap: wrap; gap: 12px; margin-top: 8px; }
+.try-on-button { min-height: 44px; margin-right: 10px; }
+.try-on-button[aria-pressed="true"] { background: #d6e6bd; border-color: #6a7f4c; }
