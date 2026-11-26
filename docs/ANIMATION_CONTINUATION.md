@@ -12,7 +12,7 @@ Read README.md, docs/AI_CONTEXT.md, docs/IMPLEMENTATION_STATUS.md, docs/MAIN_CON
 
 The user wants a natural, consistent pixel dog with an explicit posture/mood hierarchy. Work on one scenario at a time: show the GIF and full dog frames, obtain the user's visual review, revise until approved, integrate that approved scenario, then move to the next. Do not batch the remaining rest chain or treat files existing on main as visual approval.
 
-### Verified main checkpoint
+### Verified main checkpoint (historical, November 23; superseded by the update at the top)
 
 GitHub main was freshly fetched at `c4693ac` before this documentation update. It includes merge `56f80c2` of the loaf review branch, so **both approved runtime art and unapproved v36 preview files are already on main**.
 

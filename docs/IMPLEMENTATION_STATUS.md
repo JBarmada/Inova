@@ -1,5 +1,7 @@
 # Implementation Status and Handoff
 
+**Branch note:** Work from November 26 lives on branch `test/native-float` (stacked on `feature/loaf-integration`) and is **not yet merged into main**. Commits: `a74a210` loaf integration, `2e65b8a` v37 rise preview (review only), `c6f34c3` next actions, `2f9d2c8` Mac native run and Windows checklist.
+
 ## Floating dog native run on Mac — November 26, 2026
 
 All ten steps of [NATIVE_FLOAT_CHECKLIST.md](NATIVE_FLOAT_CHECKLIST.md) passed, observed by hand on macOS 15.6.1 (Apple M4) using the isolated `src-tauri/tauri.playtest.json` profile: adopt, float, transparency, always on top, drag, controls/toy, home/float round trip, floating Quit with relaunch, home close button with relaunch, and loaf while floating and muted. Both quits exited with code 0 and left no process; adoption and separate home/floating placements were restored. Transparency works without `macOSPrivateApi`. Not tested: other Spaces, fullscreen apps, external monitors, a release bundle run, and audible sound. [Mac evidence](evidence/native-float-mac/README.md). **Windows is pending a teammate run** using the same checklist.

@@ -6,7 +6,9 @@ Inova is a SCOPE club final project for the theme Evolve. It is an evolving pixe
 
 ## Established team direction
 
-For resumed Track A art/animation work, use [the continuation prompt](ANIMATION_CONTINUATION.md). The v36 tired sit to loaf was approved November 26, 2026 and runs in the app. The next review is the sit-to-stand rise clip.
+For resumed Track A art/animation work, use [the continuation prompt](ANIMATION_CONTINUATION.md). The v36 tired sit to loaf was approved November 26, 2026 and runs in the app. The v37 sit/loaf-to-stand preview (`art/pocket-pup/v37/`) awaits user review; do not integrate it before approval.
+
+Work from November 26 lives on branch `test/native-float` (stacked on `feature/loaf-integration`) and is **not yet merged into main**. It holds the loaf integration, the v37 preview, refreshed next actions, and the Mac floating-dog native run (all ten [checklist](NATIVE_FLOAT_CHECKLIST.md) steps passed). Windows native results are pending a teammate.
 
 Current functional checkout: the primary project folder on `main`; see [consolidation inventory](MAIN_CONSOLIDATION.md). Existing worktrees are preserved snapshots. Approved v32 sit, v34 breathing, and v35 seated tiredness are integrated alongside four-slot wardrobe, reliable quit, and startup feedback. Mood changes preserve posture. Approved v36 loaf follows seven seconds of stable tired sitting; animated sit-to-stand remains unfinished. See [TRANSITION_TABLE.md](TRANSITION_TABLE.md).
 

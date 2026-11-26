@@ -19,9 +19,9 @@ The current app includes:
 - Labeled sample quest planning, distinct quest states, duplicate-safe demonstration rewards, and local reflections with per-entry personalization permission and deletion.
 - Settings for sound, developer mode, and optional status; startup loading/retry feedback; and a shared save-and-quit flow for native X and floating Settings > Quit Inova.
 
-Consolidation checks passed all **65 tests**, source size/type checks, the frontend production build, and Windows release compilation. These are the recorded consolidation results; On November 26 the floating dog passed a hands-on native run on Mac ([checklist](docs/NATIVE_FLOAT_CHECKLIST.md)); the Windows run is pending. See [implementation status](docs/IMPLEMENTATION_STATUS.md) for evidence and limitations.
+Latest checks (November 26, branch `test/native-float`, not yet merged into main): **81 tests** in 18 files, source size/type checks and the frontend production build pass, and macOS `tauri build` succeeds. The floating dog passed a hands-on native run on Mac ([checklist](docs/NATIVE_FLOAT_CHECKLIST.md)); the Windows run is pending. Main's earlier consolidation recorded 65 tests and Windows release compilation. See [implementation status](docs/IMPLEMENTATION_STATUS.md) for evidence and limitations.
 
-Planning is a deterministic sample, with **no live AI or external integrations**. Sound is synthesized; final clothing art and recorded audio remain unfinished. Tired sitting settles into the approved loaf after seven seconds; animated stand-up, loaf breathing, and non-drowsy loaf faces remain unfinished.
+Planning is a deterministic sample, with **no live AI or external integrations**. Sound is synthesized; final clothing art and recorded audio remain unfinished. Tired sitting settles into the approved loaf after seven seconds. Animated stand-up has a review-only preview (v37) and is not in the app; loaf breathing and non-drowsy loaf faces remain unfinished.
 
 ## Run the app
 
