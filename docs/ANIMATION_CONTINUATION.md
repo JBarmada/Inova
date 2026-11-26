@@ -2,7 +2,7 @@
 
 Handoff requested November 23, 2026.
 
-**Update November 26, 2026:** the user approved v36 and it is integrated (see IMPLEMENTATION_STATUS.md). Steps 1–6 of "Only after the loaf is visually approved" are done, apart from loaf breathing and non-drowsy loaf faces. **The current stopping point is step 7: author and show a sit-to-stand rise preview for review.** No rise artwork exists yet. Sections below describe the earlier loaf checkpoint.
+**Update November 26, 2026:** the user approved v36 and it is integrated (see IMPLEMENTATION_STATUS.md). Steps 1–6 of "Only after the loaf is visually approved" are done, apart from loaf breathing and non-drowsy loaf faces. **The current stopping point is step 7: the v37 sit-to-stand rise preview (`art/pocket-pup/v37/`) awaits user review.** Do not integrate it until approved. Sections below describe the earlier loaf checkpoint.
 
 ## Copy-ready continuation prompt
 

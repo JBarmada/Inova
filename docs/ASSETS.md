@@ -1,5 +1,7 @@
 # Artwork and Audio Plan
 
+Review-only v37 sit/loaf to stand: one new push-up frame (approved v32 sit with head/chest translated 1px and forelegs lengthened 1px), plus reused approved v32 tuck and v36 loaf frames. No new external assets. [Preview and provenance](../art/pocket-pup/v37/README.md). No runtime export.
+
 Approved v36 (user review, November 26, 2026): original grid-authored lower/tuck/loaf poses derived from the approved v35 tired head and existing project tail/palette. No new external assets. [Preview and provenance](../art/pocket-pup/v36/README.md). Runtime copies `public/dog/loaf-bend.png`, `loaf-tuck.png` and `loaf.png` are exported byte-identical by `tools/export_runtime_art.py`, with hashes in the manifest.
 
 Approved v35: seated blink/drowsy/tiredness derives from approved v26 with original edits confined to two eye regions. No new external artwork. Exact non-eye/alpha pixels checked. Runtime copies live under `public/dog/sitting-*.png`; breathing variants combine these eye edits with approved v34 seated breathing. Exporter records source paths and hashes and checks fixed alpha/paw rows. Historical v35 review-only notes describe its pre-approval state.

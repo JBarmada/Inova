@@ -84,7 +84,7 @@ Review pose → motion → timing → integrate → validate, then advance. One 
 | Done / partial | 9 | Standing/happy/sitting grounded breathing, v34 | Approved, main; optional blink/ear variations not delivered |
 | Done | 2 / M05 | Seated blink → drowsy → tired, face only | v35 approved and integrated |
 | Done | 3 | Tired sit → loaf endpoint/entry; trigger after 7s | v36 approved and integrated November 26 |
-| **1** | 7b, explicit request | Sit → stand, weight shift/back-leg extension | Queued; reversing sit-down is not automatic approval |
+| **1** | 7b, explicit request | Sit → stand, weight shift/back-leg extension | v37 GIF awaiting review (`art/pocket-pup/v37`); not integrated |
 | 4 | M06 | Seated happy and tired → neutral/happy recovery | Queued |
 | Later | 4 | Loaf/lying awake → sleeping, chin toward paws | Queued |
 | Later | 5 | Grounded sleeping breathing | Queued |

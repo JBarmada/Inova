@@ -1,0 +1,27 @@
+{
+  "status": "awaiting user review; not integrated",
+  "order": [
+    "sit",
+    "push up",
+    "hips up",
+    "stand"
+  ],
+  "sitDurationsMs": [
+    1500,
+    140,
+    160,
+    2000
+  ],
+  "loafDurationsMs": [
+    1500,
+    140,
+    140,
+    220,
+    140,
+    160,
+    2000
+  ],
+  "new": "push-up.png: approved sit with head/chest translated up 1px, forelegs 1px longer",
+  "reused": "v32/01.png as hips-up breakdown; v36 loaf frames reversed for loaf -> sit",
+  "runtime": "no rise assets exported; Stand still switches directly"
+}
