@@ -134,10 +134,14 @@ Main integration checkpoint: November 23, 2026. The user approved the reviewed c
 
 ## Next actions
 
-1. Choose who owns Track A/B/C in TEAM_PLAN.md.
-2. Everyone follows SETUP.md and runs the starter; get hands-on Windows and Mac overlay reports first.
-3. Follow each track's first milestone. Decide AI provider/spending limit and agree on pixel asset dimensions.
-4. Merge working increments daily; target a complete integrated flow by November 27 and freeze new features November 30.
+Updated November 26, 2026. Feature freeze is November 30; demo December 1.
+
+1. **Floating dog on both platforms (blocks M2):** run the native app hands-on on Windows and Mac, covering transparency, always-on-top over other apps, dragging, home/float round trip, quit, and save/restart. Record results under `docs/evidence/`. Compilation alone does not count.
+2. **AI provider and budget (blocks M5/M8):** decide whether to use a live provider or demo with the labeled sample planner. Then show one grounded suggestion that changes after a saved reflection.
+3. **Quest wording editing (M5)** through a shared action, keeping proposed/accepted/deferred/completed distinct.
+4. **Dog interaction and bark (M3/M7):** one deliberate interaction with visible feedback and a sound that is meaningful when muted.
+5. **Animation:** review v37 stand-up; then the seated happy face and tired recovery.
+6. **Demo rehearsal (November 30):** run the one-complete-demo script in 06-must-have-scope.md on both platforms with fictional data and a fallback plan.
 
 ## Commands
 

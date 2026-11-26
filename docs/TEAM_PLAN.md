@@ -9,7 +9,7 @@ Updated November 23 after main consolidation. This replaces the broad A Companio
 | Area | Responsibility and boundary | Useful next deliverable |
 | --- | --- | --- |
 | Dog art | Base dog, expressions, and stable pose artwork. Supplies approved pixels to animation; does not decide behavior triggers. | Resolve one missing expression/still pose from the artist guide and transition ledger. |
-| Animation | Transition drawings, timing, export, and pose/mood playback. Uses approved endpoints; pet interactions supply events. | Review v36 tired-sit-to-loaf before enabling its timer; review stand-up separately. |
+| Animation | Transition drawings, timing, export, and pose/mood playback. Uses approved endpoints; pet interactions supply events. | v36 loaf is approved and live. Review the v37 sit/loaf-to-stand preview (`art/pocket-pup/v37`), then integrate it if approved. |
 | Items and fitting | Wearable artwork, catalog metadata, layering, and anchors on supported poses. Coordinates slots with shared state; does not own wardrobe layout or reward balancing. | Replace one placeholder item and demonstrate it standing, sitting, and breathing. |
 | Adoption and interactions | Adoption/name/variant flow and deliberate pet interactions. Requests approved reactions through the animation system. | Polish the existing adoption flow; specify one interaction and its visible/muted feedback. New variants need art first. |
 | Wardrobe interface | Filters, inventory presentation, pose previews, equipped strip, equip/remove/clear controls. Consumes item catalog and shared actions. | Show and review the latest compact strip/larger preview, then verify keyboard and narrow-window use. |
