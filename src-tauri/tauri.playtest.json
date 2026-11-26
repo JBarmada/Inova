@@ -1,0 +1,14 @@
+{
+  "identifier": "com.inova.nativefloat",
+  "productName": "InovaPlaytest",
+  "app": {
+    "windows": [{
+      "label": "main",
+      "title": "Inova Playtest",
+      "width": 1040,
+      "height": 780,
+      "transparent": true,
+      "shadow": false
+    }]
+  }
+}

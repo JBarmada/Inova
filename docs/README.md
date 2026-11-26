@@ -28,6 +28,8 @@ Updated November 22, 2026. The repository now includes a shared starter as well 
 
 ## Implementation references
 
+- [Floating dog native checklist for Mac and Windows](NATIVE_FLOAT_CHECKLIST.md).
+
 - [Continuation prompt: native UI regression tests and push gates](NATIVE_UI_TEST_CONTINUATION.md).
 
 - [Dog transition coverage table and review queue](TRANSITION_TABLE.md).

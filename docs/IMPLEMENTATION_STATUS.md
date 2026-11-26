@@ -1,5 +1,9 @@
 # Implementation Status and Handoff
 
+## Floating dog native run on Mac — November 26, 2026
+
+All ten steps of [NATIVE_FLOAT_CHECKLIST.md](NATIVE_FLOAT_CHECKLIST.md) passed, observed by hand on macOS 15.6.1 (Apple M4) using the isolated `src-tauri/tauri.playtest.json` profile: adopt, float, transparency, always on top, drag, controls/toy, home/float round trip, floating Quit with relaunch, home close button with relaunch, and loaf while floating and muted. Both quits exited with code 0 and left no process; adoption and separate home/floating placements were restored. Transparency works without `macOSPrivateApi`. Not tested: other Spaces, fullscreen apps, external monitors, a release bundle run, and audible sound. [Mac evidence](evidence/native-float-mac/README.md). **Windows is pending a teammate run** using the same checklist.
+
 ## Approved tired sit to loaf (v36) — November 26, 2026
 
 The user approved the v36 loaf GIF during a browser playtest, and it now runs in the app. Once stable tired sitting is reached (the 2,050ms tired-face entry has finished), one seven-second deadline starts. On expiry, if the dog is still seated and tired, it plays bend elbows (220ms) → tuck paws (220ms) → loaf, then holds. Idle/happy mood, Stand, disposal, or adoption loss cancel the deadline; duplicate tired events and rerenders keep the original deadline. Mood changes during the clip finish at loaf. Reduced motion skips the face entry (deadline 7,000ms) and the breakdowns, and a mid-clip switch jumps to loaf. The Sit/Stand developer control offers Stand from every resting pose.
@@ -124,7 +128,7 @@ Main integration checkpoint: November 23, 2026. The user approved the reviewed c
 ## Still unverified or incomplete
 
 - Windows native overlay appearance, dragging, and native save/restart need hands-on runtime testing. Compilation alone does not establish them.
-- No Mac runtime test was performed here. GitHub's matrix is configured for both platforms; inspect Actions for actual run results.
+- Mac floating-dog runtime passed by hand on November 26 (see the entry above); other features have not been run natively on Mac. GitHub's matrix compiles both platforms; inspect Actions for actual run results.
 - The GitHub CLI token on the initial workstation is invalid, so authenticated Actions inspection is unavailable; SSH Git access works.
 - No live AI, credentials, scheduling engine, assignment/calendar/grade integration, cloud sync, or sign-in.
 - No recorded bark, final sprite set, multiple adoptable variants, mature animation, dedicated book/door audio, or full item reveal sequence.
@@ -136,7 +140,7 @@ Main integration checkpoint: November 23, 2026. The user approved the reviewed c
 
 Updated November 26, 2026. Feature freeze is November 30; demo December 1.
 
-1. **Floating dog on both platforms (blocks M2):** run the native app hands-on on Windows and Mac, covering transparency, always-on-top over other apps, dragging, home/float round trip, quit, and save/restart. Record results under `docs/evidence/`. Compilation alone does not count.
+1. **Floating dog on Windows (blocks M2):** Mac passed November 26. A teammate runs [NATIVE_FLOAT_CHECKLIST.md](NATIVE_FLOAT_CHECKLIST.md) on Windows, covering transparency, always-on-top over other apps, dragging, home/float round trip, quit, and save/restart. Record results under `docs/evidence/`. Compilation alone does not count.
 2. **AI provider and budget (blocks M5/M8):** decide whether to use a live provider or demo with the labeled sample planner. Then show one grounded suggestion that changes after a saved reflection.
 3. **Quest wording editing (M5)** through a shared action, keeping proposed/accepted/deferred/completed distinct.
 4. **Dog interaction and bark (M3/M7):** one deliberate interaction with visible feedback and a sound that is meaningful when muted.
