@@ -21,7 +21,7 @@ The current app includes:
 
 Consolidation checks passed all **65 tests**, source size/type checks, the frontend production build, and Windows release compilation. These are the recorded consolidation results; a fresh combined native UI walkthrough and Mac validation remain pending. See [implementation status](docs/IMPLEMENTATION_STATUS.md) for evidence and limitations.
 
-Planning is a deterministic sample, with **no live AI or external integrations**. Sound is synthesized; final clothing art and recorded audio remain unfinished. The loaf animation is preserved for review, with its runtime timer disabled; animated stand-up also remains unfinished.
+Planning is a deterministic sample, with **no live AI or external integrations**. Sound is synthesized; final clothing art and recorded audio remain unfinished. Tired sitting settles into the approved loaf after seven seconds; animated stand-up, loaf breathing, and non-drowsy loaf faces remain unfinished.
 
 ## Run the app
 

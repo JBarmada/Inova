@@ -6,6 +6,7 @@ export const dogArt = {
   happy: "/dog/happy.png", tired: "/dog/tired.png",
   "sitting-blink": "/dog/sitting-blink.png", "sitting-drowsy": "/dog/sitting-drowsy.png",
   "sitting-tired": "/dog/sitting-tired.png",
+  "loaf-bend": "/dog/loaf-bend.png", "loaf-tuck": "/dog/loaf-tuck.png", loaf: "/dog/loaf.png",
 };
 
 const breaths = (name: string) => Array.from({ length: 4 }, (_, phase) => `/dog/breathing/${name}-${phase}.png`);
@@ -17,6 +18,8 @@ export const breathingArt: Partial<Record<keyof typeof dogArt, string[]>> = {
 
 export function dogFrame(mood: AppState["pet"]["mood"], pose: DogPose) {
   if (pose === "tucking") return "tucking";
+  // Loaf frames carry the approved drowsy face; other loaf faces await review, so mood holds this art.
+  if (pose === "loaf-bend" || pose === "loaf-tuck" || pose === "loaf") return pose;
   if (pose === "sitting") return mood === "tired" ? "sitting-tired" : "sitting";
   return mood === "idle" ? "standing" : mood;
 }

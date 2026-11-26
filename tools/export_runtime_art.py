@@ -36,6 +36,21 @@ def export_seated_faces(destination, records):
                 "sha256": hashlib.sha256(target.read_bytes()).hexdigest()}
 
 
+def export_loaf(destination, records):
+    """Approved v36 tired sit to loaf (user review, November 26, 2026)."""
+    start = Image.open(ROOT / "art/pocket-pup/v36/tired-sit.png").convert("RGBA")
+    assert start.tobytes() == Image.open(destination / "sitting-tired.png").convert("RGBA").tobytes()
+    for name, frame in (("loaf-bend", "bend-elbows"), ("loaf-tuck", "tuck-paws"), ("loaf", "loaf")):
+        relative = f"art/pocket-pup/v36/{frame}.png"
+        target = destination / f"{name}.png"
+        copyfile(ROOT / relative, target)
+        image = Image.open(target)
+        assert image.size == (64, 64) and image.mode == "RGBA"
+        assert set(image.getchannel("A").get_flattened_data()) <= {0, 255}
+        assert image.getbbox()[3] == start.getbbox()[3], "loaf frames stay on the sitting ground line"
+        records[name] = {"source": relative, "sha256": hashlib.sha256(target.read_bytes()).hexdigest()}
+
+
 def main():
     destination = ROOT / "public/dog"
     destination.mkdir(parents=True, exist_ok=True)
@@ -78,12 +93,13 @@ def main():
                 "source": f"art/pocket-pup/v34/{source.name}",
                 "sha256": hashlib.sha256(target.read_bytes()).hexdigest()}
     export_seated_faces(destination, records)
+    export_loaf(destination, records)
     metadata = {"canvas": [64, 64], "alpha": "binary", "scale": "integer nearest-neighbor",
                 "sitTransitionMs": 160, "standingNeck": [22, 42], "seatedNeck": [21, 39],
-                "breathingDurationsMs": [800, 450, 650, 900],
+                "breathingDurationsMs": [800, 450, 650, 900], "loafStepMs": 220,
                 "assets": records, "license": "project art; no repository-wide distribution license selected"}
     (destination / "manifest.json").write_text(json.dumps(metadata, indent=2) + "\n", encoding="utf-8")
-    print("Exported seven base/layer assets and twelve approved breathing frames; source pixels and grounded paws verified.")
+    print("Exported seven base/layer assets and twelve approved breathing frames, plus three loaf frames; source pixels and grounded paws verified.")
 
 
 if __name__ == "__main__":

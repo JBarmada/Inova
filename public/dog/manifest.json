@@ -20,6 +20,7 @@
     650,
     900
   ],
+  "loafStepMs": 220,
   "assets": {
     "neutral": {
       "source": "art/pocket-pup/v32/00.png",
@@ -192,6 +193,18 @@
         "art/pocket-pup/v34/sitting-3.png"
       ],
       "sha256": "5182bb5bda39db6d0df403214374133794fab9247dce279f66175c854ad3394b"
+    },
+    "loaf-bend": {
+      "source": "art/pocket-pup/v36/bend-elbows.png",
+      "sha256": "c193cd6cd198bc999fc7ff764dc24b90e1b99d0f54c061cac10c637732be9e2c"
+    },
+    "loaf-tuck": {
+      "source": "art/pocket-pup/v36/tuck-paws.png",
+      "sha256": "33bfa4c37f2105c7b056443d1d034433e89087f90fec589dcf0d1fd0af4e9b2c"
+    },
+    "loaf": {
+      "source": "art/pocket-pup/v36/loaf.png",
+      "sha256": "c2c48ca14ec46a33229096912b17510756ca3ff7f409e8366e946efe593c9e51"
     }
   },
   "license": "project art; no repository-wide distribution license selected"

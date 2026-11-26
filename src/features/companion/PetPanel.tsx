@@ -7,6 +7,7 @@ import { DogDeveloperControls } from "./DogDeveloperControls";
 import { BoneQuestToy } from "./BoneQuestToy";
 import { playCue } from "../../services/audio";
 import { useDogPose, type PoseRequest } from "./useDogPose";
+import { isResting } from "./posePlayback";
 
 export function PetPanel({ floating, onToyExpanded }: { floating: boolean; onToyExpanded?: (open: boolean) => void }) {
   const state = useInova();
@@ -16,7 +17,7 @@ export function PetPanel({ floating, onToyExpanded }: { floating: boolean; onToy
   const { run, busy, message } = useAction();
   async function changePose() {
     if (!state.settings.devMode) return;
-    const kind = pose === "sitting" ? "stand" : "sit";
+    const kind = isResting(pose) ? "stand" : "sit";
     playCue("click", state.settings.muted);
     setRequest((previous) => ({ kind, id: (previous?.id ?? 0) + 1 }));
   }

@@ -3,7 +3,8 @@ import { createBreathingPlayback } from "./breathingPlayback";
 import { breathingArt, dogArt, preloadDogArt } from "./dogArt";
 
 export function useBreathingArt(frame: keyof typeof dogArt) {
-  const family = frame.startsWith("sitting") ? "sitting" : frame === "tucking" ? "transition" : "standing";
+  const family = frame.startsWith("sitting") ? "sitting"
+    : frame === "tucking" || frame.startsWith("loaf") ? frame : "standing";
   const [state, setState] = useState({ family, phase: 0 });
   const [ready, setReady] = useState(false);
   const [reduced, setReduced] = useState(() => window.matchMedia("(prefers-reduced-motion: reduce)").matches);

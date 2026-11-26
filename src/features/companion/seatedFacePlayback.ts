@@ -5,6 +5,7 @@ export const TIRED_FACE_STEPS: [FaceFrame, number][] = [
   ["sitting", 900], ["sitting-blink", 100], ["sitting", 350],
   ["sitting-drowsy", 450], ["sitting-blink", 250],
 ];
+export const TIRED_FACE_ENTRY_MS = TIRED_FACE_STEPS.reduce((total, [, ms]) => total + ms, 0);
 
 export function createSeatedFacePlayback(show: (frame: FaceFrame) => void, reduced = false) {
   let timer: ReturnType<typeof setTimeout> | undefined;

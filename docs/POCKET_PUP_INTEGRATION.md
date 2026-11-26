@@ -8,7 +8,7 @@ The user approved v34 grounded breathing and integration into main. The branch w
 
 Breathing now uses exact v34 PNGs in `public/dog/breathing/`, with a 2.8-second cycle, fixed paws, neck-following bandana, and reduced-motion handling. Asset provenance/timings are in `public/dog/manifest.json`. `npm run check` passed with 31 tests in seven source test files and a production build; the test command scans `src` to exclude nested worktrees/backups. Windows release library compilation passed. The browser showed the updated navigation, wardrobe/bandana, manual pose control, and breathing URLs progressing from rest to exhale. Windows native runtime and Mac build/runtime remain unverified for this integration.
 
-Next: posture-preserving facial mood changes, tired sit → loaf after seven seconds, and sit → stand. Each needs user review of a GIF or transition state before moving on. They are not included in the approved main integration. Historical worktree notes below describe the earlier checkpoint.
+Tired sit → loaf (v36) was approved and integrated November 26, 2026. Next: seated facial recovery and sit → stand. Each needs user review of a GIF or transition state before moving on. They are not included in the approved main integration. Historical worktree notes below describe the earlier checkpoint.
 
 November 23, 2026. Isolated branch: `codex/pocket-pup-integration`.
 

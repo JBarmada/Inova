@@ -1,5 +1,15 @@
 # Implementation Status and Handoff
 
+## Approved tired sit to loaf (v36) — November 26, 2026
+
+The user approved the v36 loaf GIF during a browser playtest, and it now runs in the app. Once stable tired sitting is reached (the 2,050ms tired-face entry has finished), one seven-second deadline starts. On expiry, if the dog is still seated and tired, it plays bend elbows (220ms) → tuck paws (220ms) → loaf, then holds. Idle/happy mood, Stand, disposal, or adoption loss cancel the deadline; duplicate tired events and rerenders keep the original deadline. Mood changes during the clip finish at loaf. Reduced motion skips the face entry (deadline 7,000ms) and the breakdowns, and a mid-clip switch jumps to loaf. The Sit/Stand developer control offers Stand from every resting pose.
+
+Wearables are fitted per frame. Hat and glasses follow the measured 3/7/10px head drop. The body item stays above the ground row. Socks use seated paws during the bend and the two visible tucked paws during the tuck. In loaf, the paws are hidden under the body, so socks are deliberately not drawn; the equipment record is unchanged. Runtime frames are byte copies exported by `tools/export_runtime_art.py` with hashes in `public/dog/manifest.json`. Existing sprites were re-exported byte-identical. No persisted schema change.
+
+Known limitations, unchanged from the ledger: standing from loaf (like standing from sitting) is a direct switch until a reviewed rise clip exists; loaf has no breathing loop; loaf keeps its approved drowsy face for every mood (relaxed and happy loaf faces await review); navigating away remounts the companion and resets posture to standing.
+
+`npm run check` passed: size limits, TypeScript, **81 tests in 18 files** (new `loafPlayback.test.ts` covers 6,999/7,000ms, cancellation, duplicates, Stand, reduced motion and disposal; wearable tests cover all loaf frames), and the production build. Headless Chrome playtest against `npm run dev`: bend appeared at ~9,050ms after setting tired (2,050ms face entry + 7,000ms), tuck +220ms, loaf +220ms; Stand from loaf returned to standing; idle three seconds into the wait cancelled the deadline. With a four-slot outfit, hat/glasses followed the head and socks hid on loaf. `npx tauri build` passed on macOS (Apple Silicon; Rust lives in `~/.cargo/bin`, which must be on PATH) and bundled `Inova.app`/`.dmg`. The native window has not been run interactively, and Windows remains unverified.
+
 ## Dog control gate and menu dismissal correction — November 23, 2026
 
 All manual dog controls now share `DogDeveloperControls`, gated by adoption and Dev mode in both home and floating mode. Future dog buttons belong there. Normal-mode render tests reject any new dog action button outside the gate; adoption and wardrobe previews remain available. The redundant minimize icon and its styling are removed. Outside clicks, focus loss and Escape still retract the menu into the toy; no explicit dismissal button is needed.

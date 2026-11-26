@@ -1,5 +1,5 @@
 import { afterEach, describe, expect, it, vi } from "vitest";
-import { createPosePlayback, IDLE_SIT_DELAY, TUCK_DURATION, type DogPose } from "./posePlayback";
+import { createPosePlayback, IDLE_SIT_DELAY, LOAF_DELAY, TUCK_DURATION, type DogPose } from "./posePlayback";
 import { dogFrame } from "./dogArt";
 
 afterEach(() => { vi.clearAllTimers(); vi.useRealTimers(); });
@@ -70,7 +70,7 @@ describe("mood and posture independence", () => {
     playback.sit();
     playback.setMood("tired");
     playback.setMood("tired");
-    vi.advanceTimersByTime(60_000);
+    vi.advanceTimersByTime(LOAF_DELAY - 1); // reduced motion: loaf deadline is 7s
     playback.setMood("happy");
     playback.setMood("idle");
     expect(show.mock.calls.flat()).toEqual(["standing", "sitting"]);

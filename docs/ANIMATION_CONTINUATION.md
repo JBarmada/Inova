@@ -1,6 +1,8 @@
 # Continue Pocket Pup art and animation
 
-Handoff requested November 23, 2026. This chat stopped at the user's request after saving this prompt. This document does not approve the pending loaf design or start more implementation.
+Handoff requested November 23, 2026.
+
+**Update November 26, 2026:** the user approved v36 and it is integrated (see IMPLEMENTATION_STATUS.md). Steps 1–6 of "Only after the loaf is visually approved" are done, apart from loaf breathing and non-drowsy loaf faces. **The current stopping point is step 7: author and show a sit-to-stand rise preview for review.** No rise artwork exists yet. Sections below describe the earlier loaf checkpoint.
 
 ## Copy-ready continuation prompt
 
