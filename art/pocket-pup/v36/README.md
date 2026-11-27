@@ -1,6 +1,6 @@
 # Tired sit to loaf: next review
 
-**Not integrated.** Approved seated tiredness is on main as `93696f3`. This study is on `codex/loaf-transition-review`.
+**Approved and integrated November 26, 2026.** Runtime copies are exported to `public/dog/loaf-*.png` by `tools/export_runtime_art.py`. The notes below describe the original review checkpoint.
 
 - [Normal timing GIF](loaf-preview.gif): exact tired sitting for 7,000ms, two 220ms breakdown poses, then loaf hold.
 - [Slower motion GIF](loaf-slow.gif): same seven-second wait; 600ms breakdown poses for inspection.

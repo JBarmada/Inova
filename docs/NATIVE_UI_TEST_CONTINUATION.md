@@ -20,7 +20,7 @@ Main already contains:
 - A three-second combined wait for pending state mutations and placement saves, with retry after native quit failure.
 - Rust native window teardown followed by Tauri's last-window exit. Keep this ordering: AppHandle.exit(0) previously produced Chrome_WidgetWin_0 error 1412 even though its exit code was 0.
 - Completed-quest grouping, newest-first ordering, outside-click/focus-loss board dismissal, and stable floating canvas width.
-- Approved sit/breathing/seated tiredness, schema-v2 four-slot wardrobe, and startup feedback. Preserve them. The loaf runtime timer is still unapproved/disabled.
+- Approved sit/breathing/seated tiredness, schema-v2 four-slot wardrobe, and startup feedback. Preserve them. Update November 26: the v36 loaf is approved and its timer runs (branch `test/native-float`). The floating dog also passed a manual Mac run using the isolated profile `src-tauri/tauri.playtest.json` ([checklist](NATIVE_FLOAT_CHECKLIST.md)); reuse that profile for automated native tests.
 
 The consolidation record reports 65 passing tests in 14 files, frontend checks/build, and Windows native release compilation. These are inherited recorded results, not a fresh native walkthrough of consolidated main. Existing native captures in docs/evidence/reliable-quit predate consolidation.
 

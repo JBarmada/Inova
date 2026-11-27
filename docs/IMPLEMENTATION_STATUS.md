@@ -1,3 +1,8 @@
+## Integrated playtest candidate — November 26, 2026
+
+The latest local build-out (including themed quest classification and rewards, 37 provisional costume looks, fitted legacy wardrobe, shared chat/AI bridge, and animation improvements) is reconciled with the latest fetched main and teammate native-float branch. Identical wardrobe try-on and v36 loaf work was not reimplemented. The v37 alternative rise is retained for review, not enabled. The original checkout and experimental review art were not overwritten. See [main consolidation](MAIN_CONSOLIDATION.md).
+
+Combined build verification: 467 app tests, four preview tests, source size, type, 20 clip atlases, walk hashes, production build and two Windows Rust library tests passed. The existing Tailscale server served the new build and returned model availability for Gemma 3 4B. The earlier native Mac checklist passed on the teammate branch; the full combined build is not yet tested on Mac or through the native Windows window. Vite reports a nonblocking large bundle warning. Remote main remains unchanged pending approval.
 ## Costume trial and unlocks — November 24, 2026
 
 The 37 requested looks are available as body-slot costumes with original, simplified code-drawn pixel overlays and individual thumbnails. They preserve the base dog and use existing pose and movement anchors. The art is a first pass, not the generated concept sheets, and has not been visually checked in the application; fitting and recognizability across animation remain open. Existing ten item markers remain provisional. Mustache, bob and army hat currently occupy the body slot, so they cannot be combined with another body costume.
@@ -695,7 +700,7 @@ Main integration checkpoint: November 23, 2026. The user approved the reviewed c
 ## Still unverified or incomplete
 
 - Windows native overlay appearance, dragging, and native save/restart need hands-on runtime testing. Compilation alone does not establish them.
-- No Mac runtime test was performed here. GitHub's matrix is configured for both platforms; inspect Actions for actual run results.
+- Mac floating-dog runtime passed by hand on November 26 (see the entry above); other features have not been run natively on Mac. GitHub's matrix compiles both platforms; inspect Actions for actual run results.
 - The GitHub CLI token on the initial workstation is invalid, so authenticated Actions inspection is unavailable; SSH Git access works.
 - No live AI, credentials, scheduling engine, assignment/calendar/grade integration, cloud sync, or sign-in.
 - No recorded bark, final sprite set, multiple adoptable variants, mature animation, dedicated book/door audio, or full item reveal sequence.
@@ -705,10 +710,14 @@ Main integration checkpoint: November 23, 2026. The user approved the reviewed c
 
 ## Next actions
 
-1. Choose who owns Track A/B/C in TEAM_PLAN.md.
-2. Everyone follows SETUP.md and runs the starter; get hands-on Windows and Mac overlay reports first.
-3. Follow each track's first milestone. Decide AI provider/spending limit and agree on pixel asset dimensions.
-4. Merge working increments daily; target a complete integrated flow by November 27 and freeze new features November 30.
+Updated November 26, 2026. Feature freeze is November 30; demo December 1.
+
+1. **Floating dog on Windows (blocks M2):** Mac passed November 26. A teammate runs [NATIVE_FLOAT_CHECKLIST.md](NATIVE_FLOAT_CHECKLIST.md) on Windows, covering transparency, always-on-top over other apps, dragging, home/float round trip, quit, and save/restart. Record results under `docs/evidence/`. Compilation alone does not count.
+2. **AI provider and budget (blocks M5/M8):** decide whether to use a live provider or demo with the labeled sample planner. Then show one grounded suggestion that changes after a saved reflection.
+3. **Quest wording editing (M5)** through a shared action, keeping proposed/accepted/deferred/completed distinct.
+4. **Dog interaction and bark (M3/M7):** one deliberate interaction with visible feedback and a sound that is meaningful when muted.
+5. **Animation:** review v37 stand-up; then the seated happy face and tired recovery.
+6. **Demo rehearsal (November 30):** run the one-complete-demo script in 06-must-have-scope.md on both platforms with fictional data and a fallback plan.
 
 ## Commands
 
@@ -968,3 +977,4 @@ The muted Windows overlay showed Iso with Round glasses and Mint socks through s
 ### Omen and Killjoy floating playback
 
 Both outfits passed the muted Windows floating rest, visible bark, fitted walk-to-sit and reduced-motion checks. A Killjoy frame exposed a base-image loading gap in the shared walk landing. The previous walk frame now stays visible until the new base image loads. Repeated native samples with Killjoy and Omen showed a complete sprite through the handoff. `npm run check` passed 461 app tests, four preview tests, and the build with its existing bundle-size warning. Windows Cargo check passed. [Pose comparison and playback](wardrobe-review-2026-11-24/BATCH_06.md#omen-and-killjoy-floating-playback).
+

@@ -6,9 +6,11 @@ Inova is a SCOPE club final project for the theme Evolve. It is an evolving pixe
 
 ## Established team direction
 
-For resumed Track A art/animation work, use [the continuation prompt](ANIMATION_CONTINUATION.md). Main contains the v36 loaf preview files, but the user has not approved that transition; review the GIF before enabling any loaf timer or playback.
+For resumed Track A art/animation work, use [the continuation prompt](ANIMATION_CONTINUATION.md). The v36 tired sit to loaf was approved November 26, 2026 and runs in the app. The v37 sit/loaf-to-stand preview (`art/pocket-pup/v37/`) awaits user review; do not integrate it before approval.
 
-Current functional checkout: the primary project folder on `main`; see [consolidation inventory](MAIN_CONSOLIDATION.md). Existing worktrees are preserved snapshots. Approved v32 sit, v34 breathing, and v35 seated tiredness are integrated alongside four-slot wardrobe, reliable quit, and startup feedback. Mood changes preserve posture. The v36 loaf clip is review-only; its seven-second runtime timer and animated sit-to-stand remain unfinished. See [TRANSITION_TABLE.md](TRANSITION_TABLE.md).
+November 26 integration reconciles the teammate branch `test/native-float` with the newer local build-out. The v36 loaf already existed in the newer renderer (identical art); v37 is review-only. The teammate Mac floating-dog native run passed all ten [checklist](NATIVE_FLOAT_CHECKLIST.md) steps on their branch; the combined build still needs hands-on validation.
+
+Current functional checkout: the isolated `inova-complete` worktree; see [consolidation inventory](MAIN_CONSOLIDATION.md). Existing worktrees are preserved snapshots. Approved v32 sit, v34 breathing, and v35 seated tiredness are integrated alongside four-slot wardrobe, reliable quit, and startup feedback. Mood changes preserve posture. Approved v36 loaf follows seven seconds of stable tired sitting; the combined build uses its existing fitted sit-to-stand and loaf-to-sit sequences; the alternative v37 art awaits approval. See [TRANSITION_TABLE.md](TRANSITION_TABLE.md).
 
 - UI controls should use recognizable icons where text labels can be replaced clearly, with accessible names/tooltips and keyboard focus. Wardrobe uses a hanger destination icon, T-shirt body category, five inventory filters, top clear-outfit icon, and only side-by-side human Stand/Sit pose controls. These project-wide interface rules are recorded in AGENTS.md.
 

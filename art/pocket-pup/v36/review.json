@@ -1,5 +1,5 @@
 {
-  "status": "awaiting user review; not integrated",
+  "status": "approved by user review November 26, 2026; integrated",
   "holdMs": 7000,
   "durationsMs": [
     1000,
@@ -20,5 +20,5 @@
     "loaf"
   ],
   "fixed": "exact starting sit; translated native-scale tired head; connected body",
-  "runtime": "no loaf assets exported; no automatic loaf deadline enabled"
+  "runtime": "public/dog/loaf-bend.png, loaf-tuck.png, loaf.png; 7s deadline after the tired face entry"
 }

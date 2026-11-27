@@ -1,6 +1,8 @@
 # Continue Pocket Pup art and animation
 
-Handoff requested November 23, 2026. This chat stopped at the user's request after saving this prompt. This document does not approve the pending loaf design or start more implementation.
+Handoff requested November 23, 2026.
+
+**Update November 26, 2026:** the user approved v36 and it is integrated (see IMPLEMENTATION_STATUS.md). Steps 1–6 of "Only after the loaf is visually approved" are done, apart from loaf breathing and non-drowsy loaf faces. **The current stopping point is step 7: the v37 sit-to-stand rise preview (`art/pocket-pup/v37/`) awaits user review.** Do not integrate it until approved. Sections below describe the earlier loaf checkpoint.
 
 ## Copy-ready continuation prompt
 
@@ -10,7 +12,7 @@ Read README.md, docs/AI_CONTEXT.md, docs/IMPLEMENTATION_STATUS.md, docs/MAIN_CON
 
 The user wants a natural, consistent pixel dog with an explicit posture/mood hierarchy. Work on one scenario at a time: show the GIF and full dog frames, obtain the user's visual review, revise until approved, integrate that approved scenario, then move to the next. Do not batch the remaining rest chain or treat files existing on main as visual approval.
 
-### Verified main checkpoint
+### Verified main checkpoint (historical, November 23; superseded by the update at the top)
 
 GitHub main was freshly fetched at `c4693ac` before this documentation update. It includes merge `56f80c2` of the loaf review branch, so **both approved runtime art and unapproved v36 preview files are already on main**.
 

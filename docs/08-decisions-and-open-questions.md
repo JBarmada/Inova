@@ -31,7 +31,7 @@ My recommendation for discussion: make spooky transformations an optional playfu
 
 # Questions that affect the next specification
 
-1. Who will provide the hands-on Windows and Mac runtime reports?
+1. Who will provide the hands-on Windows and Mac runtime reports? *Partly answered November 26: Mac was run by a team member on an Apple M4; a teammate with Windows will run [the checklist](NATIVE_FLOAT_CHECKLIST.md).*
 2. What are the AI spending limit, provider, and judging requirements?
 3. How many base dogs, emotion states, and items are realistic for the first build?
 4. What activity earns a cosmetic, and what earns a treat or toy?

@@ -33,6 +33,8 @@ Install Apple's command line developer tools and Rust using the [official Tauri 
 xcode-select --install
 ```
 
+If `cargo` is not found on a Mac that has Rust installed, rustup's folder is not on PATH. Add it for the session with `export PATH="$HOME/.cargo/bin:$PATH"`.
+
 Build the Mac app on a Mac. The starter does not require an Apple developer account for local development. Signing and public distribution are separate work.
 
 ## Clone and run
@@ -73,6 +75,8 @@ npm run tauri build -- --no-bundle
 ```
 
 The first checks source sizes, types, domain behavior, and the frontend build. The second compiles the native app without producing an installer. `npm run tauri build` also requests platform bundles. GitHub runs the checks and native compilation on Windows and Mac.
+
+To test natively without touching your real save, run `npm run tauri dev -- --config src-tauri/tauri.playtest.json`. It uses a separate `com.inova.nativefloat` data folder and the window title Inova Playtest. See [NATIVE_FLOAT_CHECKLIST.md](NATIVE_FLOAT_CHECKLIST.md).
 
 Close a running Windows release executable before rebuilding it. If port 1420 is occupied, stop the other Inova development server. Do not change only one of the Vite port and Tauri devUrl.
 

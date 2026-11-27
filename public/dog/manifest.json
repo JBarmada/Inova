@@ -28,6 +28,7 @@
     650,
     900
   ],
+  "loafStepMs": 220,
   "assets": {
     "neutral": {
       "source": "art/pocket-pup/v32/00.png",

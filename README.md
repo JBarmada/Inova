@@ -6,7 +6,7 @@ Inova is a SCOPE club final project for the theme **Evolve**. You build habits a
 
 ## Current status
 
-This build-out is on **`codex/inova-complete`**, based on the verified `main` checkpoint. It is developed in an isolated worktree; the primary checkout and its uncommitted artwork are preserved. See the [build-out checklist](docs/BUILD_OUT_CHECKLIST.md) and [consolidation inventory](docs/MAIN_CONSOLIDATION.md) before integrating or reusing other work.
+The November 26 integrated test build is in the `inova-complete` worktree, on `codex/inova-complete`. It includes the latest local build-out, the combined wardrobe try-on work and the teammate native-float branch. The original checkout and unapproved artwork remain preserved. Local main is the integration target; remote main is unchanged until review. See the [build-out checklist](docs/BUILD_OUT_CHECKLIST.md) and [consolidation inventory](docs/MAIN_CONSOLIDATION.md) before integrating or reusing other work.
 
 Built with **Tauri 2 + Rust + React + TypeScript + Vite**, targeting Windows and Mac. Three builders are working toward **December 1, 2026**.
 
@@ -22,7 +22,7 @@ The current app includes:
 - A local seven-day activity recap, which explicitly excludes older completions without recorded dates, and an outfit shuffle limited to owned items.
 - Settings for sound, reduced motion, developer mode, and optional status; startup loading/retry feedback; and a shared save-and-quit flow for native X and floating Settings > Quit Inova.
 
-The latest build-out check passed **459 app tests and four preview tests**, all 20 clip-atlas checks, source size and type checks, and the frontend production build. Selected wardrobe combinations have native Windows restart evidence. Full native playback and Mac verification remain open. See [implementation status](docs/IMPLEMENTATION_STATUS.md) and the [build-out handoff](docs/HANDOFF_BUILD_OUT.md) for wider feature coverage and limitations.
+The latest build-out check passed **467 app tests and four preview tests**, all 20 clip-atlas checks, source size and type checks, and the frontend production build. Selected wardrobe combinations have native Windows restart evidence. Full native playback remains open; the teammate Mac floating-window checklist passed on their earlier branch, not the whole combined build. See [implementation status](docs/IMPLEMENTATION_STATUS.md) and the [build-out handoff](docs/HANDOFF_BUILD_OUT.md) for wider feature coverage and limitations.
 
 Local AI requires a separately installed and running Ollama service and model; chat and quest planning report an error if it is unavailable. There are no external account integrations or actual schedule optimization. Sound is synthesized; final clothing art and recorded audio remain unfinished. The integrated animations are available for testing and still need visual review in the combined build.
 

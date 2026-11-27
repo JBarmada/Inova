@@ -60,7 +60,7 @@ Worktree: `.worktrees/inova-complete`, branch `codex/inova-complete`, based on `
 
 ## Current backlog and acceptance — November 23, afternoon
 
-Update this table after each meaningful increment with its actual status, remaining acceptance, dependencies, and verification. The dated entries below are a historical record. **Implemented** means code exists in this branch, not that every platform or visual detail is approved. The branch has been pushed and has not been merged into main.
+Update this table after each meaningful increment with its actual status, remaining acceptance, dependencies, and verification. The dated entries below are a historical record. **Implemented** means code exists in this branch, not that every platform or visual detail is approved. The earlier checkpoint was pushed; the November 26 integrated candidate is local only until user approval. See MAIN_CONSOLIDATION.md.
 
 | Area | Current status | Remaining acceptance or dependency |
 | --- | --- | --- |
@@ -305,3 +305,5 @@ November 23: the floating review area now has a scroll limit for long suggestion
 - [ ] Early wardrobe batch review. Busy bee, Fancy mustache, The bob, and The Lorax have browser playback, accessory reload checks, and Windows fit evidence. Busy bee's revised accessories have browser and native captures. The Lorax curls were redrawn to preserve the smile and rechecked during native rest, bark, and walk. All four passed independent Windows restarts with Dev mode off. Full native timing, Mac coverage, and art review remain open. [Batch 01 checkpoint](wardrobe-review-2026-11-24/BATCH_01.md#current-playback-and-windows-fit).
 
 - [ ] Second wardrobe batch review. Army hat, Toad, and Flower have muted browser coverage, accessory reloads, native fit, and separate Windows restart evidence. Toad needed a development-loader refresh. Army hat and Flower reached the companion directly. Full native playback timing, Mac runtime, and art review remain open. [Batch 02 checkpoint](wardrobe-review-2026-11-24/BATCH_02.md#current-browser-playback-and-native-fit).
+
+- [ ] **Playful idle and fetch:** Prototype occasional tail chasing and an optional bouncing ball that Inu can chase and return to the toy base. Keep the idle animation and fetch interaction distinct and respect reduced motion.

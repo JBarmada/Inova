@@ -33,6 +33,14 @@ describe("wearable presentation and pose contracts", () => {
     expect(standing.socks.map((p) => p.x + 2)).toEqual([18, 27, 35, 44]);
     expect(sitting.socks.map((p) => p.x + 2)).toEqual([12, 18, 24, 30]);
     expect(tuck.socks).toHaveLength(3);
+    const loaf = wearableAnchors("loaf-tired");
+    expect(wearableAnchors("loaf-bend").hat[0].y).toBe(sitting.hat[0].y + 3);
+    expect(wearableAnchors("loaf-tuck").glasses[0].y).toBe(sitting.glasses[0].y + 7);
+    expect(loaf.hat[0].y).toBe(sitting.hat[0].y + 10);
+    expect(wearableAnchors("loaf-bend").socks.map((p) => p.x + 2)).toEqual([18, 24]);
+    expect(wearableAnchors("loaf-tuck").socks.map((p) => p.x + 2)).toEqual([18, 25]);
+    expect(loaf.socks).toEqual([]);
+    expect(loaf.body[0].y + loaf.body[0].height).toBeLessThanOrEqual(55);
     for (const frame of Object.keys(dogArt) as (keyof typeof dogArt)[]) {
       for (const placements of Object.values(wearableAnchors(frame))) {
         for (const p of placements) {
@@ -65,3 +73,4 @@ describe("wearable presentation and pose contracts", () => {
     expect(html.indexOf('data-slot="body"')).toBeLessThan(html.indexOf('data-slot="glasses"'));
   });
 });
+

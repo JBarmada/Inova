@@ -19,7 +19,7 @@ Label any simulated time jump, mock integration, placeholder art, or generated s
 
 ## Representative checks
 
-Pocket Pup: adopt, wait eight seconds for the approved tuck/sit, replay Sit/Stand, and verify breathing while standing and sitting. Check planted paws and bandana following the inhale. Repeat muted and with reduced motion. Change moods/unmount mid-transition to check cleanup. Current stand-up is direct and seated mood preservation is a pending review-gated change; do not count these as completed scenarios. Test native floating/dragging on Windows and Mac separately from the browser.
+Pocket Pup: adopt, wait eight seconds for the approved tuck/sit, replay Sit/Stand, and verify breathing while standing and sitting. Check planted paws and bandana following the inhale. Repeat muted and with reduced motion. Change moods/unmount mid-transition to check cleanup. Mood changes preserve posture (v35). Stand-up is still a direct switch from sitting and loaf; do not count an animated rise as a completed scenario. Loaf: with Dev mode, sit and set tired; after the eye sequence plus seven seconds, check elbows bend, paws tuck, loaf holds. Set idle/happy or Stand before seven seconds to confirm it cancels; Stand from loaf returns to standing. With an outfit on, hat/glasses follow the head down and socks hide once paws are tucked. Test native floating/dragging on Windows and Mac separately from the browser, using [NATIVE_FLOAT_CHECKLIST.md](NATIVE_FLOAT_CHECKLIST.md) (Mac passed November 26; Windows pending).
 
 | Case | Expected behavior |
 | --- | --- |
