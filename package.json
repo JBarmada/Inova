@@ -8,13 +8,16 @@
     "dev": "vite --host 127.0.0.1",
     "build": "tsc --noEmit && vite build",
     "preview": "vite preview --host 127.0.0.1",
+    "preview:tailscale": "node scripts/tailscale-preview.mjs",
     "typecheck": "tsc --noEmit",
     "test": "vitest run --dir src",
+    "test:preview": "node --test scripts/preview-ai-handler.test.mjs",
     "check:size": "node scripts/check-size.mjs",
-    "check": "npm run check:size && npm run check:clips && npm run typecheck && npm test && npm run build",
+    "check": "npm run check:size && npm run check:clips && npm run check:walk && npm run typecheck && npm test && npm run test:preview && npm run build",
     "tauri": "tauri",
     "desktop": "tauri dev",
-    "check:clips": "node scripts/check-clip-assets.mjs"
+    "check:clips": "node scripts/check-clip-assets.mjs",
+    "check:walk": "node scripts/verify-walk-atlas.mjs"
   },
   "dependencies": {
     "@tauri-apps/api": "^2.0.0",

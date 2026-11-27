@@ -1,4 +1,48 @@
+## Costume trial and unlocks — November 24, 2026
+
+The 37 requested looks are available as body-slot costumes with original, simplified code-drawn pixel overlays and individual thumbnails. They preserve the base dog and use existing pose and movement anchors. The art is a first pass, not the generated concept sheets, and has not been visually checked in the application; fitting and recognizability across animation remain open. Existing ten item markers remain provisional. Mustache, bob and army hat currently occupy the body slot, so they cannot be combined with another body costume.
+
+Each look has a playful description and unlocks after 1–37 distinct completed quests in catalog order; on the next completion an existing profile receives all newly qualifying costumes. Repeating a completion grants nothing. In Dev mode a locked item's Dev unlock button grants only that item and does not equip it; the reducer rejects this action outside Dev mode. Older builds do not recognize newly owned item IDs and may reject such saves, despite the unchanged save version. `npm run check` passed 280 frontend and four preview tests; two Windows Rust library tests passed. Browser and native visual reviews and Mac runtime remain pending.
+
+## Bookshelf spine direction — November 24, 2026
+
+The spine title rotates independently so it reads bottom to top; the colored spine, button, and accessible name remain unchanged. The user approved an illustrative preview. `npm run check` passed 273 frontend and four preview tests and built the app. The browser preview was unavailable, so real rendered and native visual review is pending. A separate generated ten-item wardrobe concept is awaiting review; the current runtime wearables remain placeholders.
+
+## Conversation topic separation — November 24, 2026
+
+Chat now omits unrelated recent messages and unmatched memories for the reported paper-to-food example. A clear independent question during goal clarification goes to chat instead of being added to the pending goal; the goal remains pending. The prompt asks every personality to respect the user's goals. Automated tests cover topic separation, follow-ups and the planning handoff. These narrow English and word-overlap heuristics can miss paraphrases or topic changes, and ambiguous follow-ups retain context. A complete conversational topic manager and a natural way to resume a paused goal remain open.
+
+A fictional Gemma 3 4B service-only trial answered the separate food question without mentioning a paper and responded to graduation under all four personalities. The mean-personality reply was pushy ("don't just sit there"); after another prompt revision a repeat replied supportively. This single repeat is not a reliable tone safeguard. The model also offered quests for many ordinary questions and made a contradictory friend-preference reply; the existing goal-word filter blocks many, but not necessarily all, false offers. Memory suggestions still require review. This trial did not exercise the full app or another device, and human review remains necessary. The frontend checks passed 273 tests and four preview tests; two native Rust tests passed. Native UI and Mac remain untested.
+
+## Shared chat and local planning — November 24, 2026
+
+The floating quest toy and home use the same chat component; per-message quest buttons and the automatic sample fallback are removed from those flows. Model goal offers initiate a clarification and planning proceeds automatically after the existing bounded, scripted clarification. Plans remain previews until the first quest is explicitly accepted. Errors expose service/model failures and allow retry. The Quest page focuses on existing quests, and the bookshelf uses category-colored spines. New profiles default to Gemma 3 4B; a saved 12B selection is switched to 4B only after confirming 12B is absent and 4B is installed. If availability cannot be checked the selection is retained.
+
+The host Ollama endpoint reported gemma3:4b installed; fictional direct service prompts produced a chat reply and a three-step exam plan. In that trial the model failed to ask the requested clarification, so the follow-up question remains scripted and broader live conversation reliability is unproven. A fictional chat request also succeeded through the running Tailscale preview bridge on the host. This does not verify native window interaction or another Tailscale device.
+
+Wardrobe now allows temporary combinations across all four slots, including locked items, without changing ownership or the saved outfit. Final item art, economy, and visual/native review remain open.
+
+## Dev-mode walk preview — November 24
+
+The generated welcome-walk trial is available as “Welcome walk (trial)” in the Dev mode animation picker in home and floating views. It retains the reduced-motion behavior and remains a provisional generated asset; native visual verification and fitting to the approved dog are pending.
+
+## Adoption walk trial — November 24
+
+The approved generated walking concept now plays once during adoption before the synthesized bark and return to the normal companion. Reduced motion skips it. This is a temporary generated sprite trial, not a native-pixel fit to the approved base; the face and proportions differ, wearable fitting is not implemented, and native visual review is pending.
+
+## Home and memory refresh — November 24, 2026
+
+Home chat is visible by default, with recent conversation enabled by default but still switchable. New memory-book entries have a title, category tabs and optional links to any existing adventure; they are available for suggestions. Existing memory permissions are unchanged. The standalone perspective exercise is removed from Memories and its conversational replacement is in the build-out backlog. Adoption shows a temporary welcome and a bark with an entrance slide, not a walk cycle. Personality labels are Dev-only; personality-specific artwork still needs concepts and approval. Automated checks passed (264 frontend and 3 preview tests); browser and native-window visual review remain pending.
+
 # Implementation Status and Handoff
+
+## Tailscale AI preview — November 24, 2026
+
+An opt-in preview server can serve the built browser app and bridge its supported local chat, planning and model-check requests to Ollama on the host's loopback interface. It uses the desktop prompts, supported model allowlist and bounded input/output; browser-side validation, memory permission selection and explicit quest acceptance remain in place. It listens only on the configured Tailscale IPv4 and checks the request host and origin. This is a development preview: other devices allowed to reach that port on the tailnet can use its model, and the browser's local storage is separate from the desktop profile. HTTP here is intended for Tailscale transport, not public hosting.
+
+Run `npm run build`, set `INOVA_PREVIEW_HOST` to the host's Tailscale IPv4 and optionally `INOVA_PREVIEW_PORT`, then run `npm run preview:tailscale`. Ollama and the selected model must be running/installed on the host. The normal Vite preview does not provide this bridge. Automated checks cover request restrictions, unavailable service, response handling and the browser transport; real-model and separate-device testing require a running model. The prior 4173/4174 previews remain separate.
+
+On November 24, Ollama was installed and `gemma3:4b` downloaded. Fictional HTTP requests through the Tailscale bridge returned a dog reply and a three-step plan. The first chat request took tens of seconds; no latency benchmark or separate-device browser interaction was performed. The app defaults to 12B, so select Gemma 3 4B under Quests → More options to use the installed model. `npm run check` passed 263 app tests and three bridge tests. Other model versions and prompt quality remain unverified.
 
 ## Reduce repeated memory suggestions — November 23, 2026
 
@@ -681,3 +725,246 @@ The shared quest composer now always presents the labeled sample review before s
 ## November 23 — recap ordering
 
 The seven-day local recap lists recent completions newest first and tests its time boundaries. The automated check passed 158 tests; native saved-history and Mac verification remain pending.
+
+### Wardrobe fit review (November 24, 2026)
+
+The 37 costume overlays and ten older wearable items received a provisional pixel-art fit pass. A developer-only gallery shows every requested costume in standing and sitting poses. Screenshots from an isolated Windows desktop test profile are in `docs/wardrobe-review-2026-11-24/`, including the original bee and the revised gallery. These are simplified interpretations, not finished or user-approved concept-quality art; review each design with the user before considering wardrobe art complete. The test profile and separate build output do not update the hosted preview. Floating-window animation and Mac visuals remain unverified in this pass.
+
+### Illustrated outfit fitting experiment
+
+Bee, Toad and shrimp clothing concepts were generated as separate transparent art experiments. A bee test is visible in the developer wardrobe scenarios only; `docs/wardrobe-review-2026-11-24/bee-soft-fit-experiment.png` captures the actual Windows result. It fails alignment: the face opening and body do not fit the existing dog, and the generated image contains drawn ears and transparency artifacts. These are not approved or equippable production art. Fit separate clean pieces to each pose and animation before proposing replacement artwork. Toad and shrimp have not been tested on the dog.
+
+### Bee costume motion work in progress
+
+A revised bee garment is being tested against the original concept using separate face, body, and behind-dog wing layers. Stand-to-sit source-frame diagnostics preserve the face and tail but are not a substitute for native app or moving-animation review. Independent review found low, loaf, and sleeping poses still fail; the artwork is not approved or finished. A separate frame-indexed welcome-walk prototype and losslessly decoded atlas are present for Dev-mode review only: their anchor estimates remain unverified and the live walk is unchanged. The requested complete visual approval and other outfit conversions are outstanding.
+
+The November 24 bee pilot now also interpolates lowered-pose garments and renders wings behind the dog. Its independent reviewer accepted neither the artwork nor the motion: a prior diagnostic showed a sleep-frame wedge and an abrupt transition, and the latest revision still needs review. Native screenshot capture is presently stalled when selecting either isolated Inova window; both app screenshot review and actual walk playback verification remain outstanding. Latest code checks: size, 20 clip atlases, TypeScript, 290 app tests and 4 preview tests pass. The full production build and Mac visual verification were not rerun after the latest pilot edits.
+
+Bee pilot continuation: updated happy-loaf mouth clearance, stretch garment and walk-only fit. An independent reviewer inspected diagnostic sheets for all 20 clips in phases 0 and 3, plus selected other phases; no new major overlap was found, but the sleeping mouth remains ambiguous. These were rendered source-frame composites, not native screenshots or playback, and some sheets displayed only partially. The original treat effect appears disconnected from the mouth even without clothing. The Dev-only frame-indexed walking review can play the preserved eight-frame atlas; live welcome-walk still uses the original GIF. Native UI screenshot selection continues to hang, so the first costume is not approved and the remaining outfits have not been converted. Latest checks passed: size, 20 clip atlases, walk asset hashes, typecheck, 293 app tests, 4 preview tests, and an isolated Vite build. Native runtime visual review and Mac remain pending.
+
+Bee pilot latest review: the upright under-chin band now uses a dark color closer to the original bee concept; low-pose collars retain their clearance-tested coloring. Eighty source-frame sheets (20 clips at four breathing phases) were generated and independently inspected individually, including sheets that had initially displayed only partially. This evidence predates the latest collar refinement and is not native playback. A fresh Windows native development launch using `npm run tauri dev -- --config .tools/wardrobe-review2.json --no-watch` compiled and launched; Vite serves the latest work through hot reload, but native screenshots and moving playback have not been verified. The walk player remains a developer-only prototype, and the user has not approved the bee or conversion of other outfits.
+
+Post-collar checkpoint: a fresh native UI screenshot attempt hung again even after restarting the helper; no app screenshot or moving playback was obtained. Four post-change static sheets were inspected by the implementer: stand-to-sit (8 frames), stretch (4 of 5 frames visible; the viewer clipped one), low moods (5 frames), and the isolated walk prototype (8 frames). In the visible frames the dark upright collar did not visibly cover the smile; the sleeping mouth/collar boundary remains ambiguous and the walk torso remains rigid. These are diagnostics, not native verification or approval. The separate walk prototype now preloads its standalone atlas and can fall back to the original welcome image if that atlas cannot load; this prototype has not replaced normal welcome playback and requires native review.
+Independent post-collar review additionally inspected stand-to-sit, loaf-to-sleep, stretch, and eight walk frames. The reviewer saw no new obvious mouth collision in those representative static composites and judged the dark collar closer to the reference, while noting the clothing shapes remain simpler. They have not re-reviewed all 80 sheets after the collar change and have not approved the final artwork.
+
+Bee movement continuation: the ordinary welcome walk now uses a synchronized eight-frame atlas when it loads, with an original-GIF fallback. This lets the dog and worn layers receive the same frame index; actual Windows playback and floating-mode behavior still require review. A sleeping base-versus-composite pixel comparison found the original mouth at x19–21/y45 unchanged, with an unchanged pixel row immediately below after a sleeping-only collar adjustment; the independent reviewer saw a clear gap in that static comparison. Frame-specific walk hem contours were added. The reviewer found no new static paw/tail collision, but the first pronounced arches may read as notches; their depth was softened and needs another review. The latest reported automated run passed 301 app tests; these tests do not establish artwork quality, native screenshots, or animation continuity. The bee and remaining outfits are not approved.
+
+The independent reviewer inspected the softened walk-frame arches: frames 3 and 6 appeared less notch-like, paws remained clear, and no new obvious collision was seen in those static composites. Actual moving playback remains necessary to assess continuity. A Windows Cargo check passed after the latest integration (as reported by the native build reviewer). Following the hem changes, source size and TypeScript checks plus nine focused costume tests passed. These checks do not constitute native screenshot, animation, or user approval.
+
+Walk-to-rest handoff, November 24: a same-scale source composite compares the last welcome-walk frame with the neutral standing sprite; the standing comparison was checked pixel-for-pixel against neutral. The walking head and face are visibly larger, and the torso shifts and shortens at the swap. A diagnostic affine search suggested scaling the walk to 90.625% and translating it down 6 pixels; this is a measurement experiment, not a live fix or visual approval, and the bee hood still differs in size. A newly generated replacement walk concept was rejected as production art because it has red/black edge artifacts, an inconsistent pixel grid, and unverified frame registration and loop continuity. The concept was not added to live assets. Native playback and actual screenshots remain outstanding; bee and all other outfit work remain unfinished.
+
+Walk lifecycle follow-up: the synchronized atlas renderer is now selected for bee-equipped walks only; other outfits retain the original GIF. The bee renderer waits for atlas readiness and uses the normal dog if loading fails or reduced motion applies. A body equipment change interrupts an active walk, and interrupted preview timers are cleared so they cannot end a later walk. These safeguards need real Windows and floating-mode playback review; they do not resolve the visible walk-to-rest art mismatch.
+
+The current walk also stops on a pose request. The full frontend suite passed 305 tests across 95 files before a subsequent source-size refactor; checks after that refactor remain to be confirmed.
+
+Registered walk trial: the complete walking dog and its clothing layers now share a 58/64 scale and 6/64 downward shift. An independent static comparison found the head and hood closer to rest, while the feet sit slightly low, the torso remains longer, and the walk art appears softer. The entrance motion uses a separate wrapper to prevent its animation transform from overriding this registration. These are provisional changes: native screenshots, Windows and floating-mode playback, continuity, and user approval of the first outfit remain outstanding. The latest checks passed 305 tests across 95 files, the 271-file source-size check, TypeScript checking, and an isolated Vite build; these checks cannot establish visual quality.
+
+Correction to breathing-phase review: the 80 generated sheets are not 80 distinct appearances. The renderer selects the same atlas rows as runtime; raw atlas rows contain three pixel-distinct variants in 16 of 20 clips and one variant in four clips. With the bee layers composited, only four clips produce three distinct phase sheets (loaf-to-sleep, wake-to-loaf, post-nap stretch, and low-posture moods); the remaining 16 yield byte-identical sheets across phases. For example, in stand-to-sit frame 1, the five differing raw pixels fall under the garment. Review must describe unique composites rather than imply four distinct breathing appearances per clip. Runtime screenshots and playback remain pending.
+
+Independent post-change static review: all 20 current clip composites and the distinct phase versions of clips 04, 06, 08 and m07 were inspected. The reviewer found no new obvious facial, paw, tail or wing collision; the sleeping mouth remains visible. These source composites do not prove runtime appearance or moving continuity. Native screenshots, actual Windows and floating-mode playback, and user approval remain pending. Latest reported checks: 306 tests passed, and source-size and TypeScript checks passed.
+
+Pixel bee candidate: the bee in `art/pocket-pup/wardrobe-concepts/requested-costumes.png` is the original design reference; the fitting and review process is documented in `docs/WARDROBE_SPEC.md`. The outfit now has stepped hood, antenna and wing details, slanted stripes, and a rounder seated torso, with the dog's face separate. An independent reviewer inspected standing and sitting in the live browser: face, paws and tail remained clear, and the lowered seated wing root improved its connection. The wing roots still appear partly obscured by the head or tail, and the seated body still reads somewhat like a bib. This is a provisional candidate, not user approval; native screenshots, real moving playback and floating-mode review remain outstanding. Latest reported checks passed 306 tests, source-size and TypeScript checks.
+
+Latest pixel bee pass: standing and sitting garment outlines now use stepped contours and angular hood joins. Wings were adjusted toward the shoulder and the seated chest uses a gold front with a side stripe, guided by `art/pocket-pup/wardrobe-concepts/requested-costumes.png` and the repeatable process in `docs/WARDROBE_SPEC.md`. An independent reviewer checked the latest standing and sitting in the live browser: no new obvious face, paw, tail or wing collision; the seated chest still reads as a front panel. The reviewer considers this suitable for provisional user feedback. Native screenshots, motion, floating mode and other poses remain unverified, and the outfit is not approved. Latest focused checks: source size, TypeScript and four bee tests passed.
+
+Independent browser functional review on the isolated preview at port 1439, using a fictional dog: Dev unlock, equip, stand/sit display, navigation and reload persistence passed. The reviewer saw the face and paws in both poses; wings remained visible though their roots were partly hidden by the dog. This browser test is not native Windows overlay or full-motion verification. User review and approval remain pending.
+
+A fresh isolated Windows build compiled and its window appeared. After browser connectivity was restored, the screenshot helper still hung when selecting the native window, so the bee's native appearance and moving playback remain unverified. The outfit is unfinished and awaits user review; the successful launch is not visual approval.
+
+Bee fit follow-up: the hood was narrowed, the stripes and shading made more stepped, and the wings moved toward the shoulder. The sitting suit has an additional side band intended to suggest a wrap. Both static poses were inspected in the running browser; the standing wing root is still partly obscured, and the sitting suit remains a simplified interpretation of the concept. This remains a candidate for user review, not approved final art. Native and animated appearance remain unverified.
+
+Full-art experiment: the user found the layered bee visually unchanged and requested an outside-app comparison and exploration of complete costume sprites. `docs/wardrobe-review-2026-11-24/compare.html` compares the original bee concept, the user's app screenshot, and an AI-generated full-character standing concept. This is a static concept, not a registered sprite or an in-app change. Browser security blocked opening the local file through the automation tool, so its visual layout has not been verified there. A matching sitting pose, expression and other equipment compatibility, animation, native testing, and user approval remain open.
+
+The user pointed out that the full-art candidate changed Inu's appearance. A further image-generation edit using their actual dog screenshot also redrew his face and proportions despite instructions to preserve them; `docs/wardrobe-review-2026-11-24/bee-dog-reference-experiment.png` is reference-only and rejected as a faithful replacement. Future fitting must retain Inu's actual source pixels in uncovered regions and keep expressions compatible; the generated candidate is not production art.
+
+Update: the user liked the dog-reference bee experiment and asked to put it on the site. A transparent-background derivative is now shown for the bee in the idle standing pose when no other slots are occupied; it was visually checked in the live browser. The full-character image does not preserve the original dog's pixels exactly or animate. Sitting, other moods, clips, and combinations use the previous layered bee until matching art exists. The swap between appearances is a known limitation; native and floating playback remain unverified.
+
+Bee sitting and expressions follow-up: a generated sitting image and separate drawn happy, tired, and blink eye details now appear on the full-art bee in stable standing and sitting when no other slots are occupied. Browser review covered standing happy and sitting happy. The generated sitting pose has a different wing arrangement and body angle; transitional clips still use the earlier layered bee, so transitions can visibly change appearance. Other slot combinations and native/floating playback remain unverified.
+
+Expression check: idle, happy and tired were exercised in standing and sitting in the local browser with the bee as the only equipped item. Bark was selected and started in developer controls; its clip renders the earlier layered bee instead of the new full-character art, so the appearance visibly changes. The bark sound and the full animation were not independently verified. The replacement bark animation remains open.
+
+Bee sit-transition experiment: ordinary sit/stand intermediate frames and their developer preview clips now blend and slightly transform the new standing and sitting bee images instead of displaying the older layered costume. This is a crossfade between two differently oriented drawings, not per-pixel motion tracking or newly drawn animation frames, and may ghost. Automated progress mapping, size, TypeScript, 309 tests and a separate frontend build passed. The browser automation connection was unavailable for visual playback review; the result needs user and native/floating review. Loaf, bark, other clips and multi-slot outfits retain the earlier art.
+
+## Bee animation follow-up — November 25
+
+The bee now uses registered standing, sitting and loaf drawings in the wardrobe and companion renderer. Their feet share a ground line. Happy, tired, blinks and bark use independent facial details. The tired sequence settles into loaf, and the Dev pose button brings a loafed bee back to sitting before a separate press can stand it up. The old bee overlay and post-nap stretch are retired from the app's controls and playback. Chrome verification at `http://127.0.0.1:1439/` covered seated happy and bark, tired to loaf, and loaf back to sitting. A Windows native preview verified Dev unlock, equipping, both wardrobe poses, transparent floating mode, and the floating happy expression. Transitions may still show a cut between different drawn angles, and the welcome walk remains a standing-art bob trial. Additional accessory fit, a full motion and audio review, and Mac runtime remain open.
+
+## Wardrobe batch 01 — November 25
+
+Fancy mustache, The bob and The Lorax now use fitted head and muzzle layers over Pocket Pup's original art. The stable costume IDs, body slot, ownership and quest thresholds are retained. The synchronized eight-frame welcome walk carries each fitted layer. The live Dev Sit action stops in sitting from loaf for all outfits. The [batch review](wardrobe-review-2026-11-24/BATCH_01.md) records the rendered evidence and remaining checks. `npm run check` passed 313 app tests, four bridge tests, and the build. The Windows development build compiled and launched. The Lorax was checked in the native wardrobe, desktop companion and floating overlay.
+
+## Wardrobe batch 02 — November 25
+
+Army hat, Toad and Flower now follow the original dog's pose and walk frames. Toad has separate vest fits for standing, sitting, and resting. Flower has a smaller collar fit for resting and leaves Inu's facial expression visible. The catalog IDs, quest unlock requirements, and body slot were retained. `npm run check` passed 316 app tests, four bridge tests, and the build. Windows `cargo check --manifest-path src-tauri/Cargo.toml` passed. Toad was inspected in the Windows wardrobe, Companion view, and floating overlay. The [review evidence](wardrobe-review-2026-11-24/BATCH_02.md) records browser playback and open checks.
+
+## Wardrobe batch 03 — November 25
+
+Lord Farquaad, Harry Potter, and Clown around now use fitted head and neck layers on Inu's original pose and walk frames. The new collars have a compact resting fit. The catalog IDs, unlocks, and slot rules remain the same. Clown around was tried in the Windows wardrobe, desktop Companion view, and floating overlay. It also persisted with Mint socks after a browser reload, and clearing the outfit removed both items. `npm run check` passed 319 app tests and four bridge tests. The production build and Windows Cargo check passed. [Visual evidence and open checks](wardrobe-review-2026-11-24/BATCH_03.md).
+
+## Wardrobe batch 04 — November 25
+
+Cozy bathrobe, Cucumber spa, and USC hoodie now use fitted standing, seated, and resting coat silhouettes over Inu's original art, with intermediate placement during sit and the fitted welcome walk. The browser retained the USC hoodie after reload and showed both pose destinations with reduced motion. Disabling Dev mode hid the manual controls while the hoodie stayed equipped. `npm run check` passed 322 app tests, four bridge tests, and the production build. Windows Cargo check passed. [Visual evidence and open checks](wardrobe-review-2026-11-24/BATCH_04.md).
+
+## Wardrobe batch 05 — November 25
+
+Pikachu, Shrek, and Mort now use fitted creature hoods and garments over Inu's original frames. Their resting garment hem compensates for the head's lowered position. Mort remained equipped on browser reload and completed a live tired-to-loaf-to-sleep cycle. Waking returned to loaf and the next Sit action returned to sitting. The Windows native overlay displayed standing and seated-happy Pikachu. `npm run check` passed 325 app tests, four bridge tests, and the production build. Windows Cargo check passed. [Visual evidence and open checks](wardrobe-review-2026-11-24/BATCH_05.md).
+
+## Wardrobe batch 06 — November 25
+
+Iso, Omen, and Killjoy now follow Inu's original pose and walk frames, with shortened seated and resting jacket fits. Equipped eyewear takes precedence over Killjoy's and Harry Potter's built-in frames without changing the outfit's equipment slot. Killjoy was checked in the native Windows wardrobe, Companion and floating window, and a browser reload retained the costume with Round glasses equipped. Omen completed a live rest cycle and reached both pose destinations with reduced motion. `npm run check` passed 330 app tests, four bridge tests, and the production build. Windows Cargo check passed. [Visual evidence and open checks](wardrobe-review-2026-11-24/BATCH_06.md).
+
+The expanded audit covered the browser expression and rest cycle, walk, and reduced-motion poses for all three, plus native fit across Windows Wardrobe, Companion, and floating. A separately equipped hat now takes precedence over Omen's hood and Killjoy's beanie. The updated check passed 417 app tests, four preview tests, and the build. Windows Cargo check passed.
+
+## Wardrobe batch 07 — November 25
+
+Shrimp suit, Wonder Bread, and Chicken nugget now have fitted face openings and standing, seated, and resting garment variants. Shrimp suit keeps its fin in compact poses. The native Windows wardrobe, Companion, and floating window were checked with Shrimp suit. Chicken nugget completed a live browser rest cycle and returned from loaf to sitting. `npm run check` passed 333 app tests, four bridge tests, and the production build. Windows Cargo check passed. The Vite build emitted a chunk-size warning at approximately 503 kB before compression. [Visual evidence and open checks](wardrobe-review-2026-11-24/BATCH_07.md).
+
+The expanded audit covered all three costumes in the browser through rest, wake, bark, walk, and reduced motion, plus Windows wardrobe, Companion, and floating fit. The hood now yields to a separately equipped hat. The updated check passed 420 app tests, four preview tests, and the production build. Windows Cargo check passed.
+
+## Original wardrobe refit — November 25
+
+The original ten items equip through the existing four slots. Trail cap, Cozy beanie, Round glasses, Star glasses, and both pairs of socks are larger in wear. Notebook badge and Bandana use a clearer chest fit. Raincoat and Hoodie use distinct upright, seated and resting shapes, including a folded rain hood and contrasting snaps. Original clothing follows the synchronized welcome walk. `npm run check` passed 388 app tests, four preview tests, and the production build. Windows Cargo check passed. See the [legacy review](wardrobe-review-2026-11-24/LEGACY_REFIT.md) for visual evidence and open checks.
+
+### Seasonal costume batch and themed unlocks
+
+Christmas present, Canadian maple leaf, and Turkey dinner have standing, seated, and compact garment fits over Inu's existing frames. A separately equipped hat takes precedence over the gift bow and maple crown. Windows Wardrobe, Companion, and floating were checked with Christmas present and three accessory slots. Turkey dinner persisted across a browser reload and reached both pose destinations with reduced motion. [Browser recordings, platform coverage, and open checks](wardrobe-review-2026-11-24/BATCH_08.md).
+
+The expanded seasonal audit covered the full browser rest cycle, bark, revised walk, reduced motion, accessory fit, and reload persistence for all three. Windows wardrobe, Companion, and floating fit were checked. Turkey dinner with accessories and a later cleared outfit survived full Windows restarts, with a frontend refresh needed on those dev launches. All three seasonal items stayed owned.
+
+All 37 requested costumes can be earned through the existing quest completion action. Twenty-eight use a theme and nine use total completions. Categories use local English phrase rules against the quest title and linked commitment title. Unmatched titles are General. Wardrobe shows hints, while the category view is scoped to Dev mode on the Quest tab and floating quest board. Existing ownership and saved equipment IDs are retained, including the legacy ID for the renamed UFC hoodie. Tailscale verification used an AI-planned fictional tree-planting quest. It showed Nature in Dev mode, then awarded The Lorax with Dev mode off. The equipped reward persisted after reload.
+
+The integrated `npm run check` passed 390 app tests, four preview bridge tests, and the production build. Windows Cargo check passed. Vite reported a roughly 520 kB minified chunk. Mac runtime and full wardrobe motion coverage remain open.
+
+### Wardrobe batch 09
+
+Sneaky bush, Bibble, and Fungus now follow the shared pixel-layer renderer through standing, sitting, compact rest and the synchronized walk. Bibble keeps a smaller wing when seated or resting. An equipped hat takes precedence over each built-in hood or cap. Windows Wardrobe, Companion and floating coverage used Bibble with Trail cap, Round glasses and Mint socks. Fungus passed the live browser tired-to-sleep and wake-to-sit sequence, reload persistence and unequip. `npm run check` passed 396 app tests, four preview bridge tests and the production build. Windows Cargo check passed. Vite reported a roughly 524 kB minified chunk. [Evidence and remaining checks](wardrobe-review-2026-11-24/BATCH_09.md).
+
+The expanded browser audit covered rest, wake, bark, revised walk, reduced motion, accessories, and reload for each outfit. Sneaky bush now has pointed pixel leaves with veins. Windows Wardrobe, Companion, and floating fit were checked for all three, with a sampled native Fungus bark. The expanded check passed 420 app tests, four preview tests, the production build, and Windows Cargo compilation.
+
+### Wardrobe batch 10
+
+Soju bottle, The White House, and Elmo use pose-aware pixel layers over the original Inu sprite. The bottle neck, roof with flag, and red character hood give way to a separate hat. Their compact body fits preserve the paws and face. Native Windows Wardrobe, Companion, and floating verified The White House with three accessories. Tailscale verified Elmo under reduced motion, after a reload, and after removal in normal mode. `npm run check` passed 402 app tests, four preview bridge tests, and the production build. Windows Cargo check passed. Vite reported a roughly 528 kB minified chunk. [Screenshots, clips, and remaining checks](wardrobe-review-2026-11-24/BATCH_10.md).
+
+The expanded audit covered all three in the running browser through rest, bark, revised walking, reduced motion, accessory combinations, and reload. All three were inspected across Windows Wardrobe, Companion, and the floating overlay. A dedicated middle-width White House side wing and window now fold in during the sit transition, with a sampled native clip. The updated check passed 421 app tests, four preview tests, the build, and Windows Cargo check.
+
+### Wardrobe batch 11
+
+Trojan knight, Ahri, and Teemo use fitted pixel layers over the original Inu sprite. Ahri's fan now draws behind the original body and tail, including on the synchronized walk, so rear paws stay visible. Windows Wardrobe, Companion, and floating mode were checked with Ahri, wearing Round glasses and Mint socks. Teemo passed the natural browser rest and wake cycle, reduced motion, reload, and removal. `npm run check` passed 409 app tests, four preview bridge tests, and the production build. Windows Cargo check passed. Vite reported a roughly 534 kB minified chunk. [Evidence and remaining checks](wardrobe-review-2026-11-24/BATCH_11.md).
+
+The expanded audit covered rest, bark, revised walking, reduced motion, accessory fit, and reload for all three in the running preview, and Windows Wardrobe, Companion, and floating fit. Teemo received a narrower pack with a dedicated compact fit, sampled during a native Sit. Updated verification passed 421 app tests, four preview tests, the build, and Windows Cargo check.
+
+### Wardrobe batch 12 and catalog coverage
+
+Britney Spears, Goth, and E-girl use fitted shapes over Inu's original frames. All 37 requested outfits now have fitted art. The normal wardrobe, item previews, and wearable layers use the same fitted registration for every layered costume. The previously registered Busy bee uses its pose sprites. The old generic costume fallback is no longer used by the app.
+
+Windows Wardrobe, Companion, and floating were checked with E-girl wearing Round glasses and Mint socks. Goth passed the live browser rest cycle, reduced motion, reload and removal. The source-level matrix verifies that every layered catalog ID renders art across representative stable and transition frames. It does not prove visual fit across those motions. `npm run check` passed 415 app tests, four preview bridge tests, and the production build. Windows Cargo check passed. Vite reported a roughly 517 kB minified chunk. [Batch evidence and remaining checks](wardrobe-review-2026-11-24/BATCH_12.md).
+
+The expanded audit covered rest, bark, revised walking, reduced motion, accessory fit, and reload in the browser, plus Windows Wardrobe, Companion, and floating fit for all three. Each dress gained a distinct upright hem and an intermediate fold, sampled in E-girl's native floating Sit. The updated check passed 424 app tests, four preview tests, the production build, and Windows Cargo check.
+
+### Expanded playback audit
+
+Busy bee, Fancy mustache, and The bob completed the live muted browser rest cycle. The first pose action after waking returned Inu from loaf to sitting. The audit records standing, seated idle, happy, tired, loaf entry, sleep, wake, and return to sit screenshots, along with sampled bark and walk settling clips. Fancy mustache covers much of the mouth while resting. The full walk frames and native coverage for these variants remain pending. [Playback audit](wardrobe-review-2026-11-24/BATCH_01.md#expanded-muted-playback-audit).
+
+Fancy mustache now uses narrower curls fitted around Inu's original mouth pixels. The [live comparison](wardrobe-review-2026-11-24/mustache-expression-refit.jpg) confirms clearer seated happy, sleeping, and waking expressions. The revised fit is provisional. The full walk and native floating fit are still open.
+
+The Lorax, Army hat, Toad, and Flower completed the muted browser rest and wake cycle, bark samples, and reduced-motion sit and stand. The walk samples document a visible shape change at the handoff to the stationary sprite. [The Lorax](wardrobe-review-2026-11-24/BATCH_01.md#the-lorax-playback-audit) · [Batch 02](wardrobe-review-2026-11-24/BATCH_02.md#muted-and-reduced-motion-audit).
+
+### Welcome walk handoff
+
+The shared welcome walk uses the original standing artwork with alternate paw lifts for both undressed and layered outfits. It ends with the original standing frame, then restores Inu's live expression. Busy bee retains its dedicated portrait and now finishes the bob on its standing ground line. [Live comparison](wardrobe-review-2026-11-24/walk-settle-comparison.jpg). Toad with Mint socks and the bare dog were checked in the browser, including reduced motion with Toad. `npm run check` passed 414 app and four preview checks and the production build. Windows Cargo check passed. Fresh adoption and native playback of this revision need runtime checks.
+
+Windows runtime confirmed that E-girl, Round glasses, and Mint socks survive a full exit and relaunch in the isolated wardrobe profile. The rebuilt desktop and floating windows both played the revised welcome walk and returned to standing with the outfit intact. The same equipped outfit appeared in the native wardrobe. [Windows restart and playback evidence](wardrobe-review-2026-11-24/BATCH_12.md#windows-restart-and-revised-walk).
+
+Busy bee's welcome walk now steps from the reviewed standing portrait using the shared eight-frame timeline. Alternating paw lifts replace the whole-sprite bob. The original facial expressions and standing ground line carry through the handoff. The muted Tailscale preview covered Busy bee alone and with Mint socks, and reduced motion held the stationary portrait. The socks still sit slightly high. [Live comparison and clips](wardrobe-review-2026-11-24/BATCH_01.md#busy-bee-stepping-walk). Windows floating playback of this revision is pending.
+
+Lord Farquaad, Harry Potter, and Clown around passed the muted browser rest cycle and reduced-motion stand and sit checks. The audit captures the revised walk and the transitions into sitting, from sleep into loaf, and from loaf into sitting. Round glasses replaced Harry Potter's integrated frames at the standing pose. [Batch 03 evidence](wardrobe-review-2026-11-24/BATCH_03.md#expanded-playback-audit).
+
+Clown around now uses the concept's fuller spotted suit, red nose and cream ruff. Dedicated resting geometry keeps the shorter hem close to the body. Trail cap replaces the party hat, and Mint socks remain independently wearable. The live browser comparison includes rest, wake, bark and walk evidence. The revision is provisional and still needs native runtime review. [Clown around refit](wardrobe-review-2026-11-24/BATCH_03.md#clown-around-party-suit).
+
+Cozy bathrobe, Cucumber spa, and UFC hoodie completed the muted browser rest cycle, including after compacting the rear hems. Reduced-motion stand and sit succeeded. A separate hat and eyewear now replace the corresponding Cucumber spa layers independently while retaining the robe. [Batch 04 evidence](wardrobe-review-2026-11-24/BATCH_04.md#expanded-playback-audit-and-fit-corrections). Native runtime of these revisions is pending.
+
+Pikachu, Shrek, and Mort passed the muted browser rest cycle, reduced-motion pose controls, and revised welcome walk sampling. Shrek and Mort were also equipped with Round glasses and Mint socks and inspected in the native Windows wardrobe, desktop companion, and floating window. [Batch 05 evidence](wardrobe-review-2026-11-24/BATCH_05.md#expanded-browser-and-windows-audit). Native transition timing and art approval remain open.
+
+### Original wardrobe playback
+
+Raincoat, Cozy hoodie, Notebook badge, and Explorer bandana completed the muted Tailscale rest, bark and walk sequence and reduced-motion stand and sit. Each first Sit after waking ended in sitting. Native Windows confirmed the Cozy library day outfit across Wardrobe, Companion and floating stand and sit. The pocket and eye detail are less distinct at floating size. The subsequent accessory pass checked all six original hats, glasses and socks individually through muted rest, bark, walk, and reduced motion. The Star glasses were refitted with wider open lenses and reviewed in the hosted and Windows views. All four pieces of the Cozy library day outfit restored after a full native exit and relaunch, with a manual refresh required after the development loader stalled. Native per-item playback, rainy-outfit restart, Mac runtime, and art approval remain open. The check passed 424 app tests, four preview tests, a production build and Windows Cargo check. [Original wardrobe evidence](wardrobe-review-2026-11-24/LEGACY_REFIT.md).
+
+### Current first wardrobe batch
+
+Busy bee, Fancy mustache, The bob, and The Lorax completed current muted browser transitions, seven-frame walks, reduced-motion poses and accessory reload checks. All four were fitted in Windows Wardrobe, Companion, and floating mode. Bee portrait accessories now use their own eye and paw landmarks, with a shared pose transform and the existing accessory drawings. Both browser and Windows captures confirm the corrected fit. [Batch 01 evidence](wardrobe-review-2026-11-24/BATCH_01.md#current-playback-and-windows-fit).
+
+### Current second wardrobe batch
+
+Army hat, Toad, and Flower completed muted browser rest and transitions, current seven-frame walking, reduced-motion poses, and accessory reload checks. Each was inspected in native Windows Wardrobe, Companion, and floating mode. Toad with glasses and socks survived a full Windows exit and relaunch after a refresh recovered the development loader. [Batch 02 evidence](wardrobe-review-2026-11-24/BATCH_02.md#current-browser-playback-and-native-fit).
+
+### Current third wardrobe batch
+
+Lord Farquaad, Harry Potter, and the revised Clown around suit were inspected with Round glasses and Mint socks in all three Windows views. All three combinations survived a reload on the hosted preview. Screenshots supplement the previous browser playback captures. [Batch 03 evidence](wardrobe-review-2026-11-24/BATCH_03.md#current-windows-fit-and-browser-persistence).
+
+### Current fourth wardrobe batch
+
+Cozy bathrobe, Cucumber spa, and UFC hoodie were inspected with Round glasses and Mint socks in all three Windows views. Muted native UFC hoodie playback found a bark pose jump. Low poses now keep the base frame and costume anchors and add timed facial art and rays. The reduced-motion bark and seated recovery were confirmed in Windows. The check passed 426 app tests, four preview tests, a production build, and Windows Cargo check. [Batch 04 evidence](wardrobe-review-2026-11-24/BATCH_04.md#current-windows-fit-and-seated-bark).
+
+### Native bark registration
+
+Bark now keeps Inu's active sprite, including standing moods and intermediate sit, loaf, and wake frames. Only the face and rays change at the cue. Busy bee retains the reviewed portrait expression. Pikachu with Round glasses and Mint socks was checked in native Windows Wardrobe, Companion, and floating mode, with muted, reduced-motion standing and seated bark screenshots. [Batch 05 evidence](wardrobe-review-2026-11-24/BATCH_05.md#current-native-bark-fit).
+
+### More Windows wardrobe restarts
+
+Pikachu, Lord Farquaad, Harry Potter, and Clown around each restored with Round glasses and Mint socks after a full Windows exit and relaunch in the isolated test profile. Pikachu's relaunch required restarting the development server separately and refreshing the webview. The next three loaded with the server running independently. All four remained owned with Dev mode off. [Before and after screenshots](wardrobe-review-2026-11-24/windows-restart-stage-and-pikachu.png).
+
+### Player-earned wardrobe coverage
+
+The completion tests exercise all 28 themed rewards and the nine count-based costumes with Dev mode off. The themed fixtures start as proposed, are accepted, and award ownership after completion. They verify that a repeated completion does not award twice and that unlocking leaves the worn outfit alone. The classifier now recognizes examples such as asking someone on a date, cleaning up a neighborhood park, and watching a UFC fight in person. The UFC case excludes watch parties even when the linked commitment mentions event attendance. The matching still uses local English phrases.
+
+On Windows, a Gemma 3 4B quest about practicing a puppet-show impression awarded Elmo and Notebook badge with Dev mode off. Elmo equipped from the normal wardrobe and stayed worn after a full restart. The “Voices and puppets” label appeared only after enabling Dev mode. The completion reveal now constrains reward thumbnails so the unlock text fits alongside them. [Native evidence](wardrobe-review-2026-11-24/BATCH_10.md#elmo-earned-in-windows).
+
+Soju bottle and The White House also survived independent Windows process restarts, each paired with Round glasses and Mint socks. Removing The White House from its slot preserved the two accessories through another restart and left all three batch costumes available to wear. The two additional costumes used Dev unlock for test setup. [Windows restart evidence](wardrobe-review-2026-11-24/BATCH_10.md#windows-restart-and-slot-removal).
+
+All 37 costume IDs now run through the shared dispatch and storage paths with Dev mode off. The tests verify saved ownership, Trail cap, Round glasses, and Mint socks during both equip and body-slot removal, including state reinitialization between mutations. They cover the browser storage adapter and the desktop adapter with a simulated Tauri store. The per-batch records track actual Windows process restarts separately. `npm run check` passed 459 app tests, four preview tests, and the production build.
+
+Shrek and Mort each survived a separate full Windows exit and relaunch in normal mode with Round glasses and Mint socks. Mort also appeared in the floating window after restart with Dev controls hidden. Both costumes used Dev unlock for initial ownership in the test profile. These checks add to Pikachu's previous process restart. [Batch 05 Windows screenshots](wardrobe-review-2026-11-24/BATCH_05.md#shrek-and-mort-windows-process-restarts).
+
+Iso, Omen, and Killjoy also passed separate Windows process restarts with Round glasses and Mint socks and Dev mode off. The test profile used Dev unlock for initial ownership. Replacing the outfit preserved ownership, and Killjoy remained legible when moved into the floating window after restart. [Batch 06 Windows screenshots](wardrobe-review-2026-11-24/BATCH_06.md#independent-windows-restarts).
+
+Shrimp suit, Wonder Bread, and Chicken nugget each passed a separate Windows process restart with Round glasses and Mint socks. Initial ownership used Dev unlock in the isolated profile. All three were wearable in normal mode, and Chicken nugget kept its face and paws visible in the floating window after restart. [Batch 07 Windows screenshots](wardrobe-review-2026-11-24/BATCH_07.md#independent-windows-restarts).
+
+### Fresh Windows adoption and visible bark
+
+Two isolated Windows profiles started on the adoption form. The first showed the revised walk and temporary named welcome. The follow-up added a visible bark at the walk handoff with the same timed cue for optional sound and the pose-preserving expression. In the second profile, the fictional dog Mochi walked in, visibly barked with Sound off and Dev mode off, settled, and remained available in the transparent floating window. The temporary welcome disappeared. The GIF is assembled from native screenshot samples and does not measure exact frame timing or record audio. [Native stills](wardrobe-review-2026-11-24/windows-muted-adoption-walk.png) · [Playback sample](wardrobe-review-2026-11-24/windows-muted-adoption-walk.gif). macOS and a fresh reduced-motion adoption were outside this run.
+
+### Busy bee floating walk with accessories
+
+The muted Windows overlay kept Round glasses and Mint socks attached through the stepping frames. Reduced motion held the same outfit in its seated portrait. Automatic rest now resumes after the walk settles, avoiding a sudden sit when a walk crosses the idle deadline. Lowering the toy anchor by 12 CSS pixels cleared the paws in tested sit, stand and walk frames. The native board still opened and dismissed by outside click or Escape. The comparison and playback remain provisional. `npm run check` passed 457 app tests, four preview tests, and a production build. Windows Cargo check passed for the pose controller checkpoint. [Native evidence](wardrobe-review-2026-11-24/BATCH_01.md#floating-walk-with-glasses-and-socks).
+
+### Lorax expression clearance
+
+The Lorax curls now leave the neutral smile readable. The Windows wardrobe showed both revised poses. Muted native runtime showed happy, bark, tired, loaf, sleep, wake, loaf to sit, and walk with the refit equipped. The new art remains provisional. `npm run check` passed 457 app tests, four preview tests, and the production build. [Native comparison and clip](wardrobe-review-2026-11-24/BATCH_01.md#lorax-muzzle-refit).
+
+The Lorax and Busy bee passed separate full process restarts in the isolated Windows profile with Dev mode off. Busy bee restored with Round glasses and Mint socks. Removing Busy bee afterward preserved its ownership and the two equipped accessories. [Windows restart evidence](wardrobe-review-2026-11-24/BATCH_01.md#windows-restart-with-dev-mode-off).
+
+Fancy mustache and The bob also passed separate full Windows process restarts with Dev mode off and the same two accessories. Swapping the body slot or removing The bob preserved ownership and the worn accessories. All four outfits in the first batch now have individual Windows restart evidence. [Before and after screenshots](wardrobe-review-2026-11-24/batch-01-windows-restart-mustache-bob.png).
+
+### Second wardrobe batch Windows restarts
+
+Army hat and Flower each restored with Round glasses and Mint socks after separate full Windows app exits and relaunches with Dev mode off. Switching body items preserved Army hat ownership, and Flower also appeared in the floating window after restart. Together with Toad's earlier result, all three outfits in the second batch now have individual Windows restart evidence. [Second batch review](wardrobe-review-2026-11-24/BATCH_02.md).
+
+### Chicken nugget floating playback
+
+With sound off and standard motion, the Windows overlay showed Chicken nugget with Round glasses and Mint socks through seated idle, happy, bark, tired, loaf, sleep, wake to loaf, and loaf to sit. The hood and glasses stayed aligned in the sampled frames. Dev mode was switched off after the run. [Native screenshots and sampled playback](wardrobe-review-2026-11-24/BATCH_07.md#chicken-nugget-in-the-windows-floating-window).
+
+The Windows floating walk preview kept the Chicken nugget outfit, glasses, and socks on through the sampled steps and cut back to the original sitting pose. Reduced motion skipped the walk preview and still allowed Stand up and Sit. [Native walk and reduced-motion evidence](wardrobe-review-2026-11-24/BATCH_07.md#chicken-nugget-in-the-windows-floating-window).
+
+The seated welcome-walk preview now plays the fitted stand-to-sit frames before returning control to the resting companion. The Windows overlay showed the repaired landing with Chicken nugget, Round glasses, and Mint socks. Standing previews and the reduced-motion fallback retain their prior behavior. `npm run check` passed 461 app tests, four preview tests, and the production build with its existing chunk-size warning. [Windows walk-to-sit playback](wardrobe-review-2026-11-24/BATCH_07.md#walk-to-sit-follow-up).
+
+### Wonder Bread and Shrimp suit floating playback
+
+The isolated Windows overlay showed both outfits through happy, tired, loaf, sleep, wake to loaf, and loaf to sit with Round glasses and Mint socks, sound off, and standard motion. A follow-up Windows overlay run confirmed muted bark, walking with the fitted return to sitting, and both Stand and Sit with the walk suppressed under reduced motion. [Windows pose and playback evidence](wardrobe-review-2026-11-24/BATCH_07.md#wonder-bread-and-shrimp-suit-in-the-windows-floating-window).
+
+### Iso floating playback
+
+The muted Windows overlay showed Iso with Round glasses and Mint socks through seated expressions, bark, sleep and wake, loaf to sit, and the welcome walk with its fitted return. Reduced motion suppressed the walk and preserved Stand and Sit. [Native Iso screenshots and playback](wardrobe-review-2026-11-24/BATCH_06.md#iso-floating-playback).
+
+### Omen and Killjoy floating playback
+
+Both outfits passed the muted Windows floating rest, visible bark, fitted walk-to-sit and reduced-motion checks. A Killjoy frame exposed a base-image loading gap in the shared walk landing. The previous walk frame now stays visible until the new base image loads. Repeated native samples with Killjoy and Omen showed a complete sprite through the handoff. `npm run check` passed 461 app tests, four preview tests, and the build with its existing bundle-size warning. Windows Cargo check passed. [Pose comparison and playback](wardrobe-review-2026-11-24/BATCH_06.md#omen-and-killjoy-floating-playback).

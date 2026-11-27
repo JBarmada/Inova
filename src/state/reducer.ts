@@ -68,11 +68,11 @@ function apply(state: AppState, action: Action): AppState {
     case "complete-quest": return completeQuest(state, action.id, action.completedAt);
     case "plan-quest": return planQuest(state, action.id, action.request);
     case "clear-quest-plan": return clearQuestPlan(state, action.id);
-    case "equip": case "unequip": case "equip-outfit": case "wardrobe-scenario": return changeEquipment(state, action);
+    case "equip": case "unequip": case "equip-outfit": case "wardrobe-scenario": case "dev-unlock-item": return changeEquipment(state, action);
     case "add-memory":
       if (state.memories.some((entry) => entry.id === action.memory.id)) return state;
-      if (action.memory.questId && !state.quests.some((quest) => quest.id === action.memory.questId && quest.status === "completed")) {
-        throw Error("A related adventure must be completed first.");
+      if (action.memory.questId && !state.quests.some((quest) => quest.id === action.memory.questId)) {
+        throw Error("The related adventure no longer exists.");
       }
       return clearReflectionPrompt({ ...state, memories: [...state.memories, action.memory] }, action.memory.questId);
     case "edit-memory": return editMemory(state, action);

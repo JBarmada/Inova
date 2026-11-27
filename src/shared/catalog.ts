@@ -1,4 +1,6 @@
 import { slotForItem, type ItemId, type WearableSlot } from "./equipment";
+import { costumes } from "./costumes";
+import { costumeDescription } from "./costumeUnlocks";
 
 export type CatalogItem = { id: ItemId; slot: WearableSlot; name: string; description: string; color: string };
 const definitions: [ItemId, string, string, string][] = [
@@ -13,5 +15,9 @@ const definitions: [ItemId, string, string, string][] = [
   ["raincoat", "Raincoat", "Prototype item · developer scenarios only.", "#dcbd57"],
   ["hoodie", "Cozy hoodie", "Prototype item · developer scenarios only.", "#a197c6"],
 ];
-export const items: CatalogItem[] = definitions.map(([id, name, description, color]) => ({ id, slot: slotForItem[id], name, description, color }));
+export const items: CatalogItem[] = [
+  ...definitions.map(([id, name, description, color]) => ({ id, slot: slotForItem[id], name, description, color })),
+  ...costumes.map(([id, name, flavor, color]) => ({ id, slot: slotForItem[id], name, color,
+    description: costumeDescription(id, flavor) })),
+];
 export const itemById = (id: ItemId) => items.find((item) => item.id === id)!;

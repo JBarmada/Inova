@@ -60,7 +60,7 @@ it("preserves a full-length goal and two answers through planning, reload and fo
   const call = vi.fn().mockResolvedValue(JSON.stringify({ explanation: "Start small.", steps: [{ title: "Begin", reason: "One step.", minutes: 5 }] }));
   await prepareChatPlan(state.chat.goal, state, (entry, current) => proposeLocalPlan(entry, current, call as unknown as typeof invoke));
   expect(JSON.parse(call.mock.calls[0][1].input).commitment.title).toBe(state.chat.goal);
-  const draft = await prepareChatPlan(state.chat.goal, state, async () => { throw Error("offline"); });
+  const draft = await prepareChatPlan(state.chat.goal, state, (entry, current) => proposeLocalPlan(entry, current, call as unknown as typeof invoke));
   state = reduce(state, { type: "accept-planned-quest", ...draft });
   expect(state.commitments[0].title).toBe(`${goal}. ${progress}. ${detail}`);
   state = reduce(state, { type: "complete-quest", id: state.quests[0].id });

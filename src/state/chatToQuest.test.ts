@@ -1,3 +1,4 @@
+import { fictionalPlan } from "../services/planFixture";
 import { expect, it } from "vitest";
 import { initialState } from "./defaults";
 import { reduce } from "./reducer";
@@ -14,8 +15,8 @@ it("turns a shared goal into an explicitly accepted quest and follow-up after re
   expect(state.quests).toEqual([]);
   state = reduce(state, { type: "chat-context", text: "I already have an outline" });
   state = reduce(state, { type: "chat-context", text: "Friday" });
-  const draft = await prepareChatPlan(state.chat.goal, state, async () => { throw Error("offline"); });
-  expect(draft.fallback).toBe(true);
+  const draft = await prepareChatPlan(state.chat.goal, state, fictionalPlan);
+  expect(draft.fallback).toBe(false);
   expect(state.quests).toEqual([]);
   state = reduce(state, { type: "accept-planned-quest", ...draft });
   expect(state.quests[0].status).toBe("accepted");
@@ -31,7 +32,7 @@ it("turns a shared goal into an explicitly accepted quest and follow-up after re
 it("keeps an edited draft unsaved until the user accepts it", async () => {
   let state = reduce(initialState(), { type: "chat-goal", text: "Prepare my presentation" });
   state = reduce(state, { type: "chat-skip" });
-  const draft = await prepareChatPlan(state.chat.goal, state, async () => { throw Error("offline"); });
+  const draft = await prepareChatPlan(state.chat.goal, state, fictionalPlan);
   const reviewed = reviewQuestDetails(draft, "", "", { title: "Gather my slides", minutes: "5" });
   expect(state.quests).toEqual([]);
   const accepted = reduce(state, { type: "accept-planned-quest", ...reviewed, memorySnapshot: draft.memorySnapshot });

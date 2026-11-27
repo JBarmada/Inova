@@ -24,3 +24,9 @@ it("combines category and search without changing records, treating older entrie
   expect(findMemories(memories, "", "misc")).toEqual([memories[2]]);
   expect(findMemories(memories, "", "all")).toEqual(memories);
 });
+
+
+it("finds a saved memory by its title while retaining older entries", () => {
+  const titled = { id: "a", title: "Astronomy class", text: "A great lecture", aiAllowed: true, createdAt: "2026-11-23T00:00:00.000Z" };
+  expect(findMemories([titled], "astronomy")).toEqual([titled]);
+});

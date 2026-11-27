@@ -15,7 +15,7 @@ export function OutfitStrip({ state, busy, onRemove, onClear, onShuffle }: {
         aria-label={item ? `Remove ${slot}` : `${slot} slot empty`}
         title={item ? `${item.name} · click to remove` : `No ${slot} equipped`}
         disabled={busy || !item} onClick={() => onRemove(slot)}>
-        {item ? <ItemGlyph slot={slot} color={item.color} /> : <WardrobeIcon kind={slot} />}
+        {item ? <ItemGlyph slot={slot} color={item.color} id={item.id} /> : <WardrobeIcon kind={slot} />}
         {item && <span className="equipped-dot" aria-hidden="true" />}
       </button>;
     })}

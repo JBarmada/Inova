@@ -51,16 +51,10 @@ it("rejects a plan whose combined steps exceed the explicit total effort", async
     .rejects.toThrow("total effort");
 });
 
-it("falls back to a labeled sample and never saves preview steps automatically", async () => {
-  let state = reduce(initialState(), { type: "chat-goal", text: commitment.title });
-  state = reduce(state, { type: "chat-skip" });
-  const draft = await prepareChatPlan(state.chat.goal, state, async () => { throw Error("offline"); });
-  expect(draft.fallback).toBe(true);
-  expect(draft.steps).toHaveLength(1);
-  expect(state.quests).toHaveLength(0);
-  const saved = reduce(state, { type: "accept-planned-quest", ...draft });
-  expect(saved.quests).toHaveLength(1);
-  expect(saved.quests[0]).toMatchObject({ status: "accepted", planner: "sample" });
+it("does not invent a sample quest when local AI fails", async () => {
+  const state = initialState();
+  await expect(prepareChatPlan(commitment.title, state, async () => { throw Error("offline"); })).rejects.toThrow("offline");
+  expect(state.quests).toEqual([]);
 });
 
 it("checks a relative date against the exact local clock sent to the model", async () => {

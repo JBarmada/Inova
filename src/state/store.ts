@@ -2,6 +2,8 @@ import { useSyncExternalStore } from "react";
 import type { Action } from "../shared/actions";
 import { loadState, saveState } from "../services/storage";
 import { playCue } from "../services/audio";
+import { checkLocalModel } from "../services/localPlanner";
+import { availableModel } from "../services/availableModel";
 import { initialState } from "./defaults";
 import { reduce } from "./reducer";
 import { triggerRewardReaction } from "./rewardReaction";
@@ -14,6 +16,15 @@ const listeners = new Set<() => void>();
 
 export async function initialize(): Promise<void> {
   state = await loadState() ?? initialState();
+  if (state.settings.localModel === "gemma3:12b") {
+    try {
+      const model = await availableModel(state.settings.localModel, checkLocalModel);
+      if (model !== state.settings.localModel) {
+        const updated = reduce(state, { type: "local-model", model });
+        await saveState(updated); state = updated;
+      }
+    } catch { /* Keep the selected model when availability cannot be verified. */ }
+  }
 }
 
 export type MutationReceipt = { completed: boolean; unlocked: ItemId[] };

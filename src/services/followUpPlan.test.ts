@@ -67,14 +67,10 @@ it("omits a prior title when its dependencies exceed the context limit", async (
   expect(JSON.parse(call.mock.calls[0][1].input).previousQuest).toEqual({ id: "q" });
 });
 
-it("labels a fallback continuation without copying reflection context", async () => {
+it("does not manufacture a continuation when AI is unavailable", async () => {
   let state = reduce({ ...initialState(), commitments: [commitment], quests: [quest] }, { type: "complete-quest", id: "q" });
   state = reduce(state, { type: "skip-chat-reflection", questId: "q" });
   state = reduce(state, { type: "chat-follow-up", questId: "q" });
-  const draft = await prepareChatPlan(state.chat.goal, state, async () => { throw Error("offline"); });
-  expect(draft.fallback).toBe(true);
-  expect(draft.quest.title).toContain("continuing");
-  expect(draft.quest.reason).toContain("Sample planner");
-  expect(draft.memorySnapshot).toEqual([]);
-  expect(reduce(state, { type: "accept-planned-quest", ...draft }).quests).toHaveLength(2);
+  await expect(prepareChatPlan(state.chat.goal, state, async () => { throw Error("offline"); })).rejects.toThrow("offline");
+  expect(state.quests).toHaveLength(1);
 });

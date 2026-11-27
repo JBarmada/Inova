@@ -206,3 +206,18 @@ it("sends an older relevant class memory and stops sending it after permission i
   await localChat("What class am I taking?", state, call as unknown as typeof invoke);
   expect(JSON.parse(call.mock.calls[1][1].input).memories.map((entry: { id: string }) => entry.id)).not.toContain("class");
 });
+
+
+it("keeps unrelated paper history and memories out of a new food question", async () => {
+  let state = reduce(initialState(), { type: "chat-share", text: "Help me write a paper" });
+  state = reduce(state, { type: "chat-reply", messageIndex: 0, originalText: "Help me write a paper", reply: "Let's brainstorm paper ideas.", memorySnapshot: [] });
+  state = reduce(state, { type: "add-memory", memory: { id: "paper", text: "My paper is due Friday", aiAllowed: true, createdAt: "2026-11-23T00:00:00.000Z" } });
+  const text = "I don't know what to eat tomorrow";
+  state = reduce(state, { type: "chat-share", text });
+  const call = vi.fn().mockResolvedValue(JSON.stringify({ reply: "What are you in the mood for?" }));
+  const result = await localChat(text, state, call as unknown as typeof invoke, { includeRecent: true, beforeIndex: 2 });
+  const input = JSON.parse(call.mock.calls[0][1].input);
+  expect(input.recentConversation).toBeUndefined();
+  expect(input.memories).toEqual([]);
+  expect(result.contextSnapshot).toEqual([]);
+});

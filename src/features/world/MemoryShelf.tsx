@@ -2,65 +2,42 @@ import { useState } from "react";
 import { useInova, dispatch } from "../../state/store";
 import { useAction } from "../../shared/useAction";
 import { playCue } from "../../services/audio";
-import { RecentRecap } from "./RecentRecap";
-import { PerspectiveExercise } from "./PerspectiveExercise";
+import { MemoryBook } from "./MemoryBook";
 import { findMemories } from "./findMemories";
-import { newId, now } from "../../shared/actions";
-import { MemoryCategorySelect, MemoryFilters, type Category, type MemoryFilter } from "./MemoryCategories";
+import { MemoryCategoryTabs, MemoryFilters, type MemoryFilter } from "./MemoryCategories";
 
 export function MemoryShelf() {
   const state = useInova();
-  const [text, setText] = useState("");
   const [editing, setEditing] = useState(false);
   const [draft, setDraft] = useState("");
-  const [allowed, setAllowed] = useState(false);
-  const [questId, setQuestId] = useState("");
   const [selectedId, setSelectedId] = useState<string | null>(null);
   const [query, setQuery] = useState("");
   const [filter, setFilter] = useState<MemoryFilter>("all");
-  const [category, setCategory] = useState<Category>("misc");
   const matches = findMemories(state.memories, query, filter);
   const selected = state.memories.find((entry) => entry.id === selectedId);
   const { run, busy, message } = useAction();
-  async function save() {
-    await dispatch({ type: "add-memory", memory: { id: newId(), text, createdAt: now(), aiAllowed: allowed, category, ...(questId ? { questId } : {}) } });
-    setText("");
-    setQuestId("");
-    setAllowed(false);
-  }
-  return <section className="memory-shelf" aria-label="Memories"><h2>Memories</h2>
-    <RecentRecap state={state} />
-    <PerspectiveExercise />
-    <form onSubmit={(event) => { event.preventDefault(); void run(save, "A memory was added to your shelf."); }}>
-      <label>A reflection<textarea required value={text} maxLength={4000} onChange={(event) => setText(event.target.value)} placeholder="What helped today?" /></label>
-      <MemoryCategorySelect value={category} onChange={setCategory} disabled={busy} />
-      <label>Related completed adventure (optional)<select value={questId} disabled={busy} onChange={(event) => setQuestId(event.target.value)}>
-        <option value="">No related adventure</option>
-        {state.quests.filter((quest) => quest.status === "completed").map((quest) => <option key={quest.id} value={quest.id}>{quest.title}</option>)}
-      </select></label>
-      <label className="checkbox"><input type="checkbox" checked={allowed} onChange={(event) => setAllowed(event.target.checked)} />Allow this entry to inform suggestions</label>
-      <button disabled={busy}>Save memory</button>
-    </form>
+  const completed = state.quests.filter((quest) => quest.status === "completed").length;
+  return <section className="memory-shelf" aria-label="Memories"><h2>Memories <small aria-label={`${completed} completed adventures, ${state.memories.length} memories`}>{completed} / {state.memories.length}</small></h2>
+    <MemoryBook quests={state.quests} />
     {state.memories.length > 0 && <label>Search memories<input type="search" value={query} maxLength={4000}
       onChange={(event) => setQuery(event.target.value)} placeholder="Find words in your reflections" /></label>}
     {state.memories.length > 0 && <MemoryFilters value={filter} onChange={setFilter} />}
-    <div className="books">{matches.map((memory, index) => <button className="book" key={memory.id}
-      aria-label={`Open memory ${index + 1} from ${new Date(memory.createdAt).toLocaleString()}`}
-      onClick={() => void run(async () => { setSelectedId(memory.id); setEditing(false); playCue("book", state.settings.muted); }, "Book opened.")}>{new Date(memory.createdAt).toLocaleDateString()}</button>)}</div>
+    <div className="books">{matches.map((memory, index) => <button className={`book book-${memory.category ?? "misc"}`} key={memory.id}
+      title={memory.title ?? new Date(memory.createdAt).toLocaleDateString()}
+      aria-label={`Open ${memory.title ?? `memory ${index + 1}`} from ${new Date(memory.createdAt).toLocaleString()}`}
+      onClick={() => void run(async () => { setSelectedId(memory.id); setEditing(false); playCue("book", state.settings.muted); }, "Book opened.")}><span className="book-title">{memory.title ?? new Date(memory.createdAt).toLocaleDateString()}</span></button>)}</div>
     {!state.memories.length && <p className="empty">Your first book is waiting to be written.</p>}
     {state.memories.length > 0 && matches.length === 0 && <p className="empty" role="status">No memories match this filter and search.</p>}
-    {selected && <article className="open-book"><h4>{new Date(selected.createdAt).toLocaleString()}</h4>
+    {selected && <article className="open-book"><h4>{selected.title ?? new Date(selected.createdAt).toLocaleString()}</h4>
       {selected.source === "chat" && <p>Saved from conversation</p>}
       {selected.questId && <p>Adventure: {state.quests.find((quest) => quest.id === selected.questId)?.title ?? "Unavailable adventure"}</p>}
-      <MemoryCategorySelect value={selected.category ?? "misc"} disabled={busy} onChange={(value) => void run(() => dispatch({ type: "memory-category", id: selected.id, category: value }))} />
+      <MemoryCategoryTabs value={selected.category ?? "misc"} disabled={busy} onChange={(value) => void run(() => dispatch({ type: "memory-category", id: selected.id, category: value }))} />
       {editing ? <form onSubmit={(event) => { event.preventDefault(); void run(async () => {
         await dispatch({ type: "edit-memory", id: selected.id, text: draft }); setEditing(false);
       }, "Memory updated."); }}><label>Edit reflection<textarea required maxLength={4000} value={draft}
         onChange={(event) => setDraft(event.target.value)} /></label><div className="actions">
         <button disabled={busy}>Save changes</button><button type="button" disabled={busy} onClick={() => setEditing(false)}>Cancel</button>
       </div></form> : <><p>{selected.text}</p><button disabled={busy} onClick={() => { setDraft(selected.text); setEditing(true); }}>Edit memory</button></>}
-      <label className="checkbox"><input type="checkbox" checked={selected.aiAllowed} disabled={busy}
-        onChange={(event) => void run(() => dispatch({ type: "memory-permission", id: selected.id, allowed: event.target.checked }))} />May inform suggestions</label>
       <button disabled={busy} onClick={() => void run(() => dispatch({ type: "delete-memory", id: selected.id }), "Memory deleted.")}>Delete memory</button>
       <button onClick={() => void run(async () => { setSelectedId(null); setEditing(false); playCue("book", state.settings.muted); }, "Book closed.")}>Close book</button>
     </article>}

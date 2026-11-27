@@ -36,14 +36,14 @@ export const questSchema = z.object({
 });
 export const memoryCategorySchema = z.enum(["people", "events", "you", "misc"]);
 export const memorySchema = z.object({
-  id, text, createdAt: z.iso.datetime(), aiAllowed: z.boolean(),
+  id, text, title: z.string().trim().min(1).max(240).optional(), createdAt: z.iso.datetime(), aiAllowed: z.boolean(),
   category: memoryCategorySchema.optional(),
   source: z.enum(["chat"]).optional(),
   questId: id.optional(),
 });
 const commonSchema = z.object({
   pet: z.object({ name: z.string().max(40), adopted: z.boolean(), mood: moodSchema, personality: personalitySchema.optional() }),
-  settings: z.object({ muted: z.boolean(), devMode: z.boolean().default(false), showStatus: z.boolean().default(false), localModel: localModelSchema.default("gemma3:12b"), questMinuteLimit: z.number().int().min(0).max(120).default(0), reduceMotion: z.boolean().default(false) }),
+  settings: z.object({ muted: z.boolean(), devMode: z.boolean().default(false), showStatus: z.boolean().default(false), localModel: localModelSchema.default("gemma3:4b"), questMinuteLimit: z.number().int().min(0).max(120).default(0), reduceMotion: z.boolean().default(false) }),
   commitments: z.array(commitmentSchema),
   quests: z.array(questSchema),
   memories: z.array(memorySchema),

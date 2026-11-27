@@ -1,4 +1,4 @@
-import { invoke, isTauri } from "@tauri-apps/api/core";
+import { localAiTransport } from "./localAiTransport";
 import { z } from "zod";
 import type { AppState, Commitment } from "../shared/schema";
 import { newId } from "../shared/actions";
@@ -13,8 +13,7 @@ const resultSchema = z.object({ explanation: z.string().trim().min(1).max(1000),
   deadlineLocal: z.string().max(32).optional(), deadlineDate: z.string().max(10).optional(), deadlineEvidence: z.string().max(240).optional(),
   effortMinutes: z.number().int().optional(), effortEvidence: z.string().max(240).optional() }).strict();
 
-export async function proposeLocalPlan(commitment: Commitment, state: AppState, call = invoke) {
-  if (call === invoke && !isTauri()) throw Error("Local AI requires the desktop app.");
+export async function proposeLocalPlan(commitment: Commitment, state: AppState, call = localAiTransport) {
   const previousQuest = previousQuestContext(state);
   const prior = state.quests.find((quest) => quest.id === previousQuest?.id);
   const required = previousQuest?.title ? state.memories.filter((entry) => entry.aiAllowed && entry.id !== prior?.commitmentId && prior?.sourceIds.includes(entry.id)) : [];
@@ -28,7 +27,7 @@ export async function proposeLocalPlan(commitment: Commitment, state: AppState, 
     reflections: memorySnapshot, previousQuest, maxQuestMinutes: state.settings.questMinuteLimit || undefined });
   let raw: string;
   try { raw = await call<string>("local_quest_plan", { input, model: state.settings.localModel }); }
-  catch { throw Error("Local AI could not make a plan."); }
+  catch (error) { throw Error(typeof error === "string" ? error.replace(" Try the sample planner.", "") : error instanceof Error ? error.message : "Local AI is unavailable. Start Ollama and check the selected model."); }
   let parsed: unknown;
   try { parsed = JSON.parse(raw); } catch { throw Error("Local AI returned invalid JSON."); }
   const result = resultSchema.safeParse(parsed);

@@ -13,10 +13,10 @@ it("saves a reflection connected to a completed adventure", () => {
   expect(reduce(saved, { type: "edit-memory", id: "m", text: "Updated" }).memories[0].questId).toBe("q");
 });
 
-it("rejects links to unfinished or nonexistent adventures while allowing independent memories", () => {
+it("accepts links to active adventures and rejects missing adventures", () => {
   const state = { ...initialState(), quests: [{ ...quest, status: "accepted" as const }] };
-  expect(() => reduce(state, { type: "add-memory", memory })).toThrow("completed first");
-  expect(() => reduce(initialState(), { type: "add-memory", memory })).toThrow("completed first");
+  expect(reduce(state, { type: "add-memory", memory }).memories[0].questId).toBe("q");
+  expect(() => reduce(initialState(), { type: "add-memory", memory })).toThrow("no longer exists");
   const { questId: _, ...standalone } = memory;
   expect(reduce(state, { type: "add-memory", memory: standalone }).memories).toHaveLength(1);
 });

@@ -40,7 +40,6 @@ export function QuestComposer({ state, compact = false }: { state: AppState; com
         <button type="submit" disabled={busy || !text.trim() || !state.pet.adopted} className={compact ? "toy-add" : "primary"}
           aria-label="Make a quest" title="Make a quest">{busy ? "…" : compact ? "✓" : "Make a quest"}</button>
       </form>}
-    {busy && <button type="button" onClick={() => void submit(true)}>Use sample instead</button>}
     {busy && <button type="button" onClick={stopWaiting}>Stop waiting</button>}
     {!state.pet.adopted && <p>Adopt your dog to start a quest.</p>}
     {message && <p className={compact ? "toy-composer-feedback" : "quest-composer-feedback"} role="status">{message}</p>}

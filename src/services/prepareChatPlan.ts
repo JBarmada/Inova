@@ -1,19 +1,16 @@
-import type { AppState } from "../shared/schema";
+import type { AppState, Commitment } from "../shared/schema";
+import { newId, now } from "../shared/actions";
+import { MAX_CHAT_GOAL_LENGTH } from "../shared/limits";
 import { proposeLocalPlan } from "./localPlan";
-import { prepareQuest } from "./prepareQuest";
 import { previousQuestContext } from "./previousQuest";
+import type { prepareQuest } from "./prepareQuest";
 
-export async function prepareChatPlan(text: string, state: AppState, local = proposeLocalPlan) {
-  let plan: Awaited<ReturnType<typeof proposeLocalPlan>> | undefined;
-  const previousQuest = previousQuestContext(state);
-  const draft = await prepareQuest(text, state, async (commitment, current) => {
-    plan = await local(commitment, current);
-    return plan;
-  });
-  const quest = draft.fallback && previousQuest ? { ...draft.quest,
-    title: `Spend ${draft.quest.minutes} minutes continuing: ${draft.commitment.title}`,
-    reason: "Sample planner: choose a small next action. No schedule or AI service was consulted.",
-    sourceIds: [draft.commitment.id] } : draft.quest;
-  return { ...draft, quest, memorySnapshot: draft.fallback && previousQuest ? [] : draft.memorySnapshot,
-    previousQuest, explanation: plan?.explanation, steps: plan?.steps ?? [quest] };
+type Draft = Awaited<ReturnType<typeof prepareQuest>> & { previousQuest: ReturnType<typeof previousQuestContext>; explanation?: string; steps: Awaited<ReturnType<typeof proposeLocalPlan>>["steps"] };
+
+export async function prepareChatPlan(text: string, state: AppState, local = proposeLocalPlan): Promise<Draft> {
+  const title = text.trim();
+  if (!title || title.length > MAX_CHAT_GOAL_LENGTH) throw Error(`Enter an adventure of up to ${MAX_CHAT_GOAL_LENGTH} characters.`);
+  const commitment: Commitment = { id: newId(), title, createdAt: now() };
+  const plan = await local(commitment, state);
+  return { commitment, ...plan, previousQuest: previousQuestContext(state), fallback: false };
 }

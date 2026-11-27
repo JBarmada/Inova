@@ -78,3 +78,39 @@ footer { margin-top: 48px; padding-top: 20px; border-top: 2px solid #d4c6a7; }
 .chat-history { max-height: 240px; overflow-y: auto; padding: 8px; background: #fff9e6; }
 .chat-message-text { white-space: pre-wrap; overflow-wrap: anywhere; }
 .companion-chat button { margin: 4px 8px 4px 0; }
+
+.chat-input-wrap { display: flex; align-items: stretch; border: 2px solid #b6aa8d; background: #fffdf5; }
+.chat-input-wrap input:not([type="checkbox"]) { flex: 1; min-width: 0; border: 0; background: transparent; }
+.companion-chat .chat-input-wrap button { margin: 4px; box-shadow: none; }
+.companion-chat form { margin-bottom: 8px; }
+.companion-chat .checkbox { margin: 8px 0 16px; font-size: 13px; }
+.chat-history:empty { display: none; }
+.memory-shelf h2 small { font-size: .5em; color: #736d5c; white-space: nowrap; }
+.memory-book { display: flex; align-items: start; gap: 0; max-width: 780px; margin: 24px auto; }
+.memory-pages { flex: 1; min-width: 0; padding: 10px; border: 5px solid #895b3d; border-radius: 8px; background: #d5b582; box-shadow: 5px 6px 0 #c9b68c; }
+.memory-page { padding: 22px; min-height: 310px; background: #fffaf0; border: 2px solid #d4c6a7; }
+.memory-page input:not([type="checkbox"]), .memory-page textarea { border: 0; border-bottom: 1px solid #d4c6a7; background: transparent; }
+.memory-page input { font-weight: bold; font-size: 1.15em; }
+.memory-page textarea { min-height: 160px; margin-top: 12px; line-height: 1.8; }
+.memory-tabs { display: flex; flex-direction: column; gap: 6px; padding-top: 24px; }
+.memory-tabs .memory-filter { border-radius: 0 6px 6px 0; box-shadow: 2px 2px 0 #d4c6a7; }
+.memory-tabs .memory-filter-people { background: #efc8d3; } .memory-tabs .memory-filter-events { background: #f3d99c; }
+.memory-tabs .memory-filter-you { background: #b9ddda; } .memory-tabs .memory-filter-misc { background: #d8c8e8; }
+.memory-tabs .memory-filter[aria-pressed="true"] { outline: 3px solid currentColor; outline-offset: -5px; }
+.adventure-suggestions { display: grid; } .adventure-suggestions button { text-align: left; box-shadow: none; }
+.welcome-message { font-size: clamp(22px, 4vw, 36px); font-weight: bold; color: #618543; }
+.welcome-entrance > * { animation: welcome-in 1s ease-out; }
+.walk-entrance-layer { display: flex; }
+@keyframes welcome-in { from { transform: translateX(-80px); opacity: 0; } to { transform: translateX(0); opacity: 1; } }
+@media (prefers-reduced-motion: reduce) { .welcome-entrance > * { animation: none; } }
+
+.books { gap: 3px; border: 8px solid #94714b; border-bottom-width: 12px; background: #e5d5b8; padding: 18px 12px 0; }
+.book { display: flex; align-items: center; justify-content: center; width: 50px; min-width: 50px; max-width: 50px; min-height: 128px; padding: 9px 5px; border: 2px solid #68513c; border-left-width: 5px; box-shadow: inset -3px 0 #0002; writing-mode: vertical-rl; text-orientation: mixed; overflow: hidden; text-overflow: ellipsis; font-size: 11px; line-height: 1.2; }
+.book-title { transform: rotate(180deg); }
+.book-people { background: #d9a8b6; } .book-events { background: #e9ca85; }
+.book-you { background: #9bc9c3; } .book-misc { background: #b9a7cf; }
+.toy-quest-panel .companion-chat { margin: 10px 0; font-size: 11px; }
+.toy-quest-panel .chat-history { max-height: 120px; }
+.toy-quest-panel .companion-chat form { margin: 6px 0; }
+.toy-quest-panel .companion-chat button { padding: 5px 8px; font-size: 11px; }
+.toy-quest-panel .companion-chat .checkbox { font-size: 10px; }

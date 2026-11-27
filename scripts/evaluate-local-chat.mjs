@@ -18,6 +18,8 @@ const cases = [
   { name: "memory suggestion", message: "My friend Sam likes tea", memories: [], pass: (r) => r.length > 0 },
   { name: "goal offer", message: "I need to prepare for my astronomy presentation", memories: [], pass: (r) => r.length > 0 },
   ...["cute", "mean", "sad", "happy"].map((style) => ({ name: `personality ${style}`, style, message: "I am nervous about my exam.", memories: [], pass: (r) => r.length > 0 })),
+  ...["cute", "mean", "sad", "happy"].map((style) => ({ name: `graduation ${style}`, style, message: "I want to graduate", memories: [], pass: (r) => r.length > 0 })),
+  { name: "new food topic", message: "I don’t know what to eat tmrw", memories: [], pass: (r) => !/paper|essay|graduat/i.test(r) },
 ];
 
 const selected = process.argv[3] ? cases.filter((item) => item.name === process.argv[3]) : cases;

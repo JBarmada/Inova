@@ -9,13 +9,15 @@ export function useChatReply(state: AppState, includeRecent: boolean, setBusy: (
   const gate = useRef(replyRequest<Awaited<ReturnType<typeof localChat>>>());
   const mounted = useRef(true);
   const [replying, setReplying] = useState(false);
+  const [retryMessage, setRetryMessage] = useState<{ index: number; text: string }>();
   useEffect(() => { mounted.current = true; return () => { mounted.current = false; gate.current.dispose(); }; }, []);
   function start(index: number, text: string) {
     if (!mounted.current) return;
-    setBusy(true); setReplying(true); setMessage("");
+    setBusy(true); setReplying(true); setMessage(""); setRetryMessage(undefined);
     void gate.current.run(() => localChat(text, state, undefined, { includeRecent, beforeIndex: index }),
-      async (result) => { setReplying(false); await dispatch({ type: "chat-reply", messageIndex: index, originalText: text, ...result }); },
-      () => setMessage("The dog could not reply. Use Ask dog on your message to try again."),
+      async (result) => { setReplying(false); await dispatch({ type: "chat-reply", messageIndex: index, originalText: text, ...result });
+        if (result.offerQuest && state.chat.phase === "goal") await dispatch({ type: "chat-plan-message", messageIndex: index, originalText: text, suggestionReplyIndex: index + 1 }); },
+      (error) => { setRetryMessage({ index, text }); setMessage(error instanceof Error ? error.message : "Local AI is unavailable. Start Ollama and check the selected model."); },
       () => { setBusy(false); setReplying(false); });
   }
   async function share(value: string) {
@@ -28,5 +30,5 @@ export function useChatReply(state: AppState, includeRecent: boolean, setBusy: (
     if (!gate.current.cancel()) return;
     setReplying(false); setBusy(false); setMessage("Stopped waiting. Your message remains in chat.");
   }
-  return { start, share, stop, replying };
+  return { start, share, stop, replying, retryMessage, clearRetry: () => setRetryMessage(undefined) };
 }

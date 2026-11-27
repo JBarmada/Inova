@@ -15,16 +15,16 @@ The current app includes:
 - Adoption and naming, Pocket Pup pose and mood playback, sleep/wake transitions, and 20 animation clips available for Dev-mode testing. Reduced motion is supported; integrated clips and wearable alignment still need visual review.
 - A transparent, always-on-top floating companion, independent home/floating placement restoration, and an expandable quest toy with manual commitment entry and quest actions.
 - Separate Companion, Quests, Wardrobe, and Memories pages with pixel navigation icons. Home uses a monochrome quest icon; the floating toy retains its gold/teal artwork.
-- A four-slot wardrobe for hats, glasses, socks, and body clothing, with category filters, standing/sitting previews, compact outfit controls, and developer test outfits. Wearable graphics remain placeholders.
-- A shared one-field quest entry in the desktop page and floating toy, with local model suggestions, a labeled sample fallback, and review of extracted deadlines and effort. Editable quests and manual time plans use distinct states and duplicate-safe demonstration rewards; quest-linked reflections support editing, search, permissions, and deletion.
-- Optional local Ollama planning with selectable Gemma 3 12B/4B, a service/model check, permitted reflection context, validated proposals, and a separate deterministic sample fallback, and an optional user-selected suggestion-length limit. See [local AI setup](docs/SETUP.md#local-ai-build-out-worktree).
+- A four-slot wardrobe for hats, glasses, socks, and body clothing, with previews and 37 fitted provisional costumes. Twenty-eight unlock through matching quest themes and nine through quest counts. Dev mode adds one-click unlocks and quest classification details. The original ten wearables also have provisional refits. See the [wardrobe batch reviews](docs/BUILD_OUT_CHECKLIST.md) for native screenshots, playback evidence, and remaining art checks.
+- Shared home and floating conversation with local AI planning, a preview, and explicit first-quest acceptance. Editable quests and manual time plans use distinct states and duplicate-safe demonstration rewards; quest-linked reflections support editing, search, permissions, and deletion.
+- Local Ollama planning with selectable Gemma 3 12B/4B, a service/model check, permitted reflection context, validated proposals, and an optional user-selected suggestion-length limit. See [local AI setup](docs/SETUP.md#local-ai-build-out-worktree).
 - Home chat can suggest user-reviewed memories and preview a multi-step plan. The first quest requires acceptance; later steps are retained for review after completion. Conversation context is optional, and memory use requires permission. Replies and suggestions can be wrong.
 - A local seven-day activity recap, which explicitly excludes older completions without recorded dates, and an outfit shuffle limited to owned items.
 - Settings for sound, reduced motion, developer mode, and optional status; startup loading/retry feedback; and a shared save-and-quit flow for native X and floating Settings > Quit Inova.
 
-The latest build-out check passed **262 tests**, all 20 clip-atlas checks, source size/type checks and the frontend production build. An earlier Windows Rust library release build and full Windows release build passed. Live-model evaluation of recent AI changes, integrated native visual review, Mac compilation and runtime, continuous toy-transition timing, and a complete end-to-end walkthrough remain pending. See [implementation status](docs/IMPLEMENTATION_STATUS.md) and the [current handoff](docs/HANDOFF_BUILD_OUT.md) for evidence and limitations.
+The latest build-out check passed **459 app tests and four preview tests**, all 20 clip-atlas checks, source size and type checks, and the frontend production build. Selected wardrobe combinations have native Windows restart evidence. Full native playback and Mac verification remain open. See [implementation status](docs/IMPLEMENTATION_STATUS.md) and the [build-out handoff](docs/HANDOFF_BUILD_OUT.md) for wider feature coverage and limitations.
 
-Local AI requires a separately installed and running Ollama service and model; the labeled sample planner works without it. There are no external account integrations or actual schedule optimization. Sound is synthesized; final clothing art and recorded audio remain unfinished. The integrated animations are available for testing and still need visual review in the combined build.
+Local AI requires a separately installed and running Ollama service and model; chat and quest planning report an error if it is unavailable. There are no external account integrations or actual schedule optimization. Sound is synthesized; final clothing art and recorded audio remain unfinished. The integrated animations are available for testing and still need visual review in the combined build.
 
 ## Run the app
 
@@ -35,7 +35,7 @@ npm ci
 npm run desktop
 ```
 
-For a browser interface preview without Rust, use `npm run dev`. This preview cannot demonstrate desktop overlay behavior or call the local Rust/Ollama planner.
+For a browser interface preview without Rust, use `npm run dev`. It cannot demonstrate desktop overlay behavior. An opt-in Tailscale preview can connect browser chat and planning to Ollama on the host; see [Tailscale preview setup](docs/IMPLEMENTATION_STATUS.md#tailscale-ai-preview--november-24-2026).
 
 To test an animation, adopt a dog, open Settings, enable **Dev mode**, and return to Companion. Select a clip below the dog and press **Play**. The selector and other direct dog controls disappear when Dev mode is off. In floating mode, hover or focus the companion to reveal the controls. The quest toy closes by clicking outside, losing focus, or pressing Escape.
 

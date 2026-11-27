@@ -2,7 +2,7 @@
 
 **Important for future animation workers. Start here before drawing, replacing, or wiring any Pocket Pup animation.** Use the [transition ledger](../../../docs/TRANSITION_TABLE.md) for app behavior and the [artist scenarios](../../../docs/ANIMATION_SCENARIOS.md) for intended motion. See the [overview sheet](overview.png) and [timing manifest](manifest.json).
 
-This is the source package for all 20 approved clips. They are available in the companion’s Dev mode animation player. [The transition table](../../../docs/TRANSITION_TABLE.md) lists which clips also play during regular use.
+This is the source package for all 20 approved clips. Most are available in the companion’s Dev mode animation player. The post-nap stretch is retired from runtime and retained here as reference. [The transition table](../../../docs/TRANSITION_TABLE.md) lists which clips also play during regular use.
 
 | Scenario | GIF | Slow | Frame sheet |
 | --- | --- | --- | --- |

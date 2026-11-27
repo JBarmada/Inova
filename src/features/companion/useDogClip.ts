@@ -11,21 +11,26 @@ export function useDogClip(request: ClipRequest | null | undefined, muted: boole
     if (!request) return;
     let cancel: (() => void) | undefined;
     let played = false;
-    const image = new Image();
-    image.onload = () => {
+    const start = () => {
       const { markers } = clipTiming[request.clip];
       cancel = createClipPlayback(request, reduced, (next) => {
         setFrame(next);
-        if (!next || played || !request.demo) return;
+        if (!next || played) return;
         if ("bark" in markers && next.elapsed === markers.bark) {
           played = true;
           playCue("bark", mute.current);
-        } else if ("fanfare" in markers && next.elapsed === markers.fanfare) {
+        } else if (request.demo && "fanfare" in markers && next.elapsed === markers.fanfare) {
           played = true;
           playCue("reward", mute.current);
         }
       });
     };
+    if (request.clip === "12-single-bark") {
+      start();
+      return () => cancel?.();
+    }
+    const image = new Image();
+    image.onload = start;
     image.src = clipSource(request.clip);
     return () => { image.onload = null; cancel?.(); };
   }, [request, reduced]);

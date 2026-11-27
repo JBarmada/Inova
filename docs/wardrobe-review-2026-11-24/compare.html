@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Costume art comparison</title>
+  <style>
+    body { margin: 0; padding: 2rem; background: #f4ebd9; color: #32281f; font: 16px system-ui, sans-serif; }
+    main { max-width: 1400px; margin: auto; }
+    h1 { margin-bottom: .3rem; }
+    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(290px, 1fr)); gap: 1rem; }
+    section { background: #fffaf0; border: 2px solid #b9a684; padding: 1rem; }
+    .image { height: 360px; background: #f7eddb; display: grid; place-items: center; overflow: hidden; }
+    .image img { max-width: 100%; max-height: 100%; image-rendering: pixelated; object-fit: contain; }
+    .reference { background-image: url('../../art/pocket-pup/wardrobe-concepts/requested-costumes.png'); background-size: 400% 400%; background-position: 100% 0; background-repeat: no-repeat; }
+    label { display: block; margin-top: 1rem; }
+    input { max-width: 100%; margin-top: .4rem; }
+    p { line-height: 1.5; }
+  </style>
+</head>
+<body>
+<main>
+  <h1>Bee costume comparison</h1>
+  <p>Compare the original concept with an actual app screenshot and a replacement-art candidate. These are static images; this page does not test animation or in-app fitting.</p>
+  <div class="grid">
+    <section><h2>Original concept</h2><div class="image reference" role="img" aria-label="Bee costume from the original concept sheet"></div></section>
+    <section><h2>Current app</h2><div class="image"><img id="current" src="user-bee-screenshot.png" alt="Bee as shown in the user's screenshot"></div><label>Choose another app screenshot<input type="file" accept="image/*" data-target="current"></label></section>
+    <section><h2>Replacement candidate</h2><div class="image"><img id="candidate" src="bee-full-art-candidate.png" alt="Generated bee character concept"></div><label>Choose candidate artwork<input type="file" accept="image/*" data-target="candidate"></label></section>
+  </div>
+  <p>Images selected here stay on this computer. Repeat with standing and sitting screenshots and art; verify the final result in the app before approving it.</p>
+</main>
+<script>
+  document.querySelectorAll('input[type=file]').forEach(input => {
+    input.addEventListener('change', () => {
+      const file = input.files?.[0];
+      if (!file) return;
+      const image = document.getElementById(input.dataset.target);
+      if (image.dataset.objectUrl) URL.revokeObjectURL(image.dataset.objectUrl);
+      image.dataset.objectUrl = URL.createObjectURL(file);
+      image.src = image.dataset.objectUrl;
+    });
+  });
+</script>
+</body>
+</html>

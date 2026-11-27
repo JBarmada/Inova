@@ -29,3 +29,16 @@
 .scenario-poses figcaption { font-size: 12px; margin: 6px 0; }
 @media (max-width: 600px) { .wardrobe-preview > .dog { width: 320px; height: 320px; } }
 @media (max-width: 370px) { .wardrobe-preview > .dog { width: 256px; height: 256px; } .outfit-strip { gap: 5px; } .outfit-clear { margin-left: 4px; } }
+
+.wardrobe-preview-notice { display: flex; justify-content: center; align-items: center; flex-wrap: wrap; gap: 12px; margin-top: 8px; }
+.try-on-button { min-height: 44px; margin-right: 10px; }
+.try-on-button[aria-pressed="true"] { background: #d6e6bd; border-color: #6a7f4c; }
+.costume-review-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 12px; }
+.costume-review-grid article { background: #fff8e9; padding: 8px; }
+.costume-review-grid h4 { margin: 4px; }
+.costume-review-poses { display: flex; justify-content: space-around; }
+.costume-review-poses figure { margin: 0; text-align: center; }
+.costume-review-poses .dog { width: 128px; height: 128px; }
+.soft-outfit-review { border-top: 1px dashed #b6aa8d; margin-top: 20px; }
+.soft-outfit-stage { width: 384px; height: 384px; position: relative; }
+.soft-outfit-stage .dog, .soft-outfit-stage > svg { width: 100%; height: 100%; position: absolute; inset: 0; }

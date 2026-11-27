@@ -7,6 +7,7 @@ import { ToyComposer } from "./ToyComposer";
 import { QuestToyIcon } from "./QuestToyIcon";
 import { useOutsideDismiss } from "./useOutsideDismiss";
 import { useToyExpansion } from "./useToyExpansion";
+import { QuestClassificationBar } from "../quests/QuestClassificationBar";
 
 export function BoneQuestToy({ state, onExpandedChange }: { state: AppState; onExpandedChange?: (open: boolean) => void }) {
   const { phase, open, mounted, button, panel, expand, collapse } = useToyExpansion(state.settings.reduceMotion);
@@ -33,6 +34,7 @@ export function BoneQuestToy({ state, onExpandedChange }: { state: AppState; onE
       <header className="toy-board-heading">
         <h3><span aria-hidden="true">✦</span><span>Fetch a Lil' Side Quest</span><span aria-hidden="true">✦</span></h3></header>
       <ToyComposer state={state} />
+      <QuestClassificationBar state={state} />
       {quests.length > 0 ? <ToyQuestList quests={quests} muted={state.settings.muted} mounted={mounted} />
         : <p className="toy-empty">Every adventure starts with a little plan. Add yours above.</p>}
     </section>

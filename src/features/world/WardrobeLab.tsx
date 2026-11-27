@@ -4,6 +4,9 @@ import { dispatch } from "../../state/store";
 import { useAction } from "../../shared/useAction";
 import { DogSprite } from "../companion/DogSprite";
 import { playCue } from "../../services/audio";
+import { CostumeReview } from "./CostumeReview";
+import { SoftOutfitReview } from "./SoftOutfitReview";
+import { WelcomeWalkReview } from "../companion/WelcomeWalkReview";
 
 export function WardrobeLab({ state }: { state: AppState }) {
   const { run, busy, message } = useAction();
@@ -16,6 +19,9 @@ export function WardrobeLab({ state }: { state: AppState }) {
         <figcaption>{pose}</figcaption></figure>)}</div>
       <button disabled={busy} onClick={() => void run(() => dispatch({ type: "wardrobe-scenario", id: scenario.id }), `${scenario.name} applied.`)}>Apply {scenario.name}</button>
     </article>)}</div>
+    <SoftOutfitReview state={state} />
+    <WelcomeWalkReview state={state} />
+    <CostumeReview state={state} />
     {message && <p role="status">{message}</p>}
   </details>;
 }

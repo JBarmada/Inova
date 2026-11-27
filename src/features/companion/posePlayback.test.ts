@@ -5,6 +5,22 @@ import { dogFrame, breathingArt, dogArt } from "./dogArt";
 
 afterEach(() => { vi.clearAllTimers(); vi.useRealTimers(); });
 
+it("holds the standing pose through a walk that crosses the idle deadline", () => {
+  vi.useFakeTimers();
+  const show = vi.fn();
+  const playback = createPosePlayback(show, false);
+  vi.advanceTimersByTime(IDLE_SIT_DELAY - 100);
+  playback.setRestPaused(true);
+  vi.advanceTimersByTime(1500);
+  expect(show.mock.calls.flat()).toEqual(["standing"]);
+  playback.setRestPaused(false);
+  vi.advanceTimersByTime(IDLE_SIT_DELAY - 1);
+  expect(show).toHaveBeenLastCalledWith("standing");
+  vi.advanceTimersByTime(1);
+  expect(show).toHaveBeenLastCalledWith(fittedFrames[0]);
+  playback.dispose();
+});
+
 describe("companion pose playback", () => {
   it("plays the fitted frames once at their authored timings, then holds sitting", () => {
     vi.useFakeTimers();
@@ -174,4 +190,21 @@ describe("mood and posture independence during movement", () => {
     expect(show).toHaveBeenLastCalledWith("sitting");
     playback.dispose();
   });
+});
+
+it("ends the loaf rise sitting until a separate stand request", () => {
+  vi.useFakeTimers();
+  const show = vi.fn();
+  const playback = createPosePlayback(show, false, "tired");
+  playback.sit();
+  vi.advanceTimersByTime(FITTED_DURATION + TIRED_FACE_DURATION + TIRED_LOAF_DELAY + 2 * LOAF_FRAME_MS);
+  expect(show).toHaveBeenLastCalledWith("loaf");
+  playback.setMood("idle");
+  playback.sit();
+  vi.advanceTimersByTime(2_000);
+  expect(show.mock.calls.flat().slice(-3)).toEqual(["loaf-tuck", "loaf-bend", "sitting"]);
+  playback.stand();
+  vi.advanceTimersByTime(FITTED_DURATION);
+  expect(show).toHaveBeenLastCalledWith("standing");
+  playback.dispose();
 });

@@ -71,7 +71,7 @@ The local companion request also supplies the adopted dog's name as `dogName`; i
 | Inventory | ownedItems, equipment.{hat,glasses,socks,body} | equip, unequip; developer-gated wardrobe-scenario fixtures; normal rewards grant ownership through quest completion |
 | Reward record | rewardedQuestIds | controlled by completion rules, never directly edited by UI |
 
-Mood is idle, happy, or tired. Four wearable slots can be occupied simultaneously; item IDs and slot assignments live in shared/equipment.ts. Normal rewards remain notebook/bandana. Other prototype items use explicit developer fixtures. New moods, slots, or a live planner label require coordinated schema/rendering updates.
+Mood is idle, happy, or tired. Four wearable slots can be occupied simultaneously. Item IDs and slot assignments live in shared/equipment.ts. Normal rewards include the notebook, bandana and themed costume collection. Prototype accessories use explicit developer fixtures. New moods, slots, or a live planner label require coordinated schema and rendering updates.
 
 Developer mode defaults off. Version-one saves without settings.devMode load it as false through the schema default, preserving existing data and sound preference. Dev mode exposes manual mood/test controls; ordinary quest and wardrobe interactions remain available normally. New debug-only controls must respect this setting. Settings and Home are pixel icon buttons; Home appears only in floating mode. Sound and developer toggles belong inside the settings popover.
 
@@ -90,6 +90,10 @@ The floating quest board shows unfinished quests newest first, regardless of sta
 Completing a quest rewards its ID once. The first completed quest unlocks a notebook; the third unlocks a bandana. These are starter demonstration rules, not finalized product balancing. Each item replaces only its assigned wearable slot. Legacy notebook/bandana migrate to the body slot. World toys (up to three), scenery changers (one or two, undecided), and one background are future categories, not worn slots.
 
 The UI cannot equip an unowned item. Changing rewards must keep the quest ID guard intact. Duplicate reward prevention applies to the same quest ID; preventing repeatedly created equivalent quests is a separate unresolved product rule.
+
+The costume catalog combines basic completion-count milestones with themed unlocks. The application classifies a quest locally using its title and linked commitment title. The classification is derived when needed, so older saves use the same rules without a schema change. Categories and the General fallback are shown in the Quest classifications bar only in Dev mode, on both quest surfaces. Normal wardrobe cards show clues for themed items.
+
+A successful accepted-quest completion checks distinct rewarded IDs and grants qualifying items the user does not already own. Matching historical completions can count at the next successful completion. The app preserves earlier ownership and equipment. UFC hoodie keeps the stored ID `usc-hoodie` and requires a completed quest to attend an event. The classifier accepts explicit in-person fight wording and excludes watch-party and viewing-party titles, including those linked to an attendance commitment. English phrase matching is heuristic and can miss unusual wording. Classifying quests does not call a model or read chat or memories.
 
 ## Planning boundary
 

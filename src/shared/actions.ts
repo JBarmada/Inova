@@ -40,6 +40,7 @@ export type Action =
   | { type: "equip"; item: ItemId | null }
   | { type: "unequip"; slot: WearableSlot }
   | { type: "equip-outfit"; equipment: Equipment }
+  | { type: "dev-unlock-item"; item: ItemId }
   | { type: "wardrobe-scenario"; id: WardrobeScenarioId }
   | { type: "add-memory"; memory: Memory }
   | { type: "edit-memory"; id: string; text: string }

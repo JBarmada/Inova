@@ -6,9 +6,9 @@ Updated November 23, 2026. **Future animation workers should start with the [To 
 
 1. Mood and posture are independent. Happy and Tired have distinct sitting and loaf faces. A mood change alone preserves posture.
 2. Standing idle sits after eight seconds. Tired sitting blinks immediately, completes the eye-only sequence, then holds the tired face for seven seconds before v36 lowering begins. A mood change or Stand command before the deadline cancels it. Duplicate mood updates, equipment, and settings do not restart it.
-3. Stand from loaf untucks and passes through sitting, then plays the fitted raise.
+3. The visible Sit action from loaf untucks and stops in sitting. A separate Stand action plays the fitted raise.
 4. Grounded standing and seated idles use the v34 lift. Standing tired, loaf, and moving frames use smaller chest shading with fixed face and paw pixels. Sleep uses its approved slower breath rhythm. Reduced motion displays canonical poses and retains the rest delay.
-5. After twelve seconds of uninterrupted tired loaf, the dog closes its eyes and settles to sleep. Happy or the Dev mode Wake up command returns it to loaf. Sleep starts its own breathing cadence. Standing after a nap plays the stretch.
+5. After twelve seconds of uninterrupted tired loaf, the dog closes its eyes and settles to sleep. Happy or the Dev mode Wake up command returns it to loaf. Sleep starts its own breathing cadence. The post-nap stretch is retired from gameplay and the Dev picker.
 6. Posture stays transient. Mood and worn equipment stay in the shared save. The developer animation player contains every approved clip, including interaction art without a gameplay trigger.
 
 ## All 12 stable posture × mood combinations
@@ -36,8 +36,8 @@ The developer player can show each individual clip. Normal posture transitions f
 | --- | --- | --- | --- | --- |
 | Standing | Hold and breathe | Fitted sit | Sit → loaf when tired after sitting | Sit → loaf → sleep when tired after sitting |
 | Sitting | Fitted rise | Hold and breathe | Seven-second tired hold → lower | Loaf → sleep |
-| Loaf | Untuck → sit → rise | Loaf-to-sit playback in Dev mode | Hold and breathe | Twelve-second tired hold → chin lowers |
-| Sleeping | Wake, then Stand up from loaf | Wake, then loaf-to-sit preview is available | Wake on Happy or Dev mode Wake up | Sleeping breath loop |
+| Loaf | Sit, then a separate Stand action | Sit action untucks and stops in sitting | Hold and breathe | Twelve-second tired hold → chin lowers |
+| Sleeping | Wake, Sit, then Stand up | Wake, then Sit from loaf | Wake on Happy or Dev mode Wake up | Sleeping breath loop |
 
 ## Triggers, interruptions, and recovery
 
@@ -69,11 +69,11 @@ The [review index](../art/pocket-pup/to-be-reviewed-animations/README.md) has th
 | 6 | Wake → loaf | Live |
 | 7a | Loaf → sit | Stand recovery and Dev mode |
 | 7b | Sit → stand | Fitted reverse runtime clip and review reference |
-| 8 | Post-nap stretch | Plays after rising following sleep |
+| 8 | Post-nap stretch | Retired from gameplay and the Dev picker. Source art retained for reference. |
 | 9 | Quiet standing/sitting idle | Live breathing and blink |
 | 10 | Notice user | Dev mode player |
 | 11 | Happy greeting and sustained tail wag | Standing greeting live; standalone wag in Dev mode |
-| 12 | Single bark | Dev mode player, synthesized bark and separate rays |
+| 12 | Single bark | Dev mode player and the end of the first adoption walk. The active art frame and equipment stay in place. The mouth, rays, and synthesized sound share a bark cue. Sound observes mute. |
 | 13 | Treat | Dev mode player, separate treat layer |
 | 14 | Unlock reaction | Standing quest reward and Dev mode |
 | 15 | Accessory fitting | Seated wardrobe preview on successful equip and Dev mode |

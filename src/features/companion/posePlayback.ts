@@ -34,12 +34,14 @@ class PosePlayback {
   private since = Date.now();
   private disposed = false;
   private waking = false;
+  private restPaused = false;
 
   constructor(private show: (pose: DogPose) => void, private reduced: boolean, private mood: DogMood) {
     this.finish();
   }
 
   private scheduleRest() {
+    if (this.restPaused) return;
     if (this.pose === "standing" && this.mood === "idle") {
       this.timer = setTimeout(this.sit, IDLE_SIT_DELAY);
     } else if (this.pose === "sitting" && this.mood === "tired") {
@@ -73,6 +75,7 @@ class PosePlayback {
 
   sit = () => {
     if (this.pose === "standing") this.travel("sitting", fitted);
+    else if (this.pose === "loaf") this.travel("sitting", rise);
   };
 
   wake = () => {
@@ -119,6 +122,17 @@ class PosePlayback {
     if (next && this.pose !== this.destination) { clearTimeout(this.timer); this.finish(); }
     else if (this.pose === "sitting" && this.mood === "tired" && this.pose === this.destination) {
       clearTimeout(this.timer); this.scheduleRest();
+    }
+  };
+
+  setRestPaused = (paused: boolean) => {
+    if (this.disposed || this.restPaused === paused) return;
+    this.restPaused = paused;
+    if (this.pose !== this.destination) return;
+    clearTimeout(this.timer);
+    if (!paused) {
+      this.since = Date.now();
+      this.scheduleRest();
     }
   };
 

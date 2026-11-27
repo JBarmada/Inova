@@ -13,7 +13,7 @@ it("keeps rewards and memory permissions across browser storage reloads", async 
     getItem: (key: string) => values.get(key) ?? null,
     setItem: (key: string, value: string) => values.set(key, value),
   });
-  const commitment = { id: "c", title: "Plan a walk", createdAt: "2026-11-23T00:00:00.000Z" };
+  const commitment = { id: "c", title: "Plan a nature walk", createdAt: "2026-11-23T00:00:00.000Z" };
   const memory = { id: "m", text: "Short walks help", createdAt: commitment.createdAt, aiAllowed: true };
   let state = reduce(initialState(), { type: "add-commitment", commitment });
   state = reduce(state, { type: "add-memory", memory });
@@ -25,7 +25,7 @@ it("keeps rewards and memory permissions across browser storage reloads", async 
   state = (await loadState())!;
   state = reduce(state, { type: "complete-quest", id: quest.id });
   expect(state.rewardedQuestIds).toEqual([quest.id]);
-  expect(state.ownedItems).toEqual(["notebook"]);
+  expect(state.ownedItems).toEqual(["notebook", "lorax"]);
   state = reduce(state, { type: "memory-permission", id: memory.id, allowed: false });
   await saveState(state);
   state = (await loadState())!;

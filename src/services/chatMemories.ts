@@ -23,7 +23,7 @@ function containsPerson(text: string, person: string) {
   return names.some((name) => name.replace(/['’]s$/, "") === person);
 }
 
-export function chatMemories(message: string, memories: AppState["memories"], limit = 3, context = "") {
+export function chatMemories(message: string, memories: AppState["memories"], limit = 3, context = "", requireRelevant = false) {
   const query = terms(message);
   const contextTerms = terms(context);
   const birthdaySubject = namedBirthday(message);
@@ -36,5 +36,5 @@ export function chatMemories(message: string, memories: AppState["memories"], li
   }).filter(({ memory }) => memory.aiAllowed && (!birthdaySubject || containsPerson(memory.text, birthdaySubject)))
     .sort((a, b) => b.score - a.score || (a.score > 0 ? b.contextOverlap - a.contextOverlap : 0) || b.index - a.index);
   const hasMatch = ranked.some(({ score }) => score > 0);
-  return ranked.filter(({ score }) => !hasMatch || score > 0).slice(0, limit).map(({ memory }) => memory);
+  return ranked.filter(({ score }) => (!hasMatch && !requireRelevant) || score > 0).slice(0, limit).map(({ memory }) => memory);
 }

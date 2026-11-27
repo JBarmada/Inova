@@ -1,3 +1,4 @@
+import { fictionalPlan } from "../services/planFixture";
 import { expect, it } from "vitest";
 import { initialState } from "./defaults";
 import { reduce } from "./reducer";
@@ -27,7 +28,7 @@ it("retains multiple follow-ups across restart, abandoning a plan, and accepting
   state = reduce(state, { type: "chat-reset" });
   expect(followUpIds(state.chat)).toEqual(["one", "two"]);
   state = reduce(state, { type: "chat-follow-up", questId: "two" });
-  const draft = await prepareChatPlan(state.chat.goal, state, async () => { throw Error("offline"); });
+  const draft = await prepareChatPlan(state.chat.goal, state, fictionalPlan);
   state = reduce(state, { type: "accept-planned-quest", ...draft });
   expect(state.quests.at(-1)?.priorQuestId).toBe("two");
   expect(followUpIds(state.chat)).toEqual(["one"]);

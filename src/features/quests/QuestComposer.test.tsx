@@ -4,15 +4,12 @@ import { initialState } from "../../state/defaults";
 import { QuestComposer } from "./QuestComposer";
 import { ToyComposer } from "../companion/ToyComposer";
 
-it("offers the same single quest input in both layouts", () => {
-  const state = initialState();
-  state.pet.adopted = true;
-  for (const markup of [renderToStaticMarkup(<QuestComposer state={state} />), renderToStaticMarkup(<ToyComposer state={state} />)]) {
-    expect(markup.match(/<input\b/g)).toHaveLength(1);
-    expect(markup).toContain('aria-label="Your next adventure"');
-    expect(markup).toContain('aria-label="Make a quest"');
-    expect(markup).not.toMatch(/Ollama|local model|deadline/i);
-  }
+it("uses the shared conversation in the floating toy", () => {
+  const state = initialState(); state.pet.adopted = true;
+  const markup = renderToStaticMarkup(<ToyComposer state={state} />);
+  expect(markup).toContain('aria-label="Message your dog"');
+  expect(markup).not.toContain('aria-label="Your next adventure"');
+  expect(markup).not.toContain("Use sample instead");
 });
 
 it("explains why quest creation is unavailable before adoption", () => {

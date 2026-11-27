@@ -3,8 +3,12 @@ import type { AppState } from "../shared/schema";
 import { emptyEquipment, slotForItem } from "../shared/equipment";
 import { wardrobeScenarios } from "../shared/wardrobeScenarios";
 
-type EquipmentAction = Extract<Action, { type: "equip" | "unequip" | "equip-outfit" | "wardrobe-scenario" }>;
+type EquipmentAction = Extract<Action, { type: "equip" | "unequip" | "equip-outfit" | "wardrobe-scenario" | "dev-unlock-item" }>;
 export function changeEquipment(state: AppState, action: EquipmentAction): AppState {
+  if (action.type === "dev-unlock-item") {
+    if (!state.settings.devMode) throw Error("Enable developer mode to unlock items.");
+    return { ...state, ownedItems: [...new Set([...state.ownedItems, action.item])] };
+  }
   if (action.type === "equip-outfit") {
     if (Object.values(action.equipment).some((id) => id && !state.ownedItems.includes(id))) throw Error("This item is still locked.");
     return { ...state, equipment: action.equipment };

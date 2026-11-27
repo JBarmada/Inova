@@ -1,6 +1,12 @@
 .dog { position: relative; width: 192px; height: 192px; display: inline-block; flex-shrink: 0; }
 .dog img { width: 100%; height: 100%; image-rendering: pixelated; user-select: none; pointer-events: none; }
-.dog-base { display: block; }
+.dog-bee-portrait { width: 100%; height: 100%; display: block; pointer-events: none; image-rendering: pixelated; }
+.costume-pose-frame { position: absolute; inset: 0; pointer-events: none; transform-origin: 50% 90%; }
+.dog-base { display: block; position: relative; }
+.walk-landing { display: grid; }
+.walk-landing > * { grid-area: 1 / 1; }
+.walk-landing > div:not(.dog) { display: flex; }
+.walk-landing-pending { visibility: hidden; }
 .dog-clip-layer { position: absolute; inset: 0; background-repeat: no-repeat; image-rendering: pixelated; pointer-events: none; }
 .animation-controls { display: flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: 8px; margin: 12px 0; }
 .animation-controls select { max-width: min(230px, 65vw); font: inherit; color: inherit; background: #fff9e9; }

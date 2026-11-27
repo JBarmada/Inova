@@ -6,7 +6,7 @@ import { createPosePlayback, type DogPose } from "./posePlayback";
 
 export type PoseRequest = { kind: "sit" | "stand" | "wake"; id: number } | null;
 
-export function useDogPose(state: AppState, request: PoseRequest = null) {
+export function useDogPose(state: AppState, request: PoseRequest = null, restPaused = false) {
   const [pose, setPose] = useState<DogPose>("standing");
   const [ready, setReady] = useState(false);
   const [error, setError] = useState("");
@@ -29,7 +29,8 @@ export function useDogPose(state: AppState, request: PoseRequest = null) {
   useEffect(() => {
     playback.current?.setMood(state.pet.mood);
     playback.current?.setReducedMotion(reduced);
-  }, [state.pet.mood, reduced, ready, state.pet.adopted]);
+    playback.current?.setRestPaused(restPaused);
+  }, [state.pet.mood, reduced, ready, state.pet.adopted, restPaused]);
   useEffect(() => {
     if (request) playback.current?.[request.kind]();
   }, [request, ready, state.pet.adopted]);

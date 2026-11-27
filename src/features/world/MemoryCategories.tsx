@@ -20,3 +20,13 @@ export function MemoryCategorySelect({ value, onChange, disabled = false }: {
     {choices.filter((choice) => choice.id !== "all").map(({ id, label }) => <option value={id} key={id}>{label}</option>)}
   </select></label>;
 }
+
+export function MemoryCategoryTabs({ value, onChange, disabled = false }: {
+  value: Category; onChange: (value: Category) => void; disabled?: boolean;
+}) {
+  return <div className="memory-tabs" role="group" aria-label="Memory category">
+    {choices.filter((choice) => choice.id !== "all").map(({ id, label }) => <button type="button" key={id}
+      className={`memory-filter memory-filter-${id}`} title={label} aria-label={label} aria-pressed={value === id}
+      disabled={disabled} onClick={() => onChange(id as Category)}><InterfaceIcon kind={id} /></button>)}
+  </div>;
+}

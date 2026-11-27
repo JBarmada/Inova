@@ -25,8 +25,9 @@ pub async fn local_quest_plan(input: String, model: String) -> Result<String, St
         ], "options":{"temperature":0.2, "num_predict":400, "num_ctx":4096}
     });
     let response = client.post("http://127.0.0.1:11434/api/chat").json(&payload).send().await
-        .map_err(|_| "Local AI is unavailable or timed out. Try the sample planner.")?;
-    if !response.status().is_success() { return Err("Local AI could not generate a plan. Try the sample planner.".into()); }
+        .map_err(|error| if error.is_timeout() { "Ollama timed out. Try a smaller model or try again." } else { "Cannot connect to Ollama. Start Ollama and try again." })?;
+    if response.status().as_u16() == 404 { return Err(format!("The selected model {model} is not installed. Run ollama pull {model}.")); }
+    if !response.status().is_success() { return Err("Ollama could not generate a plan. Check the model and try again.".into()); }
     let bytes = read_bounded(response, 65536).await?;
     let value: Value = serde_json::from_slice(&bytes).map_err(|_| "Local AI returned an invalid response.")?;
     value.pointer("/message/content").and_then(Value::as_str).map(str::to_owned)

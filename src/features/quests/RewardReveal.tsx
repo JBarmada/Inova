@@ -11,7 +11,7 @@ export function RewardReveal({ result }: { result: CompletionReveal }) {
     <strong>Adventure complete!</strong><span>{result.title}</span>
     {result.unlocked.length ? result.unlocked.map((id) => {
       const item = itemById(id);
-      return <div className="reward-item" key={id}><ItemGlyph slot={item.slot} color={item.color} />
+      return <div className="reward-item" key={id}><ItemGlyph slot={item.slot} color={item.color} id={id} />
         <span>Unlocked {item.name}! Find it in Wardrobe.</span></div>;
     }) : <span>Your progress is saved.</span>}
     </div><CompletionReflection key={result.questId} questId={result.questId} />
